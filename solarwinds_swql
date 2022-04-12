@@ -109,7 +109,7 @@ where ( not ( name like '%Transmit%') ) and ( not ( name like '%Transceiver%' ) 
 
 
 
-! which hostnames
+! with hostnames
 SELECT n.Node.Caption, Name, OriginalStatus, FullyQualifiedName, HardwareUnitDescription, StatusDescription
 FROM Orion.HardwareHealth.HardwareItem as n
 where ( not ( name like '%Transmit%') ) and ( not ( name like '%Transceiver%' ) ) and ( not ( name like '%Receive%' ) ) and ( not ( name like 'Te%' ) ) and ( statusdescription = 'Warning' or statusdescription = 'Critical' )
