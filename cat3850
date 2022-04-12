@@ -16,3 +16,6 @@ show platform hardware fed switch 1 fwd-asic drops exceptions | ex _0_
 !
 conf t
  qos queue-softmax-multiplier 1200
+
+! test etherchannel load-balancing
+cat3850# sh platform software fed switch active etherchannel 101 load-balance ipv4 192.0.2.2 192.0.2.1
