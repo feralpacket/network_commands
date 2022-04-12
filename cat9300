@@ -24,3 +24,13 @@ sh platform software stack-mgr switch 3 r0 sdp-counters
 ! verify images
 verify flash:cat9k_iosxe.17.03.05.SPA.bin
 verify /md5 flash:cat9k_iosxe.17.03.05.SPA.bin
+
+! password recovery
+! Hold mode button, release -> rommon
+
+Switch: SWITCH_IGNORE_STARTUP_CFG=1
+Switch: boot
+
+# copy start run
+# conf t
+(config)# no system ignore startupconfig switch all
