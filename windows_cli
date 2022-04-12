@@ -194,3 +194,7 @@ pktmon pcapng log.etl -o log.pcapng
 
 ! Capture in real-time
 pktmon start -etw -p 0 -l real-time
+
+! search a file
+Select-String *.txt -Pattern "WS"
+Select-String *.txt -Pattern "WS-C2960X-48LPS-L"  | Measure-Object -line
