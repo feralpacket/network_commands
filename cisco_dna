@@ -1,0 +1,18 @@
+! random stuff
+maglev catalog settings validate
+maglev catalog settings display
+maglev catalog release_channel display -V
+docker info | grep -e Stopped -e Prox
+maglev catalog system_update_hook_bundle display -V
+maglev catalog system_update_package display
+maglev system_update_package status -V
+maglev system_updater update_info
+curl -k -v https://www.ciscoconnectdna.com
+
+! Enable weak ciphers for older, "legacy" APs
+magctl service tls_version --tls-min-version show
+magctl service display kong
+magctl service tls_version --tls-v1=enable kong
+magctl service ciphers --ciphers-rc4=enable kong
+
+magctl service restart identity-manager-pxgrid-service
