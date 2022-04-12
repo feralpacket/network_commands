@@ -1,0 +1,157 @@
+sh wireless fabric summary
+sh fabric wlan summary
+sh fabric ap summary
+sh wireless profile fabric summary
+
+sh ip cef 192.0.2.1
+sh ip route 192.0.2.1
+sh lisp session
+
+
+! Check IP device tracking (IPDT) table for the IP and MAC addresses
+! 9300_idf1
+show device-tracking database int gi1/0/36
+sh device-tracking database mac
+!
+! 9300_idf2
+show device-tracking database int gi2/0/47
+sh device-tracking database mac
+
+! Check LISP 9300_idf1
+sh lisp instance-id * ipv4 database
+sh lisp instance-id * ipv4 database | in instance-id|192.0.2
+sh lisp instance-id 4098 ipv4 database
+!
+sh lisp instance-id * ethernet database
+sh lisp instance-id * ethernet database | in instance-id|0000.dead.beef
+sh lisp instance-id 8237 ethernet database
+sh lisp instance-id 8243 ethernet database
+
+! Check LISP 9300_idf2
+sh lisp instance-id * ipv4 database
+sh lisp instance-id * ipv4 database | in instance-id|192.0.2
+sh lisp instance-id 4098 ipv4 database
+!
+sh lisp instance-id * ethernet database
+sh lisp instance-id * ethernet database | in instance-id|0000.feed.face
+sh lisp instance-id 8237 ethernet database
+sh lisp instance-id 8248 ethernet database
+
+! Check the border
+sh lisp instance-id 4098 ipv4 server
+sh lisp instance-id 4098 ipv4 server | in 2.1|2.2
+sh lisp instance-id * ethernet server
+sh lisp instance-id * ethernet server | in 0000.dead.beef|0000.feed.face
+
+! Check address resolution on the border
+show lisp instance-id * ethernet server address-resolution
+show list instance-id * ethernet server address-resolution | in 0000.dead.beef|0000.feed.face
+
+
+sh lisp server registration-history | in 0000.feed.face
+ - on MS / MR
+sh lisp server registration-history | in 0000.feed.face
+
+sh lisp site
+ - lists last registration
+sh lisp site detail
+sh lisp site 192.0.2.1/32 instance-id 4098
+ - first registered
+ - last registered
+ - registration errors
+ - TTL
+
+
+sh lisp eid-table default ipv4
+sh lisp service ipv4 summary
+sh lisp service ethernet summary
+
+sh lisp service ipv4 statistics
+sh lisp service ipv4 statistics | se fail|Error
+ - failures and error counts
+
+sh lisp service ethernet statistics
+sh lisp service ethernet statistics | se fail|Error
+ - failures and error counts
+
+
+! The underlay
+sh isis neighbors
+sh isis topology
+sh isis rib
+sh clns neighbors
+sh clns traffic
+ - failure and error counts
+
+! SDA, troubleshoot wired client registration
+sh mac add
+sh platform software fed switch active matm macTable
+sh ip arp vrf DEFAULT_VN
+sh device-tracking database
+sh lisp instance-id * ipv4 server
+ - on MDF
+ - shows registration information
+sh lisp instance-id * ipv4 map-cache
+sh list instance-id * ipv4 map-cache | in 192.0.2.1
+ - on MDF
+sh lisp instance-id * ipv4 map-cache 192.0.2.1/32
+ - on MDF
+
+! SDA, troubleshoot wired client address-resolution
+ping 192.0.2.1
+sh mac add
+ - on IDF
+sh lisp instance-id * ethernet database
+ - on IDF
+sh list instance-id * ethernet map-cache
+ - on MDF
+sh lisp instance-id * ethernet database address-resolution
+ - on IDF
+sh ip arp vrf DEFAULT_VN
+ - on IDF
+sh lisp instance-id * ethernet server
+ - on MDF
+ - show registration information
+sh lisp instance-id * ethernet server 0000.feed.face 
+ - on MDF
+sh lisp instance-id * ethernet server address-resolution
+ - on MDF
+sh lisp instance-id * ethernet server address-resolution 192.0.2.1
+ - on MDF
+sh lisp instance-id * ethernet server address-resolution registration-history
+ - on MDF
+sh lisp instance-id * ethernet server address-resolution registration-history | in 192.0.2.1
+ - on MDF
+sh ip cef vrf DEFAULT_VN
+ - on MDF
+sh ip cef vrf DEFAULT_VN 192.0.2.1/32
+ - on MDF
+ - on IDF
+sh ip cef vrf DEFAULT_VN 192.0.2.1/32 detail
+ - on MDF
+ - on IDF
+
+! SDA, troubleshoot external IP reachability 
+ping vrf DEFAULT_VN 192.0.2.1
+ - on IDF
+ - on MDF
+traceroute vrf DEFAULT_VN 192.0.2.1 numeric
+ - on IDF
+ - on MDF
+ping 192.0.2.1
+ - on MDF
+sh lisp instance-id * ipv4 database
+ - on IDF
+sh lisp instance-id * ipv4 database | se 192.0.2.1
+ - on IDF
+sh lisp instance-id * ipv4 map-cache 192.0.2.1
+  - on MDF
+sh isis nei
+ - on IDF
+ - on MDF
+sh ip cef vrf DEFAULT_VN 192.0.2.1
+ - on IDF
+ - on MDF
+sh ip cef vrf DEFAULT_VN 192.0.2.1 detail
+ - on IDF
+ - on MDF
