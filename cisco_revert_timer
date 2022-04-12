@@ -1,0 +1,42 @@
+! Cisco revert timer, instead of reload in 5
+
+! Configure archive
+en
+conf t
+archive
+! path must be configured
+! A directory called .rollback_timer will automatically be created to store temp files
+! A copy of the config will be save as a dash-date-time-timezone file.
+! bootflash:-Apr-01-20-16-02.005-UTC-1
+! Change this to match the device, run "dir"
+ path bootflash:
+ end
+!
+archive config
+sh archive
+
+!  If everything is currently working, it's a good idea to save the current configuration
+wr mem
+
+! To set the revert timer in minutes, run show clock first
+en
+show clock
+conf t revert timer 10
+ <changes>
+ end
+
+! To accept the changes before they are reverted
+! If you don't confirm the changes, they will be reverted when the timer is up
+config confirm
+
+! To revert the changes right now
+config revert
+  -- or --
+config revert now
+
+! This will show when the revert timer was set and the timer value
+sh archive config rollback timer
+sh clock
+
+! If you need more time in minutes
+config revert timer 10
