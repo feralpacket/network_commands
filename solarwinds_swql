@@ -163,4 +163,4 @@ select eventid, eventtime, netobjectid, eventtype, message
 from orion.events
 
 where eventtype like '606'
-order by eventtime des
+order by eventtime desc
