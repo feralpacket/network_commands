@@ -1,0 +1,22 @@
+! switch stack port errors
+sh switch stack-ports detail
+sh platform hardware fed switch 1 fwd-asic register read register-name SifRacDataCrcErrorCnt-0
+sh platform hardware fed switch 1 fwd-asic register read register-name SifRacRwCrcErrorCnt-0
+sh platform hardware fed switch 1 fwd-asic register read register-name SifRacInvaldRingWordCnt-0
+sh platform hardware fed switch 1 fwd-asic register read register-name SifRacPcsCodeWordErrorCnt-0
+sh platform hardware fed switch 1 fwd-asic register read register-name SifMessageStatus
+sh platform software stack-mgr switch 1 r0 sdp-counters 
+!
+sh platform hardware fed switch 2 fwd-asic register read register-name SifRacDataCrcErrorCnt-0
+sh platform hardware fed switch 2 fwd-asic register read register-name SifRacRwCrcErrorCnt-0
+sh platform hardware fed switch 2 fwd-asic register read register-name SifRacInvaldRingWordCnt-0
+sh platform hardware fed switch 2 fwd-asic register read register-name SifRacPcsCodeWordErrorCnt-0
+sh platform hardware fed switch 2 fwd-asic register read register-name SifMessageStatus
+sh platform software stack-mgr switch 2 r0 sdp-counters 
+!
+sh platform hardware fed switch 3 fwd-asic register read register-name SifRacDataCrcErrorCnt-0
+sh platform hardware fed switch 3 fwd-asic register read register-name SifRacRwCrcErrorCnt-0
+sh platform hardware fed switch 3 fwd-asic register read register-name SifRacInvaldRingWordCnt-0
+sh platform hardware fed switch 3 fwd-asic register read register-name SifRacPcsCodeWordErrorCnt-0
+sh platform hardware fed switch 3 fwd-asic register read register-name SifMessageStatus
+sh platform software stack-mgr switch 3 r0 sdp-counters 
