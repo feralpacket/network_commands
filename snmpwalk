@@ -5,3 +5,7 @@ SNMPv2-SMI::enterprises.9.2.1.2.0 = STRING: "power-on"
 ! Cisco NXOS (also works with SAN-OS and FXOS on the Firepower 4k appliances)
 $ snmpwalk -v2c -c public 192.0.2.1 1.3.6.1.4.1.9.9.117.1.2.1.1.6
 SNMPv2-SMI::enterprises.9.9.117.1.2.1.1.6.22 = STRING: "Reset Requested by CLI command reload"
+
+! Cisco ASA stuff
+! SNMP stuff
+snmpwalk -v2c -c public 192.0.2.1 1.3.6.1.4.1.9.9.393.1.3.21.1
