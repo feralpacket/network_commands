@@ -1,0 +1,12 @@
+! online insertion and removal
+sh hw-module subslot all oir
+hw-module subslot 0/2 oir power-cycle
+hw-module subslot 0/2 stop
+sh hw-module subslot 0/2 oir
+
+! 4G LTE NIM
+sh cellular 0/2/0 all
+sh running-config | swe Cellular
+sh running-config controller cellular 0/2/0
+sh ip route | in Cellular
+sh int cellular 0/2/0
