@@ -9,3 +9,8 @@ NS Buffer Profile: Mesh optimized
 !
 conf t
  hardware qos ns-buffer-profile ultra-burst 
+
+! Nexus ethanalyzer
+! Only captures control plane traffic
+! Use a SPAN for data plane traffic
+ethanalyzer local interface inband capture-filter "icmp" detail 
