@@ -1,0 +1,69 @@
+! Let me guess. You had the new appliances racked and cabled in by the Hardware Team before doing any initial configuration. Silly person.
+!
+! The Getting Started Guide assumes that you have connected directly to the management interface and web to the default IP address, 192.168.45.45. 
+!
+! Now what? You need to change the IP address of the management interface and allow your IP address to connect to the appliance.
+!
+! Here is the very easy and intuitive configuration changes that are necessary so that the Getting Started Guide actually makes sense.
+!
+!
+! Note: Default credentials are admin and Admin123.
+!
+! Connect to the serial port
+! Login
+
+show fabric-interconnect
+scope fabric-interconnect
+ set out-of-band static ip 192.0.2.2 netmask 255.255.255.0 gw 192.0.2.1
+ commit-buffer
+ exit
+show fabric-interconnect
+
+scope system
+ scope services
+  enter ip-block 10.0.0.0 8 https
+  exit
+  enter ip-block 10.0.0.0 8 ssh
+  exit
+  commit-buffer
+  show ip-block
+  
+! Ta Da
+
+
+
+!The default keyring will expire after one year.  The regenerated keyring will be good for 10 years.
+! To see the current default keyring
+scope security
+  scope keyring default
+    show detail
+ 
+! To regenerate the default keyring
+sysopt sam 1001 on
+scope security
+  scope keyring default
+    show detail
+    set regenerate yes
+    commit-buffer
+    show detail
+    sysopt sam 1001 off
+ 
+ 
+ ! FXOS information
+scope chassis
+show environment expand detail
+show inventory expand detail
+show stats
+
+scope eth-uplink
+scope fabric
+show port-channel expand detail
+show stats
+
+scope fabric-interconnect
+show stats
+show port
+
+scope firepower
+show image
+show package
