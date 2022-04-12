@@ -1,0 +1,156 @@
+! computer name
+hostname
+[System.NET.DNS]::GetHostByName('')
+$env:COMPUTERNAME
+get-ciminstance -classname Win32_ComputerSystem
+ - computer model number
+
+! date / time
+date /t
+time /t
+get-date
+
+! interfaces and IP addresses
+netsh interface show interface
+get-netadapter
+ - link speed
+
+get-netadapter | ft Name, Status, LinkSpeed, VlanID
+get-netadapteradvancedproperty
+ - VLAN ID, wake on magic packet
+
+netsh interface ipv4 show addresses
+ipconfig
+get-netipconfiguration
+
+! DNS servers
+netsh interface ipv4 show dnsservers
+ipconfig /all
+ - lists DNS servers
+
+get-dnsclientserveraddress
+ipconfig /registerdns
+ipconfig /displaydns
+nslookup cnn.com
+resolve-dnsname -name cnn.com
+get-dnsclientcache
+
+! routing table
+netsh interface ipv4 show route
+netstat -r
+route PRINT
+get-netroute
+
+! ARP table
+arp -a
+get-netneighbor
+get-netneighbor -addressfamily ipv4
+
+! DHCP
+netsh dhcp show server
+ipconfig /release
+ipconfig /renew
+ipconfig /registerdns
+
+! dns
+nslookup cnn.com
+resolve-dnsname -name cnn.com
+
+! MTU
+netsh interface ipv4 show subinterfaces
+netsh interface ipv4 show interfaces level=verbose
+get-netipinterface
+ping -f -l 1400 192.0.2.1
+
+! path MTU
+netsh interface ipv4 show destinationcache
+
+! discards, header errors, fragments, mtu
+netsh interface ipv4 show subinterfaces level=verbose
+
+! windows firewall
+netsh advfirewall show currentprofile
+get-netfirewallprofile
+get-netfirewallprofile -name public | get-netfirewallrule
+get-netfirewallportfilter
+get-netfirewalladdressfilter
+
+! connections and listening ports
+netsh interface ipv4 show tcpconnections
+netstat -a
+netstat -an
+get-nettcpconnection
+
+! tcp / udp / ip / icmp statistics
+netsh interface ipv4 show tcpstats
+netsh interface ipv4 show udpstats
+netsh interface ipv4 show ipstats
+netsh interface ipv4 show icmpstats
+netsh interface ipv4 show icmpstats | findstr /v " 0$"
+ - do not display entries with a zero count
+
+! wireless
+netsh wlan show wlanreport
+ - save report as an .html file
+ - error message0x2 if you have both LAN & WLAN connected
+
+netsh wlan show all
+
+! ECN capability
+netsh interface tcp show global
+get-nettcpsetting
+
+! IPSec
+netsh ipsec dynamic show all
+
+! test reachability
+nslookup cnn.com
+ping 192.0.2.1
+ping 192.0.2.1 -t
+test-netconnection 192.0.2.1
+1..10 | % { test-netconnection 192.0.2.$_ } | ft -AutoSize
+ - ping sweep
+
+telnet 192.0.2.1 53
+test-netconnection 192.0.2.1 -port 53
+tracert 192.0.2.1
+tracert -d 192.0.2.1
+test-netconnection 192.0.2.1 -traceroute
+pathping 192.0.2.1
+
+! run command
+invoke-command -scriptblock {ipconfig /all}
+
+! active directory
+get-addomain
+get-addomaincontroller
+get-aduser -identity feralpacket
+get-aduser -identity feralpacket -properties *
+ - LockedOut, PasswordExpired, PasswordLastSet
+ 
+get-aduser -identity feralpacket -properties * | format-list LockedOut
+get-adprincipalgroupmembership feralpacket | select name
+get-adcomputer -identity heimdallr
+ - Enabled
+get-adprincipalgroupmembership feralpacket | select name | where-object {$_.name -like "*fs*"}
+get-adgroupmember fs_hldept_IS_Telecomm_RO | select name
+
+get-adcomputer -identity heimdallr -properties *
+
+(Get-WmiObject -Class win32_computersystem | Select-Object -ExpandProperty username).split('\')[1]
+  ! logged in users, just the username
+(Get-WmiObject -Class win32_computersystem | Select-Object -ExpandProperty username)
+  ! logged in users, ADDOMAIN\username
+quser
+query user
+query session
+qwinsta
+query process
+qprocess
+
+gpresult /r
+
+! uptime
+wmic path Win32_OperatingSystem get LastBootUpTime
+get-wmiobject win32_operatingsystem | select-object LastBootUpTime
+get-ciminstance -classname win32_operatingsystem | select LastBootUpTime
