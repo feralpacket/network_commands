@@ -42,3 +42,13 @@ show routing route
 
 configure
 show template network virtual-router INTERNET protocol bgp
+
+! IKE and IPSec
+show vpn flow name SOMENAME
+show running tunnel flow name SOMENAME
+show vpn ike-sa
+show vpn ike-sa gateway SOMENAME_IKEv2_GW
+show vpn ipsec-sa
+show vpn ipsec-sa tunnel SOMENAME
+clear vpn ike-sa gateway <gateway_name>
+clear vpn ipsec-sa tunnel <tunnel_name>
