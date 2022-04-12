@@ -1,0 +1,6 @@
+! Testing etherchannel load-balancing
+cat4500x# sh platform software etherchannel port-channel 1 map ip 192.0.2.2 192.0.2.1 
+
+! VSS reload commands
+redundancy reload peer
+redundancy reload shelf
