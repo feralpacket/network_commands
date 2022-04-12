@@ -1,0 +1,11 @@
+! troubleshoot interface discards
+sh int e1/39 | in discard
+sh queuing interface e1/39
+sh hardware internal ns buffer info pkt-stats
+sh hardware internal buffer info pkt-stats detail
+!
+sh hardware qos ns-buffer-profile 
+NS Buffer Profile: Mesh optimized
+!
+conf t
+ hardware qos ns-buffer-profile ultra-burst 
