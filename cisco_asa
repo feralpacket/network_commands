@@ -52,3 +52,10 @@ sh user-identity user active list detail
 ! User session Group policy, Anyconnect client version, 
 ! session duration, dropped packet count
 sh vpn-sessiondb detail anyconnect filter name <username>
+
+! accelerated security path
+sh asp table socket | in SSL|DTLS
+
+! multi-context ASA
+changeto system
+show context
