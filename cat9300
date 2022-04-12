@@ -20,3 +20,7 @@ sh platform hardware fed switch 3 fwd-asic register read register-name SifRacInv
 sh platform hardware fed switch 3 fwd-asic register read register-name SifRacPcsCodeWordErrorCnt-0
 sh platform hardware fed switch 3 fwd-asic register read register-name SifMessageStatus
 sh platform software stack-mgr switch 3 r0 sdp-counters 
+
+! verify images
+verify flash:cat9k_iosxe.17.03.05.SPA.bin
+verify /md5 flash:cat9k_iosxe.17.03.05.SPA.bin
