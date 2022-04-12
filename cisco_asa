@@ -1,0 +1,54 @@
+! CPU and memory usage
+show process cpu-usage non-zero
+show process cpu-usage sorted
+show cpu usage
+show memory
+
+! Input / output information
+show crypto accelerator statistics
+
+! To get the current throughput 
+clear crypto accelerator statistics
+ -- wait 10 seconds --
+show crypto accelerator statistics
+
+! From [Global Statistics]
+[ input bytes + output bytes ] * 8
+-----------------------------------  = MBps
+        1,000,000 * seconds
+
+! Current Active sessions
+show vpn-sessiondb
+
+! License capacity
+show vpn-sessiondb license-summary
+
+! SNMP OID list
+show snmp-server oidlist
+ - hidden command
+
+! IP traffic information, drops
+sh traffic
+sh traffic | in drop
+
+! Threat detection information
+sh threat-detection statistics top
+sh threat-detection rate
+
+! Local pool information
+sh ip local pool User-Pool-192.0.2.0/21
+sh ip local pool User-Pool-192.1.2.0/21
+
+sh crypto protocol statistics all
+
+! Session information
+sh vpn-sessiondb anyconnect
+sh vpn-sessiondb detail
+sh vpn-sessiondb detail anyconnect
+sh vpn-sessiondb detail anyconnect | in Drop
+sh user-identity user active list
+sh user-identity user active list detail
+
+! User session Group policy, Anyconnect client version, 
+! session duration, dropped packet count
+sh vpn-sessiondb detail anyconnect filter name <username>
