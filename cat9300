@@ -34,3 +34,16 @@ Switch: boot
 # copy start run
 # conf t
 (config)# no system ignore startupconfig switch all
+
+! DNS information
+sh ip dns view
+
+! parser_cmd logs
+sh platform software trace message ios switch 1 r0 | in parser_cmd
+show logging process iosrp | in parser_cmd
+
+! test etherchannel load-balancing
+sh platform software fed switch active etherchannel 1 load-balance ipv4 192.0.2.2 192.0.2.1 
+
+! test ECMP load-balancing
+show ip cef exact-route 192.0.2.2 192.0.2.1
