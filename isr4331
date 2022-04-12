@@ -10,3 +10,16 @@ sh running-config | swe Cellular
 sh running-config controller cellular 0/2/0
 sh ip route | in Cellular
 sh int cellular 0/2/0
+
+! show transceiver RX and TX power
+sh hw-module subslot 0/0 transceiver 0 status
+
+! embedded packet capture
+monitor capture CAP interface GigabitEthernet0/0/1 both
+monitor capture CAP match ipv4 protocol tcp any any
+monitor capture CAP start
+monitor capture CAP stop
+show monitor capture CAP buffer brief
+show monitor capture CAP buffer detailed 
+monitor capture CAP export tftp://10.0.0.1/CAP.pcap
+no monitor capture CAP
