@@ -163,3 +163,34 @@ for %x in (
 192.0.2.123
 192.0.2.234
 ) do ping -n 2 %x | findstr /C:"Reply" /C:"Received"
+
+
+! Windows 10 builtin packet capture tool
+! Run CMD as Administrator
+c:\WINDOWS\system32> pktmon.exe
+
+! Configure filters
+pktmon filter add -p 20
+pktmon filter add -p 21
+pktmon filter add -i 10.1.1.1
+pktmon filter add -t ICMP
+pktmon filter add -d IPv4
+pktmon filter list
+
+! List the NICs
+pktmon comp list
+
+! Start and stop the capture
+pktmon start -etw -p 0 -c 12
+pktmon stop
+
+! Delete any filters
+pktmon filter remove
+
+! Output to ASCII or .pcap
+! Default output file is PktMon.etl
+pktmon format PktMon.etl -o ftp.txt
+pktmon pcapng log.etl -o log.pcapng
+
+! Capture in real-time
+pktmon start -etw -p 0 -l real-time
