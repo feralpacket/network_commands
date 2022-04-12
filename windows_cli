@@ -154,3 +154,12 @@ gpresult /r
 wmic path Win32_OperatingSystem get LastBootUpTime
 get-wmiobject win32_operatingsystem | select-object LastBootUpTime
 get-ciminstance -classname win32_operatingsystem | select LastBootUpTime
+
+
+! ping set of IP addresses
+for %x in (
+192.0.2.1
+192.0.2.23
+192.0.2.123
+192.0.2.234
+) do ping -n 2 %x | findstr /C:"Reply" /C:"Received"
