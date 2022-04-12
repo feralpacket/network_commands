@@ -23,3 +23,18 @@ show monitor capture CAP buffer brief
 show monitor capture CAP buffer detailed 
 monitor capture CAP export tftp://10.0.0.1/CAP.pcap
 no monitor capture CAP
+
+! MLPPP links
+show hw-module subslot 0/2 oir
+show ppp all
+show ppp summary
+show ppp ?
+show interface multilink1
+show interface Serial0/2/0:0
+show interface Serial0/2/1:0
+show interface Serial0/2/2:0
+show interface Serial0/2/3:0
+show controllers T1 0/2/0
+show controllers T1 0/2/1
+show controllers T1 0/2/2
+show controllers T1 0/2/3
