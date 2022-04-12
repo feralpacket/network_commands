@@ -1,0 +1,35 @@
+! -sT - TCP connect scan
+! -sV - version scan, try to identify the what is running on any open ports
+! -F - fast mode
+nmap -sT -sV -F 192.0.2.1
+
+! Aggressive scan, throw everything at it, including the kitchen sink
+! -T4 enables aggressive timing to speed up the scan, otherwise it will take forever to run
+nmap -A -T4 192.0.2.1
+
+! Scan a subnet, but only send ICMP echo requests
+! Exclude the network address, the broadcast address
+! -n to disable DNS lookups
+! -sn to disable port scan
+! -PE to specify ICMP echo request packets
+nmap -n -sn -PE 192.0.2.0/24 --exclude 192.0.2.10,192.0.2.0,192.0.2.255
+
+! Run a script to determine what SSL ciphers are available
+! https://nmap.org/nsedoc/scripts/ssl-enum-ciphers.html
+nmap -sV --script .\ssl-enum-ciphers -p 443 dna.company.corp
+
+! Display the packets being sent and received
+! -n disables DNS lookup
+! -sT runs a TCP connect scan
+! -F enables fast mode, only scan 100 ports
+! -Pn disables host discovery, with the TCP connect scan, no ICMP packets will be sent
+nmap -n -sT -F -Pn --packet-trace 192.0.2.1
+
+! Scan different VLANs (subnets) for a device configured with a .15 IP address
+! (100,1,110)
+!   - starting number
+!   - increment
+!   - ending number
+for /L %i in (100,1,110) do (
+  nmap -n -sn -PE 10.0.%i.15 | findstr /C:"host"
+)
