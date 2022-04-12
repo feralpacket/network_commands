@@ -1,0 +1,27 @@
+enable
+cli session paging enable
+show version
+show interface brief
+show ip route
+!
+sh scc
+sh cmc
+!
+sh log reverse
+!
+show connections
+show connections optimized
+show connections all brief
+
+! To make changes via the CLI
+!
+show clock
+conf t
+ntp server 192.0.2.1
+ntp server 192.0.2.2
+write memory
+end
+show ntp all
+show clock
+
+show connections all filter 9997
