@@ -1,0 +1,166 @@
+! up / down events
+
+select n.caption as [Device]
+, isnull(tostring(t2.[Down Event]),concat('Greater than ',(select currentvalue from orion.settings where settingid='SWNetPerfMon-Settings-Retain Events'),' days ago')) as [Down Event]
+, isnull(tostring(t2.[Up Event]),'Still Down') as [Up Event] 
+, isnull(minutediff(t2.[Down Event], isnull(t2.[Up Event],getdate())),99999) as Minutes
+,n.custompollerassignmentonnode.currentvalue as [Reason]
+
+
+from orion.nodes n
+left join (select
+ starttime.nodes.nodeid
+ ,tolocal(starttime.eventtime) as [Down Event]      
+ ,(SELECT TOP 1
+ tolocal(eventtime) as [EventTime]
+ from orion.events as [EndTime]
+ where endtime.eventtime >= starttime.eventtime  
+ and endtime.eventtype = 5
+ and endtime.netobjectid = starttime.netobjectid
+ and eventtime is not NULL    
+ order by endtime.eventtime    
+ ) as [Up Event]    
+      
+from orion.events starttime    
+where starttime.eventtype = 1    
+) t2 on n.nodeid = t2.nodeid
+
+where (n.status = 2 or t2.nodeid is not null)
+--and n.caption like '%4331%'
+and n.customproperties.site = 'Site123'
+order by t2.[down event] desc
+
+
+! last reboot date and time
+select
+n.caption
+,n.lastboot
+,n.custompollerassignmentonnode.currentvalue
+,n.customproperties.site
+from orion.nodes as n
+order by caption
+
+
+! nexus device reload reason
+select n.caption as [Device]
+,n.lastboot as [Last Boot]
+,n.custompollerassignmentonnode.custompollerstatus.status as [Reset Reason]
+
+from orion.nodes n
+where 
+( n.custompollerassignmentonnode.custompollerstatus.assignmentname like 'cefcModuleResetReasonDescription%'
+and n.custompollerassignmentonnode.custompollerstatus.status not like 'Unknown' )
+order by [Device] asc
+
+
+! reboot events
+select n.events.eventtype, n.events.message
+, n.caption
+, n.events.eventtime
+,n.custompollerassignmentonnode.currentvalue
+from orion.nodes n
+--where n.events.eventtype = '14'
+where ( n.events.message like '%rebooted%' and n.custompollerassignmentonnode.currentvalue not like '%Not%available%' )
+order by eventtime desc
+
+
+! events
+select tolocal(eventtime) as [eventtime], c.nodes.caption, message
+from orion.events c
+where eventtime >= addhour(-24,eventtime) and eventtype = 14 or eventtype = 5000 or eventtype = 5001
+order by eventtime desc
+
+
+! machine type counts
+select count(n.machinetype) as [type], n.machinetype
+from orion.nodes n 
+group by machinetype
+order by type desc
+
+
+! IOS version counts
+select count (n.iosversion) as [version], n.iosversion
+from orion.nodes as n
+group by iosversion
+order by version desc
+
+
+! number of times a device has reloaded in the last 30 dats
+select count(n.caption) as [Number of times reloaded]
+, n.caption as [Device]
+from orion.nodes n
+where ( n.events.eventtype = '14' and n.customproperties.site not like 'NON-CISCO' and n.caption not like 'SOLARWINDS' and n.events.eventtime > (getdate()-30) )
+group by n.caption
+order by [Number of times reloaded] desc
+
+
+! nodes not in NCM
+select caption
+from orion.nodes orionnode
+left join ncm.nodes ncmnode on orionnode.nodeid=ncmnode.corenodeid
+where orionnode.vendor='Cisco' and ncmnode.nodeid is null
+
+
+
+! hardware in warning or critical status, excluding tranceivers
+SELECT Name, OriginalStatus, FullyQualifiedName, HasHistoricalData, UnManaged, UnManageFrom, UnManageUntil, IsDisabled, HardwareUnitDescription, StatusDescription, AncestorDisplayNames, DisplayName
+FROM Orion.HardwareHealth.HardwareItem
+where ( not ( name like '%Transmit%') ) and ( not ( name like '%Transceiver%' ) ) and ( not ( name like '%Receive%' ) ) and ( not ( name like 'Te%' ) ) and ( statusdescription = 'Warning' or statusdescription = 'Critical' )
+
+
+
+! which hostnames
+SELECT n.Node.Caption, Name, OriginalStatus, FullyQualifiedName, HardwareUnitDescription, StatusDescription
+FROM Orion.HardwareHealth.HardwareItem as n
+where ( not ( name like '%Transmit%') ) and ( not ( name like '%Transceiver%' ) ) and ( not ( name like '%Receive%' ) ) and ( not ( name like 'Te%' ) ) and ( statusdescription = 'Warning' or statusdescription = 'Critical' )
+
+
+
+! Cisco inventory with serial numbers
+select n.node.nodecaption, model, serial
+from ncm.entityphysical n
+where serial not like '' and model not like ''
+order by nodecaption
+
+
+
+! raspberrypi up / down query
+select n.caption as [Device]
+, n.ip AS [IP Address]
+, '/Orion/images/StatusIcons/Small-' + n.StatusIcon AS [_IconFor_Device]
+, n.DetailsUrl as [_linkfor_Device]
+, isnull(tostring(t2.[Down Event]),concat('Greater than ',(SELECT CurrentValue FROM Orion.Settings where settingid='SWNetPerfMon-Settings-Retain Events'),' days ago')) as [Down Event]
+, isnull(tostring(t2.[Up Event]),'Still Down') as [Up Event] 
+, isnull(MINUTEDIFF(t2.[Down Event], isnull(t2.[Up Event],GETDATE())),99999) as Minutes
+
+
+from orion.nodes n
+left join (SELECT      
+ StartTime.Nodes.NodeID        
+ ,ToLocal(StartTime.EventTime) AS [Down Event]        
+ ,(SELECT TOP 1    
+ ToLocal(EventTime) AS [EventTime]    
+ FROM Orion.Events AS [EndTime]    
+ WHERE EndTime.EventTime >= StartTime.EventTime   
+ AND EndTime.EventType = 5    
+ AND EndTime.NetObjectID = StartTime.NetObjectID    
+ AND EventTime IS NOT NULL    
+ ORDER BY EndTime.EventTime    
+ ) AS [Up Event]    
+      
+FROM Orion.Events StartTime    
+WHERE StartTime.EventType = 1    
+) t2 on n.NodeID = t2.nodeid
+
+where (n.status = 2 or t2.nodeid is not null)
+and n.Caption like '%RASPBERRYPI%'
+order by t2.[down event] desc
+
+
+
+! switch stack ring redundancy change events
+select eventid, eventtime, netobjectid, eventtype, message
+from orion.events
+
+where eventtype like '606'
+order by eventtime des
