@@ -1,0 +1,53 @@
+! Ports flapping:
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“UPDOWN”
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“UPDOWN” | stats count by host
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“UPDOWN” host=“192.0.2.1”
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“UPDOWN” host=“192.0.2.1” “GigabitEthernet1/0/21”
+
+! Hubs:
+! This displays log messages from port-security violations, where the maximum number of allowed MAC addresses has been exceeded.
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“SECURITY_VIOLATION”
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“SECURITY_VIOLATION” | stats count by host
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“SECURITY_VIOLATION” host=“192.0.2.1”
+
+! Search:
+eventtype=cisco_ios product IN (IOS) index IN (*) “Smart Install Client feature is enabled”
+eventtype=cisco_ios product IN (IOS) index IN (*) “Smart Install Client feature is enabled” | stats count by host
+
+! Error disabled, BDPUGuard:
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“ERR_DISABLE”| stats count by host
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“BLOCK_BPDUGUARD”
+
+
+! Anyconnect Lost connections:
+host=“192.0.2.1” lost
+host=“192.0.2.1” OR host=“192.0.2.2” lost
+host=“192.0.2.1” OR host=“192.0.2.2” Reconnecting
+
+! Anyconnect User connection problems:
+host=“192.0.2.1” OR host=“192.0.2.2” <username> lost
+host=“192.0.2.1” OR host=“192.0.2.2” <username> Reconnecting
+host=“192.0.2.1” OR host=“192.0.2.2” <username> failure
+host=“192.0.2.1” OR host=“192.0.2.2” <username> Rejected
+
+! Anyconnect User logs excluding network connections:
+host=“192.0.2.1” OR host=“192.0.2.2” <username> NOT TCP NOT UDP NOT ICMP
+
+! Anyconnect SSL handshakes, need the public IP address the client is using:
+host=“192.0.2.1” OR host=“192.0.2.2” handshake <public Internet IP address of client>
+
+! Datacenter devices reboot reason and count:
+“reboot reason” | rex “(?<node_name>router[12]_\w+|router_\w+)” | rex “(?<reboot_reason>Reboot reason.*)” | stats count by node_name, reboot_reason | sort -count
+
+! Store devices reboot reason and count:
+“reboot reason” | rex “(?<node_name>router[23]_\w+|router_\w+)” | rex “(?<reboot_reason>Reboot reason.*)” | stats count by node_name, reboot_reason | sort -count
+
+! Exclude logs from a host:
+host!=“PALO_ALTO_FIREWALL_HOSTNAME”
+
+! Sourcefire Blocks:
+192.0.2.1 Block sourcetype=“cisco:sourcefire:appliance:syslog”
+
+! TACACS, Cisco CLI commands:
+CISE_TACACS_Accounting “CmdSet=[ CmdAV”
+CISE_TACACS_Accounting “CmdSet=[ CmdAV” NetworkDeviceName=router4331
