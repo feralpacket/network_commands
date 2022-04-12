@@ -1,0 +1,44 @@
+set cli config-output-format set
+set cli pager off
+configure
+show
+show template
+  * Because the devices are managed by Panorama
+
+exit
+show config pushed-template
+show config pushed-shared-policy
+
+show system info
+show high-availability state
+
+show mac all
+show interface ae1
+  * To get the MAC address of the aggregate-interface
+show interface ethernet1/19 | match "MAC address"
+show arp all
+
+show interface management
+show high-availability virtual-address
+show high-availability interface ha1
+show high-availability interface ha1-backup
+show high-availability interface ha2
+show high-availability interface ha2-backup
+show high-availability interface ha3
+
+show lldp neighbor all
+show lldp neighbor ae1
+
+test security-policy-match srouce 10.1.1.1 destination 10.2.2.2 protocol 17 destination-port 123
+
+show user ip-user-mapping all | match <user>
+show user ip-user-mapping all
+
+show routing protocol bgp loc-rib virtual-router INTERNET
+show routing protocol bgp rib-out virtual-router INTERNET
+show routing protocol bgp peer
+show routing protocol ospf dumplsdb
+show routing route
+
+configure
+show template network virtual-router INTERNET protocol bgp
