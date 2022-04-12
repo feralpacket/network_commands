@@ -1,0 +1,18 @@
+! troubleshoot interface discards
+sh int te1/0/3
+sh int te1/0/3 | in drops:
+sh policy-map int te1/0/3
+sh controllers ethernet-controller tenGigabitEthernet 1/0/3
+sh controllers ethernet-controller tenGigabitEthernet 1/0/3 | in Excess Defer
+sh int te1/0/3 controller
+sh platform hardware fed switch 1 qos queue stats interface te1/0/3
+sh diagnostic events
+sh diagnostic result switch 1 test 7 detail
+sh platform hardware fed switch 1 fwd-asic drops exceptions asic 3
+sh platform hardware fed switch 1 qos queue config interface te1/0/3
+sh platform hardware fed switch 1 qos dscp-cos counters interface te1/0/3
+
+show platform hardware fed switch 1 fwd-asic drops exceptions | ex _0_
+!
+conf t
+ qos queue-softmax-multiplier 1200
