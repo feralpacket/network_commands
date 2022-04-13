@@ -51,3 +51,16 @@ host!=“PALO_ALTO_FIREWALL_HOSTNAME”
 ! TACACS, Cisco CLI commands:
 CISE_TACACS_Accounting “CmdSet=[ CmdAV”
 CISE_TACACS_Accounting “CmdSet=[ CmdAV” NetworkDeviceName=router4331
+
+! error disabled interfaces
+eventtype="cisco_ios-err_disable" product IN (IOS) index IN (*) | `normalize-int(src_int_prefix_long,src_int_suffix,"src_interface")` | stats count(src_interface) AS Amount BY host,src_interface,disable_cause | rename src_interface AS Interface, disable_cause AS Cause
+
+! port flapping
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="UPDOWN" | stats count by host, src_int | sort -count
+
+! dot1x authentication failures
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="FAIL" | stats count by host, src_int, message_text | sort -count
+
+! poe disconnects
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="IEEE_DISCONNECT" | stats count by host, message_text | sort -count
+
