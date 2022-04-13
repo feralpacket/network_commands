@@ -76,3 +76,7 @@ sh logging onboard switch 1 uptime detail
 
 ! IOS 17
 show tech-support confidential
+
+! list some of the hidden show commands
+! there are quite a few things under show platform that need TAC or BU documentation
+show tech-support all | include "show "
