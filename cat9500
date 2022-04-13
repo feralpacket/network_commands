@@ -37,3 +37,23 @@ sh platform hardware fed active capture status
 sh platform hardware fed active capture packet
 sh platform hardware fed active capture detail ingress
 sh platform hardware fed active capture detail egress
+!
+sh platform hardware fed active capture psv ingress
+sh platform hardware fed active capture psv egress
+
+! some commands TAC had me run for what turned out to be a bad ASIC core
+show platform software infrastructure punt
+show platform software infrastructure detailed packet
+show platform software infrastructure lsmpi driver 0
+show platform software infrastructure lsmpi driver 1
+show platform software fed active punt cause summary
+show platform software fed active punt cpuq brief
+show platform software fed lsmpi stat
+!
+sh controller ethernet-controller hu1/0/51 phy detail
+sh controller ethernet-controller hu1/0/52 phy detail
+show platform software fed active ifm mapping
+show platform software fed active xcvr lpn 51 link_status 
+show platform software fed active xcvr lpn 52 link_status 
+diagnostic start module 1 test 4 port 51
+show diagnostic result module 1 test 4 detail
