@@ -73,3 +73,6 @@ sh platform hardware fed switch 1 fwd-asic resource tcam utilization
 
 ! my favorite uptime and reload reason command
 sh logging onboard switch 1 uptime detail
+
+! IOS 17
+show tech-support confidential
