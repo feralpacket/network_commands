@@ -37,3 +37,9 @@ sh bgp convergence detail vrf all
 
 ! increase the size of event history
 ip eigrp event-history rib size large
+
+! if you want to dig around in the underlying Linux system
+show system internal flash
+show system internal dir /var/log/external/
+show system internal file /var/log/external/messages | less
+
