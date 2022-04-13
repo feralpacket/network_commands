@@ -15,3 +15,7 @@ sh logging onboard switch 1 rp active uptime detail
 
 ! BGP nexthop table
 sh ip bgp attr nexthop rib-filter
+
+! BGP stuff
+route-map REPLACE_AS permit 10
+     set as-path replace {any | as-path-string}
