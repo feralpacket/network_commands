@@ -80,3 +80,7 @@ show tech-support confidential
 ! list some of the hidden show commands
 ! there are quite a few things under show platform that need TAC or BU documentation
 show tech-support all | include "show "
+
+! list interfaces with drops
+cat9300# term shell
+cat9300# sh int | grep "GigabitEthernet|output drops" | grep -v "drops: 0"
