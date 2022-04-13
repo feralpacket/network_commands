@@ -26,3 +26,14 @@ neighbor 192.0.2.1 path-attribute treat-as-withdraw 26 in
 
 ! BGP stuff
 bgp bestpath as-path multipath-relax
+
+! FED CPU packet capture
+clear platform hardware fed active cap trigger
+debug platform hardware fed active capture trigger ipv4 1.1.1.1 1.1.1.2 icmp
+debug platform hardware fed active capture trigger int hu1/0/52 ingress
+debug platform hardware fed active capture start
+sh platform hardware fed active capture trigger
+sh platform hardware fed active capture status
+sh platform hardware fed active capture packet
+sh platform hardware fed active capture detail ingress
+sh platform hardware fed active capture detail egress
