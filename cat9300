@@ -67,3 +67,6 @@ cat9300(config)# end
 cat9300# snmp get v2c 198.51.100.20 cisco oid 1.3.6.1.4.1.9.2.1.2.0
 SNMP Response: reqid 1, errstat 0, erridx 0 
  lsystem.2.0 = PowerOn
+
+! list TCAM utilization
+sh platform hardware fed switch 1 fwd-asic resource tcam utilization 
