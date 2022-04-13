@@ -6,3 +6,6 @@ logging console discriminator LOWPOWER
 logging monitor discriminator LOWPOWER
 logging source-interface GigabitEthernet0/0 vrf Mgmt-vrf
 logging host 198.51.100.9 vrf Mgmt-vrf discriminator LOWPOWER
+
+! list TCAM utilization
+sh platform hardware fed active fwd-asic resource tcam utilization
