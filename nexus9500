@@ -28,3 +28,6 @@ show ip eigrp route-map statistics redistribute bgp 64496
 ! LIST ALL THE COMMANDS
 sh cli list
 which
+
+! reset reason
+sh system reset-reason
