@@ -19,3 +19,7 @@ sh ip bgp attr nexthop rib-filter
 ! BGP stuff
 route-map REPLACE_AS permit 10
      set as-path replace {any | as-path-string}
+
+! BGP stuff
+neighbor 192.0.2.1 path-attribute discard 26 in
+neighbor 192.0.2.1 path-attribute treat-as-withdraw 26 in
