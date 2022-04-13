@@ -1,0 +1,8 @@
+! log discriminator, filter log messages
+! in this case, stop transceiver low power receive warnings from flooding logging
+logging discriminator LOWPOWER severity drops 3 facility drops SFF8472 mnemonics drops THRESHOLD_VIOLATION 
+logging buffered discriminator LOWPOWER 1024000
+logging console discriminator LOWPOWER
+logging monitor discriminator LOWPOWER
+logging source-interface GigabitEthernet0/0 vrf Mgmt-vrf
+logging host 198.51.100.9 vrf Mgmt-vrf discriminator LOWPOWER
