@@ -93,3 +93,21 @@ sh logging | count 2/0/40.*(up|down)
 
 ! stack cables have serial numbers
 show logging onboard switch active environment detail | in STACK
+
+! commands TAC had me run to verify a memory leak bug
+terminal length 0
+show version
+terminal exec prompt timestamp
+show processes memory sorted
+show processes memory platform sorted
+show platform software status control-processor brief
+show platform software mount switch active r0
+show memory allocating-process totals 
+show memory statistics
+show platform resources
+show platform software process list switch active r0 sort memory
+show process memory platform accounting
+show logging
+!
+show platform software memory smd switch active r0 brief
+!
