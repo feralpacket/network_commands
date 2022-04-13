@@ -56,3 +56,6 @@ sh device classifier attached
 
 ! device classifier profiles
 sh device classifier profile type builtin
+
+! device-tracking
+sh device-tracking database details
