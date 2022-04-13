@@ -34,3 +34,6 @@ sh system reset-reason
 
 ! BGP convergience information
 sh bgp convergence detail vrf all
+
+! increase the size of event history
+ip eigrp event-history rib size large
