@@ -24,3 +24,7 @@ show routing hash 192.0.2.2 192.0.2.1 module 21
 
 ! route-map redistribution staistics
 show ip eigrp route-map statistics redistribute bgp 64496
+
+! LIST ALL THE COMMANDS
+sh cli list
+which
