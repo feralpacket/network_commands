@@ -62,3 +62,12 @@ show diagnostic result module 1 test 4 detail
 sh platform software mount
 sh platform software mount switch 1 r0 dir /etc
 sh platform software file contents switch 1 r0 /etc/passwd
+
+! EIGRP statistics of active states
+sh ip eigrp topology detail-links 
+
+P 0.0.0.0/0, 1 successors, FD is 28416, tag is 12345, serno 4431798, Stats m(22)M(58783)A(8007)c(14)
+  m = min duration
+  M = max duration
+  A = average duration
+  c = count of times active state was entered
