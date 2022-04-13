@@ -1,0 +1,3 @@
+! when you have to upload a new IOS or firmware to an old dinosaur
+! need to specify to old crypto algorithms to use
+scp -oKexAlgorithms=+diffie-hellman-group1-sha1 -c 3des-cbc firmwareupgradeallK10-150_1r_SG16.SPA feralpacket@192.0.2.1:bootflash:firmwareupgradeallK10-150_1r_SG16.SPA
