@@ -47,3 +47,7 @@ sh platform software fed switch active etherchannel 1 load-balance ipv4 192.0.2.
 
 ! test ECMP load-balancing
 show ip cef exact-route 192.0.2.2 192.0.2.1
+
+! auto-LAG
+port-channel auto
+
