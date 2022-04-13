@@ -164,3 +164,24 @@ from orion.events
 
 where eventtype like '606'
 order by eventtime desc
+
+
+
+
+! list route flaps
+select
+n.nodeid 
+,n.caption as [Node]
+,n.router.routingtableflap.routedestination as [Destination]
+,n.router.routingtableflap.cidr as [CIDR]
+,count(*) as [Flaps]
+
+from orion.nodes as n
+
+where
+  n.router.routingtableflap.datetime > adddate('hour', -168, getdate())
+
+group by n.nodeid, n.caption, n.router.routingtableflap.routedestination, n.router.routingtableflap.cidr
+  having
+    count(*) >= 5
+order by count(*) desc
