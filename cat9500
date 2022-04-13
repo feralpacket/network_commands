@@ -57,3 +57,8 @@ show platform software fed active xcvr lpn 51 link_status
 show platform software fed active xcvr lpn 52 link_status 
 diagnostic start module 1 test 4 port 51
 show diagnostic result module 1 test 4 detail
+
+! if you want to dig around in the underlying Linux system
+sh platform software mount
+sh platform software mount switch 1 r0 dir /etc
+sh platform software file contents switch 1 r0 /etc/passwd
