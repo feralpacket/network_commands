@@ -38,3 +38,6 @@ show controllers T1 0/2/0
 show controllers T1 0/2/1
 show controllers T1 0/2/2
 show controllers T1 0/2/3
+
+! sd-wan reload history
+show sdwan reboot history
