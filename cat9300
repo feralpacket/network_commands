@@ -84,3 +84,9 @@ show tech-support all | include "show "
 ! list interfaces with drops
 cat9300# term shell
 cat9300# sh int | grep "GigabitEthernet|output drops" | grep -v "drops: 0"
+
+! interface up / down time information
+sh int gi1/0/7 link
+
+! list the number of times an interface has flapped, divide result by 2
+sh logging | count 2/0/40.*(up|down)
