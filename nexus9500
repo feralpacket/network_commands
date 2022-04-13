@@ -21,3 +21,6 @@ show troubleshoot l3 ipv4 192.0.2.2 src-ip 192.0.2.1 vrf default
 ! test NXOS ECMP 
 ! N9k, fabric module needs to be specified
 show routing hash 192.0.2.2 192.0.2.1 module 21
+
+! route-map redistribution staistics
+show ip eigrp route-map statistics redistribute bgp 64496
