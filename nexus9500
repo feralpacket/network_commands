@@ -31,3 +31,6 @@ which
 
 ! reset reason
 sh system reset-reason
+
+! BGP convergience information
+sh bgp convergence detail vrf all
