@@ -12,3 +12,6 @@ sh platform hardware fed active fwd-asic resource tcam utilization
 
 ! my favorite uptime and reload reason command
 sh logging onboard switch 1 rp active uptime detail
+
+! BGP nexthop table
+sh ip bgp attr nexthop rib-filter
