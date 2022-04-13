@@ -19,3 +19,11 @@ conf t
 
 ! test etherchannel load-balancing
 cat3850# sh platform software fed switch active etherchannel 101 load-balance ipv4 192.0.2.2 192.0.2.1
+
+! this caused a 3850 to crash ( run it a couple dozen times... )
+! TAC response was something along the lines of, WTF!?!?
+term shell
+for xx in `interface Ethernet`; do echo $xx `show int $xx controller | cut -c 1-33 | grep Excess Defer`; done
+
+! this is the command I should have been using
+sh controllers | in Gig|Excess Defer
