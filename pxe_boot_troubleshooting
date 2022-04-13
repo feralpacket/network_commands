@@ -1,0 +1,80 @@
+Quite often, PXE boot problems are really DHCP problems.
+
+Computer imaging:
+ - Press F12 on bootup
+ - Select Onboard NIC(IPv4)
+ - Will timeout after 30 seconds if DHCP fails
+
+Process:
+DHCP to obtain IP address
+ - UDP ports 67 and 68 with the DHCP servers
+
+DHCP option 43 is used to provide the IP address of the PXE boot server
+
+Uses ProxyDHCP to retrieve Bootfile name
+ - UDP src / dst port 4011 with the PXE boot server
+
+TFTP is used to transfer configuration files and the boot image
+ - UDP port 69 with the PXE boot server
+
+
+! Check - Interface computer is connected to
+sh int status | in 1/0/10
+sh mac add | in 1/0/10
+sh int gi1/0/10
+
+! Check - Portfast is enabled on the interface
+sh spanning-tree int gi1/0/10 portfast edge
+
+! Check - Uplink interface is trusted with IP DHCP Snooping
+sh ip dhcp snooping 
+
+! Check - IP DHCP Snooping binding 
+sh ip dhcp snooping binding int gi1/0/10
+
+! Check - IP helper configuration on the VLAN
+sh run int vlan 113
+
+! Check - DHCP messages being forwarded
+sh ip dhcp server statistics | be Forwarded
+ - DHCPDISCOVER
+ - DHCPREQUEST
+ - DHCPOFFER
+ - DHCPACK
+
+! Check - Connectivity to the DHCP server
+ping 192.0.2.1
+
+! Check - MAB / DOT1X status on interface
+sh access-session int gi1/0/10 detail
+
+! Check - Interface configuration
+sh run int gi1/0/10
+
+! Check - Interface configuration with any ISE templates applied
+sh derived-config int gi1/0/10
+
+! Check - Access-list
+sh ip access-list Auth-Default-ACL-OPEN
+
+! Check - Cable
+test cable-diagnostics tdr int gi1/0/10
+sh cable-diagnostics tdr int gi1/0/10
+
+! Check - DHCP server
+Is option 43 configured and configured correctly?
+Is the scope full?
+
+! Check - Connectivity to PXE boot server
+ping 192.0.2.2
+
+! Check - PXE boot server
+nmap -sU -p U:69,4011 192.2.0.2
+
+! Check - Packet capture
+monitor capture CAP interface gi1/0/10 both
+monitor capture CAP match any
+monitor capture CAP start
+monitor capture CAP stop
+show monitor capture CAP buffer brief
+show monitor capture CAP buffer detailed 
