@@ -136,3 +136,11 @@ sh plat software fed swi act punt cause summary
 sh plat software fed swi act punt rates interfaces 
 sh plat software fed swi act punt packet-capture status
 sh plat software fed swi act cpu-interface
+
+! cts
+sh cts
+sh derived-config int gi1/0/20
+sh cts interface gi1/0/20
+sh cts authorization entries
+sh cts policy sgt
+sh derived-config | se cts
