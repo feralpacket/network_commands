@@ -130,3 +130,9 @@ hw-module beacon slot 1 off
 
 ! spanning tree problems, lots of topolgy changes
 sh span de | in ^ VLAN|Times:
+
+! punted packets
+sh plat software fed swi act punt cause summary
+sh plat software fed swi act punt rates interfaces 
+sh plat software fed swi act punt packet-capture status
+sh plat software fed swi act cpu-interface
