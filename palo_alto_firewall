@@ -52,3 +52,8 @@ show vpn ipsec-sa
 show vpn ipsec-sa tunnel SOMENAME
 clear vpn ike-sa gateway <gateway_name>
 clear vpn ipsec-sa tunnel <tunnel_name>
+
+! global counter drops
+sh counter global | match drop
+show counter global filter severity drop | match "ssl proxy"
+proxy_wait_pkt_drop                136070340      828 drop      proxy     pktproc   The number of packets get dropped because of waiting status in ssl proxy 
