@@ -120,3 +120,6 @@ sh device-sensor cache interface gi1/0/7
 hw-module beacon slot 1 on
 sh beacon all
 hw-module beacon slot 1 off
+
+! spanning tree problems, lots of topolgy changes
+sh span de | in ^ VLAN|Times:
