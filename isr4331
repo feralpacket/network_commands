@@ -44,3 +44,13 @@ show sdwan reboot history
 
 ! why did it take me so long to learn this?
 logging dmvpn
+
+! sdwan stuff
+sh sdwan policy from-vsmart
+sh sdwan policy access-list-associations
+sh sdwan policy access-list-counters
+sh sdwan running-config | se access-list
+sh sdwan bfd session
+sh sdwan bfd history
+sh sdwan control connections
+sh sdwan control connection-history
