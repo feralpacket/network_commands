@@ -11,3 +11,12 @@ snmpwalk -v2c -c public 192.0.2.1 1.3.6.1.4.1.9.9.393.1.3.21.1
 
 ! mean tricks
 snmp set v2c 198.51.100.21 cisco oid 1.3.6.1.4.1.9.9.390.1.2.1.1 integer 1
+
+
+! 1.3.6.1.2.1.4.20.1.2
+! - ipAdEntIfIndex
+! 1.3.6.1.2.1.55.1.8.1.5
+! - ipv6AddrStatus
+$ snmpwalk -v2c -c somestring 1.1.1.1 1.3.6.1.2.1.4.20.1.2
+. . .
+IP-MIB::ipAdEntIfIndex.192.168.1.1 = INTEGER: 1
