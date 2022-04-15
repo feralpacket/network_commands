@@ -32,3 +32,7 @@ sh controllers | in Gig|Excess Defer
 ! turn on the super bright LED for the hardware team
 conf t
   hw-module beacon on switch 1
+
+! why do have so many drops and discards?
+conf t
+qos queue-softmax-multiplier 1200
