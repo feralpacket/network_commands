@@ -111,3 +111,6 @@ show logging
 !
 show platform software memory smd switch active r0 brief
 !
+
+! information collected by device-sensor
+sh device-sensor cache interface gi1/0/7
