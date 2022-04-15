@@ -36,3 +36,6 @@ conf t
 ! why do have so many drops and discards?
 conf t
 qos queue-softmax-multiplier 1200
+
+! list interface qos queue configuration
+sh platform hardware fed switch active qos queue config interface tenGigabitEthernet 1/0/1
