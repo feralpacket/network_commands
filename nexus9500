@@ -43,3 +43,37 @@ show system internal flash
 show system internal dir /var/log/external/
 show system internal file /var/log/external/messages | less
 
+! nexus becon feature
+! turn on the super bright LEDs for the hardware team
+(config)# int e1/1
+  beacon
+!
+blink chassis
+blink fan
+blink module
+blink powersupply
+!
+locator-led chassis
+locator-led fan
+locator-led module
+locator-led powersupply
+!
+sh locator-led status
+!
+no locator-led chassis! nexus becon feature
+(config)# int e1/1
+  beacon
+!
+blink chassis
+blink fan
+blink module
+blink powersupply
+!
+locator-led chassis
+locator-led fan
+locator-led module
+locator-led powersupply
+!
+sh locator-led status
+!
+no locator-led chassis
