@@ -114,3 +114,9 @@ show platform software memory smd switch active r0 brief
 
 ! information collected by device-sensor
 sh device-sensor cache interface gi1/0/7
+
+! cat9k beacon
+! turn on the super bright blue LED for the hardware team
+hw-module beacon slot 1 on
+sh beacon all
+hw-module beacon slot 1 off
