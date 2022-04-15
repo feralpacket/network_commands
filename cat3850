@@ -27,3 +27,8 @@ for xx in `interface Ethernet`; do echo $xx `show int $xx controller | cut -c 1-
 
 ! this is the command I should have been using
 sh controllers | in Gig|Excess Defer
+
+! 3850 beacon
+! turn on the super bright LED for the hardware team
+conf t
+  hw-module beacon on switch 1
