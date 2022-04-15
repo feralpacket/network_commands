@@ -71,3 +71,7 @@ P 0.0.0.0/0, 1 successors, FD is 28416, tag is 12345, serno 4431798, Stats m(22)
   M = max duration
   A = average duration
   c = count of times active state was entered
+
+! MPLS testing
+! MPLS testing
+show mpls forwarding exact-route label 100 ipv4 source 192.0.2.2 destination 192.0.2.1 detail
