@@ -85,7 +85,7 @@ group by iosversion
 order by version desc
 
 
-! number of times a device has reloaded in the last 30 dats
+! number of times a device has reloaded in the last 30 days
 select count(n.caption) as [Number of times reloaded]
 , n.caption as [Device]
 from orion.nodes n
@@ -159,6 +159,7 @@ order by t2.[down event] desc
 
 
 ! switch stack ring redundancy change events
+! a single switch in a switch stack decides to reload, for reasons
 select eventid, eventtime, netobjectid, eventtype, message
 from orion.events
 
