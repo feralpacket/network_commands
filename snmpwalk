@@ -10,7 +10,7 @@ SNMPv2-SMI::enterprises.9.9.117.1.2.1.1.6.22 = STRING: "Reset Requested by CLI c
 snmpwalk -v2c -c public 192.0.2.1 1.3.6.1.4.1.9.9.393.1.3.21.1
 
 ! mean tricks
-! triggers a bug, that causes a certain model switch with a certain model IOS version to reload
+! triggers a bug, that causes a certain model switch with a certain IOS version to reload
 ! note:  the OID is missing a number, or two
 snmp set v2c 198.51.100.21 cisco oid 1.3.6.1.4.1.9.9.390.1.2.1.1 integer 1
 
