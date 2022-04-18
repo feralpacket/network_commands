@@ -144,3 +144,10 @@ sh cts interface gi1/0/20
 sh cts authorization entries
 sh cts policy sgt
 sh derived-config | se cts
+
+! it's interesting to see the changes in the file structure with the different IOS versions
+show platform software chasfs r0
+
+! this use to work at some point
+! someone is fixing their file permissions
+sh platform software file contents r0 /tmp/chassis/local/rp/chasfs/rp/0/0/etc/issue
