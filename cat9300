@@ -151,3 +151,11 @@ show platform software chasfs r0
 ! this use to work at some point
 ! someone is fixing their file permissions
 sh platform software file contents r0 /tmp/chassis/local/rp/chasfs/rp/0/0/etc/issue
+
+! log logins
+conf t
+ login on-failure log
+ login on-success log
+ end
+!
+sh login failures
