@@ -54,3 +54,6 @@ sh sdwan bfd session
 sh sdwan bfd history
 sh sdwan control connections
 sh sdwan control connection-history
+
+! tcp adjust-mss status
+sh ip tcp adjust stats interface gi0/0/0
