@@ -159,3 +159,13 @@ conf t
  end
 !
 sh login failures
+
+! log config changes, also needed for the revert timer
+archive
+ log config
+  logging enable
+  logging size 500
+  notify syslog contenttype plaintext
+  hidekeys
+!
+sh archive log config all
