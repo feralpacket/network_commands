@@ -77,3 +77,9 @@ locator-led powersupply
 sh locator-led status
 !
 no locator-led chassis
+
+! change the MAC address used with Spanning-tree BPDUs sent out on VPCs 
+! - from 0026.fxxx.0000
+! - to 0026.0bf1.fxxx
+! - where xxx is the VPC number in hex
+mac-address bpdu source version 2
