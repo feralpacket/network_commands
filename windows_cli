@@ -113,6 +113,7 @@ test-netconnection 192.0.2.1
 
 telnet 192.0.2.1 53
 test-netconnection 192.0.2.1 -port 53
+test-netconnection -computername 'FERALSQL' -port 1433
 tracert 192.0.2.1
 tracert -d 192.0.2.1
 test-netconnection 192.0.2.1 -traceroute
