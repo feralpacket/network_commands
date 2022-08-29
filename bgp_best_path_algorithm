@@ -299,10 +299,10 @@ Best Path Algorithm:
 
 
 9.  multipath
-     -> if multiple paths match the above steps, 
+     -> if multiple paths match the above steps
      -> determine if multiple paths require installation into the routing table
      -> default, only one best path is installed into the routing table
-     -> even with multipath, the router still desinates on of the paths as the best path and advertises this best path to it's neighbors
+     -> even with multipath, the router still designates one of the paths as the best path and advertises this best path to it's neighbors
      -> the following need to be equal for multipath
         -> weight
         -> local preference
