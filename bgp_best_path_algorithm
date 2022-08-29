@@ -6,7 +6,9 @@ Why Routers Ignore Paths:
  - next hop is inaccessible or unreachable
  - path from eBGP neighbor has local AS in AS_PATH
  - bgp enforce-first-as is set and the update doesn’t list the neighbor AS as the first AS
- - paths are marked “receive only” in sh ip bgp long-prefixes output
+ - paths are marked “receive only” in sh ip bgp longer-prefixes output
+     -> sh ip bgp 192.0.2.0 255.255.255.0 longer-prefixes
+     -> sh ip bgp 192.0.2.0 255.255.255.0
  - path is not synchronized and synchronization is enabled
  - path is denied by inbound BGP policies or inbound soft reset is configured
      -> bgp soft-reconfig-backup
@@ -34,6 +36,7 @@ Best Path Algorithm:
      -> range 0 to 65,535
      -> default is 0 for received routes
      -> default is 32768 for locally generated routes
+     
      -> route-map WEIGHT permit 10
      ->   set weight 40000
      -> neighbor 192.0.2.1 route-map WEIGHT in
@@ -49,6 +52,7 @@ Best Path Algorithm:
      -> default 100 for every route
      -> bgp default local-preference 200
      -> change the default local-preference
+     
      -> route-map LP permit 10
      ->   set local-preference 200
      ->neighbor 192.0.2.1 route-map LP out
@@ -57,6 +61,7 @@ Best Path Algorithm:
      -> redistribute ospf 1 route-map LP match internal external 1 external 2
      -> network 192.0.2.0 mask 255.255.255.0 route-map LP
      -> aggregate-address 192.0.2.0 255.255.255.252 attribute-map LP
+     
      -> to clear or reset the LOCAL_PREF sent by a peer, set to the default value
      -> route-map CLEAR_LP permit 10
      ->   set local-preference 100
@@ -84,7 +89,9 @@ Best Path Algorithm:
                 -> Pre-bestpath
                 -> IGP metric
         -> AIGP can be translated to MED
+        
      -> bgp bestpath aigp ignore
+     
      -> route-map AIGP permit 10
      ->  set aigp-metric igp-metric
      ->  set aigp-metric 100
@@ -107,39 +114,54 @@ Best Path Algorithm:
      -> range of 1 - 255 
      -> well-known mandatory attribute AS_PATH
      -> primary purpose is to provide loop prevention for inter-AS routing
+     
      -> bgp bestpath as-path ignore
+     
      -> route-map PREPEND permit 10
      ->   set as-path prepend 100 100
      -> neighbor 192.0.2.1 route-map PREPEND out
+     
      -> neighbor 192.0.2.1 local-as 99
      -> local-as is intended to help with BGP ASN or ISP migrations
      -> local-as number must be different than the local AS and the peer AS
      -> local-as will be added to the AS_PATH making it longer
      -> neighbor 192.0.2.1 local-as 99 no-prepend
      -> local-as will not be added to the AS_PATH
+     
      -> neighbor 192.0.2.1 remove-private-as
      -> removed private AS from AS_PATH
      -> neighbor 192.0.2.1 remove-private-as replace-as
+     
      -> replaces any private AS in AS_PATH with router's local AS
      -> neighbor 192.0.2.1 as-override
      -> replaces the AS of the customer in AS_PATH with the AS of the provider
      -> used in address-family ipv4 vrf VRF_NAME or address-family ipv6 vrf VRF_NAME
+     
      -> configured a site-of-origin to prevent routing loops
      -> neighbor 192.0.2.1 soo 64496:64511
      -> route-map SOO permit 10
      ->     set extcommunity soo 64496:645111
      -> neighbor 192.0.2.1 route-map SOO in
+     
      -> neighbor 192.0.2.1 allowas-in
      -> accept an AS_PATH that contains the local AS
+     
      -> route-map REPLACE_AS permit 10
      ->     set as-path replace 100
      -> neighbor 192.0.2.1 route-map REPLACE_AS in
      -> replace the AS 100 in AS_PATH with the local AS
      -> feature added in IOS XE 17.1.1
+     -> note:  the AS_PATH length is not changed
+     
      -> route-map REPLACE_AS permit 10
      ->     set as-path replace any
      -> neighbor 192.0.2.1 route-map REPLACE_AS in
      -> replace all AS listed in AS_PATH with the local AS
+     -> note:  the AS_PATH length is not changed
+     
+     -> To strip the AS_PATH and replace with only the local AS, configure a locally originated path
+     -> ip route 0.0.0.0 0.0.0.0 192.0.2.1 name STRIP_AS_PATH_INFORMATION
+     -> network 0.0.0.0
 
  5.  ORIGIN
      -> lowest type is best
@@ -149,8 +171,10 @@ Best Path Algorithm:
           -> network command
      -> INCOMPLETE
           -> redistribute command
+          
      -> route-map ORIGIN permit 10
      ->    set origin igp
+     
      -> route-map ORIGIN permit 10
      ->    set origin incomplete
 
@@ -170,25 +194,35 @@ Best Path Algorithm:
      -> or a neighboring AS may be influencing the local AS with multiple entry points
      -> compared only if the first AS in the AS_SEQUENCE is the same for multiple paths
      -> confederation sub-ASs are ignored unless configured
+     
      -> bgp deterministic-med
          -> compare routes advertised by different peers in the same AS
+     
      -> bgp always-compare-med
          -> compare routes advertised by different ASs.
          -> if used, must be configured in the entire AS to prevent routing loops
+     
      -> bgp bestpath med confed
          -> compare all paths that consist only of AS_CONFED_SEQUENCE
+     
      -> bgp bestpath med confed missing-as-worst
+     
      -> bgp bestpath med missing-as-worst
+     
      -> route-map MED permit 10
      ->   set metric 100
+     
      -> route-map MED permit 10
      ->   set metric-type internal
          -> if a border router learns a route from an iBGP peer, set the metric to the IGP cost instead of removing MED from the UPDATE sent to the eBGP peer
          -> if the route originates from IS-IS, use the internal metric
+         
      ->   set metric-type external
          -> if the route originates from IS-IS, use the external metric
+         
      ->   set metric-type type-1
          -> if the route originates from OSPF, use the external type-1 metric
+         
      ->   set metric-type type-2
          -> if the route originates from OSPF, use the external type-2 metric
      -> neighbor 192.0.2.1 route-map MED out
@@ -205,6 +239,7 @@ Best Path Algorithm:
 
  8.  IGP metric
      -> lowest is best
+     
      -> bgp bestpath igp-metric ignore
          -> address-family command
          -> must be used when the Diverse Path feature is used and the route-reflector and shadow route-reflector are not co-located
@@ -213,9 +248,11 @@ Best Path Algorithm:
 9.  extended community cost
      -> IGP point of insertion (POI)
      -> lowest is best
-         -> route-map EXTCOMMUMITYCOST permit 10
+     
+       -> route-map EXTCOMMUMITYCOST permit 10
          ->   set extcommunity cost 1 1
-         -> route-map EXTCOMMUMITYCOST permit 10
+    
+       -> route-map EXTCOMMUMITYCOST permit 10
          ->   set extcommunity cost igp 1 1
          -> neighbor 192.0.2.1 route-map EXTCOMMUMITYCOST out
          -> neighbor 192.0.2.1 default-originate route-map EXTCOMMUMITYCOST out
@@ -228,19 +265,26 @@ Best Path Algorithm:
      -> if multiple paths match the above steps, 
      -> determine if multiple paths require installation into the routing table
      -> default, only one best path is installed into the routing table
+     
      -> maximum-paths 2
         -> protocol independent command for equal-costs paths
+        
      -> maximum-paths eibgp 2
         -> install parallel iBGP and eBGP routes
+        
      -> maximum-paths eibgp 2 import 2
         -> specifies the number of redundant paths configured as back up multipaths for a VRF
+        
      -> maximum-paths ibgp 2
          -> install both equal-cost and unequal-cost iBGP routes
+         
      -> maximum-paths ibgp 2 import 2
          -> specifies the number of redundant paths configured as back up multipaths for a VRF
+         
      -> maximum-paths ibgp unequal-cost 2
          -> install iBGP unequal-cost routes for a VRF
          -> only in address-family ipv4 vrf VRF_NAME and address-family ipv6 vrf VRF_NAME
+         
      -> bgp bestpath as-path mutlipath-relax
         -> hidden command in older IOS versions
         -> if multipath is configured and multiple routes have different AS in the path, but the AS_PATH lengths are the same (parallel paths),  install the multiple paths into the routing table
@@ -250,6 +294,7 @@ Best Path Algorithm:
      -> when multiple paths are external, prefer the path that was received first
      -> oldest is best
      -> this step can be skipped by forcing BGP to compare router-ids
+     
      -> bgp bestpath compare-router-id
 
  12.  router-id
