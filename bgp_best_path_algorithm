@@ -268,7 +268,7 @@ Best Path Algorithm:
      -> paths that contain AS_CONFED_SEQUENCE and AS_CONFED_SET are considered internal
 
 
- 8.  IGP metric
+ 8.  IGP metric to the BGP next hop
      -> lowest is best
      
      -> bgp bestpath igp-metric ignore
@@ -277,7 +277,7 @@ Best Path Algorithm:
          -> in this case, configured on the RR, shadow RR, and PE routers
 
 
-9.  extended community cost
+8a.  extended community cost
      -> IGP point of insertion (POI)
      -> lowest is best
      
@@ -294,7 +294,7 @@ Best Path Algorithm:
          -> aggregate-address 192.0.2.0 255.255.255.252 attribute-map EXTCOMMUMITYCOST
 
 
-10.  multipath
+9.  multipath
      -> if multiple paths match the above steps, 
      -> determine if multiple paths require installation into the routing table
      -> default, only one best path is installed into the routing table
@@ -325,7 +325,7 @@ Best Path Algorithm:
            -> solves a problem with BGP in data center CLOS networks described in RFC 7938
 
 
- 11.  oldest route
+ 10.  oldest route
      -> when multiple paths are external, prefer the path that was received first
      -> oldest is best
      -> this step can be skipped by forcing BGP to compare router-ids
@@ -333,20 +333,20 @@ Best Path Algorithm:
      -> bgp bestpath compare-router-id
 
 
- 12.  router-id
+ 11.  router-id
      -> lowest is best
      -> not the same thing as the ORIGINATOR_ID attribute, which is used by route reflectors
      -> ORIGINATOR_ID is an optional, non-transitive attribute
      -> ORIGINATOR_ID is compared instead of the router-id when route reflector attributes are present
 
 
- 13.  cluster length
+ 12.  cluster length
      -> lowest is best
      -> CLUSTER_LIST is an optional, non-transitive attribute
      -> lowest CLUSTER_LIST length
      -> router reflectors only
 
 
- 14.  neighbor address
+ 13.  neighbor address
      -> lowest is best
      -> remote peer used in the TCP connection
