@@ -298,6 +298,27 @@ Best Path Algorithm:
      -> if multiple paths match the above steps, 
      -> determine if multiple paths require installation into the routing table
      -> default, only one best path is installed into the routing table
+     -> even with multipath, the router still desinates on of the paths as the best path and advertises this best path to it's neighbors
+     -> the following need to be equal for multipath
+        -> weight
+        -> local preference
+        -> AS-PATH length
+        -> origin
+        -> MED
+        -> neighboring AS or sub-AS
+        -> AS-PATH
+           -> unless bgp bestpath as-path multipath-relax is configured
+        -> for eBGP multipath
+           -> learned from an external or confederation-external neighbor
+           -> the IGP metric to the BGP next hop must be equal to the best-path IGP metric
+        -> for iBGP multipath
+           -> learned from an internal neighbor
+           -> the IGP metric to the BGP next hop must be equal to the best-path IGP metric
+              -> unless unequal-cost iBGP multipath is configured
+              -> for unequal-cost load balancing, BGP Link Bandwidth can be used
+                 -> bgp dmzlink-bw
+                 -> neighbor 192.0.2.1 dmzlink-bw
+                 -> neighbor 192.0.2.1 send-community both
      
      -> maximum-paths 2
         -> protocol independent command for equal-costs paths
