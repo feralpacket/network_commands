@@ -24,7 +24,8 @@ Best Path Algorithm:
          -> this command was intended only to assist in troubleshooting path selection
 
 - Important, next hop needs to be valid
-- It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), highest is best.  Everything else, lowest, shortest, or oldest is best.
+- It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), highest is best.  
+  Everything else, lowest, shortest, or oldest is best.
 - The steps below include the configuration commands that can modify the default behavior of each step.
 
 
@@ -42,7 +43,9 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 route-map WEIGHT in
      -> neighbor 192.0.2.1 default-originate route-map WEIGHT in
      -> network 192.0.2.0 mask 255.255.255.0 route-map WEIGHT
-         -> This works.  As does applying the route-map to the redistribute and aggregate-address commands.  But why would you do this to locally originated routes since it’s only locally significant.
+         -> This works.  As does applying the route-map to the redistribute and aggregate-address commands.  But why would you do this to 
+            locally originated routes since it’s only locally significant.
+
 
  2.  local_preference
      -> highest is best
@@ -50,6 +53,7 @@ Best Path Algorithm:
      -> significant only in the local AS
      -> range 0 to 4294967295
      -> default 100 for every route
+     
      -> bgp default local-preference 200
      -> change the default local-preference
      
@@ -67,6 +71,7 @@ Best Path Algorithm:
      ->   set local-preference 100
      ->neighbor 192.0.2.1 route-map CLEAR_LP in
 
+
  3.  locally originated path
      -> locally generated routes are preferred over received routes
      -> default-originate
@@ -76,6 +81,7 @@ Best Path Algorithm:
      -> network command
      -> aggregate-address command
      -> redistribute command
+
 
  3a.  Accumulated Interior Gateway Protocol (AIGP)
      -> lowest is best
@@ -108,6 +114,7 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 path-attribute discard 26 in
          -> drop the AIGP path attribute, then process the UPDATE as usual
          -> path-attribute discard cannot be used with most attributes
+
 
  4.  AS_PATH
      -> shortest is best
@@ -158,10 +165,13 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 route-map REPLACE_AS in
      -> replace all AS listed in AS_PATH with the local AS
      -> note:  the AS_PATH length is not changed
+     -> an AS_PATH of 123 234 345 456 567 becomes 100 100 100 100 100
      
      -> to strip the AS_PATH and replace with only the local AS, configure a locally originated path
      -> ip route 0.0.0.0 0.0.0.0 192.0.2.1 name STRIP_AS_PATH_INFORMATION
      -> network 0.0.0.0
+     -> an AS_PATH of 123 234 345 456 567 becomes 100
+
 
  5.  ORIGIN
      -> lowest type is best
@@ -177,6 +187,7 @@ Best Path Algorithm:
      
      -> route-map ORIGIN permit 10
      ->    set origin incomplete
+
 
  6.  multi-exit discriminator (MED)
      -> metric
@@ -214,7 +225,8 @@ Best Path Algorithm:
      
      -> route-map MED permit 10
      ->   set metric-type internal
-         -> if a border router learns a route from an iBGP peer, set the metric to the IGP cost instead of removing MED from the UPDATE sent to the eBGP peer
+         -> if a border router learns a route from an iBGP peer, set the metric to the IGP cost instead of removing MED from the 
+            UPDATE sent to the eBGP peer
          -> if the route originates from IS-IS, use the internal metric
          
      ->   set metric-type external
@@ -234,8 +246,10 @@ Best Path Algorithm:
      -> network 192.0.2.0 mask 255.255.255.0 route-map MED
      -> aggregate-address 192.0.2.0 255.255.255.252 attribute-map MED
 
+
  7.  eBGP over iBGP
      -> paths that contain AS_CONFED_SEQUENCE and AS_CONFED_SET are considered internal
+
 
  8.  IGP metric
      -> lowest is best
@@ -244,6 +258,7 @@ Best Path Algorithm:
          -> address-family command
          -> must be used when the Diverse Path feature is used and the route-reflector and shadow route-reflector are not co-located
          -> in this case, configured on the RR, shadow RR, and PE routers
+
 
 9.  extended community cost
      -> IGP point of insertion (POI)
@@ -260,6 +275,7 @@ Best Path Algorithm:
          -> redistribute ospf 1 route-map EXTCOMMUMITYCOST match internal external 1 external 2
          -> network 192.0.2.0 mask 255.255.255.0 route-map EXTCOMMUMITYCOST
          -> aggregate-address 192.0.2.0 255.255.255.252 attribute-map EXTCOMMUMITYCOST
+
 
 10.  multipath
      -> if multiple paths match the above steps, 
@@ -287,8 +303,10 @@ Best Path Algorithm:
          
      -> bgp bestpath as-path mutlipath-relax
         -> hidden command in older IOS versions
-        -> if multipath is configured and multiple routes have different AS in the path, but the AS_PATH lengths are the same (parallel paths),  install the multiple paths into the routing table
-         -> solves a problem with BGP in data center CLOS networks described in RFC 7938
+        -> if multipath is configured and multiple routes have different AS in the path, but the AS_PATH lengths are the same (parallel paths),  
+           install the multiple paths into the routing table
+           -> solves a problem with BGP in data center CLOS networks described in RFC 7938
+
 
  11.  oldest route
      -> when multiple paths are external, prefer the path that was received first
@@ -297,17 +315,20 @@ Best Path Algorithm:
      
      -> bgp bestpath compare-router-id
 
+
  12.  router-id
      -> lowest is best
      -> not the same thing as the ORIGINATOR_ID attribute, which is used by route reflectors
      -> ORIGINATOR_ID is an optional, non-transitive attribute
      -> ORIGINATOR_ID is compared instead of the router-id when route reflector attributes are present
 
+
  13.  cluster length
      -> lowest is best
      -> CLUSTER_LIST is an optional, non-transitive attribute
      -> lowest CLUSTER_LIST length
      -> router reflectors only
+
 
  14.  neighbor address
      -> lowest is best
