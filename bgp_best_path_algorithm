@@ -185,8 +185,12 @@ Best Path Algorithm:
      -> network 0.0.0.0
      -> an AS_PATH of 123 234 345 456 567 becomes 100
      
-     -> aggregate-address with as-set
-     -> causes the path information from the longer prefixes will be summarized in a set, 300 {200,100}
+     -> aggregate-address summary-only
+     -> causes the loss of individual path attributes, such as AS_PATH, replaced only with the local AS
+     -> aggregate-address 10.11.0.0 255.255.0.0 summary-only
+     
+     -> aggregate-address summary-only with as-set
+     -> causes the path information from the individual paths to be retained and summarized in a set, 300 {200,100}
      -> aggregate-address 10.11.0.0 255.255.0.0 summary-only as-set
 
 
