@@ -2,7 +2,7 @@ BGP Best Path Selection Algorithm
 http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-25.html
 
 Why Routers Ignore Paths:
- - path are marked “not synchronized” in sh ip bgp long-prefixes output
+ - path are marked “not synchronized” in sh ip bgp longer-prefixes output
  - next hop is inaccessible or unreachable
  - path from eBGP neighbor has local AS in AS_PATH
  - bgp enforce-first-as is set and the update doesn’t list the neighbor AS as the first AS
@@ -17,7 +17,7 @@ Why Routers Ignore Paths:
  - route is dampened 
 
 Best Path Algorithm:
- Note: if extended community cost is configured for pre-bestpath, compare before anything else
+ note: if extended community cost is configured for pre-bestpath, compare before anything else
      -> lowest is best
      -> set extcommunity cost pre-bestpath <community-id> <cost>
      -> bgp bestpath cost-community ignore
@@ -159,7 +159,7 @@ Best Path Algorithm:
      -> replace all AS listed in AS_PATH with the local AS
      -> note:  the AS_PATH length is not changed
      
-     -> To strip the AS_PATH and replace with only the local AS, configure a locally originated path
+     -> to strip the AS_PATH and replace with only the local AS, configure a locally originated path
      -> ip route 0.0.0.0 0.0.0.0 192.0.2.1 name STRIP_AS_PATH_INFORMATION
      -> network 0.0.0.0
 
