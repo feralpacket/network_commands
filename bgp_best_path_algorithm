@@ -76,10 +76,23 @@ Best Path Algorithm:
      -> locally generated routes are preferred over received routes
      -> default-originate
           -> configured per neighbor
+          -> neighbor 192.0.2.1 default-originate
+          -> advertise a default route to the neighbor, even if one is not currently in the RIB
      -> default-information originate
           -> configured per address family
+          -> add a default route to the BGP table and advertise to all neighbors, even if one is not currently in the RIB
      -> network command
+          -> network 0.0.0.0
+          -> if 0.0.0.0 is present in the RIB, add to BGP table and advertise to all neighbors
      -> aggregate-address command
+          -> summary-only
+          -> advertise only the aggregate address, suppress longer prefixes
+          -> aggregate-address 10.1.0.0 255.255.0.0 summary-only
+          -> the aggregate-timer is set to 30 seconds by default.  new, longer prefixes may be briefly advertised until 
+             the aggregate-timer runs
+             -> the new, longer-prefix will then be withdrawn from the neighbors.
+          -> if this may be a problem, such as in data centers or if the longer prefix can slip through policies or filters on 
+             other routers, bgp aggregate-timer 0
      -> redistribute command
 
 
