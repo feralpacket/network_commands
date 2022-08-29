@@ -87,7 +87,7 @@ Best Path Algorithm:
      -> aggregate-address command
           -> summary-only
           -> advertise only the aggregate address, suppress longer prefixes
-          -> aggregate-address 10.1.0.0 255.255.0.0 summary-only
+          -> aggregate-address 10.11.0.0 255.255.0.0 summary-only
           -> the aggregate-timer is set to 30 seconds by default.  new, longer prefixes may be briefly advertised until 
              the aggregate-timer runs
              -> the new, longer-prefix will then be withdrawn from the neighbors.
@@ -184,6 +184,10 @@ Best Path Algorithm:
      -> ip route 0.0.0.0 0.0.0.0 192.0.2.1 name STRIP_AS_PATH_INFORMATION
      -> network 0.0.0.0
      -> an AS_PATH of 123 234 345 456 567 becomes 100
+     
+     -> aggregate-address with as-set
+     -> causes the path information from the longer prefixes will be summarized in a set, 300 {200,100}
+     -> aggregate-address 10.11.0.0 255.255.0.0 summary-only as-set
 
 
  5.  ORIGIN
