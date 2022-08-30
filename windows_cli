@@ -1,4 +1,4 @@
-```powershell
+```
 ! computer name
 hostname
 [System.NET.DNS]::GetHostByName('')
