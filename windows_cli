@@ -1,3 +1,4 @@
+```powershell
 ! computer name
 hostname
 [System.NET.DNS]::GetHostByName('')
@@ -205,4 +206,4 @@ wusa.exe /uninstall /kb:2693643 /quiet /norestart
 
 ! find executables
 dir /s /b .exe | find /i /v ".exe."
-
+```
