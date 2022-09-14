@@ -2,3 +2,6 @@
 ! Command is considered a bug in CSCty07275
 ! The fix created bug CSCus97711, because the command stopped working
 filesys delete /var/tmp/somesuperlarge.log
+
+! md5sum
+show file bootflash:n7700-s2-kickstart.7.3.0.DX.1.bin md5sum
