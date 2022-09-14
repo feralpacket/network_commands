@@ -1,2 +1,3 @@
 ! Have a file that doesn't respond to the delete command
+! Command is considered a bug in CSCty07275
 filesys delete /var/tmp/somesuperlarge.log
