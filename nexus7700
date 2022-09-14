@@ -1,3 +1,4 @@
 ! Have a file that doesn't respond to the delete command
 ! Command is considered a bug in CSCty07275
+! The fix created bug CSCus97711, because the command stopped working
 filesys delete /var/tmp/somesuperlarge.log
