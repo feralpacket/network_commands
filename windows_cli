@@ -35,6 +35,8 @@ nslookup cnn.com
 resolve-dnsname -name cnn.com
 get-dnsclientcache
 get-dnsclientcache | select entry,data | where {$_.entry -like "*feralpacket*"}
+get-dnsclientcache -name *feralpacket*
+get-dnsclientcache -name *feralpacket* | format-table -autosize
 
 ! routing table
 netsh interface ipv4 show route
