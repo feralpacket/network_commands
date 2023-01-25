@@ -135,7 +135,7 @@ get-adprincipalgroupmembership feralpacket | select name
 get-adcomputer -identity heimdallr
  - Enabled
 get-adprincipalgroupmembership feralpacket | select name | where-object {$_.name -like "*fs*"}
-get-adgroupmember fs_hldept_IS_Telecomm_RO | select name
+get-adgroupmember feralpacket_group_ro | select name
 
 get-adcomputer -identity heimdallr -properties *
 
