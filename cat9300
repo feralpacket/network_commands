@@ -34,15 +34,6 @@ verify /md5 flash:cat9k_iosxe.17.03.05.SPA.bin
 Switch: SWITCH_IGNORE_STARTUP_CFG=1
 Switch: boot
 
-! why doesn't tacacs work?  
-! what are these weird %SESSION_MGR-5-FAIL log messages on the trunk link?  
-! why is there a policy on the trunk interface when running "sh access-session int gi1/0/48 detail"?
-! how is the policy PMAP_DefaultWiredDot1xOpenAuth_MAB_1X getting set?  "sh run int gi1/0/48" and "sh derived-config int gi1/0/48" doesn't show any AAA configuration?
-int gi1/0/48
-  no access-session monitor
-
-
-
 
 # copy start run
 # conf t
@@ -179,3 +170,11 @@ archive
   hidekeys
 !
 sh archive log config all
+
+! why doesn't tacacs work?  
+! what are these weird %SESSION_MGR-5-FAIL log messages on the trunk link?  
+! why is there a policy on the trunk interface when running "sh access-session int gi1/0/48 detail"?
+! how is the policy PMAP_DefaultWiredDot1xOpenAuth_MAB_1X getting set?  "sh run int gi1/0/48" and "sh derived-config int gi1/0/48" doesn't show any AAA configuration?
+int gi1/0/48
+  no access-session monitor
+ 
