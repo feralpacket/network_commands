@@ -211,3 +211,9 @@ wusa.exe /uninstall /kb:2693643 /quiet /norestart
 
 ! find executables
 dir /s /b .exe | find /i /v ".exe."
+
+! SHA1 hash of a file
+certutil -hashfile cat9k_iosxe.17.03.06.SPA.bin
+
+! MD5 hash of a file
+certutil -hashfile cat9k_iosxe.17.03.06.SPA.bin MD5
