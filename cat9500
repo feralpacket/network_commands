@@ -73,5 +73,30 @@ P 0.0.0.0/0, 1 successors, FD is 28416, tag is 12345, serno 4431798, Stats m(22)
   c = count of times active state was entered
 
 ! MPLS testing
-! MPLS testing
 show mpls forwarding exact-route label 100 ipv4 source 192.0.2.2 destination 192.0.2.1 detail
+
+! SDP - Stack Discovery Protocol
+! LMP - Link Management Protocol
+!   L2 traffic to maintain the SVL
+! FSS - Front Side Stack - another name for StackWise Virtual
+! Nif-mgr = Network Interface Manager
+! FED = Forward Engine Driver
+sh platform software fed switch active fss counters
+
+! 
+sh errdisable flap-values
+
+! 
+sh romvar
+
+!
+sh plat hard fed swi active qos queue stats internal cpu policer
+
+!
+sh plat soft infrastructure lsmpi
+sh plat soft infrastructure lsmpi punt
+sh plat soft infrastructure lsmpi punt | ex 0              0              0              0              0              0
+
+
+
+
