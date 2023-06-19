@@ -82,6 +82,8 @@ show mpls forwarding exact-route label 100 ipv4 source 192.0.2.2 destination 192
 ! Nif-mgr = Network Interface Manager
 ! FED = Forward Engine Driver
 sh platform software fed switch active fss counters
+sh platform software fed switch active fss err-pkt-counters latency
+sh platform software fed switch active fss err-pkt-counters seqerr
 
 ! 
 sh errdisable flap-values
