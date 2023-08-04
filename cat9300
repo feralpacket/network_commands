@@ -178,3 +178,13 @@ sh archive log config all
 int gi1/0/48
   no access-session monitor
  
+! pause or sleep when bouncing an interface
+term shell
+!
+int gi1/0/1
+ shutdown
+ switch access vlan 2
+ sleep 5
+ no shutdown
+
+
