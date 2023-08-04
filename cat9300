@@ -181,6 +181,8 @@ int gi1/0/48
 ! pause or sleep when bouncing an interface
 term shell
 !
+conf t
+!
 int gi1/0/1
  shutdown
  switch access vlan 2
