@@ -179,9 +179,7 @@ int gi1/0/48
   no access-session monitor
  
 ! pause or sleep when bouncing an interface
-term shell
-!
-conf t
+shell processing full
 !
 int gi1/0/1
  shutdown
