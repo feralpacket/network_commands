@@ -9,5 +9,5 @@ int gi0/0/0
 end
 !
 !
-sh flow monitor NETFLOWOUT cache soft highest counter packets top 30 format table
+sh flow monitor NETFLOWOUT cache sort highest counter packets top 30 format table
 !
