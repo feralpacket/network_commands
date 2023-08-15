@@ -1,13 +1,19 @@
 ! The flexible netflow equivalent of the old ip flow top-talkers
-flow monitor NETFLOWOUT
- des Monitor IPv4 Flows
+flow monitor NETFLOW_OUTPUT
+ des Monitor IPv4 Output Flows
  record netflow ipv4 original-output
 !
+flow monitor NETFLOW_INPUT
+ des Monitor IPv4 Input Flows
+ record netflow ipv4 original-input
+!
 int gi0/0/0
- ip flow monitor NETFLOWOUT output
+ ip flow monitor NETFLOW_OUTPUT output
+ ip flow monitor NETFLOW_INPUT input
 !
 end
 !
 !
-sh flow monitor NETFLOWOUT cache sort highest counter packets top 30 format table
+sh flow monitor NETFLOW_OUTPUT cache sort highest counter packets top 30 format table
+sh flow monitor NETFLOW_INPUT cache sort highest counter bytes top 20 format table
 !
