@@ -83,3 +83,9 @@ no locator-led chassis
 ! - to 0026.0bf1.fxxx
 ! - where xxx is the VPC number in hex
 mac-address bpdu source version 2
+
+! just the IP addresses, for 3 digit Vlans
+sh ip int bri | cut -d " " -f 15
+
+! just the IP addresses, for 4 digit Vlans
+sh ip int bri | cut -d " " -f 16
