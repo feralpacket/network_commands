@@ -187,4 +187,8 @@ int gi1/0/1
  sleep 5
  no shutdown
 
+! clear stack-port counters
+sh switch stack-port detail
+clear counters
+
 
