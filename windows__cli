@@ -56,11 +56,13 @@ get-netneighbor -addressfamily ipv4
 netsh dhcp show server
 ipconfig /release
 ipconfig /renew
+ipconfig /displaydns
 ipconfig /registerdns
 
 ! dns
 nslookup cnn.com
 resolve-dnsname -name cnn.com
+ipconfig /flushdns
 
 ! MTU
 netsh interface ipv4 show subinterfaces
