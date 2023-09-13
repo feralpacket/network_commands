@@ -31,6 +31,7 @@ ipconfig /all
 get-dnsclientserveraddress
 ipconfig /registerdns
 ipconfig /displaydns
+ipconfig /flushdns
 nslookup cnn.com
 resolve-dnsname -name cnn.com
 get-dnsclientcache
@@ -58,11 +59,6 @@ ipconfig /release
 ipconfig /renew
 ipconfig /displaydns
 ipconfig /registerdns
-
-! dns
-nslookup cnn.com
-resolve-dnsname -name cnn.com
-ipconfig /flushdns
 
 ! MTU
 netsh interface ipv4 show subinterfaces
