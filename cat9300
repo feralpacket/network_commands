@@ -179,6 +179,9 @@ int gi1/0/48
   no access-session monitor
  
 ! pause or sleep when bouncing an interface
+! note:  leaving this configured all of the time can cause problems.  if you try to configure something with a password or
+! key later, say because you are updating the RADIUS and TACACS keys, the $ (dollar sign) will be interpreted by the shell
+! processing as a variable.  have fun figuring out why your new RADIUS and TACACS key doesn't work.
 shell processing full
 !
 int gi1/0/1
@@ -188,6 +191,7 @@ int gi1/0/1
  no shutdown
 
 ! clear stack-port counters
+! CLEAR ALL THE THINGS!  meme
 sh switch stack-port detail
 clear counters
 
@@ -200,8 +204,8 @@ switch 1 stack port 1 disable
 ! reload command, the console port, and switch stacks
 ! the reload command will cause another switch in the stack to become the active switch and then reload the entire stack.
 ! the new active switch will remain the active switch even after the reload, ignoring any switch priority configuration.
-! annoying, right?  this means you lose console access to the switch stack until you or someone else can move the console
-! cable to the active switch.
+! annoying, right?  (note:  this behavior is probably IOS XE version specific )  this means you lose console access to 
+! the switch stack until you or someone else can move the console cable to the active switch.
 ! fix, use the redundacy reload shelf command
 cat03--#reload
 Reload command is being issued on Active unit, this will reload the whole stack
