@@ -181,8 +181,9 @@ int gi1/0/48
  
 ! pause or sleep when bouncing an interface
 ! note:  leaving this configured all of the time can cause problems.  if you try to configure something with a password or
-! key later, say because you are updating the RADIUS and TACACS keys, the $ (dollar sign) will be interpreted by the shell
-! processing as a variable.  have fun figuring out why your new RADIUS and TACACS key doesn't work.
+! key later, say because you are updating the RADIUS and TACACS keys, and the key had a $ (dollar sign) int it,
+! it will be interpreted by the shell processing as a variable.  
+! have fun figuring out why your new RADIUS and TACACS key doesn't work.
 shell processing full
 !
 int gi1/0/1
