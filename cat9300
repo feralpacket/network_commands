@@ -191,4 +191,44 @@ int gi1/0/1
 sh switch stack-port detail
 clear counters
 
+! have that annoying stack cable with lots of CRC errors because the onsite tech didn't seat the cable properly?
+! disable the stack port until they can go back and fix it.  helps keep the switches in the switch stack from
+! unexpectedly reloading on their own.
+! interestingly, the CRC errors will still increase even though the stack port is down.  even if you disable both ends of the cable.
+switch 1 stack port 1 disable
+
+! reload command, the console port, and switch stacks
+! the reload command will cause another switch in the stack to become the active switch and then reload the entire stack.
+! the new active switch will remain the active switch even after the reload, ignoring any switch priority configuration.
+! annoying, right?  this means you lose console access to the switch stack until you or someone else can move the console
+! cable to the active switch.
+! fix, use the redundacy reload shelf command
+cat03--#reload
+Reload command is being issued on Active unit, this will reload the whole stack
+Proceed with reload? [confirm]
+
+Chassis 1 relo
+The network connection was aborted by the local system.  <-- This is a console server message.
+
+cat9300#redundancy reload shelf 
+Reload the entire shelf [confirm]
+Preparing to reload this shelf
+
+Chassis 2 reloading, reason - Reload command
+Sep 21 11:49:59.621: %PMAN-5-EXITACTION: F0/0: pvp: Process manager is exiting: reload fp action requested
+Sep 21 11:50:01.903
+
+
+Initializing Hardware......  <-- Look ma, normal bootup messages.
+
+! The reload reason will change in the output of sh logging onboard switch 1 uptime detail
+! reload command
+cat9300#sh logging onboard switch 1 uptime detail 
+. . .
+12/31/2023 13:37:00   Reload Command                0     0     1     17    0  
+
+! redundancy reload shelf command
+cat9300#sh logging onboard switch 1 uptime detail 
+. . .
+12/31/2023 00:13:37   Admin reload CLI              0     0     1     17    0  
 
