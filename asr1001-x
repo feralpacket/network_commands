@@ -17,3 +17,6 @@ end
 sh flow monitor NETFLOW_OUTPUT cache sort highest counter packets top 30 format table
 sh flow monitor NETFLOW_INPUT cache sort highest counter bytes top 20 format table
 !
+
+! transceiver information
+sh hw-module interface gi0/0/5 transceiver idprom detail
