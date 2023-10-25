@@ -22,3 +22,6 @@ sh flow monitor NETFLOW_INPUT cache sort highest counter bytes top 20 format tab
 sh hw-module interface gi0/0/5 transceiver idprom detail
 sh inv
 sh hw-module subslot 0/0 transceiver 2 idprom detail
+
+! reload reason history
+sh redundancy history reload
