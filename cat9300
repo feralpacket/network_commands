@@ -238,3 +238,8 @@ cat9300#sh logging onboard switch 1 uptime detail
 . . .
 12/31/2023 00:13:37   Admin reload CLI              0     0     1     17    0  
 
+! using SSH to see if there are out of order packets
+sh tcp brief
+sh tcp tcb OU812  ! use the TCB of your SSH session
+sh tcp statictics
+
