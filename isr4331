@@ -61,3 +61,9 @@ sh ip tcp adjust stats interface gi0/0/0
 ! reload / reset reason
 sh logging onboard uptime
 
+! datapath packet trace
+debug platform packet-trace packet 2048 circular fia-trace data-size 2048
+debug platform packet-trace copy packet both size 2048 L3
+debug platform condition ipv4 192.0.2.1/32 in
+debug platform condition start
+
