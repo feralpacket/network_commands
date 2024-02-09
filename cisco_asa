@@ -59,3 +59,9 @@ sh asp table socket | in SSL|DTLS
 ! multi-context ASA
 changeto system
 show context
+
+! login history
+conf t
+aaa authentication login-history
+end
+sh aaa login-history
