@@ -99,6 +99,9 @@ sh plat soft infrastructure lsmpi
 sh plat soft infrastructure lsmpi punt
 sh plat soft infrastructure lsmpi punt | ex 0              0              0              0              0              0
 
+! want to eject a USB drive, use this easy and intuitive command
+test platform hardware slot switch 1 r0 usb usbtoken 0 remove 
 
-
+! this command will unmount the SSD, if you have one installed
+hw-module switch 1 usbflash1 unmount
 
