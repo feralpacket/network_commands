@@ -243,3 +243,6 @@ sh tcp brief
 sh tcp tcb OU812  ! use the TCB of your SSH session
 sh tcp statictics
 
+! cpu utilization
+sh process cpu platform monitor
+sh platform software process slot switch 2 r0 monitor
