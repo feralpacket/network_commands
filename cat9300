@@ -246,3 +246,7 @@ sh tcp statictics
 ! cpu utilization
 sh process cpu platform monitor
 sh platform software process slot switch 2 r0 monitor
+
+! LED colors
+sh hardware led
+sh hardware led stack 2
