@@ -65,3 +65,12 @@ conf t
 aaa authentication login-history
 end
 sh aaa login-history
+
+! deny logins if a group is not specified
+group-policy DfltGrpPolicy attributes
+ vpn-simultaneous-logins 0
+
+! disable clientless SSL logins
+webvpn
+ keepout "503: Service Unavailable"
+
