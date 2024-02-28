@@ -1,6 +1,7 @@
 ! TCAM
 sh platform tcam utilization
 
+! did you know 2960x switches have EEE enabled by default?  I didn't.
 ! disable energy efficient ethernet ( EEE ) 
 ! 802.3az
 int gi1/0/1
