@@ -1,2 +1,7 @@
 ! TCAM
 sh platform tcam utilization
+
+! disable energy efficient ethernet ( EEE ) 
+! 802.3az
+int gi1/0/1
+ no power efficient-ethernet
