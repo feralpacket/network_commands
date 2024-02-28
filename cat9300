@@ -247,7 +247,7 @@ sh tcp statictics
 sh process cpu platform monitor
 sh platform software process slot switch 2 r0 monitor
 
-! display LED colors
+! display system and port LED colors
 sh hardware led
 sh hardware led stack 2
 
