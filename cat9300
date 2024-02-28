@@ -247,6 +247,18 @@ sh tcp statictics
 sh process cpu platform monitor
 sh platform software process slot switch 2 r0 monitor
 
-! LED colors
+! display LED colors
 sh hardware led
 sh hardware led stack 2
+
+! PoE features
+! allow class 4 devices to request up to 30W without CDP or LLDP
+! enable persistent PoE
+! enable fast PoE
+int gi1/0/1
+ power inline port 2-event
+ power inline port perpetual-poe-ha
+ power inline port poe-ha
+ shut
+ no shut
+
