@@ -2,6 +2,8 @@
 sh platform tcam utilization
 
 ! did you know 2960x switches have EEE enabled by default?  I didn't.
+! it was the root cause for PoE powered RaspberryPis that would just stop responding.
+! make sure it's disabled on the RaspberryPis too.
 ! disable energy efficient ethernet ( EEE ) 
 ! 802.3az
 int gi1/0/1
