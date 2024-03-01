@@ -105,3 +105,5 @@ test platform hardware slot switch 1 r0 usb usbtoken 0 remove
 ! this command will unmount the SSD, if you have one installed
 hw-module switch 1 usbflash1 unmount
 
+! get rid of those output drops
+qos queue-softmax-multiplier 4800
