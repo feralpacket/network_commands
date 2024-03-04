@@ -106,6 +106,7 @@ test platform hardware slot switch 1 r0 usb usbtoken 0 remove
 hw-module switch 1 usbflash1 unmount
 
 ! get rid of those output drops
+sh int | in TwentyFive|HundredG|Port-channel|drops: [1-9]
 sh int | in (TwentyFive|HundredG|Port-channel).*connected|drops: [1-9]
 conf t
   qos queue-softmax-multiplier 4800
