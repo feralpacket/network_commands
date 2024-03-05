@@ -124,12 +124,9 @@ flow record NETFLOW_INPUT_RECORD
  match ipv4 ttl
  match interface input
  match flow direction
- collect interface output
  collect counter bytes long
  collect counter packets long
  collect transport tcp flags
- collect timestamp absolute first
- collect timestamp absolute last
 !
 flow record NETFLOW_OUTPUT_RECORD
  match ipv4 protocol
@@ -141,12 +138,9 @@ flow record NETFLOW_OUTPUT_RECORD
  match ipv4 ttl
  match interface output
  match flow direction
- collect interface output
  collect counter bytes long
  collect counter packets long
  collect transport tcp flags
- collect timestamp absolute first
- collect timestamp absolute last
 !
 flow monitor NETFLOW_INPUT_MONITOR
  record NETFLOW_INPUT_RECORD
