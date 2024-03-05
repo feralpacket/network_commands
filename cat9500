@@ -112,3 +112,64 @@ conf t
   qos queue-softmax-multiplier 4800
 end
 clear couters
+
+! flexible netflow configuration equilalent to show top talkers
+flow record NETFLOW_INPUT_RECORD
+ match ipv4 protocol
+ match ipv4 source address
+ match ipv4 destination address
+ match transport source-port
+ match transport destination-port
+ match ipv4 tos
+ match ipv4 ttl
+ match interface input
+ match flow direction
+ collect interface output
+ collect counter bytes long
+ collect counter packets long
+ collect transport tcp flags
+ collect timestamp absolute first
+ collect timestamp absolute last
+!
+flow record NETFLOW_OUTPUT_RECORD
+ match ipv4 protocol
+ match ipv4 source address
+ match ipv4 destination address
+ match transport source-port
+ match transport destination-port
+ match ipv4 tos
+ match ipv4 ttl
+ match interface output
+ match flow direction
+ collect interface output
+ collect counter bytes long
+ collect counter packets long
+ collect transport tcp flags
+ collect timestamp absolute first
+ collect timestamp absolute last
+!
+flow monitor NETFLOW_INPUT_MONITOR
+ record NETFLOW_INPUT_RECORD
+!
+flow monitor NETFLOW_OUTPUT_MONITOR
+ record NETFLOW_OUTPUT_RECORD
+!
+int hu1/0/49
+ ip flow monitor NETFLOW_INPUT_MONITOR input
+ ip flow monitor NETFLOW_OUTPUT_MONITOR output
+!
+int hu1/0/51
+ ip flow monitor NETFLOW_INPUT_MONITOR input
+ ip flow monitor NETFLOW_OUTPUT_MONITOR output
+
+!
+sh flow monitor NETFLOW_INPUT_MONITOR cache sort highest counter bytes long format table 
+sh flow monitor NETFLOW_OUTPUT_MONITOR cache sort highest counter bytes long format table
+
+
+! top-n
+collect top counters interface all soft-by bytes
+!
+sh top counters interface report 1
+!
+clear top counters interface report
