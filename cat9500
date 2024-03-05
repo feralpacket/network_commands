@@ -113,7 +113,7 @@ conf t
 end
 clear couters
 
-! flexible netflow configuration equilalent to show top talkers
+! the flexible netflow equivalent of the old ip flow top-talkers
 flow record NETFLOW_INPUT_RECORD
  match ipv4 protocol
  match ipv4 source address
