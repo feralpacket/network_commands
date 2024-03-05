@@ -21,12 +21,15 @@ sh platform hardware fed switch 3 fwd-asic register read register-name SifRacPcs
 sh platform hardware fed switch 3 fwd-asic register read register-name SifMessageStatus
 sh platform software stack-mgr switch 3 r0 sdp-counters 
 
+
 ! stack discovery protocol counters
 sh platform software stack-mgr switch active R0 sdp-counters
+
 
 ! verify images
 verify flash:cat9k_iosxe.17.03.05.SPA.bin
 verify /md5 flash:cat9k_iosxe.17.03.05.SPA.bin
+
 
 ! password recovery
 ! Hold mode button, release -> rommon
@@ -39,34 +42,44 @@ Switch: boot
 # conf t
 (config)# no system ignore startupconfig switch all
 
+
 ! DNS information
 sh ip dns view
+
 
 ! parser_cmd logs
 sh platform software trace message ios switch 1 r0 | in parser_cmd
 show logging process iosrp | in parser_cmd
 
+
 ! is traffic being evenly distributed across the physical interfaces in an etherchannel?
 ! probably not
 sh interfaces po1 counters ethernet
 
+
 ! test etherchannel load-balancing
 sh platform software fed switch active etherchannel 1 load-balance ipv4 192.0.2.2 192.0.2.1 
+
 
 ! test ECMP load-balancing
 show ip cef exact-route 192.0.2.2 192.0.2.1
 
+
 ! auto-LAG
 port-channel auto
+
 
 ! identify connected devices
 sh device classifier attached
 
+
 ! device classifier profiles
 sh device classifier profile type builtin
 
+
 ! device-tracking
 sh device-tracking database details
+
 
 ! use a switch to do an snmp get on another switch
 ! OID for whyReload
@@ -76,31 +89,40 @@ cat9300# snmp get v2c 198.51.100.20 cisco oid 1.3.6.1.4.1.9.2.1.2.0
 SNMP Response: reqid 1, errstat 0, erridx 0 
  lsystem.2.0 = PowerOn
 
+
 ! list TCAM utilization
 sh platform hardware fed switch 1 fwd-asic resource tcam utilization 
+
 
 ! my favorite uptime and reload reason command
 sh logging onboard switch 1 uptime detail
 
+
 ! IOS 17
 show tech-support confidential
+
 
 ! list some of the hidden show commands
 ! there are quite a few things under show platform that need TAC or BU documentation
 show tech-support all | include "show "
 
+
 ! list interfaces with drops
 cat9300# term shell
 cat9300# sh int | grep "GigabitEthernet|output drops" | grep -v "drops: 0"
 
+
 ! interface up / down time information
 sh int gi1/0/7 link
+
 
 ! list the number of times an interface has flapped, divide result by 2
 sh logging | count 2/0/40.*(up|down)
 
+
 ! stack cables have serial numbers
 show logging onboard switch active environment detail | in STACK
+
 
 ! commands TAC had me run to verify a memory leak bug
 terminal length 0
@@ -120,8 +142,10 @@ show logging
 show platform software memory smd switch active r0 brief
 !
 
+
 ! information collected by device-sensor
 sh device-sensor cache interface gi1/0/7
+
 
 ! cat9k beacon
 ! turn on the super bright blue LED for the hardware team
@@ -129,14 +153,17 @@ hw-module beacon slot 1 on
 sh beacon all
 hw-module beacon slot 1 off
 
+
 ! spanning tree problems, lots of topolgy changes
 sh span de | in ^ VLAN|Times:
+
 
 ! punted packets
 sh plat software fed swi act punt cause summary
 sh plat software fed swi act punt rates interfaces 
 sh plat software fed swi act punt packet-capture status
 sh plat software fed swi act cpu-interface
+
 
 ! cts
 sh cts
@@ -146,12 +173,14 @@ sh cts authorization entries
 sh cts policy sgt
 sh derived-config | se cts
 
+
 ! it's interesting to see the changes in the file structure with the different IOS versions
 show platform software chasfs r0
 
 ! this use to work at some point
 ! someone is fixing their file permissions
 sh platform software file contents r0 /tmp/chassis/local/rp/chasfs/rp/0/0/etc/issue
+
 
 ! log logins
 conf t
@@ -160,6 +189,7 @@ conf t
  end
 !
 sh login failures
+
 
 ! log config changes, also needed for the revert timer
 archive
@@ -171,6 +201,7 @@ archive
 !
 sh archive log config all
 
+
 ! why doesn't tacacs work?  
 ! what are these weird %SESSION_MGR-5-FAIL log messages on the trunk link?  
 ! why is there a policy on the trunk interface when running "sh access-session int gi1/0/48 detail"?
@@ -178,7 +209,8 @@ sh archive log config all
 ! and "sh derived-config int gi1/0/48" doesn't show any AAA configuration?
 int gi1/0/48
   no access-session monitor
- 
+
+
 ! pause or sleep when bouncing an interface
 ! note:  leaving this configured all of the time can cause problems.  if you try to configure something with a password or
 ! key later, say because you are updating the RADIUS and TACACS keys, and the key had a $ (dollar sign) int it,
@@ -192,16 +224,19 @@ int gi1/0/1
  sleep 5
  no shutdown
 
+
 ! clear stack-port counters
 ! CLEAR ALL THE THINGS!  meme
 sh switch stack-port detail
 clear counters
+
 
 ! have that annoying stack cable with lots of CRC errors because the onsite tech didn't seat the cable properly?
 ! disable the stack port until they can go back and fix it.  helps keep the switches in the switch stack from
 ! unexpectedly reloading on their own.
 ! interestingly, the CRC errors will still increase even though the stack port is down.  even if you disable both ends of the cable.
 switch 1 stack port 1 disable
+
 
 ! reload command, the console port, and switch stacks
 ! the reload command will cause another switch in the stack to become the active switch and then reload the entire stack.
@@ -233,23 +268,28 @@ cat9300#sh logging onboard switch 1 uptime detail
 . . .
 12/31/2023 13:37:00   Reload Command                0     0     1     17    0  
 
+
 ! redundancy reload shelf command
 cat9300#sh logging onboard switch 1 uptime detail 
 . . .
 12/31/2023 00:13:37   Admin reload CLI              0     0     1     17    0  
+
 
 ! using SSH to see if there are out of order packets
 sh tcp brief
 sh tcp tcb OU812  ! use the TCB of your SSH session
 sh tcp statictics
 
+
 ! cpu utilization
 sh process cpu platform monitor
 sh platform software process slot switch 2 r0 monitor
 
+
 ! display system and port LED colors
 sh hardware led
 sh hardware led stack 2
+
 
 ! PoE features
 ! allow class 4 devices to request up to 30W without CDP or LLDP
@@ -261,4 +301,52 @@ int gi1/0/1
  power inline port poe-ha
  shut
  no shut
+
+
+! the flexible netflow equivalent of the old ip flow top-talkers
+flow record NETFLOW_INPUT_RECORD
+ match ipv4 protocol
+ match ipv4 source address
+ match ipv4 destination address
+ match transport source-port
+ match transport destination-port
+ match ipv4 tos
+ match ipv4 ttl
+ match interface input
+ match flow direction
+ collect counter bytes long
+ collect counter packets long
+ collect transport tcp flags
+!
+flow record NETFLOW_OUTPUT_RECORD
+ match ipv4 protocol
+ match ipv4 source address
+ match ipv4 destination address
+ match transport source-port
+ match transport destination-port
+ match ipv4 tos
+ match ipv4 ttl
+ match interface output
+ match flow direction
+ collect counter bytes long
+ collect counter packets long
+ collect transport tcp flags
+!
+flow monitor NETFLOW_INPUT_MONITOR
+ record NETFLOW_INPUT_RECORD
+!
+flow monitor NETFLOW_OUTPUT_MONITOR
+ record NETFLOW_OUTPUT_RECORD
+!
+int te1/1/1
+ ip flow monitor NETFLOW_INPUT_MONITOR input
+ ip flow monitor NETFLOW_OUTPUT_MONITOR output
+!
+int te2/1/1
+ ip flow monitor NETFLOW_INPUT_MONITOR input
+ ip flow monitor NETFLOW_OUTPUT_MONITOR output
+
+!
+sh flow monitor NETFLOW_INPUT_MONITOR cache sort highest counter bytes long format table 
+sh flow monitor NETFLOW_OUTPUT_MONITOR cache sort highest counter bytes long format table
 
