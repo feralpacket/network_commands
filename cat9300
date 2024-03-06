@@ -353,6 +353,7 @@ sh flow monitor NETFLOW_OUTPUT_MONITOR cache sort highest counter bytes long for
 
 ! reload a switch faster
 reload fast
+sh reloadfast status
 
 
 ! install software faster
