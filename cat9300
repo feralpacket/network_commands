@@ -350,3 +350,11 @@ int te2/1/1
 sh flow monitor NETFLOW_INPUT_MONITOR cache sort highest counter bytes long format table 
 sh flow monitor NETFLOW_OUTPUT_MONITOR cache sort highest counter bytes long format table
 
+
+! reload a switch faster
+reload fast
+
+
+! install software faster
+install add file flash:image.bin activate reloadfast commit
+
