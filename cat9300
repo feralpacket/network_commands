@@ -359,3 +359,18 @@ sh reloadfast status
 ! install software faster
 install add file flash:image.bin activate reloadfast commit
 
+
+! logging
+! 128MB total / 1MB filesize to crashinfo:/syslog
+! the system management configuration guide, cisco ios xe 17.x said the default url is bootflash:/syslog
+! without specifying the url, the logging persistent command uses crashinfo:/syslog
+! crashinfo: is approximately 1574MB total, 1475MB free on the switches I checked
+logging persistent size 134217728 filesize 1049576
+! 2MB to memory / informational
+logging buffered 2097152 6
+! disable logging to the console port
+no logging console
+
+!
+sh process memory | in Logger|Syslog
+
