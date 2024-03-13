@@ -4,6 +4,7 @@ hw-module subslot 0/2 oir power-cycle
 hw-module subslot 0/2 stop
 sh hw-module subslot 0/2 oir
 
+
 ! 4G LTE NIM
 sh cellular 0/2/0 all
 sh running-config | swe Cellular
@@ -11,8 +12,10 @@ sh running-config controller cellular 0/2/0
 sh ip route | in Cellular
 sh int cellular 0/2/0
 
+
 ! show transceiver RX and TX power
 sh hw-module subslot 0/0 transceiver 0 status
+
 
 ! embedded packet capture
 monitor capture CAP interface GigabitEthernet0/0/1 both
@@ -23,6 +26,7 @@ show monitor capture CAP buffer brief
 show monitor capture CAP buffer detailed 
 monitor capture CAP export tftp://10.0.0.1/CAP.pcap
 no monitor capture CAP
+
 
 ! MLPPP links
 show hw-module subslot 0/2 oir
@@ -39,11 +43,14 @@ show controllers T1 0/2/1
 show controllers T1 0/2/2
 show controllers T1 0/2/3
 
+
 ! sd-wan reload history
 show sdwan reboot history
 
+
 ! why did it take me so long to learn this?
 logging dmvpn
+
 
 ! sdwan stuff
 sh sdwan policy from-vsmart
@@ -55,15 +62,52 @@ sh sdwan bfd history
 sh sdwan control connections
 sh sdwan control connection-history
 
+
 ! tcp adjust-mss status
 sh ip tcp adjust stats interface gi0/0/0
 
+
 ! reload / reset reason
 sh logging onboard uptime
+
 
 ! datapath packet trace
 debug platform packet-trace packet 2048 circular fia-trace data-size 2048
 debug platform packet-trace copy packet both size 2048 L3
 debug platform condition ipv4 192.0.2.1/32 in
 debug platform condition start
+
+
+! troubleshooting BFD with TAC
+show sdwan bfd sessions | se down
+
+debug platform condition ipv4 192.0.2.1/32 both
+debug platform packet-trace packet 2048 circular fia-trace data-size 2048
+debug platform condition start
+
+ping 192.0.2.1 repeat 50 dscp 48
+
+show platform packet-trace summary 
+debug with debug platform condition stop
+
+show platform packet-trace summary | redirect bootflash:packetsummaryrouterA.txt
+show platform packet-trace packet all decode | append bootflash:packetdecoderouterA.txt
+
+show sdwan tunnel statistics | sec 192.0.2.1
+show sdwan tunnel statistics bfd
+show platform hardware qfp active feature bfd datapath sdwan summary
+show sdwan tunnel statistics table
+show sdwan omp tlocs table
+show crypto ipsec sa peer 192.0.2.1
+
+debug ftm bfd
+debug platform software sdwan ftm bfd
+debug crypto isakmp
+debug crypto ipsec
+
+monitor capture  CAP match ipv4 host 192.0.2.1 host 192.0.2.2 buffer circular size 20 interface GigabitEthernet0/0/0 both
+monitor capture cap CAP start
+show monitor cap CAP buffer brief
+
+monitor capture CAP export bootflash:routerA.pcap
 
