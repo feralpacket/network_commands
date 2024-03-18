@@ -374,3 +374,7 @@ no logging console
 !
 sh process memory | in Logger|Syslog
 
+
+! turn your expensive switch into a dumb hub
+no mac address-table learning vlan 1-4094
+
