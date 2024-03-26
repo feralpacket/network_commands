@@ -32,8 +32,11 @@ Spanning-tree Protocol (STP):
      4.  Lowest sender port ID
  - Root Bridge
      -> Lowest bridge ID
-         -> Switch priority + MAC address
-     -> Lowest priority selected
+         -> Switch priority ( 4 bits )  + extended system ID ( 12 bits ) + MAC address ( 48 bits )
+         -> Extended system ID is equal to the VLAN ID
+         -> Note:  Some documentation may have warnings about connecting to older switches that do not support the extended system ID
+         -> Note:  But the feature was added with IOS version 12.1(12c)EW on the Cisco 4500 swithes
+     -> Switch priority
          -> Default is 32768
          -> Range (increments of 4096)  0, 4096, 8192, 12288, 16384, 20480, 24576, 28672, 32768, 36864, 40960, 45056, 49152, 53248, 57344, and 61440
          -> SW1(config)#spanning-tree vlan 1-4094 root primary
