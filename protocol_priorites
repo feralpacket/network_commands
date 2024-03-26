@@ -295,6 +295,13 @@ Border Gateway Protocol (BGP):
          -> R1(config-router)#neighbor 1.1.1.1 route-map PREPEND out
  - ORIGIN
      -> Lowest type
+     -> IGP is better than EGP is better than INCOMPLETE
+     -> IGP
+          -> network command
+     -> EGP
+         -> Predecessor to BGP, support removed from IOS version 12.2 or 12.3, shouldn't exist
+     -> INCOMPLETE
+          -> redistribute command
  - Multi-Exit Discriminator (MED)
      -> Lowest value selected
      -> Default is 0 for received routes
