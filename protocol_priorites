@@ -61,7 +61,8 @@ Spanning-tree Protocol (STP):
              -> 100 Mb/s: 19
              -> 10 Mb/s: 100
              -> Range 1 to 65,536
-         -> Pastcost method long
+         -> Pathcost method long
+         -> Note:  MST uses pathcost method long
              -> 1 Tb/s: 20
              -> 100 Gb/s: 200
              -> 10 Gb/s: 2000
@@ -93,6 +94,8 @@ Spanning-tree Protocol (STP):
          -> Lowest cost path to the root bridge
          -> Lowest neighbor bridge ID
          -> Lowest received port-priority
+ - Switch stacks
+    -> Note to self:  Add switch stack STP weirdness
 
 Link Aggregation Control Protocol (LACP):
  - Master / Slave System Priority
