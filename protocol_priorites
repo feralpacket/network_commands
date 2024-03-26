@@ -34,6 +34,7 @@ Spanning-tree Protocol (STP):
      -> Lowest bridge ID
          -> Switch priority ( 4 bits )  + extended system ID ( 12 bits ) + MAC address ( 48 bits )
          -> Extended system ID is equal to the VLAN ID
+         -> The extended system ID is needed to use extended VLANs 1006 - 4094
          -> Note:  Some documentation may have warnings about connecting to older switches that do not support the extended system ID
          -> Note:  But the feature was added with IOS version 12.1(12c)EW on the Cisco 4500 swithes
      -> Switch priority
@@ -51,9 +52,9 @@ Spanning-tree Protocol (STP):
          -> Changes affect the local switch
          -> Cumulative cost to the root bridge
          -> Pathcost method short, default for older switches and IOS versions
-         -> Note:  The default method changed to long for Cisco 9300 switches with IOS XE 17.5.x.
-         -> Note:  With some Cisco 9500 switch models, the default method was changed to long with some IOS XE 16.x version.
-         -> Note:  Verify with the documentation for your switch model and IOS version.
+         -> Note:  The default method changed to long for Cisco 9300 switches with IOS XE 17.5.x
+         -> Note:  With some Cisco 9500 switch models, the default method was changed to long with some IOS XE 16.x version
+         -> Note:  Verify with the documentation for your switch model and IOS version
              -> Anything faster: 1
              -> 10 Gb/s: 2
              -> 1000 Mb/s: 4
