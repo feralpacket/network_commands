@@ -47,18 +47,24 @@ Spanning-tree Protocol (STP):
          -> Incremented as BPDUs are received
          -> Changes affect the local switch
          -> Cumulative cost to the root bridge
-         -> Default, pathcost method short
+         -> Default for older switches and IOS versions, pathcost method short
+         -> Note:  The default method changed to long for Cisco 9300 switches with IOS XE 17.5.x.
+         -> Note:  With some Cisco 9500 switch models, the default method was changed to long with some IOS XE 16.x version.
+         -> Note:  Verify with the documentation for your switch model and IOS version.
+             -> Anything faster: 1
              -> 10 Gb/s: 2
              -> 1000 Mb/s: 4
              -> 100 Mb/s: 19
              -> 10 Mb/s: 100
-             -> Range 1 to 65536
+             -> Range 1 to 65,536
          -> Pastcost method long
+             -> 1 Tb/s: 20
+             -> 100 Gb/s: 200
              -> 10 Gb/s: 2000
              -> 1000 Mb/s: 20,000
              -> 100 Mb/s: 200,000
              -> 10 Mb/s: 2,000,000
-             -> Range 1 to 200000000
+             -> Range 1 to 200,000,000
          -> SW1(config-if)#spanning-tree cost 3
          -> SW1(config-if)#spanning-tree vlan 1-4094 cost 3
          -> SW1(config-if)#spanning-tree mst 1 cost 3
