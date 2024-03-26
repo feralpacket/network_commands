@@ -5,6 +5,7 @@ Generally, but not always:
  - IGPs and layer 3
      -> Higher is better
      -> OSPF has an exception
+     -> Of course, LISP has to be different
  - BGP
      -> There is a high / low cutoff
  - Multicast
