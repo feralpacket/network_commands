@@ -8,6 +8,7 @@ Generally, but not always:
      -> Of course, LISP has to be different
  - BGP
      -> There is a high / low cutoff
+     -> Unless extcommunity cost pre-bestpath is configure
  - Multicast
      -> If the protocol has "Router" in the name, then higher is better
           -> Think "Router" -> "IGP"
@@ -260,6 +261,9 @@ Enhanced Interior Gateway Routing Protocol (EIGRP):
 
 
 Border Gateway Protocol (BGP):
+ - Extcommunity cost pre-bestpath
+     -> Lowest is best
+     -> Note-to-self:  Finish this
  - Weight
      -> Higher value selected
      -> Default is 0 for received routes
