@@ -71,7 +71,8 @@ Spanning-tree Protocol (STP):
          -> SW1(config)#spanning-tree pathcost method long
          -> SW1#sh spanning-tree pathcost method
  - Port ID
-     -> Port priority + interface number
+     -> Lowest Port ID to the root bridge
+     -> Port priority ( 4 bites ) + interface number ( 12 bites )
          -> Port priority
              -> Significant between two switches
              -> Used to affect the down stream switches selection of a root port
