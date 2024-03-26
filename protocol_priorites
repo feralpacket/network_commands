@@ -18,9 +18,9 @@ Generally, but not always:
         -> Used to select candidate prefixes that may be installed into the routing table
     -> Administrative distance
         -> Lowest preferred
-        -> Used to select the prefixes to be installed into the routing table
+        -> Used to select the prefixes from different routing protocols to be installed into the routing table
     -> Prefix length
-        -> Longer prefixes are preferred
+        -> Longer prefixes are preferred in the routing table
         -> Used in the forwarding process
 
 
