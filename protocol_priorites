@@ -284,8 +284,10 @@ Border Gateway Protocol (BGP):
          -> R1(config-router)#redistribute ospf 1 route-map LP match internal external 1 external 2
          -> R1(config-router)#network 1.1.1.0 mask 255.255.255.0 route-map LP
          -> R1(config-router)#aggregate-address 1.1.2.0 255.255.255.252 attribute-map LP
+
                     * * * * High / Low (or shortest) Cutoff * * * *
- - AS-PATH
+
+- AS-PATH
      -> Lowest number of organizations traversed is better
      -> Shortest
          -> R1(config)#route-map PREPEND permit 10
