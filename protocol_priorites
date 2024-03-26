@@ -59,7 +59,7 @@ Spanning-tree Protocol (STP):
              -> 100 Mb/s: 200,000
              -> 10 Mb/s: 2,000,000
              -> Range 1 to 200000000
-         -> SW1(config-if)#**spanning-tree cost 3**
+         -> SW1(config-if)#spanning-tree cost 3
          -> SW1(config-if)#spanning-tree vlan 1-4094 cost 3
          -> SW1(config-if)#spanning-tree mst 1 cost 3
          -> SW1(config)#spanning-tree pathcost method long
