@@ -287,7 +287,10 @@ Border Gateway Protocol (BGP):
 
                     * * * * High / Low (or shortest) Cutoff * * * *
 
-- AS-PATH
+ - Accumulated Interior Gateway Protocol (AIGP)
+     -> lowest is best
+     -> Note-to-self:  Finish this
+ - AS-PATH
      -> Lowest number of organizations traversed is better
      -> Shortest
          -> R1(config)#route-map PREPEND permit 10
