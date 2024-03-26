@@ -47,7 +47,7 @@ Spanning-tree Protocol (STP):
          -> Incremented as BPDUs are received
          -> Changes affect the local switch
          -> Cumulative cost to the root bridge
-         -> Default for older switches and IOS versions, pathcost method short
+         -> Pathcost method short, default for older switches and IOS versions
          -> Note:  The default method changed to long for Cisco 9300 switches with IOS XE 17.5.x.
          -> Note:  With some Cisco 9500 switch models, the default method was changed to long with some IOS XE 16.x version.
          -> Note:  Verify with the documentation for your switch model and IOS version.
