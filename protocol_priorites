@@ -126,6 +126,7 @@ Hot Standby Router Protocol (HSRP):
  - Highest priority selected
  - Default is 100
  - Range is 0 to 255
+ - HEY! ** 0 **, this is different
  - When tracking fails, priority is decreased by 10 by default
  - When multiple tracked interfaces are down and interface-priority values have been configured, the configured priority decrements are cumulative
  - If tracked interfaces that were not configured with priority values fail, the default decrement is 10, and it is noncumulative
