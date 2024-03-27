@@ -192,6 +192,8 @@ Intermediate System to Intermediate System (IS-IS):
          -> R1(config-if)#isis priority 65
          -> R1(config-if)#isis priority 65 level-1
          -> R1(config-if)#isis priority 65 level-2
+ - Local Unequal Cost Multipath (UCMP)
+     -> Note-to-self:  Finish this
 
 
 Open Shortest Path First (OSPF):
@@ -278,8 +280,8 @@ Enhanced Interior Gateway Routing Protocol (EIGRP):
          -> If a router-id is using the IP address of a loopback interface that is not loopback0 and loopback0 is later configured, NS-OX will change the router-id to the IP address of loopback0
              -> And cause the neighbor relationships to reset
  - Variance
-    -> Unequal cost path load-balancing
-    -> Note-to-self:  Finish this
+     -> Unequal cost path load-balancing
+     -> Note-to-self:  Finish this
 
 
 Border Gateway Protocol (BGP):
