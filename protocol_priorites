@@ -145,7 +145,9 @@ Virtual Router Redundancy Protocol (VRRP):
  - Highest priority selected
  - Default is 100
  - Range is 1 to 254
+ - HEY! ** 254 **, this is different
     -> SW1(config-if)#vrrp 1 priority 101
+    -> SW1(config-if)#vrrp 1 preempt delay minimum 30
  - If priority is the same, router with the highest configured IP address is selected
 
 
@@ -153,7 +155,12 @@ Gateway Load Balancing Protocol (GLBP):
  - Highest priority selected
  - Default is 100
  - Range is 1 to 255
+    -> SW1(config)#track 1 interface gi1/0/1 line-protocol
+    -> SW1(config)#track 2 interface gi1/0/2 ip routing
     -> SW1(config-if)#glbp 1 priority 101
+    -> SW1(config-if)#glbp 1 weighting track 1 decrement 2
+    -> SW1(config-if)#glbp 1 weighting track 2 decrement 2
+    -> SW1(config-if)#glbp 1 preempt delay minimum 31
  - If priority is the same, router with the highest configured IP address is selected
 
 
