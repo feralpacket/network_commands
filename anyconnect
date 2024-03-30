@@ -1,0 +1,3 @@
+! Anyconnect and Jabber will log session keys when the environment variable SSLKEYLOGFILE is set
+set SSLKEYLOGFILE=C:\Users\feralpacket\Desktop\sslkeylog.txt
+
