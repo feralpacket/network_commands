@@ -31,6 +31,7 @@ which
 
 ! reset reason
 sh system reset-reason
+sh logging onboard internal reset-reason
 
 ! BGP convergience information
 sh bgp convergence detail vrf all
