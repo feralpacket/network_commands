@@ -285,9 +285,19 @@ Enhanced Interior Gateway Routing Protocol (EIGRP):
 
 
 Border Gateway Protocol (BGP):
- - Extcommunity cost pre-bestpath
-     -> Lowest is best
-     -> Note-to-self:  Finish this
+ - Extended Community Cost, pre-best path
+     -> Lowest extended community cost is selected
+     -> Pre-best path point on insertion
+     -> Default is 2147483647
+     -> Range 0 and 4294967295
+         -> R1(config)#route-map EXTCOMMCOST_PRE permit 10
+         -> R1(config-route-map)#set extcommunity cost pre-bestpath 1 1
+         -> R1(config-router)#neighbor 1.1.1.1 route-map EXTCOMMCOST_PRE out
+         -> R1(config-router)#neighbor 1.1.1.1 default-originate route-map EXTCOMMCOST_PRE out
+         -> R1(config-router)#redistribute eigrp 1 route-map EXTCOMMCOST_PRE
+         -> R1(config-router)#redistribute ospf 1 route-map EXTCOMMCOST_PRE match internal external 1 external 2
+         -> R1(config-router)#network 1.1.1.0 mask 255.255.255.0 route-map EXTCOMMCOST_PRE
+         -> R1(config-router)#aggregate-address 1.1.2.0 255.255.255.252 attribute-map EXTCOMMCOST_PRE
  - Weight
      -> Higher value selected
      -> Default is 0 for received routes
@@ -373,19 +383,6 @@ Border Gateway Protocol (BGP):
      -> Lowest
  - Neighbor Address
      -> Lowest
- - Extended Community Cost, pre-best path
-     -> Lowest extended community cost is selected
-     -> Pre-best path point on insertion
-     -> Default is 2147483647
-     -> Range 0 and 4294967295
-         -> R1(config)#route-map EXTCOMMCOST_PRE permit 10
-         -> R1(config-route-map)#set extcommunity cost pre-bestpath 1 1
-         -> R1(config-router)#neighbor 1.1.1.1 route-map EXTCOMMCOST_PRE out
-         -> R1(config-router)#neighbor 1.1.1.1 default-originate route-map EXTCOMMCOST_PRE out
-         -> R1(config-router)#redistribute eigrp 1 route-map EXTCOMMCOST_PRE
-         -> R1(config-router)#redistribute ospf 1 route-map EXTCOMMCOST_PRE match internal external 1 external 2
-         -> R1(config-router)#network 1.1.1.0 mask 255.255.255.0 route-map EXTCOMMCOST_PRE
-         -> R1(config-router)#aggregate-address 1.1.2.0 255.255.255.252 attribute-map EXTCOMMCOST_PRE
  - Router-id
      -> Manually configured
      -> Dynamically selected
