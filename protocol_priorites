@@ -244,7 +244,6 @@ Open Shortest Path First (OSPF):
          -> R1(config-router)# no compatible rfc1587
      - R1(config-router)# no compatible rfc1583
 
-RFC 2328
 
  - Designated Router (DR) / Backup Designated Router (BDR) Election
      -> Highest priority selected
