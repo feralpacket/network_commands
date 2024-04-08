@@ -240,7 +240,7 @@ get-psdrive -psprovider filesystem
 [System.IO.DriveInfo]::GetDrives() | Format-Table
 
 
-! window cli memory
+! memory
 systeminfo
 systeminfo | findstr "Memory"
 
