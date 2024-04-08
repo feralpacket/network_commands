@@ -215,3 +215,70 @@ certutil -hashfile cat9k_iosxe.17.03.06.SPA.bin
 
 ! MD5 hash of a file
 certutil -hashfile cat9k_iosxe.17.03.06.SPA.bin MD5
+
+
+! drives and drive space
+net use
+
+Get-CimInstance -Class Win32_NetworkConnection
+
+fsutil fsinfo drives
+fsutil volume list
+fsutil volume diskfree c:
+
+dir | find "bytes free"
+dir | findstr -r "Directory free$"
+
+wmic /node:"%COMPUTERNAME%" LogicalDisk Where DriveType="3" Get DeviceID,FreeSpace|find /I "c:"
+wmic logicaldisk get size,freespace,caption
+
+get-psdrive
+get-psdrive C
+get-psdrive -name "C"
+get-psdrive -psprovider filesystem
+
+[System.IO.DriveInfo]::GetDrives() | Format-Table
+
+
+! window cli memory
+systeminfo
+systeminfo | findstr "Memory"
+
+msinfo32
+ - pops open the System Information GUI
+
+wmic computersystem
+wmic computersystem get TotalPhysicalMemory
+
+typeperf "\Memory\Available Bytes"
+typeperf "\Memory\Available MBytes"
+typeperf -qx "\Memory"
+
+typeperf "\Process(*)\% Processor Time" -sc 1
+
+wmic os get FreePhysicalMemory
+wmic os get /format:list
+
+wmic memorychip get capacity
+wmic memorychip list /format:list
+wmic memorychip get /format:list
+
+tasklist
+tasklist /v
+tasklist /FI "STATUS eq RUNNING" | sort /r /+65 
+
+(Get-WMIObject Win32_PhysicalMemory |  Measure-Object Capacity -Sum).sum
+(Get-WMIObject Win32_PhysicalMemory |  Measure-Object Capacity -Sum).sum/1GB
+
+
+! CPU
+wmic cpu get loadpercentage
+wmic cpu get loadpercentage /value
+wmic cpu get /format:list
+
+typeperf "\Processor(_Total)\% Processor Time"
+
+Get-Counter '\Processor(*)\% Processor Time' | Select -Expand Countersamples | Select InstanceName, CookedValue
+Get-WmiObject Win32_PerfFormattedData_PerfOS_Processor | Select Name, PercentProcessorTime
+[string][int](Get-Counter '\Processor(*)\% Processor Time').Countersamples[0].CookedValue + '%'
+gwmi Win32_PerfFormattedData_PerfOS_Processor | Select -First 1 | %{'{0}%' -f $_.PercentProcessorTime}
