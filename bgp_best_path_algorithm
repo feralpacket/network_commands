@@ -26,6 +26,8 @@ Best Path Algorithm:
 - Important, next hop needs to be valid
 - It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), highest is best.  
   Everything else, lowest, shortest, or oldest is best.
+- If the ADD-PATH capability is used to send and receive additional paths, the best path algorithm is still used to select the best path,
+  the 2nd "best" path, and the 3rd "best" path.
 - The steps below include the configuration commands that can modify the default behavior of each step.
 
 
@@ -33,7 +35,7 @@ Best Path Algorithm:
      -> highest is best
      -> Cisco proprietary
      -> not actually a BGP attribute
-     -> locally significant
+     -> locally significant to the router
      -> range 0 to 65,535
      -> default is 0 for received routes
      -> default is 32768 for locally generated routes
@@ -50,7 +52,7 @@ Best Path Algorithm:
  2.  local_preference
      -> highest is best
      -> well-known, discretionary attribute LOCAL_PREF
-     -> significant only in the local AS
+     -> significant only in the local (internal) AS
      -> range 0 to 4294967295
      -> default 100 for every route
      
@@ -98,6 +100,7 @@ Best Path Algorithm:
 
  3a.  Accumulated Interior Gateway Protocol (AIGP)
      -> lowest is best
+     -> significant only in the local (internal) AS
      -> AIGP is an optional, non-transitive attribute
      -> range 0 - 4294967295
      -> AIGP path compared to AIGP path, the value of the AIGP metric is added to the metric towards the next-hop
@@ -131,6 +134,7 @@ Best Path Algorithm:
 
  4.  AS_PATH
      -> shortest is best
+     -> significant external to AS
      -> range of 1 - 255 
      -> well-known mandatory attribute AS_PATH
      -> primary purpose is to provide loop prevention for inter-AS routing
@@ -196,6 +200,7 @@ Best Path Algorithm:
 
  5.  ORIGIN
      -> lowest type is best
+     -> significant external to AS
      -> well-known mandatory attribute ORIGIN
      -> IGP < EGP < INCOMPLETE
      -> IGP
@@ -212,6 +217,7 @@ Best Path Algorithm:
 
  6.  multi-exit discriminator (MED)
      -> metric
+     -> significant external to AS
      -> lowest is best
      -> optional non-transitive attribute MULTI_EXIT_DISC
      -> range 0 to 65,535
@@ -270,10 +276,12 @@ Best Path Algorithm:
 
  7.  eBGP over iBGP
      -> paths that contain AS_CONFED_SEQUENCE and AS_CONFED_SET are considered internal
+     -> locally significant to the router ( Loc-RIB )
 
 
  8.  IGP metric to the BGP next hop
      -> lowest is best
+     -> locally significant to the router ( Loc-RIB )
      
      -> bgp bestpath igp-metric ignore
          -> address-family command
@@ -353,6 +361,7 @@ Best Path Algorithm:
  10.  oldest route
      -> when multiple paths are external, prefer the path that was received first
      -> oldest is best
+     -> locally significant to the router ( Loc-RIB )
      -> this step can be skipped by forcing BGP to compare router-ids
      
      -> bgp bestpath compare-router-id
@@ -360,6 +369,7 @@ Best Path Algorithm:
 
  11.  router-id
      -> lowest is best
+     -> locally significant to the router ( Loc-RIB )
      -> not the same thing as the ORIGINATOR_ID attribute, which is used by route reflectors
      -> ORIGINATOR_ID is an optional, non-transitive attribute
      -> ORIGINATOR_ID is compared instead of the router-id when route reflector attributes are present
@@ -367,6 +377,7 @@ Best Path Algorithm:
 
  12.  cluster length
      -> lowest is best
+     -> locally significant to the router ( Loc-RIB )
      -> CLUSTER_LIST is an optional, non-transitive attribute
      -> lowest CLUSTER_LIST length
      -> router reflectors only
@@ -374,4 +385,5 @@ Best Path Algorithm:
 
  13.  neighbor address
      -> lowest is best
+     -> locally significant to the router ( Loc-RIB )
      -> remote peer used in the TCP connection
