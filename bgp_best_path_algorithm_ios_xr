@@ -2,3 +2,6 @@ BGP Best Path Selection Algorithm For IOS-XR
 https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/217097-bgp-path-selection-in-ios-xr.html
 
 Note-to-self:  TODO
+
+- The steps below include the IOS-XR configuration commands that can modify the default behavior of each step.
+
