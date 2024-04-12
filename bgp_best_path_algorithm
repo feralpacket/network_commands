@@ -28,7 +28,7 @@ Best Path Algorithm:
   Everything else, lowest, shortest, or oldest is best.
 - If the ADD-PATH capability is used to send and receive additional paths, the best path algorithm is still used to select the best path,
   the 2nd "best" path, and the 3rd "best" path.
-- The steps below include the configuration commands that can modify the default behavior of each step.
+- The steps below include the IOS configuration commands that can modify the default behavior of each step.
 
 
  1.  weight
