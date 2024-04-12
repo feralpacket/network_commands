@@ -28,6 +28,8 @@ Best Path Algorithm:
   Everything else, lowest, shortest, or oldest is best.
 - If the ADD-PATH capability is used to send and receive additional paths, the best path algorithm is still used to select the best path,
   the 2nd "best" path, and the 3rd "best" path.
+- If the Prefix Independent Convergence (PIC) feature is used to select a backup path, the best path algorithm is still used to select
+  the best and backup paths.
 - The steps below include the IOS configuration commands that can modify the default behavior of each step.
 
 
