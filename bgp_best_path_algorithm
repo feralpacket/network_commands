@@ -16,6 +16,7 @@ Why Routers Ignore Paths:
      -> neighbor 1.1.1.1 soft-reconfiguration inbound
  - route is dampened
  - backdoor routes configured with the network backdoor command are not advertised in BGP updates
+ - RR will not reflect routes when no bgp client-to-client reflection is configured
 
 Best Path Algorithm:
  note: if extended community cost is configured for pre-bestpath, compare before anything else
