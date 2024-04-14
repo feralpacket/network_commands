@@ -300,7 +300,8 @@ Border Gateway Protocol (BGP):
  - Weight
      -> Higher value selected
      -> Default is 0 for received routes
-     -> Default is 32768 for locally generated routes 
+     -> Default is 32768 for locally generated routes
+         -> R1(config)#neighbor 1.1.1.1 weight 32769
          -> R1(config)#route-map WEIGHT permit 10
          -> R1(config-route-map)#set weight 1
          -> R1(config-router)#neighbor 1.1.1.1 route-map WEIGHT in
@@ -335,11 +336,11 @@ Border Gateway Protocol (BGP):
          -> R1(config-router)#neighbor 1.1.1.1 route-map PREPEND out
  - ORIGIN
      -> Lowest type
-     -> IGP is better than EGP is better than INCOMPLETE
+     -> IGP is lower (better) than EGP, EGP is lower (better) than INCOMPLETE
      -> IGP
           -> network command
      -> EGP
-         -> Predecessor to BGP, support removed from IOS version 12.2 or 12.3, shouldn't exist
+         -> Predecessor to BGP, support for set origin egp was removed from IOS version 12.4(2)T, shouldn't exist
      -> INCOMPLETE
           -> redistribute command
  - Multi-Exit Discriminator (MED)
