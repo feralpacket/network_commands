@@ -14,7 +14,8 @@ Why Routers Ignore Paths:
      -> bgp soft-reconfig-backup
           -> configure soft reconfiguration for peers that do not support the route refresh capability
      -> neighbor 1.1.1.1 soft-reconfiguration inbound
- - route is dampened 
+ - route is dampened
+ - backdoor routes configured with the network backdoor command are not advertised in BGP updates
 
 Best Path Algorithm:
  note: if extended community cost is configured for pre-bestpath, compare before anything else
