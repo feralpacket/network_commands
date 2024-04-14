@@ -65,8 +65,8 @@ Best Path Algorithm:
      
      -> route-map LP permit 10
      ->   set local-preference 200
-     ->neighbor 192.0.2.1 route-map LP out
-     ->neighbor 192.0.2.1 default-originate route-map LP
+     -> neighbor 192.0.2.1 route-map LP out
+     -> neighbor 192.0.2.1 default-originate route-map LP
      -> redistribute eigrp 1 route-map LP
      -> redistribute ospf 1 route-map LP match internal external 1 external 2
      -> network 192.0.2.0 mask 255.255.255.0 route-map LP
@@ -75,7 +75,7 @@ Best Path Algorithm:
      -> to clear or reset the LOCAL_PREF sent by a peer, set to the default value
      -> route-map CLEAR_LP permit 10
      ->   set local-preference 100
-     ->neighbor 192.0.2.1 route-map CLEAR_LP in
+     -> neighbor 192.0.2.1 route-map CLEAR_LP in
 
 
  3.  locally originated path
