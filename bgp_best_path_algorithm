@@ -165,8 +165,12 @@ Best Path Algorithm:
      -> local-as will not be added to the AS_PATH
      
      -> neighbor 192.0.2.1 remove-private-as
-     -> removed private AS from AS_PATH
-     -> neighbor 192.0.2.1 remove-private-as replace-as
+     -> removes private AS numbers from AS_PATH
+     -> will cause the AS_PATH length to decrease
+
+     -> neighbor 192.0.2.1 remove-private-as all replace-as
+     -> replaces private AS numbers with router's local AS number
+     -> will retain the AS_PATH length
      
      -> replaces any private AS in AS_PATH with router's local AS
      -> neighbor 192.0.2.1 as-override
@@ -195,7 +199,7 @@ Best Path Algorithm:
      -> replace all AS listed in AS_PATH with the local AS
      -> note:  the AS_PATH length is not changed
      -> an AS_PATH of 123 234 345 456 567 becomes 100 100 100 100 100
-     
+
      -> to strip the AS_PATH and replace with only the local AS, configure a locally originated path
      -> ip route 0.0.0.0 0.0.0.0 192.0.2.1 name STRIP_AS_PATH_INFORMATION
      -> network 0.0.0.0
