@@ -41,7 +41,8 @@ Best Path Algorithm:
      -> range 0 to 65,535
      -> default is 0 for received routes
      -> default is 32768 for locally generated routes
-     
+
+     -> neighbor 192.0.2.1 weight 40000
      -> route-map WEIGHT permit 10
      ->   set weight 40000
      -> neighbor 192.0.2.1 route-map WEIGHT in
@@ -123,8 +124,8 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 route-map AIGP out
      -> redistribute bgp 100 route-map AIGP
      -> neighbor 192.0.2.1 send-community both
-     -> neighbor 192.0.2.1 aigp cost-community 100 poi igp-cost transitive
-     -> neighbor 192.0.2.1 aigp cost-community 100 poi pre-bestpath transitive
+     -> neighbor 192.0.2.1 aigp send cost-community 100 poi igp-cost transitive
+     -> neighbor 192.0.2.1 aigp send cost-community 100 poi pre-bestpath transitive
      -> neighbor 192.0.2.1 aigp send med
      -> neighbor 192.0.2.1 path-attribute treat-as-withdraw 26 in
          -> all prefixes in the UPDATE are removed from the BGP routing table
@@ -204,9 +205,12 @@ Best Path Algorithm:
      -> lowest type is best
      -> significant external to AS
      -> well-known mandatory attribute ORIGIN
-     -> IGP < EGP < INCOMPLETE
+     -> IGP is lower (better) than EGP, EGP is lower (better) than INCOMPLETE
      -> IGP
           -> network command
+     -> EGP
+          -> predecessor to BGP
+          -> the "set origin egp" command was removed in IOS 12.4(2)T
      -> INCOMPLETE
           -> redistribute command
           
