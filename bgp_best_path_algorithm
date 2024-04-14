@@ -17,7 +17,7 @@ Why Routers Ignore Paths:
  - route is dampened
  - backdoor routes configured with the network backdoor command are not advertised in BGP updates
  - RR will not reflect routes when no bgp client-to-client reflection is configured
- - routes will be discarded if the AS-path exceeds the bgp maxas-limit when configured
+ - routes will be discarded if the AS_PATH exceeds the bgp maxas-limit when configured
  - routes will be discarded if the number of communities exceeds the bgp maxcommunity-limit when configured
  - routes will be discarded if the number of extended communities exceeds the bgp maxextcommunity-limit when configured
  - BGP-Origin AS Validation is configured and a prefix is marked as invalid, it will not be advertised, will be withdrawn from the 
