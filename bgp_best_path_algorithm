@@ -13,7 +13,7 @@ Why Routers Ignore Paths:
  - path is denied by inbound BGP policies or inbound soft reset is configured
      -> bgp soft-reconfig-backup
           -> configure soft reconfiguration for peers that do not support the route refresh capability
-     -> neighbor 1.1.1.1 soft-reconfiguration inbound
+     -> neighbor 192.0.2.1 soft-reconfiguration inbound
  - route is dampened
  - backdoor routes configured with the network backdoor command are not advertised in BGP updates
  - RR will not reflect routes when no bgp client-to-client reflection is configured
