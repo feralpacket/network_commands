@@ -6,7 +6,8 @@
    - router bgp 64500
    - add ipv4
    - nei 192.0.2.1 advertisement-interval 0
- - keepalive
+
+- keepalive
    - determines how quickly software failures are detected
    - default:  60 seconds
    - recommended:  3 seconds
@@ -14,7 +15,8 @@
    - ! nei 192.0.2.1 timers 3 9
    - timers bgp 3 9 0
    - using BFD will cause session teardown and withdraws before the timers are exceeded
- - hold time
+
+- hold time
    - determines how quickly software failures are detected
    - default:  180 secondes
    - recommended:  9 seconds
@@ -22,13 +24,15 @@
    - ! nei 192.0.2.1 timers 3 9
    - timers bgp 3 9 0
    - using BFD will cause session teardown and withdraws before the timers are exceeded
- - retry time
+
+- retry time
    - determines how quickly a failed connection is retried
    - default:  120 seconds
    - recommended:  10 seconds
    - cannot be changed in Cisco
    - using BFD to detect failed connections
- - update delay
+
+- update delay
    - time from when a neighbor is established until the best path algorithm is run and updates are sent
    - default:  120 seconds
    - affected by End-of-RIB marker with Graceful Restart
@@ -36,7 +40,8 @@
 	 - RFC 8538 - Graceful Restart Mechanism for BGP
    - bgp refresh stalepath-time 600
    - bgp refresh max-eor-time 600
- - minimum route advertisement interval
+
+- minimum route advertisement interval
    - determines when to send updates
    - default iBGP:  0 seconds
    - default eBGP:  30 seconds
