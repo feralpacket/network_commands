@@ -178,7 +178,8 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 as-override
      -> replaces the AS of the customer in AS_PATH with the AS of the provider
      -> used in address-family ipv4 vrf VRF_NAME or address-family ipv6 vrf VRF_NAME
-     
+
+     -> Note-to-self:  This is out of place.  Need to find a new home for this.
      -> configured a site-of-origin to prevent routing loops
      -> neighbor 192.0.2.1 soo 64496:64511
      -> route-map SOO permit 10
