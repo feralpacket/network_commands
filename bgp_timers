@@ -32,6 +32,15 @@
    - cannot be changed in Cisco
    - using BFD to detect failed connections
 
+- scan time
+   - the BGP scanner
+   - default:  60 seconds
+   - checks all validity and reachability of the NEXT_HOP attribute for a prefixes
+   - performs conditional advertisement and route injection
+   - imports new routes to the BGP table from the RIB with the network and redistribute commands
+   - performs route dampening
+   - bgp scan-time 5
+
 - update delay
    - time from when a neighbor is established until the best path algorithm is run and updates are sent
    - default:  120 seconds
