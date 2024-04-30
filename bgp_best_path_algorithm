@@ -242,7 +242,7 @@ Best Path Algorithm:
      -> significant external to AS
      -> lowest is best
      -> optional non-transitive attribute MULTI_EXIT_DISC
-     -> range 0 to 65,535
+     -> range 0 to 4,294,967,295
      -> default is 0 for received routes
          -> when MED is not assigned
      -> set to the value of the IGP metric for routes injected into BGP
