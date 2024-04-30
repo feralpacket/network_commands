@@ -226,6 +226,7 @@ Best Path Algorithm:
           -> network command
      -> EGP
           -> predecessor to BGP
+          -> historically, used to to transition from EGP to BGP
           -> the "set origin egp" command was removed in IOS 12.4(2)T
      -> INCOMPLETE
           -> redistribute command
