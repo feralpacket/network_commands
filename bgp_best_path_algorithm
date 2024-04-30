@@ -291,6 +291,7 @@ Best Path Algorithm:
          
      ->   set metric-type type-2
          -> if the route originates from OSPF, use the external type-2 metric
+
      -> neighbor 192.0.2.1 route-map MED out
      -> neighbor 192.0.2.1 default-originate route-map MED out
      -> redistribute eigrp 1 metric 100
