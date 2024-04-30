@@ -302,7 +302,7 @@ Best Path Algorithm:
 
      -> bgp dynamic-med-interval 60
        -> by default, BGP will change the MED value associated with a prefix and re-advertise if necessary every 600 seconds
-       -> interval range from 60 seconds to 136 years ( 4,294,967,295 seconds ).  in other words, never uptime.
+       -> interval range from 60 seconds to 136 years ( 4,294,967,295 seconds ).  in other words, never update if set to max.
 
 
  7.  eBGP over iBGP
