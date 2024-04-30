@@ -54,6 +54,10 @@ Best Path Algorithm:
      -> default is 32768 for locally generated routes
 
      -> neighbor 192.0.2.1 weight 40000
+     -> template peer-policy LOCAL_POLICY
+     ->   weight 40000
+     -> address-family ipv4 unicast
+     ->   neighbor 192.0.2.1 inherit peer-policy LOCAL_POLICY
      -> route-map WEIGHT permit 10
      ->   set weight 40000
      -> neighbor 192.0.2.1 route-map WEIGHT in
