@@ -295,6 +295,10 @@ Best Path Algorithm:
      -> network 192.0.2.0 mask 255.255.255.0 route-map MED
      -> aggregate-address 192.0.2.0 255.255.255.252 attribute-map MED
 
+     -> bgp dynamic-med-interval 60
+       -> by default, BGP will change the MED value associated with a prefix and re-advertise if necessary every 600 seconds
+       -> interval range from 60 seconds to 136 years ( 4,294,967,295 seconds )
+
 
  7.  eBGP over iBGP
      -> paths that contain AS_CONFED_SEQUENCE and AS_CONFED_SET are considered internal
