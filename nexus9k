@@ -15,6 +15,9 @@ conf t
 ! Use a SPAN for data plane traffic
 ethanalyzer local interface inband capture-filter "icmp" detail 
 
+! ethanalyzer is VRF aware
+ethanalyzer local interface vlan vlan1 vrf guest display-filter icmp detail
+
 ! troubleshoot command
 show troubleshoot l3 ipv4 192.0.2.2 src-ip 192.0.2.1 vrf default 
 
@@ -92,3 +95,15 @@ sh ip int bri | cut -d " " -f 15
 
 ! just the IP addresses, for 4 digit Vlans
 sh ip int bri | cut -d " " -f 16
+
+! ever noticed the documentation says the STP port cost of a VPC is fixed at 200.  but you only see it set to 1.
+spanning-tree pathcost method long
+
+! feeling brave?
+cli alias name u undebug
+logging monitor 7
+!
+debug-filter ip icmp packet vrf quest
+debug ip icmp
+!
+u all
