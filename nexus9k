@@ -66,22 +66,6 @@ locator-led powersupply
 !
 sh locator-led status
 !
-no locator-led chassis! nexus becon feature
-(config)# int e1/1
-  beacon
-!
-blink chassis
-blink fan
-blink module
-blink powersupply
-!
-locator-led chassis
-locator-led fan
-locator-led module
-locator-led powersupply
-!
-sh locator-led status
-!
 no locator-led chassis
 
 ! change the MAC address used with Spanning-tree BPDUs sent out on VPCs 
