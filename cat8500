@@ -1,0 +1,8 @@
+! some configuration TAC had us add as a work around for some SD-WAN issues
+sdwan
+ interface FortyGigabitEthernet0/2/0
+  tunnel-interface
+   color mpls restrict
+   max-control-connections       0
+
+  
