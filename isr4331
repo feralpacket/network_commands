@@ -111,3 +111,12 @@ show monitor cap CAP buffer brief
 
 monitor capture CAP export bootflash:routerA.pcap
 
+! commands TAC had us run to troubleshoot some SD-WAN issues
+debug platform condition match ipv4 host x.x.x.x host x.x.x.x both
+debug platform packet-trace packet 1024 fia-trace data-size 4096
+debug platform packet-trace copy packet both size 2048 L2
+debug platform packet-trace copy packet input l3 size 2048
+debug platform condition start
+
+show platform hardware qfp active statistics drop
+show platform hardware qfp active statistics drop detail
