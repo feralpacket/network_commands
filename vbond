@@ -1,0 +1,3 @@
+! some command TAC had us run to troubleshoot some SD-WAN issues
+tcpdump vpn 0 interface ge0/1 options "host 192.0.2.1 -vvv -nn -e"
+
