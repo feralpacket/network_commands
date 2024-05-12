@@ -167,3 +167,9 @@ collect top counters interface all soft-by bytes
 sh top counters interface report 1
 !
 clear top counters interface report
+
+
+! we don't need those Windows boxes on the network
+ip access-list extended TTL
+ 10 deny ip any any ttl range 65 128
+ 20 permit ip any any
