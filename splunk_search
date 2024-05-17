@@ -36,10 +36,7 @@ host=“192.0.2.1” OR host=“192.0.2.2” <username> NOT TCP NOT UDP NOT ICMP
 ! Anyconnect SSL handshakes, need the public IP address the client is using:
 host=“192.0.2.1” OR host=“192.0.2.2” handshake <public Internet IP address of client>
 
-! Datacenter devices reboot reason and count:
-“reboot reason” | rex “(?<node_name>router[12]_\w+|router_\w+)” | rex “(?<reboot_reason>Reboot reason.*)” | stats count by node_name, reboot_reason | sort -count
-
-! Store devices reboot reason and count:
+! devices reboot reason and count:
 “reboot reason” | rex “(?<node_name>router[23]_\w+|router_\w+)” | rex “(?<reboot_reason>Reboot reason.*)” | stats count by node_name, reboot_reason | sort -count
 
 ! Exclude logs from a host:
@@ -56,11 +53,14 @@ CISE_TACACS_Accounting “CmdSet=[ CmdAV” NetworkDeviceName=router4331
 eventtype="cisco_ios-err_disable" product IN (IOS) index IN (*) | `normalize-int(src_int_prefix_long,src_int_suffix,"src_interface")` | stats count(src_interface) AS Amount BY host,src_interface,disable_cause | rename src_interface AS Interface, disable_cause AS Cause
 
 ! port flapping
-eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="UPDOWN" | stats count by host, src_int | sort -count
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="UPDOWN" | stats count by host, src_interface | sort -count
 
 ! dot1x authentication failures
-eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="FAIL" | stats count by host, src_int, message_text | sort -count
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="FAIL" | stats count by host, src_interface, message_text | sort -count
 
 ! poe disconnects
 eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="IEEE_DISCONNECT" | stats count by host, message_text | sort -count
 
+! high TX and RX untilization
+"OrionAlertEngine: High TX Utilization" | rex "(?<interface_name>Interface \S+ · \S+)" | rex "(?<node_name>node \S+)" | stats count by node_name, interface_name | sort -count
+"OrionAlertEngine: High RX Utilization" | rex "(?<interface_name>Interface \S+ · \S+)" | rex "(?<node_name>node \S+)" | stats count by node_name, interface_name | sort -count
