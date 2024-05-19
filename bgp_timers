@@ -2,10 +2,9 @@
  - advertisement
    - determines how quickly route updates propogate
    - default:  30 seconds
-   - recommended:  0 seconds
    - router bgp 64500
    - add ipv4
-   - nei 192.0.2.1 advertisement-interval 0
+   - nei 192.0.2.1 advertisement-interval 5
 
 - keepalive
    - determines how quickly software failures are detected
