@@ -60,6 +60,7 @@ Spanning-tree Protocol (STP):
          -> Note:  When the NX-OS documentation says the default STP port cost for a VPC is 200 and you only see a port cost of 1 . . .
          -> Note:  Even after changing to pathcost method long, VPC peer-links have a port cost of 100, good job Cisco
          -> Note:  Verify with the documentation for your switch model and IOS version
+         -> Patcost method short ( if the above notes confused you )
              -> Anything faster: 1
              -> 10 Gb/s: 2
              -> 1000 Mb/s: 4
