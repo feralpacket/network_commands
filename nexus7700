@@ -5,3 +5,6 @@ filesys delete /var/tmp/somesuperlarge.log
 
 ! md5sum
 show file bootflash:n7700-s2-kickstart.7.3.0.DX.1.bin md5sum
+
+! want to get that 10G QSPF to work in the N7K 40G module?  use this very intuitive global config command.
+interface breakout module 1 port 24 map 10g-4
