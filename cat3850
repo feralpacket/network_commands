@@ -22,6 +22,7 @@ cat3850# sh platform software fed switch active etherchannel 101 load-balance ip
 
 ! this caused a 3850 to crash ( run it a couple dozen times... )
 ! TAC response was something along the lines of, WTF!?!?
+! Someone in the Packet Pushers Slack figured out the space between Excess and Defer in the grep command with "grep Excess Defer" is the problem
 term shell
 for xx in `interface Ethernet`; do echo $xx `show int $xx controller | cut -c 1-33 | grep Excess Defer`; done
 
