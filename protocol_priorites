@@ -56,6 +56,9 @@ Spanning-tree Protocol (STP):
          -> Pathcost method short, default for older switches and IOS versions
          -> Note:  The default method changed to long for Cisco 9300 switches with IOS XE 17.5.x
          -> Note:  With some Cisco 9500 switch models, the default method was changed to long with some IOS XE 16.x version
+         -> Note:  For some reason, pathcost method short is still the default for NX-OS, even for Nexus9k switches that have 100G, 200G, and 400G interfaces
+         -> Note:  When the NX-OS documentation says the default STP port cost for a VPC is 200 and you only see a port cost of 1 . . .
+         -> Note:  Even after changing to pathcost method long, VPC peer-links have a port cost of 100, good job Cisco
          -> Note:  Verify with the documentation for your switch model and IOS version
              -> Anything faster: 1
              -> 10 Gb/s: 2
