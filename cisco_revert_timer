@@ -29,6 +29,11 @@ conf t revert timer 10
 ! If you don't confirm the changes, they will be reverted when the timer is up
 config confirm
 
+! note, if shell processing full is used for reasons ( like using sleep when bouncing interfaces )
+! and the rolled back configuration has a password or key with a $ in it, bad things will happen
+! the $ will be seen as a variable instead of a password or key and that configuration line will error and not be applied
+! ask me how I know.  actually, don't ask.
+
 ! To revert the changes right now
 config revert
   -- or --
