@@ -6,3 +6,5 @@ sdwan
    max-control-connections       0
 
   
+! for some reason, logging hardware alarms is disabled by default
+logging alarm
