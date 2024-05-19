@@ -173,3 +173,7 @@ clear top counters interface report
 ip access-list extended TTL
  10 deny ip any any ttl range 65 128
  20 permit ip any any
+
+! when troubleshooting syslog message drops
+! i.e. your splunk server is not able to keep up
+logging message-counter log
