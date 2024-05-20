@@ -14,6 +14,9 @@ network 3 3.0.0.0/24 500
 aspath 1 random 5
 aspath 2 random 5
 aspath 3 random 5
+metric 1 5
+metric 2 8
+locpref 2 120
 nlricount 1
 redoattr 1
 sendall
