@@ -1,0 +1,3426 @@
+! route generator
+! available on the alpine and trex CML images, and other places
+
+! https://jasonmurray.org/posts/2021/routem/
+!
+$ vi bgp.txt
+
+router bgp 65002
+neighbor 12.1.1.2 remote-as 65001
+neighbor 12.1.1.2 update-source 12.1.1.1
+network 1 1.0.0.0/24 500
+network 2 2.0.0.0/24 500
+network 3 3.0.0.0/24 500
+aspath 1 random 5
+aspath 2 random 5
+aspath 3 random 5
+nlricount 1
+redoattr 1
+sendall
+
+$ routem -f bgp.txt
+
+
+!
+! sample config from
+! https://learningnetwork.cisco.com/s/question/0D53i000018yMsUCAU/can-we-get-documentation-for-routem-in-cml-2
+! UWM Routem.txt
+!
+
+
+Routem
+
+Routem is a control-plane traffic generator application from Cisco. It is embedded in the 'lxc-routem' node.
+
+    the application is supplied "as is"
+    there is no commitment that any bugs identified in the application will be addressed
+    there is no support for the use of this application outside of this simulation environment
+
+    BGP
+        Show/Hide
+            BGP v4 unicast
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            interface fa4/0
+            ip address 10.0.0.81 255.255.0.0
+             no shut
+            !
+            router bgp 1
+            neighbor 10.0.101.1 remote-as 1001
+            neighbor 10.0.101.2 remote-as 1002
+            end
+
+            	
+
+
+            #routem config
+            router bgp 1001
+            neighbor 10.0.0.81 remote-as 1
+            neighbor 10.0.0.81 update-source 10.0.101.1
+            network 1 1.1.1.0/24 5
+            metric 1 5
+            network 2 2.2.2.0/24 10
+            metric 2 8
+            locpref 2 120
+            sendall
+            #
+            router bgp 1002
+            neighbor 10.0.0.81 remote-as 1
+            neighbor 10.0.0.81 update-source 10.0.101.2
+            network 1 3.3.3.0/24 1000
+            aspath 1 random 5
+            network 2 4.4.4.0/24 500
+            aspath 1 random 3
+            nlricount 1
+            redoattr 1
+            sendall
+
+            BGP with holdtime of 0 second
+            Examples
+            Router 	Routem
+
+
+            !router config
+            router bgp 1
+             no synchronization
+             bgp log-neighbor-changes
+             timers bgp 0 0
+             neighbor 10.0.101.1 remote-as 1001
+             no auto-summary
+            !
+
+            	
+
+
+            #routem config
+            router bgp 1001
+            neighbor 10.0.0.81 remote-as 1
+            neighbor 10.0.0.81 update-source 10.0.101.1
+            network 1 1.1.1.1/32 2
+            keepalive 0
+            holdtime 0
+
+            BGP v4 unicast ORF
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            interface fa4/0
+             ip address 10.0.0.99 255.255.0.0
+             no shut
+            !
+            ip prefix-list qq seq 10 permit 10.0.0.0/8 ge 20
+            !
+            router bgp 1
+            neighbor 10.0.101.3 remote-as 4
+            neighbor 10.0.101.3 capability orf prefix-list both
+            neighbor 10.0.101.3 prefix-list qq in
+            end
+
+            #to check type "sh ip bgp nei 10.0.101.3 received prefix-filter"
+
+            	
+
+
+            #routem config
+            prefix-list 1 seq 5 deny 191.1.1.0/24
+            prefix-list 1 seq 10 permit 191.1.2.0/24 le 31
+
+            router bgp 4
+            neighbor 10.0.0.99 remote-as 1
+            neighbor 10.0.0.99 update-source 10.0.101.3
+            neighbor 10.0.0.99 ORF 1:*
+            capability orf
+
+            BGP v4 graceful-restart and route-refresh
+            Description
+
+            Configure graceful-restart: turn off the "restart-bit" and set the "restart-time" to 181 seconds. Routem tries to detect which address family of a network to send out the appropriate EOR to the router. However, we manually sepecify any kind of EOR to send this way:
+
+            set_eor network 1 ipv6 multicast
+            set_eor network 2 ipv4 multicast
+            set_eor file ipv4 multicast
+            Examples
+            Router 	Routem
+
+
+            !router config 
+            conf t 
+            interface fa4/0 
+             ip address 10.0.0.99 255.255.0.0 
+             no shut 
+            ! 
+            router bgp 1 
+            neighbor 10.0.101.1 remote-as 1
+            bgp graceful-restart restart-time 120
+            end
+
+            	
+
+
+            #routem config
+            router bgp 1 
+            neighbor 10.0.0.99 remote-as 1 
+            neighbor 10.0.0.99 update-source 10.0.101.1
+            capability ipv4 unicast 
+            capability refresh
+            capability graceful-restart restart-time 181 restart-bit off 
+            network 1 1.1.1.0/24 5 
+            metric 1 5 
+            network 2 2.2.2.0/24 10 
+            metric 2 8 
+            locpref 2 120 
+            sendall
+
+            BGP v4 label
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            int g0/1
+            ip addr 10.0.0.81 255.255.0.0
+            no shut
+            router bgp 1
+            neighbor 10.0.101.1 remote-as 1001
+            neighbor 10.0.101.1 send-label
+            end
+
+            	
+
+
+            #routem config
+            router bgp 1001
+            neighbor 10.0.0.81 remote-as 1
+            neighbor 10.0.0.81 update-source 10.0.101.1
+            capability ipv4 label
+            network 1 2.2.2.2/32 3 label
+            label 1 20
+
+            BGP v4 multicast
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            interface fa4/0
+             ip address 10.0.0.99 255.255.0.0
+             no shut
+            !
+            router bgp 1
+             no bgp default ipv4-unicast
+             bgp log-neighbor-changes
+             neighbor 10.0.101.1 remote-as 1001
+             !
+             address-family ipv4
+             no auto-summary
+             no synchronization
+             exit-address-family
+             !
+             address-family ipv4 multicast
+             neighbor 10.0.101.1 activate
+             no auto-summary
+             exit-address-family
+            end
+
+            	
+
+
+            #routem config for v4 multicast only
+            router bgp 1001
+            neighbor 10.0.0.99 remote-as 1
+            neighbor 10.0.0.99 update-source 10.0.101.1
+            capability ipv4 unicast disable
+            capability ipv4 multicast
+            network 1 1.1.1.0/24 20 ipv4 multicast
+            nexthop 1 10.0.101.5 multicast
+            sendall
+
+            BGP v4 multicast and unicast
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            interface fa4/0
+             ip address 10.0.0.99 255.255.0.0
+             no shut
+            !
+            router bgp 1
+             bgp log-neighbor-changes
+             neighbor 10.0.101.1 remote-as 1001
+             !
+             address-family ipv4
+             neighbor 10.0.101.1 activate
+             no auto-summary
+             no synchronization
+             exit-address-family
+             !
+             address-family ipv4 multicast
+             neighbor 10.0.101.1 activate
+             no auto-summary
+             exit-address-family
+            end
+
+            	
+
+
+            #routem config for both v4 unicast and v4 multicast
+            router bgp 1001
+            neighbor 10.0.0.99 remote-as 1
+            neighbor 10.0.0.99 update-source 10.0.101.1
+            capability ipv4 unicast
+            capability ipv4 multicast
+            network 1 1.1.1.0/24 20 ipv4 multicast
+            nexthop 1 10.0.101.5 multicast
+            network 2 2.2.2.0/24 20 unicast
+            sendall
+
+            BGP VPNv4
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            interface fa4/0
+             ip address 10.0.0.99 255.255.0.0
+             no shut
+            !
+            interface Loopback0
+             ip address 10.1.1.4 255.255.255.255
+             no shut
+            !
+            router bgp 1
+             no synchronization
+             no bgp default route-target filter
+             bgp log-neighbor-changes
+             neighbor 10.0.101.1 remote-as 1001
+             neighbor 10.0.101.1 update-source Loopback0
+            !
+            address-family vpnv4
+             neighbor 10.0.101.1 activate
+             neighbor 10.0.101.1 send-community extended
+             exit-address-family
+            end
+
+            	
+
+
+            #routem config
+            router bgp 1001
+            neighbor 10.1.1.4 remote-as 1
+            neighbor 10.1.1.4 update-source 10.0.101.1
+            capability ipv4 vpn
+            capability ipv4 unicast disable
+            network 1 4.4.4.0/24 10 ipv4 vpn
+            nexthop 1 10.0.101.9 ipv4 vpn
+            ext_community 1 RT:100:1 RT:1.1.1.1:1
+            route-distinguisher 1 101:100
+            sendall
+
+            Output
+
+
+            tacoma#sh ip bgp v a 4.4.4.0/24
+            BGP routing table entry for 101:100:4.4.4.0/24, version 2
+            Paths: (1 available, best #1, no table)
+              Not advertised to any peer
+              1001
+                10.0.101.9 from 10.0.101.1 (10.0.101.1)
+                  Origin IGP, localpref 100, valid, external, best
+                  Extended Community: RT:100:1 RT:1.1.1.1:1
+            tacoma#
+
+            BGP VPNv4 with label
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            interface fa4/0
+             ip address 10.0.0.99 255.255.0.0
+             no shut
+            !
+            interface Loopback0
+             ip address 10.1.1.4 255.255.255.255
+             no shut
+            !
+            router bgp 1
+             no synchronization
+             no bgp default route-target filter
+             bgp log-neighbor-changes
+             neighbor 10.0.101.1 remote-as 1001
+             neighbor 10.0.101.1 update-source Loopback0
+            !
+            address-family vpnv4
+             neighbor 10.0.101.1 activate
+             neighbor 10.0.101.1 send-community extended
+             exit-address-family
+            end
+
+            	
+
+
+            #routem config
+            router bgp 1001
+            neighbor 10.1.1.4 remote-as 1
+            neighbor 10.1.1.4 update-source 10.0.101.1
+            capability ipv4 vpn
+            capability ipv4 unicast disable
+            network 1 1.1.1.1/32 2 ipv4 vpn
+            nexthop 1 10.0.101.9 ipv4 vpn
+            ext_community 1 RT:100:1
+            route-distinguisher 1 [2000]101:100
+            replay file bgp-vpnv4.txt ascii
+            sendall
+
+            BGP IPv4 Unicast/VPNv4 with label increase
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            int FastEthernet0/0
+            ip addr 10.0.0.200 255.255.0.0
+            no shut
+            !
+            router bgp 1
+            no bgp log-neighbor-changes
+            no bgp default route-target filter
+            !
+            neighbor 10.0.101.1 remote-as 1
+            address-family vpnv4
+             neighbor 10.0.101.1 activate
+            !
+            end
+
+            	
+
+
+            #routem config
+            router bgp 1
+            neighbor 10.0.0.200 remote-as 1
+            neighbor 10.0.0.200 update-source 10.0.101.1
+            capability refresh
+            capability vpnv4
+
+            network 1 1.1.1.1/32 5 vpnv4
+            ext_community 1 RT:100:100
+            route-distinguisher 1 [23456 incr]400:100
+            network 2 2.2.2.2/32 15 label
+            label 2 21 incr-25
+
+            Output
+
+
+            corolla#sh ip bgp vpnv4 all label
+               Network          Next Hop      In label/Out label
+            Route Distinguisher: 400:100
+               1.1.1.1/32       10.0.101.1      nolabel/23456
+               1.1.1.2/32       10.0.101.1      nolabel/23457
+               1.1.1.3/32       10.0.101.1      nolabel/23458
+               1.1.1.4/32       10.0.101.1      nolabel/23459
+               1.1.1.5/32       10.0.101.1      nolabel/23460
+
+            corolla#sh ip bgp labels 
+               Network          Next Hop      In label/Out label
+               2.2.2.2/32       10.0.101.1      nolabel/21
+               2.2.2.3/32       10.0.101.1      nolabel/22
+               2.2.2.4/32       10.0.101.1      nolabel/23
+               2.2.2.5/32       10.0.101.1      nolabel/24
+               2.2.2.6/32       10.0.101.1      nolabel/25
+               2.2.2.7/32       10.0.101.1      nolabel/21
+               2.2.2.8/32       10.0.101.1      nolabel/22
+               2.2.2.9/32       10.0.101.1      nolabel/23
+               2.2.2.10/32      10.0.101.1      nolabel/24
+               2.2.2.11/32      10.0.101.1      nolabel/25
+               2.2.2.12/32      10.0.101.1      nolabel/21
+               2.2.2.13/32      10.0.101.1      nolabel/22
+               2.2.2.14/32      10.0.101.1      nolabel/23
+               2.2.2.15/32      10.0.101.1      nolabel/24
+               2.2.2.16/32      10.0.101.1      nolabel/25
+
+            corolla#
+
+            BGP VPNv4 with random/increment Route Distinguishers
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            interface fa4/0
+             ip address 10.0.0.99 255.255.0.0
+             no shut
+            !
+            interface Loopback0
+             ip address 10.1.1.4 255.255.255.255
+             no shut
+            !
+            router bgp 1
+             no synchronization
+             bgp log-neighbor-changes
+             neighbor 10.0.101.1 remote-as 1001
+             neighbor 10.0.101.1 update-source Loopback0
+            !
+            address-family vpnv4
+             neighbor 10.0.101.1 activate
+             neighbor 10.0.101.1 send-community extended
+             exit-address-family
+            end
+
+            	
+
+
+            #routem config
+            router bgp 1001
+            neighbor 10.1.1.4 remote-as 1
+            neighbor 10.1.1.4 update-source 10.0.101.1
+            capability ipv4 vpn
+            capability ipv4 unicast disable
+            network 1 1.1.1.1/32 2 vpnv4
+            network 2 2.2.2.2/32 2 vpnv4
+            network 3 3.3.3.3/32 2 vpnv4
+            network 4 4.4.4.4/32 2 vpnv4
+            nexthop 1 10.0.101.9 ipv4 vpnv4
+            ext_community 1 RT:100:1
+            ext_community 2 RT:200:1
+            ext_community 3 RT:300:1
+            ext_community 4 random 3 RT
+            route-distinguisher 1 random
+            route-distinguisher 2 [random]incr
+            route-distinguisher 3 incr  300:100
+            route-distinguisher 4 [400]incr 400:100
+            sendall
+
+            Output
+
+
+            tacoma#sh ip bgp v  a   
+            BGP table version is 104786, local router ID is 10.0.0.199
+            Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+                          S Stale
+            Origin codes: i - IGP, e - EGP, ? - incomplete
+
+               Network          Next Hop            Metric LocPrf Weight Path
+            Route Distinguisher: 1:1
+            *>i2.2.2.2/32       10.0.101.9                    100      0 i
+            Route Distinguisher: 1:2
+            *>i2.2.2.3/32       10.0.101.9                    100      0 i
+            Route Distinguisher: 300:100
+            *>i3.3.3.3/32       10.0.101.9                    100      0 i
+            Route Distinguisher: 300:101
+            *>i3.3.3.4/32       10.0.101.9                    100      0 i
+            Route Distinguisher: 400:100
+            *>i4.4.4.4/32       10.0.101.9                    100      0 i
+            Route Distinguisher: 400:101
+            *>i4.4.4.5/32       10.0.101.9                    100      0 i
+            Route Distinguisher: 5859:12350
+            *>i1.1.1.1/32       10.0.101.9                    100      0 i
+            Route Distinguisher: 19759:19090
+            *>i1.1.1.2/32       10.0.101.9                    100      0 i
+            tacoma#
+
+            BGP VPNv4 with increment of Route-Targets
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            interface fa4/0
+             ip address 10.0.0.99 255.255.0.0
+             no shut
+            !
+            interface Loopback0
+             ip address 10.1.1.4 255.255.255.255
+             no shut
+            !
+            router bgp 1
+             no synchronization
+             bgp log-neighbor-changes
+             neighbor 10.0.101.1 remote-as 1001
+             neighbor 10.0.101.1 update-source Loopback0
+            !
+            address-family vpnv4
+             neighbor 10.0.101.1 activate
+             neighbor 10.0.101.1 send-community extended
+             exit-address-family
+            end
+
+            	
+
+
+            #routem config
+            router bgp 1001
+            neighbor 10.1.1.4 remote-as 1
+            neighbor 10.1.1.4 update-source 10.0.101.1
+            capability ipv4 vpn
+            capability ipv4 unicast disable
+            network 1 1.1.1.1/32 5 vpnv4
+            ext_community 1 RT(incr):1:1000 RT:200:300
+            route-distinguisher 1 incr 1:1000
+            nlricount 1
+
+            Output
+
+
+            corolla#sh ip bgp v a
+            BGP table version is 6, local router ID is 10.0.0.81
+            Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+                          r RIB-failure, S Stale
+            Origin codes: i - IGP, e - EGP, ? - incomplete
+
+               Network          Next Hop            Metric LocPrf Weight Path
+            Route Distinguisher: 1:1001
+            *>i1.1.1.1/32       10.0.101.1                    100      0 i
+            Route Distinguisher: 1:1002
+            *>i1.1.1.2/32       10.0.101.1                    100      0 i
+            Route Distinguisher: 1:1003
+            *>i1.1.1.3/32       10.0.101.1                    100      0 i
+            Route Distinguisher: 1:1004
+            *>i1.1.1.4/32       10.0.101.1                    100      0 i
+            Route Distinguisher: 1:1005
+            *>i1.1.1.5/32       10.0.101.1                    100      0 i
+            corolla#
+            corolla#sh ip bgp v a 1.1.1.1/32
+            BGP routing table entry for 1:1001:1.1.1.1/32, version 2
+            Paths: (1 available, best #1, no table)
+              Not advertised to any peer
+              Local, (Received from a RR-client)
+                10.0.101.1 from 10.0.101.1 (10.0.101.1)
+                  Origin IGP, localpref 100, valid, internal, best
+                  Extended Community: RT:1:1001 RT:200:300
+            corolla#
+            corolla#
+            corolla#sh ip bgp v a 1.1.1.2/32
+            BGP routing table entry for 1:1002:1.1.1.2/32, version 3
+            Paths: (1 available, best #1, no table)
+              Not advertised to any peer
+              Local, (Received from a RR-client)
+                10.0.101.1 from 10.0.101.1 (10.0.101.1)
+                  Origin IGP, localpref 100, valid, internal, best
+                  Extended Community: RT:1:1002 RT:200:300
+            corolla#
+
+            BGP VPNv4 increment of RDs and RTs with limit
+            Description
+                Only the second part of RDs and RTs get increment
+                When it hits the limit, it goes back to the original values
+            Examples
+            Router 	Routem
+
+
+            !router config 
+
+            conf t
+            ip vrf 1001
+             route-target export 2.2.2.2:1001
+             route-target import 2.2.2.2:1001
+            !
+            ip vrf 1002
+             route-target export 2.2.2.2:1002
+             route-target import 2.2.2.2:1002
+            !
+            interface fa4/0 
+             ip address 10.0.0.99 255.255.0.0 
+             no shut 
+            ! 
+            interface Loopback0 
+             ip address 10.1.1.4 255.255.255.255 
+             no shut 
+            ! 
+            router bgp 1 
+             no synchronization 
+             bgp log-neighbor-changes 
+             neighbor 10.0.101.1 remote-as 1001 
+             neighbor 10.0.101.1 update-source Loopback0 
+            ! 
+            address-family vpnv4 
+             neighbor 10.0.101.1 activate 
+             neighbor 10.0.101.1 send-community extended 
+             exit-address-family 
+            end
+
+            	
+
+
+            #routem config 
+
+            router bgp 1001 
+            neighbor 10.1.1.4 remote-as 1 
+            neighbor 10.1.1.4 update-source 10.0.101.1 
+            capability ipv4 vpn 
+            capability ipv4 unicast disable 
+            network 1 1.1.1.1/32 6 vpnv4
+            ext_community 1 RT(incr-1002):2.2.2.2:1000 RT:200:300
+            route-distinguisher 1 incr-1002 2.2.2.2:1000
+            nlricount 1
+
+            Output
+
+
+            corolla#sh ip bgp v a 
+            BGP table version is 13, local router ID is 10.1.1.4
+            Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+                          r RIB-failure, S Stale
+            Origin codes: i - IGP, e - EGP, ? - incomplete
+
+               Network          Next Hop            Metric LocPrf Weight Path
+            Route Distinguisher: 0:0
+            *> 1.1.1.1/32       10.0.101.1                             0 1001 i
+            *> 1.1.1.2/32       10.0.101.1                             0 1001 i
+            *> 1.1.1.3/32       10.0.101.1                             0 1001 i
+            *> 1.1.1.4/32       10.0.101.1                             0 1001 i
+            *> 1.1.1.5/32       10.0.101.1                             0 1001 i
+            *> 1.1.1.6/32       10.0.101.1                             0 1001 i
+            Route Distinguisher: 2.2.2.2:1001
+            *> 1.1.1.1/32       10.0.101.1                             0 1001 i
+            *> 1.1.1.3/32       10.0.101.1                             0 1001 i
+            *> 1.1.1.5/32       10.0.101.1                             0 1001 i
+            Route Distinguisher: 2.2.2.2:1002
+            *> 1.1.1.2/32       10.0.101.1                             0 1001 i
+            *> 1.1.1.4/32       10.0.101.1                             0 1001 i
+            *> 1.1.1.6/32       10.0.101.1                             0 1001 i
+            corolla#
+            corolla#
+            corolla#sh ip bgp v a 1.1.1.2/32 
+            BGP routing table entry for 2.2.2.2:1002:1.1.1.2/32, version 3
+            Paths: (1 available, best #1, no table)
+            Flag: 0x820
+              Not advertised to any peer
+              1001
+                10.0.101.1 from 10.0.101.1 (10.0.101.1)
+                  Origin IGP, localpref 100, valid, external, best
+                  Extended Community: RT:200:300 RT:2.2.2.2:1002,
+                  mpls labels in/out nolabel/16
+            corolla#
+
+            BGP send update triggered
+            Description
+
+            When trigger is configured, routem peer only send update message when it's triggered by receiving matched update message.
+            Routem trigger feature to support ipv4 multicast/unicast and ipv6 multicast/unicast. And "debuglevel trigger" is added to help debug trigger problem; we can also use global config "bgp_default_debuglevel trigger"
+            BGP v4 unicast trigger
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t 
+            interface fa4/0 
+             ip address 10.0.0.99 255.255.0.0 
+             no shut 
+            ! 
+            router bgp 1 
+            neighbor 10.0.101.1 remote-as 1 
+            neighbor 10.0.101.2 remote-as 2 
+            end
+
+            	
+
+
+            #routem config
+            router bgp 1 
+            neighbor 10.0.0.99 remote-as 1 
+            neighbor 10.0.0.99 update-source 10.0.101.1 
+            network 1 1.1.1.0/24 5 
+            metric 1 5 
+            network 2 2.2.2.0/24 10 
+            metric 2 8 
+            locpref 2 120 
+            sendall 
+            # 
+            router bgp 2 
+            neighbor 10.0.0.99 remote-as 1 
+            neighbor 10.0.0.99 update-source 10.0.101.2 
+            network 1 3.3.3.0/24 1000 
+            aspath 1 random 5 
+            network 2 4.4.4.0/24 500 
+            aspath 1 random 3 
+            nlricount 1 
+            redoattr 1 
+            sendall
+            trigger
+             network 1.1.1.0 any
+             nexthop 10.0.101.1
+            trigger
+            debuglevel trigger
+
+            BGP v4 DMZ LinkBW /IBGP only/ and Cost comm IOS
+            Examples
+            Router 	Routem
+
+
+            !router config
+            int e1/1
+            ip addr 10.0.0.199 255.255.0.0
+            no shut
+            !
+            router bgp 1
+             no synchronization
+             bgp log-neighbor-changes
+             bgp dmzlink-bw
+             neighbor 10.0.101.1 remote-as 1
+
+            	
+
+
+            #routem config
+            router bgp 1
+            neighbor 10.0.0.199 remote-as 1
+            neighbor 10.0.0.199 update-source 10.0.101.1
+            network 1 1.1.1.0/24 1
+            network 2 2.2.2.0/24 1
+            ext_community 1 LB(ios):65000
+            ext_community 2 Cost:igp:255:4294967295
+            sendall
+
+            Output
+
+
+            corolla#sh ip bgp 1.1.1.0/24
+            BGP routing table entry for 1.1.1.0/24, version 6
+            Paths: (1 available, best #1, table Default-IP-Routing-Table)
+            Flag: 0x820
+              Not advertised to any peer
+              Local
+                10.0.101.1 from 10.0.101.1 (10.0.101.1)
+                  Origin IGP, localpref 100, valid, internal, best
+                  DMZ-Link Bw 65000 kbytes
+            corolla#
+
+            BGP v6 multicast trigger
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            ipv6 unicast-routing 
+            ! 
+            interface fa4/0 
+             ip address 10.0.0.99 255.255.0.0 
+             no ip route-cache 
+             no ip mroute-cache 
+             duplex half
+             ipv6 address fec0::99/112 
+             ipv6 enable
+             no shut
+            ! 
+            router bgp 1 
+             no synchronization 
+             no bgp default ipv4-unicast 
+             bgp log-neighbor-changes 
+             neighbor fec0::1001 remote-as 1001
+             neighbor fec0::1002 remote-as 1002
+             no auto-summary 
+             ! 
+             address-family ipv6 multicast
+             neighbor fec0::1001 activate
+             neighbor fec0::1002 activate
+             exit-address-family 
+            end
+
+            	
+
+
+            #routem config
+            router bgp 1001 
+            neighbor fec0::99 remote-as 1
+            neighbor fec0::99 update-source fec0::1001 
+            capability ipv6 multicast
+            capability refresh
+            bgp_id 10.0.101.1 
+            network 1 eeee::0/113 20 multicast
+            nexthop 1 fec0::1005 ipv6 
+
+            router bgp 1002
+            neighbor fec0::99 remote-as 1
+            neighbor fec0::99 update-source fec0::1002
+            capability ipv6 multicast
+            capability refresh
+            bgp_id 10.0.101.2
+            trigger
+                    network eeee::4:0/113 multicast any
+                    mp_nexthop fec0::1005
+                    aspath 1 1001
+            trigger
+            debuglevel trigger
+
+            BGP v6 unicast with route-refresh on
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            ipv6 unicast-routing 
+            ! 
+            interface fa4/0
+             ip address 10.0.0.99 255.255.0.0 
+             no ip route-cache 
+             no ip mroute-cache 
+             duplex half 
+             ipv6 address fec0::99/112 
+             ipv6 enable
+             no shut
+            ! 
+            router bgp 1 
+             no synchronization 
+             no bgp default ipv4-unicast 
+             bgp log-neighbor-changes 
+             neighbor fec0::1001 remote-as 1001 
+             no auto-summary 
+             ! 
+             address-family ipv6 
+             neighbor fec0::1001 activate 
+             exit-address-family 
+            end
+
+            	
+
+
+            #routem config
+            router bgp 1001 
+            neighbor fec0::99 remote-as 1
+            neighbor fec0::99 update-source fec0::1001 
+            capability ipv6 unicast
+            capability refresh
+            bgp_id 10.0.101.1
+            network 55 eeee::0/113 20 
+            nexthop 55 fec0::1005 ipv6
+
+            BGP v6 unicast link local address
+            Description
+            Router v6 link local address:
+
+            tacoma#sh ipv6 int b
+            Ethernet1/0                [administratively down/down]
+                unassigned
+            Ethernet1/1                [up/up]
+                FE80::2D0:D3FF:FE44:F01D
+            Ethernet1/2                [administratively down/down]
+            ...
+
+            PC v6 link local address:
+
+            /sbin/ifconfig eth1
+            eth1      Link encap:Ethernet  HWaddr 00:48:54:56:B6:F1 
+                      inet addr:10.0.50.1  Bcast:10.255.255.255  Mask:255.255.0.0
+                      inet6 addr: fec0::1001/112 Scope:Site
+                      inet6 addr: fe80::248:54ff:fe56:b6f1/10 Scope:Link
+            ...
+
+            Examples
+            Router 	Routem
+
+
+            !router config
+
+            conf t
+            ipv6 unicast-routing
+            int FastEthernet0/0
+            ip address 10.0.0.199 255.255.0.0
+             ipv6 enable
+             no ipv6 address
+             ipv6 address FE80::2D0:D3FF:FE44:F01D link-local
+             no shut
+            !
+            router bgp 1
+             bgp router-id 10.0.0.199
+             bgp log-neighbor-changes
+             neighbor FE80::248:54FF:FE56:B6F1%FastEthernet0/0 remote-as 1
+             !
+             address-family ipv4
+             no neighbor FE80::248:54FF:FE56:B6F1%FastEthernet0/0 activate
+             no auto-summary 
+             no synchronization 
+             exit-address-family 
+             ! 
+             address-family ipv6 
+             neighbor FE80::248:54FF:FE56:B6F1%FastEthernet0/0 activate
+             exit-address-family
+            !
+            end
+
+            	
+
+
+            #routem config
+
+            router bgp 1
+            neighbor FE80::2D0:D3FF:FE44:F01D remote-as 1
+            neighbor FE80::2D0:D3FF:FE44:F01D update-source fe80::248:54ff:fe56:b6f1
+            interface eth1 # this is required for v6 link local address
+            capability ipv6 unicast
+            bgp_id 10.0.101.1
+
+            BGP v6 multicast
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t 
+            ipv6 unicast-routing 
+            ! 
+            interface fa4/0 
+             ip address 10.0.0.99 255.255.0.0 
+             no ip route-cache 
+             no ip mroute-cache 
+             duplex half 
+             ipv6 address fec0::99/112 
+             ipv6 enable
+             no shut
+            ! 
+            router bgp 1 
+             no synchronization 
+             no bgp default ipv4-unicast 
+             bgp log-neighbor-changes 
+             neighbor fec0::1001 remote-as 1001
+             neighbor fec0::1002 remote-as 1002
+             no auto-summary 
+             ! 
+             address-family ipv6 multicast
+             neighbor fec0::1001 activate
+             neighbor fec0::1002 activate
+             exit-address-family 
+            end
+
+            	
+
+
+            #PC config
+            #/sbin/modprobe ipv6
+            #/sbin/ifconfig eth1 inet6 add FEC0::1001/112
+            #/sbin/ifconfig eth1 inet6 add FEC0::1002/112
+
+            #routem config
+            router bgp 1001 
+            neighbor fec0::99 remote-as 1
+            neighbor fec0::99 update-source fec0::1001 
+            capability ipv6 multicast
+            capability refresh
+            bgp_id 10.0.101.1 
+            network 1 eeee::0/113 20 multicast
+            nexthop 1 fec0::1005 ipv6 
+
+            router bgp 1002
+            neighbor fec0::99 remote-as 1
+            neighbor fec0::99 update-source fec0::1002
+            capability ipv6 multicast
+            capability refresh
+            bgp_id 10.0.101.2
+
+            BGP VPNv4 multicast - safi 129
+            Examples
+            Router 	Routem
+
+
+            router config
+
+            interface Ethernet1/0
+             ip address 19.0.0.9 255.255.0.0
+             no shut
+            !
+            router bgp 1
+             bgp log-neighbor-changes
+             no bgp default route-target filter
+             neighbor 19.0.101.1 remote-as 1001
+             neighbor 19.0.101.2 remote-as 1002
+             no auto-summary
+             !
+             address-family vpnv4
+              neighbor 19.0.101.1 activate
+              neighbor 19.0.101.1 send-community extended
+              neighbor 19.0.101.2 activate
+              neighbor 19.0.101.2 send-community extended
+             exit-address-family
+             !
+             address-family vpnv4 multicast
+              neighbor 19.0.101.1 activate
+              neighbor 19.0.101.2 activate
+             exit-address-family
+
+            	
+
+
+            #routem config 
+
+            router bgp 1001
+            neighbor 19.0.0.9 remote-as 1
+            neighbor 19.0.0.9 update-source 19.0.101.1
+            capability ipv4 vpn
+            capability ipv4 vpn-mcast
+
+            network 1 4.4.4.0/24 10 ipv4 vpn-mcast
+            nexthop 1 19.0.101.1 ipv4 vpn
+            ext_community 1 RT:100:1
+            route-distinguisher 1 101:100
+
+            network 2 5.4.4.0/24 3 ipv4 vpn-mcast
+            nexthop 2 19.0.101.2 ipv4 vpn
+            ext_community 2 RT:100:1
+            route-distinguisher 2 101:100
+            #
+            router bgp 1002
+            neighbor 19.0.0.9 remote-as 1
+            neighbor 19.0.0.9 update-source 19.0.101.2
+            capability ipv4 vpn
+            capability ipv4 vpn-mcast
+
+            BGP VPNv6 multicast - safi 129
+            Examples
+            Router 	Routem
+
+
+            router config
+
+            ipv6 unicast-routing
+            int e1/0
+            ip addr 19.0.0.7 255.255.0.0
+            no shut
+            !
+            router bgp 1
+             no bgp default route-target filter
+             neighbor 19.0.101.3 remote-as 1
+             neighbor 19.0.101.4 remote-as 1004
+             !
+             address-family vpnv6
+              neighbor 19.0.101.3 activate
+              neighbor 19.0.101.3 send-community extended
+              neighbor 19.0.101.4 activate
+              neighbor 19.0.101.4 send-community extended
+             exit-address-family
+             !
+             address-family vpnv6 multicast
+              neighbor 19.0.101.3 activate
+              neighbor 19.0.101.3 send-community extended
+              neighbor 19.0.101.4 activate
+              neighbor 19.0.101.4 send-community extended
+             exit-address-family
+
+            	
+
+
+            #routem config 
+
+            router bgp 1
+            neighbor 19.0.0.7 remote-as 1
+            neighbor 19.0.0.7 update-source 19.0.101.3
+            capability ipv4 unicast disable
+            capability ipv6 vpn
+            capability ipv6 vpn-mcast
+
+            network 1 ACAA::/128 1 ipv6 vpn-mcast
+            ext_community 1 RT:100:3
+            route-distinguisher 1 100:3
+            nexthop 1 {0:0}19.0.101.3 ipv6
+            #
+            router bgp 1004
+            neighbor 19.0.0.7 remote-as 1
+            neighbor 19.0.0.7 update-source 19.0.101.4
+            capability ipv4 unicast disable
+            capability ipv6 vpn
+            capability ipv6 vpn-mcast
+
+            BGP IPv4 mvpn - safi 5
+            Examples
+            Router 	Routem
+
+
+            !router config 
+
+            int e1/0
+            ip addr 19.0.0.9 255.255.0.0
+            no shut
+            !
+            router bgp 1
+             bgp log-neighbor-changes
+             no bgp default route-target filter
+             neighbor 19.0.101.1 remote-as 1001
+             neighbor 19.0.101.2 remote-as 1002
+             no auto-summary
+             !
+             address-family vpnv4
+              neighbor 19.0.101.1 activate
+              neighbor 19.0.101.1 send-community extended
+              neighbor 19.0.101.2 activate
+              neighbor 19.0.101.2 send-community extended
+             exit-address-family
+             !
+             address-family ipv4 mvpn
+              neighbor 19.0.101.1 activate
+              neighbor 19.0.101.2 activate
+             exit-address-family
+
+            	
+
+
+            #routem config 
+
+            router bgp 1001
+            neighbor 19.0.0.9 remote-as 1
+            neighbor 19.0.0.9 update-source 19.0.101.1
+            capability ipv4 vpn
+            capability ipv4 mvpn
+
+            network 1 [1][1.1.1.1] 2 ipv4 mvpn
+            network 2 [2][15000] 3 ipv4 mvpn
+            network 3 [3][192.168.194.2][10.255.170.100][1.1.1.1] 4 ipv4 mvpn
+            #network 4 [4][2][15000][6.6.6.6] 1 ipv4 mvpn
+            network 5 [5][192.168.194.2][224.1.2.3] 1 ipv4 mvpn
+            network 6 [6][65000][192.168.194.2][10.255.170.100] 1 ipv4 mvpn
+            network 7 [7][65000][192.168.194.2][10.255.170.100] 1 ipv4 mvpn
+
+            pmsi_tunnel 1 flags 0 type 4 label 2733
+            pmsi_tunnel 1 value 13 00 65 01 e0 01 02 03
+            #pe_id 1 2.2.2.1[18] 1.1.1.6[19]
+
+            route-distinguisher 1 101:101
+            ext_community 1 rt:100:100
+
+            # Source AS and VRF Route Import Extended Community
+            ext_community 1 mvpn:65000:50 mvpn:3.3.3.3:51
+
+            route-distinguisher 2 102:102
+            ext_community 2 rt:100:100
+
+            route-distinguisher 3 103:103
+            ext_community 3 rt:100:100
+
+            route-distinguisher 4 104:104
+            ext_community 4 rt:100:100
+
+            route-distinguisher 5 105:105
+            ext_community 5 rt:100:100
+
+            route-distinguisher 6 106:106
+            ext_community 6 rt:100:100
+
+            route-distinguisher 7 107:107
+            ext_community 7 rt:100:100
+
+            #
+            router bgp 1002
+            neighbor 19.0.0.9 remote-as 1
+            neighbor 19.0.0.9 update-source 19.0.101.2
+            capability ipv4 mvpn
+
+            BGP IPv6 mvpn - safi 5
+            Examples
+            Router 	Routem
+
+
+            !router config 
+            ipv6 unicast-routing
+            int e1/0
+            ip addr 19.0.0.9 255.255.0.0
+            ipv6 address FEC0::120/112
+            ipv6 enable
+            no shut
+            !
+            int loop0
+            ip addr 19.1.0.1 255.255.255.255
+            no shut
+            !
+            router bgp 1
+             no bgp default ipv4-unicast
+             no bgp default route-target filter
+             bgp log-neighbor-changes
+             neighbor 19.0.101.1 remote-as 1001
+             neighbor 19.0.101.1 update-source loop0
+             neighbor 19.0.101.2 remote-as 1002
+             neighbor 19.0.101.2 update-source loop0
+             neighbor fec0::1003 remote-as 1003
+             neighbor fec0::1004 remote-as 1004
+             neighbor fec0::121 remote-as 2
+             no auto-summary
+             !
+             address-family vpnv6
+              neighbor 19.0.101.1 activate
+              neighbor 19.0.101.1 send-community extended
+              neighbor 19.0.101.2 activate
+              neighbor 19.0.101.2 send-community extended
+              neighbor fec0::1003 activate
+              neighbor fec0::1004 activate
+              neighbor fec0::121 activate
+             exit-address-family
+             address-family ipv6 mvpn
+              neighbor 19.0.101.1 activate
+              neighbor 19.0.101.2 activate
+              neighbor fec0::1003 activate
+              neighbor fec0::1004 activate
+              neighbor fec0::121 activate
+             exit-address-family
+
+            	
+
+
+            #routem config 
+
+            router bgp 1001
+            neighbor 19.1.0.1 remote-as 1
+            neighbor 19.1.0.1 update-source 19.0.101.1
+            capability ipv4 vpn
+            capability ipv4 mvpn
+            capability ipv6 vpn
+            capability ipv6 mvpn
+
+            network 1 [1][28.2.3.4] 1 ipv6 mvpn
+            route-distinguisher 1 111:111
+            ext_community 1 rt:111:111
+            nexthop 1 19.0.101.22 ipv4 mvpn
+            #nexthop 1 19.0.101.22 ipv6
+
+            network 2 [2][9999] 1 ipv6 mvpn
+            route-distinguisher 2 112:112
+            ext_community 2 rt:112:112
+
+            network 3 [3][feaa::fe01][aadd:ccdd::11aa][1.1.1.1] 5 ipv6 mvpn part 3
+            route-distinguisher 3 112:112
+            ext_community 3 rt:112:112
+            nexthop 3 19.0.101.22 ipv4 mvpn
+
+            network 5 [5][febb::fe01][bbdd:ccdd::11aa] 5 ipv6 mvpn part 2
+            route-distinguisher 5 115:115
+            ext_community 5 rt:115:115
+            nexthop 5 19.0.101.22 ipv4 mvpn
+
+            network 6 [7][65001][feaa::fe01][aadd:ccdd::11aa] 1 ipv6 mvpn part 3
+            route-distinguisher 6 112:112
+            ext_community 6 rt:112:112
+            nexthop 6 19.0.101.22 ipv4 mvpn
+            #
+            router bgp 1002
+            neighbor 19.1.0.1 remote-as 1
+            neighbor 19.1.0.1 update-source 19.0.101.2
+            capability ipv4 vpn
+            capability ipv4 mvpn
+            capability ipv6 vpn
+            capability ipv6 mvpn
+
+            #
+            router bgp 1003
+            neighbor fec0::120 remote-as 1
+            neighbor fec0::120 update-source fec0::1003
+            bgp_id 19.0.101.3
+            capability ipv6 vpn
+            capability ipv6 mvpn
+            #
+            router bgp 1004
+            neighbor fec0::120 remote-as 1
+            neighbor fec0::120 update-source fec0::1004
+            bgp_id 19.0.101.4
+            capability ipv6 vpn
+            capability ipv6 mvpn
+
+            #network 31 [1][aabb::ccdd] 1 ipv6 mvpn
+            route-distinguisher 31 111:111
+            ext_community 31 rt:111:111
+            nexthop 31 fec0::1004 ipv6
+            pmsi_tunnel 31 flags 0 type 4 label 2733
+            pmsi_tunnel 31 value 13 00 65 01 e0 01 02 03
+            #pe_id 31 2.2.2.1[18] 1.1.1.6[19]
+            #pe_id 31 aabb::ccdd[18] ddaa::bbcc[19]
+
+            #network 32 [2][9999] 1 ipv6 mvpn
+            route-distinguisher 32 112:112
+            ext_community 32 rt:112:112
+            nexthop 32 fec0::1004 ipv6
+
+            #network 33 [3][feaa::fe01][aadd:ccdd::11aa][aabb::cc01] 1 ipv6 mvpn
+            route-distinguisher 33 112:112
+            ext_community 33 rt:112:112
+            nexthop 33 fec0::1004 ipv6
+
+            #network 43 [3][bbbb::cccc][aadd:eeee::11aa][aabb::cc01] 1 ipv6 mvpn
+            route-distinguisher 43 112:112
+            ext_community 43 rt:112:112
+            nexthop 43 fec0::1004 ipv6
+
+            #network 35 [5][febb::fe01][bbdd:ccdd::11aa] 5 ipv6 mvpn part 2
+            route-distinguisher 35 115:115
+            ext_community 35 rt:115:115
+            nexthop 35 fec0::1004 ipv6
+
+            BGP new attribute
+            Description
+            We can use the keyword "attribute" to craft and send any new BGP update attribute to the UUT. This is the sample config to send extended community (RT and cost)
+            Examples
+            Router 	Routem
+
+
+            !router config
+
+            conf t
+            ip cef
+            ip vrf one
+            rd 1:1
+            route-target both 1:100
+            !
+            interface FastEthernet0/0
+            ip vrf forwarding one
+            ip address 10.0.0.200 255.255.0.0
+            no shut
+
+            router bgp 100
+            address-family ipv4 vrf one
+             neighbor 10.0.101.1 remote-as 100
+             neighbor 10.0.101.1 activate
+            exit-address-family
+            end
+
+            	
+
+
+            #routem config
+
+            router bgp 100
+            neighbor 10.0.0.200 remote-as 100
+            neighbor 10.0.0.200 update-source 10.0.101.1
+            capability vpnv4
+            network 1 111.111.111.111/32 1 # 2 RTs + 6 cost = 8
+            attribute 1 D0 10 00 40 #ext_comm attr len
+            attribute 1 00 02 00 64 00 00 00 0a # RT:100:10
+            attribute 1 00 02 00 64 00 00 00 0b # RT:100:11
+            attribute 1 88 00 00 00 00 00 00 00 # 0x8800:0:0
+            attribute 1 88 01 06 DE 00 09 C4 00 # 0x8801:1758:640000
+            attribute 1 88 02 FF 01 00 19 4C 00 # 0x8802:65281:1657856
+            attribute 1 88 03 FF 01 00 00 05 DC # 0x8803:65281:1500
+            attribute 1 88 04 00 00 2B 2B 2B 01 # 0x8804:0:724249345
+            attribute 1 88 05 00 03 00 00 00 00 # 0x8805:3:0
+
+            These are the sample config to send vpnv4 and vpnv6 prefixes to the UUT
+            VPN v4
+            Router 	Routem
+
+
+            !router config
+
+            conf t
+            interface fa0/0
+             ip address 10.0.0.99 255.255.0.0
+             no shut
+            !
+            interface Loopback0
+             ip address 10.1.1.4 255.255.255.255
+             no shut
+            !
+            router bgp 1
+             no synchronization
+             no bgp default route-target filter
+             bgp log-neighbor-changes
+             neighbor 10.0.101.1 remote-as 1001
+             neighbor 10.0.101.1 update-source Loopback0
+            !
+            address-family vpnv4
+             neighbor 10.0.101.1 activate
+             neighbor 10.0.101.1 send-community extended
+             exit-address-family
+            end
+
+            	
+
+
+            #routem config
+
+            router bgp 1001
+            neighbor 10.1.1.4 remote-as 1
+            neighbor 10.1.1.4 update-source 10.0.101.1
+            capability ipv4 vpn
+            capability ipv4 unicast disable
+            network 1 1.0.0.0/32 0
+            ext_community 1 RT:1:100
+            attribute 1 90 0e 00 21  #mpreach len = 0x21
+            attribute 1 00 01 80     # afi= 0x0001 , safi = 0x80
+            attribute 1 0c           #mpreach nexthop len = 0x0c
+            attribute 1 00 00 00 00 00 00 00 00 0a 00  65 01 #mpreach nexthop
+            attribute 1 00
+            attribute 1 78           # nlri len in bits
+            attribute 1 00 01 00     # mpls label = 16
+            attribute 1 00 00 00 01 00 00 00 64 # RD = 1:100
+            attribute 1 05  05 05 05 # 5.5.5.5/32
+
+            #mbgp_reach vpn ipv4
+            #mbgp_reach nexthop 0.0.0.0 0.0.0.0 10.0.101.1
+            #mbgp_reach network [16]{1:100}5.5.5.5/32
+
+            VPN v6
+            Router 	Routem
+
+
+            !router config
+
+            conf t
+            ipv6 unicast-routing
+            interface g0/1
+             ip address 10.0.0.188 255.255.0.0
+             ipv6 enable
+             no ipv6 address
+             ipv6 address fec0:0:0:0:0:0:0:0188/112
+             no shut
+
+            router bgp 1
+             no bgp default ipv4-unicast
+             no bgp default route-target filter
+             bgp log-neighbor-changes
+             neighbor fec0::1002 remote-as 1002
+             !
+             address-family ipv6
+             neighbor FEC0::1002 activate
+             exit-address-family
+             !
+             address-family vpnv6
+              neighbor FEC0::1002 activate
+             neighbor FEC0::1002 send-community extended
+             exit-address-family
+            end
+
+            	
+
+
+            #routem config
+
+            router bgp 1002
+            neighbor fec0::188 remote-as 1
+            neighbor fec0::188 update-source fec0::1002
+            bgp_id 10.0.101.2
+            capability ipv4 unicast disable
+            capability ipv6 unicast
+            capability ipv6 vpn
+            network 3 1.1.1.1/32 0
+            ext_community 3 RT:1:100
+            attribute 3 90 0e 00 38 # len = 0x38
+            attribute 3 00 02 80    # AFI = 0x01, SAFI = 0x80 (IPV6 VPN)
+            attribute 3 18          # nexthop len = 0x18
+            attribute 3 00 00 00 01 00 00 00 64 # nexthop RD?
+            attribute 3 fe c0 00 00 00 00 00 00 00 00 00 00 00 00 10 02
+            attribute 3 00
+            attribute 3 d0          # bitcount = 208 (0xd0)
+            attribute 3 00 10 00    # label = 256
+            attribute 3 00 00 00 01  00 00 00 64 # RD 1:100
+            attribute 3 aa aa 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+            Output
+
+
+            tundra#sh ip bgp vpnv6 unicast all AAAA::/120
+            BGP routing table entry for [1:100]AAAA::/120, version 6
+            Paths: (1 available, best #1, no table)
+            Flag: 0x820
+              Advertised to update-groups:
+                 1
+              1002
+                FEC0::1002 from FEC0::1002 (10.0.101.2)
+                  Origin IGP, localpref 100, valid, external, best
+                  Extended Community: RT:1:100
+                  mpls labels in/out nolabel/256
+            tundra#
+
+            BGP update random attribute
+            Description
+            Generate v4 unicast prefix with random attributes
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t 
+            interface fa4/0 
+             ip address 10.0.0.99 255.255.0.0 
+             no shut 
+            ! 
+            router bgp 1 
+            neighbor 10.0.101.1 remote-as 1 
+            neighbor 10.0.101.2 remote-as 2 
+            end
+
+            	
+
+
+            #routem config
+            router bgp 2 
+            neighbor 10.0.0.99 remote-as 1 
+            neighbor 10.0.0.99 update-source 10.0.101.2 
+            network 1 3.3.3.0/24 100
+            aspath 1 random 5
+            nexthop 1 random 16
+            community 1 random 10
+            origin 1 random
+            nlricount 1 
+            redoattr 1 
+            sendall
+
+            BGP update replay
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t 
+            interface fa4/0 
+             ip address 10.0.0.99 255.255.0.0 
+             no shut 
+            ! 
+            router bgp 1 
+            neighbor 10.0.101.1 remote-as 1
+            end
+
+            	
+
+
+            #routem config
+            router bgp 1
+            neighbor 10.0.0.99 remote-as 1 
+            neighbor 10.0.0.99 update-source 10.0.101.1 
+            replay file bgp.ascii.dat.txt ascii track
+            replay ignore_time disable
+            #we need keyword "track" only if we want routem to send withdraw
+            #prefix from replay file
+
+            BGP peer flap
+            Examples
+            Router 	Routem
+
+
+            !router config 
+            conf t 
+            interface fa4/0 
+             ip address 10.0.0.99 255.255.0.0 
+             no shut 
+            ! 
+            router bgp 1 
+            neighbor 10.0.101.1 remote-as 1 
+            end
+
+            	
+
+
+            #routem config 
+            router bgp 1 
+            neighbor 10.0.0.99 remote-as 1 
+            neighbor 10.0.0.99 update-source 10.0.101.1 
+            network 1 1.1.1.0/24 5 
+            network 2 2.2.2.0/24 10 
+            sendall
+            reset 30 repeat
+            #routem bgp peer will be reset every 30 seconds
+
+            BGP BGP and BFD /async mode/
+            Examples
+            Router 	Routem
+
+
+            !HFR router config 
+
+            interface GigabitEthernet0/4/0/0
+             ipv4 address 10.0.0.1 255.255.0.0
+             negotiation auto
+             no shut
+            !
+            router bgp 1
+             bgp router-id 10.1.0.1
+             address-family ipv4 unicast
+             !
+             neighbor-group v4-pass-all
+              bfd fast-detect
+              address-family ipv4 unicast
+             !
+             neighbor 10.0.101.1
+              remote-as 1001
+              use neighbor-group v4-pass-all
+             !
+             neighbor 10.0.101.2
+              remote-as 1002
+              use neighbor-group v4-pass-all
+             !
+
+            	
+
+
+            #routem config 
+
+            #bgp config
+            router bgp 1001
+            neighbor 10.0.0.1 remote-as 1
+            neighbor 10.0.0.1 update-source 10.0.101.1
+
+            router bgp 1002
+            neighbor 10.0.0.1 remote-as 1
+            neighbor 10.0.0.1 update-source 10.0.101.2
+
+            #bfd config
+            router bfd
+            neighbor 10.0.0.1 update-source 10.0.101.1
+            bfd interval 1000 min_rx 1000 multiplier 3
+            interface eth1
+
+            router bfd
+            neighbor 10.0.0.1 update-source 10.0.101.2
+            bfd interval 1000 min_rx 1000 multiplier 3
+            interface eth1
+
+            BGP BGP and BFD /echo mode/
+            Examples
+            Router 	Routem
+
+
+            !HFR router config 
+
+            interface GigabitEthernet0/4/0/0
+             ipv4 address 10.0.0.1 255.255.0.0
+             negotiation auto
+             no shut
+            !
+            router bgp 1
+             bgp router-id 10.1.0.1
+             address-family ipv4 unicast
+             !
+             neighbor-group v4-pass-all
+              bfd fast-detect
+              address-family ipv4 unicast
+             !
+             neighbor 10.0.101.1
+              remote-as 1001
+              use neighbor-group v4-pass-all
+             !
+             neighbor 10.0.101.2
+              remote-as 1002
+              use neighbor-group v4-pass-all
+             !
+
+            	
+
+
+            #routem config 
+
+            #bgp config
+            router bgp 1001
+            neighbor 10.0.0.1 remote-as 1
+            neighbor 10.0.0.1 update-source 10.0.101.1
+
+            router bgp 1002
+            neighbor 10.0.0.1 remote-as 1
+            neighbor 10.0.0.1 update-source 10.0.101.2
+
+            #bfd config
+            router bfd
+            neighbor 10.0.0.1 update-source 10.0.101.1
+            bfd interval 1000 min_rx 1000 multiplier 3
+            echo_min_rx 1000
+            interface eth1
+
+            router bfd
+            neighbor 10.0.0.1 update-source 10.0.101.2
+            bfd interval 1000 min_rx 1000 multiplier 3
+            echo_min_rx 1000
+            interface eth1
+
+            #configbfdecho
+            router bfd
+            neighbor 10.0.0.1 update-source 0.0.0.0
+            interface eth1
+            echo_only
+            #configbfdecho
+
+            BGP BGP and BFD /IOS/
+            Examples
+            Router 	Routem
+
+
+            !IOS router config 
+
+            ipv6 unicast-routing
+            !
+            int FastEthernet0/0
+            ip addr 10.0.0.6 255.255.0.0
+            ipv6 enable
+            ipv6 address FEC0::6/112
+            bfd interval 50 min_rx 50 multiplier 3
+            no shut
+            !
+            router bgp 1
+            neighbor 10.0.101.1 remote-as 1001
+            neighbor 10.0.101.2 remote-as 1002
+            neighbor 10.0.101.1 fall-over bfd
+            neighbor 10.0.101.2 fall-over bfd
+            neighbor FEC0::1001 remote-as 1001
+            neighbor FEC0::1001 fall-over bfd
+            neighbor FEC0::1002 remote-as 1002
+            neighbor FEC0::1002 fall-over bfd
+            !
+             address-family ipv4
+              neighbor 10.0.101.1 activate
+              neighbor 10.0.101.2 activate
+              neighbor FEC0::1001 activate
+              neighbor FEC0::1002 activate
+              no auto-summary
+             exit-address-family
+             !
+             address-family ipv6
+              neighbor FEC0::1001 activate
+              neighbor FEC0::1002 activate
+             exit-address-family
+            !
+
+            	
+
+
+            #routem config 
+
+            bgp_default_bfd
+            bfd_default interface eth1
+            #
+            router bgp 1001
+            neighbor 10.0.0.6 remote-as 1
+            neighbor 10.0.0.6 update-source 10.0.101.1
+
+            router bgp 1002
+            neighbor 10.0.0.6 remote-as 1
+            neighbor 10.0.0.6 update-source 10.0.101.2
+
+            router bgp 1001
+            neighbor FEC0::6 remote-as 1
+            neighbor FEC0::6 update-source  FEC0::1001
+            capability ipv6 unicast
+            bgp_id 10.0.101.1
+
+            router bgp 1002
+            neighbor FEC0::6 remote-as 1
+            neighbor FEC0::6 update-source  FEC0::1002
+            capability ipv6 unicast
+            bgp_id 10.0.101.2
+
+            Command to configure IPv6 addresses in Linux PC
+
+
+            /sbin/modprobe ipv6
+            /sbin/ifconfig eth1 up
+            /sbin/ifconfig eth1:1 inet6 add FEC0::1001/122
+            /sbin/ifconfig eth1:2 inet6 add FEC0::1002/122
+            /sbin/ifconfig eth1:3 inet6 add FEC0::1003/122
+            /sbin/ifconfig eth1:4 inet6 add FEC0::1004/122
+            /sbin/ifconfig eth1:5 inet6 add FEC0::1005/122
+
+            Command to remove IPv6 addresses in Linux PC
+
+
+            /sbin/ifconfig eth1:1 inet6 del FEC0::1001/122
+            /sbin/ifconfig eth1:2 inet6 del FEC0::1002/122
+            /sbin/ifconfig eth1:3 inet6 del FEC0::1003/122
+            /sbin/ifconfig eth1:4 inet6 del FEC0::1004/122
+            /sbin/ifconfig eth1:5 inet6 del FEC0::1005/122
+
+            BGP L2VPN VPLS/VPWS for IOS XR
+            Examples
+            Router 	Routem
+
+
+            None
+
+            	
+
+
+            #routem config 
+
+            #This doesn't work with IOS; it might work with IOS-XR
+            router bgp 100
+            neighbor 10.0.0.1 remote-as 100
+            neighbor 10.0.0.1 update-source 10.0.101.1
+            capability l2vpn vpls
+
+            network 1 1.1.1.1/32 0 # this is bogus
+            #Extended L2VPN:
+            #Encaps Type and Control Flags = 0x1380
+            #Layer-2 MTU and Reserved = 0x00000000
+            ext_community 1 RT:100:1 l2vpn:0x1380:0x00000000
+            #L2VPN VPLS prefixes
+            mbgp_reach 1 vpls l2vpn
+            mbgp_reach 1 nexthop 10.0.101.1
+            #{RD}VE ID | VE Block Offset | VE Block Size | Label Base
+            mbgp_reach 1 network {10:10}0x0002|0x0010|0x000a|0x000ff1
+
+            network 2 0x0002|0x0010|0x000a|0x000ff1 count 50000 l2vpn vpls
+            route-distinguisher 2 100:200
+            ext_community 2 rt:100:1
+
+            network 3 0x0002|0x0003|0xffff|0xf1f2f3|0x01000180 count 65000 l2vpn vpls incr 1
+            route-distinguisher 3 100:2000
+            ext_community 3 rt:100:1
+
+            BGP Multisession
+            Examples
+            Router 	Routem
+
+
+            router config 
+
+            ip multicast-routing
+            global-address-family ipv4
+             topology data
+             topology voice
+            int GigabitEthernet0/1
+            ip address 10.0.0.81 255.255.0.0
+            ip pim sparse-mode
+            no shut
+            router bgp 1
+             bgp log-neighbor-changes
+             scope global
+              neighbor 10.0.101.1 remote-as 1
+              address-family ipv4
+               topology base
+                neighbor 10.0.101.1 activate
+               topology data
+                neighbor 10.0.101.1 activate
+                bgp tid 1
+               topology voice
+                neighbor 10.0.101.1 activate
+                bgp tid 255
+              address-family ipv4 multicast
+               neighbor 10.0.101.1 activate
+
+            	
+
+
+            #routem config 
+
+            router bgp 1
+            neighbor 10.0.0.81 remote-as 1
+            neighbor 10.0.0.81 update-source 10.0.101.1
+            capability multisession
+
+            sub-session 1 capability ipv4 multicast
+            sub-session 1 capability ipv4 unicast disable
+            sub-session 1 network 1 1.1.1.1/32 2 ipv4 multicast
+            sub-session 2 capability tid 1
+            sub-session 3 capability tid 255
+            sub-session 3 network 1 1.1.1.1/32 1000
+            sub-session 3 aspath 1 random 5
+
+            Note that "capability ipv4 unicast" is turned on for all sessions include the main session and sub sessions. So, for the IPv4 multicast session, we need to turn it off (capability ipv4 unicast disable). Other topology sub sessions (with capability tid defined) the IPv4 unicast capability is needed along with capability tid.
+
+            We can also use the old way (having separate sessions for each AFI or topology ID) to configure routem to bring up BGP multi sessions.
+            Rececommended
+            Router 	Routem
+
+
+            router config
+
+            ip multicast-routing
+            global-address-family ipv4
+             topology data
+             topology voice
+            int GigabitEthernet0/1
+            ip address 10.0.0.81 255.255.0.0
+            ip pim sparse-mode
+            no shut
+            router bgp 1
+             bgp log-neighbor-changes
+             scope global
+              neighbor 10.0.101.1 remote-as 1
+              address-family ipv4
+               topology base
+                neighbor 10.0.101.1 activate
+               topology data
+                neighbor 10.0.101.1 activate
+                bgp tid 1
+               topology voice
+                neighbor 10.0.101.1 activate
+                bgp tid 255
+              address-family ipv4 multicast
+               neighbor 10.0.101.1 activate
+
+            	
+
+
+            #routem config
+
+            #ipv4 unicast
+            router bgp 1
+            neighbor 10.0.0.81 remote-as 1
+            neighbor 10.0.0.81 update-source 10.0.101.1
+            capability multisession
+
+            #ipv4 multicast only
+            router bgp 1
+            neighbor 10.0.0.81 remote-as 1
+            neighbor 10.0.0.81 update-source 10.0.101.1
+            capability multisession
+            capability ipv4 multicast
+            capability ipv4 unicast disable
+            network 1 1.1.1.1/32 2 ipv4 multicast
+
+            #tid 1
+            router bgp 1
+            neighbor 10.0.0.81 remote-as 1
+            neighbor 10.0.0.81 update-source 10.0.101.1
+            capability multisession
+            capability tid 1
+
+            #tid 255
+            router bgp 1
+            neighbor 10.0.0.81 remote-as 1
+            neighbor 10.0.0.81 update-source 10.0.101.1
+            capability multisession
+            capability tid 255
+            network 1 1.1.1.1/32 1000
+            aspath 1 random 5
+
+            BGP L2VPN VPLS
+            Examples
+            Router 	Routem
+
+
+            router config 
+
+            conf t
+            int GigabitEthernet0/1
+            ip addr 10.0.0.201 255.255.0.0
+            no shut
+            !
+            router bgp 1
+             no bgp default route-target filter
+             bgp log-neighbor-changes
+             neighbor 10.0.101.1 remote-as 1
+             neighbor 10.0.101.2 remote-as 1002
+             !
+             address-family ipv4
+             no synchronization
+             neighbor 10.0.101.1 activate
+             neighbor 10.0.101.2 activate
+             no auto-summary
+             exit-address-family
+             !
+             address-family l2vpn vpls
+             neighbor 10.0.101.1 activate
+             neighbor 10.0.101.1 send-community extended
+             neighbor 10.0.101.1 prefix-length-size 2
+             neighbor 10.0.101.2 activate
+             neighbor 10.0.101.2 send-community extended
+             neighbor 10.0.101.2 prefix-length-size 2
+             exit-address-family
+            !
+            end
+
+            	
+
+
+            #routem config 
+
+            router bgp 1
+            neighbor 10.0.0.201 remote-as 1
+            neighbor 10.0.0.201 update-source 10.0.101.1
+            capability multisession
+            sub-session 1 capability l2vpn vpls
+            sub-session 1 capability ipv4 unicast disable
+            sub-session 1 network 1 1.1.1.1/32 5 l2vpn vpls ios
+            sub-session 1 route-distinguisher 1 incr 100:200
+            sub-session 1 ext_community 1 rt:100:200 l2vpn-agi:1:5
+            sub-session 1 aspath 1 random 5
+            sub-session 1 nlricount random 5
+
+            router bgp 1002
+            neighbor 10.0.0.201 remote-as 1
+            neighbor 10.0.0.201 update-source 10.0.101.2
+            capability multisession
+            sub-session 1 capability l2vpn vpls
+            sub-session 1 capability ipv4 unicast disable
+            sub-session 1 trigger network {100:203}1.1.1.3/96 l2vpn vpls ios
+            sub-session 1 network 1 2.2.2.2/32 10 l2vpn vpls ios
+            sub-session 1 route-distinguisher 1 incr 100:300
+            sub-session 1 debuglevel trigger
+
+            BGP OSPF Ext Comm
+            Sample config using "attribute" keyword to send OSPF Extended Community
+            Router 	Routem
+
+
+            router config
+
+            router bgp 1
+            neighbor 20.0.101.1 remote-as 2001
+            no bgp default route-target filter
+            address-family vpnv4
+            neighbor 20.0.101.1 activate
+
+            	
+
+
+            #routem config
+
+            router bgp 2001
+            neighbor 20.0.0.81 remote-as 1
+            neighbor 20.0.0.81 update-source 20.0.101.1
+            capability ipv4 vpn
+            network 1 1.1.1.1/32 1 vpnv4
+            ext_community 1 RT:31000:7 OSPF-DOMAIN-ID:0x0005:0x000003E90200 OSPF-RT:0.0.0.0:2:0 OSPF-ROUTER-ID:11.0.0.81:512 MDT:65000:239.129.100.5
+            route-distinguisher 1 15:15
+
+            Sample config using "attribute" keyword to send OSPF Extended Community
+            Router 	Routem
+
+
+            router config
+
+            router bgp 1
+            neighbor 20.0.101.1 remote-as 2001
+            no bgp default route-target filter
+            address-family vpnv4
+            neighbor 20.0.101.1 activate
+
+            	
+
+
+            #routem config
+
+            router bgp 2001
+            neighbor 20.0.0.81 remote-as 1
+            neighbor 20.0.0.81 update-source 20.0.101.1
+            capability ipv4 vpn
+            network 1 1.1.1.1/32 1 vpnv4
+            attribute 1 c0 10 20 #ext_community (c0 10) with total len of 32 bytes (20)
+            attribute 1 00 02 79 18 00 00 00 07 #RT:31000:7
+            attribute 1 00 05 00 00 03 e9 02 00 #OSPF DOMAIN ID:0x0005:0x000003E90200
+            attribute 1 80 00 00 00 00 00 02 00 #OSPF RT:0.0.0.0:2:0
+            attribute 1 80 01 0b 00 00 51 02 00 #OSPF ROUTER ID:11.0.0.81:512
+            route-distinguisher 1 15:15
+
+            Sample router output
+
+
+            corolla#sh ip bgp v a 1.1.1.1/32
+            BGP routing table entry for 15:15:1.1.1.1/32, version 20
+            Paths: (1 available, best #1, no table)
+              Not advertised to any peer
+              2001
+                20.0.101.1 from 20.0.101.1 (20.0.101.1)
+                  Origin IGP, localpref 100, valid, external, best
+                  Extended Community: RT:31000:7 OSPF DOMAIN ID:0x0005:0x000003E90200
+                    OSPF RT:0.0.0.0:2:0 OSPF ROUTER ID:11.0.0.81:512,
+                  mpls labels in/out nolabel/16
+            corolla#
+
+            BGP 4-byte AS
+            Examples
+            Router 	Routem
+
+
+            None
+
+            	
+
+
+            #routem config
+
+            router bgp 16.62525
+            neighbor 10.0.101.2 remote-as 16.62525
+            neighbor 10.0.101.2 update-source 10.0.101.1
+            capability 4bytes-as
+            network 1 1.1.1.1/32 1
+            aspath 1 1.24 553.5 4.35 4.7
+            ext_community 1 SoO:123.123:100 RT:345.456:200
+            new_aspath 1 7.5 43.2 4294967295 {53.5 645.3}
+            aggregator 1 23456 10.0.103.100
+            new_aggregator 1 7.5 10.0.103.100
+            dot_notation_as disable
+
+    ISIS
+        Show/Hide
+            ISIS v4 LAN with metric-stype
+            Description
+
+            metric-style wide : turn on wide metric feature
+            metric-style transition : send both styles of TLVs (IS-Neighbor and IS-Extended) during transition period.
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            router isis
+            net 49.0001.abab.0000.0001.00
+            int fa4/0
+            ip addr 10.0.0.99 255.255.0.0
+            no shut
+            ip router isis
+            clns router isis
+            end
+
+            	
+
+
+            #routem config
+            isis_default_csnp_psnp_support
+            router isis
+             neighbor 10.0.0.99 update-source 10.0.101.1
+             net 49.0001.ffff.0000.1001.00
+             mac-address 0000.1111.1001
+             interface eth1
+             ip-internal 1 1.1.1.1/32 10
+             ip-external 2 2.0.99.0/32 30000
+             metric-style transition
+
+            ISIS v4/v6 LAN
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t 
+            ipv6 unicast-routing 
+            ! 
+            interface fa4/0 
+             ip address 10.0.0.99 255.255.0.0 
+             no ip route-cache 
+             no ip mroute-cache 
+             duplex half 
+             ipv6 address fec0::99/112 
+             ipv6 enable
+             no shut
+            !
+            router isis
+            net 49.0001.abab.0000.0001.00
+            int fa4/0
+            ip router isis
+            ipv6 router isis
+            clns router isis
+            end
+
+            	
+
+
+            #routem config
+            isis_default_csnp_psnp_support
+            router isis 
+            neighbor 10.0.0.99 update-source 10.0.101.1 
+            neighbor fec0::99/112 update-source fec0::1011/112 
+            net 49.0001.ffff.0000.1001.00 
+            is-type level-1 
+            interface eth1 
+            mac-address 0000.1111.1001 
+            network 1 2.2.2.0/24 20 
+            network 2 1112::0/112 30 
+            metric 2 8
+
+            ISIS v6 only
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t 
+            ipv6 unicast-routing 
+            ! 
+            interface fa4/0 
+             duplex half 
+             ipv6 address fec0::99/112 
+             ipv6 enable
+             no shut
+            !
+            router isis
+            net 49.0001.abab.0000.0001.00
+            int fa4/0
+            ipv6 router isis
+            clns router isis
+            end
+
+            	
+
+
+            #routem config
+            isis_default_csnp_psnp_support
+            router isis
+            neighbor fec0::99/112 update-source fec0::1011/112
+            net 49.0001.ffff.0000.1001.00
+            is-type level-1
+            interface eth1
+            mac-address 0000.1111.1001
+            network 1 1112::0/112 5000 
+            metric 1 8
+
+            router isis
+            neighbor fec0::99/112 update-source fec0::1012/112
+            net 49.0001.ffff.0000.1002.00
+            is-type level-1
+            interface eth1
+            mac-address 0000.1111.1002
+            network 1 1113::0/112 5000
+            metric 1 8
+
+            ISIS LNE v4 GRE tunnel
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            router isis
+            net 49.0001.abab.0000.0001.00
+            int fa4/0
+            ip addr 10.0.0.99 255.255.0.0
+            no shut
+            !
+            interface tunnel 0
+            ip address 6.0.0.1 255.255.255.0
+            tunnel dest 10.0.101.1
+            tunnel source 10.0.0.99
+            tunnel key 1
+            ip router isis
+            clns router isis
+            end
+
+            	
+
+
+            #routem config
+            router isis
+            net 49.0001.ffff.0000.1001.00
+            is-type level-1
+            interface tunnel 1 6.0.0.2 255.255.255.0
+            neighbor 10.0.0.99 update-source 10.0.101.1
+            ip-internal 1 1.0.0.0/32 1
+            ip-internal-metric 1 10
+            ip-external 1 1.0.99.0/32 10
+            ip-external-metric 1 10
+
+            #isis topology config
+            topology
+            network 1.0.0.0
+            bits-for clusters 4
+            bits-for row-col 4
+            bits-for interface 4
+            bits-for local-subnet 8
+            clusters 3
+            rows 3
+            columns 3
+            stub-nets-per-router 5
+            metric random 20
+            ip-external 5.5.5.0/24 100
+            topology
+
+            ISIS IPv4/IPv6 /topology/
+            Examples
+            Router 	Routem
+
+
+            router config
+
+            ipv6 unicast-routing
+            !
+            interface e1/0
+             ip addr 19.0.0.36 255.255.0.0
+             ipv6 address fec0::99/112
+             ipv6 enable
+             ipv6 router isis
+             ip router isis
+             clns router isis
+             no shut
+            interface Ethernet0/1
+             ipv6 address FED0::99/112
+             ipv6 enable
+             ipv6 router isis
+             clns router isis
+             no shut
+            !
+            router isis
+            net 49.0001.abab.0000.0001.00
+
+            	
+
+
+            #routem config 
+
+            isis_default_csnp_psnp_support
+            router isis
+            neighbor 19.0.0.36 update-source 19.0.101.1
+            neighbor fec0::99 update-source fec0::1011
+            net 49.0001.ffff.0000.1001.00
+            is-type level-2
+            interface eth1
+            #mac-address 1111.2222.3333
+            mac-address use-device
+            network 1 1112::0/112 1
+            metric 1 8
+            metric-stype transition
+
+            topology
+            network 2.0.0.0
+            network6 FDD0::
+            bits-for clusters 4
+            bits-for row-col 4
+            bits-for interface 8
+            bits-for local-subnet 8
+            clusters 2
+            rows 3
+            columns 3
+            stub-nets-per-router 2
+            metric 9
+            ip-external 3 5.5.5.0/24 5
+            ipv6-external 2 8112::0/112 100
+            protocol_support ipv4 ipv6
+            connect row-col
+            topology
+
+            ISIS route flap use set LSP life time
+            Description
+
+            Set LSP lifetime to a value which is smaller than LSP interval
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            router isis
+            net 49.0001.abab.0000.0001.00
+            int fa4/0
+            ip addr 10.0.0.99 255.255.0.0
+            no shut
+            ip router isis
+            clns router isis
+            end
+
+            	
+
+
+            #routem config
+            router isis 
+             neighbor 10.0.0.99 update-source 10.0.101.1
+             net 49.0001.ffff.0000.1001.00 
+             mac-address 0000.1111.1001 
+             interface eth1 
+             max-lsp-lifetime 120 
+             lsp-interval 180 
+             ip-external 1 1.0.99.0/32 300
+
+            ISIS ISIS route flap use /change X/
+            Description
+
+            routem will send all LSPs as usual, wait X seconds, sends an "empty" LSP( this one causes the link to other LSPs or topology broken; thus, routes will be removed from the router routing table ...), wait another X seconds, send all LSPs again.
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            router isis
+            net 49.0001.abab.0000.0001.00
+            int fa4/0
+            ip addr 10.0.0.99 255.255.0.0
+            no shut
+            ip router isis
+            clns router isis
+            end
+
+            	
+
+
+            #routem config
+            router isis 
+             neighbor 10.0.0.99 update-source 10.0.101.1
+             net 49.0001.ffff.0000.1001.00 
+             mac-address 0000.1111.1001 
+             interface eth1 
+             ip-external 1 1.0.99.0/32 300
+             change 60
+
+            ISIS traffic engineer /TE/
+            Examples
+            Router 	Routem
+
+
+            conf t
+             ip cef
+             mpls traffic-eng tunnels
+             !
+             interface Loopback0
+              ip address 10.10.10.6 255.255.255.255
+              ip router isis 
+             !
+             interface Tunnel1
+              ip unnumbered Loopback0
+              tunnel destination 10.10.10.4
+              tunnel mode mpls traffic-eng
+              tunnel mpls traffic-eng autoroute announce
+              tunnel mpls traffic-eng priority 2 2
+              tunnel mpls traffic-eng bandwidth 158
+              tunnel mpls traffic-eng path-option 1 explicit name low
+             !
+             router isis 
+              net 49.0001.0000.0000.0006.00
+              is-type level-1
+              metric-style wide
+              mpls traffic-eng router-id Loopback0
+              mpls traffic-eng level-1
+             !
+             interface e1/0 
+              bandwidth 5120
+              ip address 20.0.0.199 255.255.0.0
+              ip router isis
+              no shut 
+              tag-switching ip
+              mpls traffic-eng tunnels 
+             ip rsvp bandwidth 5121 5121
+             !
+             end
+
+            	
+
+
+            #routem config
+             router isis 
+              neighbor 20.0.0.199 update-source 20.0.101.1
+              net 49.0001.aaaa.0000.0004.00
+              hostname routem
+              mac-address 00d0.b7e2.b78c
+              routerid 20.1.99.99 # specify router ID
+              interface eth2
+              is-type level-1
+              metric-style wide
+              mpls traffic-eng     # turn on TE feature
+              bandwidth 1111     # specify physical BW
+              ip rsvp bandwidth 6121 # specify reserable BW
+              sendall
+
+    OSPF
+        Show/Hide
+            OSPF v4 unicast
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            int fa4/0
+            ip addr 10.0.0.99 255.255.0.0
+            no shut
+            !
+            router ospf 1
+            network 10.0.0.99 255.255.0.0 area 0.0.0.0
+            end
+
+            	
+
+
+            #routem config
+            ospf_default_dbd_advertise
+            router ospf
+            neighbor 10.0.0.99 update-source 10.0.101.1
+            networkmask 255.255.0.0
+            router_id 1.0.0.0
+            area 0.0.0.0
+            link 1 99.0.0.0/32 1
+            ext-ip 1 1.0.0.0/32 1
+            ext-nexthop 1 10.0.101.3
+            ia-ip 2 2.0.0.0/32 1
+            no virtual-link
+            #
+            router ospf
+            neighbor 10.0.0.99 update-source 10.0.101.2
+            networkmask 255.255.0.0
+            router_id 1.0.1.0
+            area 0.0.0.0
+            link 1 99.1.0.0/32 1
+            ext-ip 1 1.1.0.0/32 1
+            no virtual-link
+
+            OSPF IPv4 unicast with jump keyword
+            Examples
+            Router 	Routem
+
+
+            !router config
+            interface FastEthernet0/0
+             ip address 10.0.0.81 255.255.0.0
+             no shut
+            !
+            router ospf 1
+             network 10.0.0.0 0.0.255.255 area 0.0.0.0
+
+            	
+
+
+            #routem config
+            router ospf
+            neighbor 10.0.0.81 update-source 10.0.101.1
+            router_id 65.83.236.253
+            area 0.0.0.0
+            networkmask 255.255.0.0
+            link 1 1.1.1.1/32 10 jump 3
+            ext-ip 2 2.2.2.2/32 4 jump 2
+            ia-ip 3 3.3.3.3/32 15 jump 5
+            ia-ip 4 4.4.4.4/32 10 jump 7
+            no virtual-link
+
+            Output
+
+
+            corolla#sh ip route ospf
+            Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+                   D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+                   N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+                   E1 - OSPF external type 1, E2 - OSPF external type 2
+                   i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+                   ia - IS-IS inter area, * - candidate default, U - per-user static route
+                   o - ODR, P - periodic downloaded static route, + - replicated route
+
+            Gateway of last resort is not set
+
+                  1.0.0.0/32 is subnetted, 7 subnets
+            O        1.1.1.1 [110/1] via 10.0.101.1, 00:35:43, FastEthernet0/0
+            O        1.1.1.4 [110/1] via 10.0.101.1, 00:35:43, FastEthernet0/0
+            O        1.1.1.7 [110/1] via 10.0.101.1, 00:35:43, FastEthernet0/0
+            O        1.1.1.10 [110/1] via 10.0.101.1, 00:35:43, FastEthernet0/0
+                  2.0.0.0/32 is subnetted, 2 subnets
+            O E1     2.2.2.2 [110/1] via 10.0.101.1, 00:35:43, FastEthernet0/0
+            O E1     2.2.2.4 [110/1] via 10.0.101.1, 00:35:43, FastEthernet0/0
+                  3.0.0.0/32 is subnetted, 3 subnets
+            O IA     3.3.3.3 [110/1] via 10.0.101.1, 00:35:43, FastEthernet0/0
+            O IA     3.3.3.8 [110/1] via 10.0.101.1, 00:35:43, FastEthernet0/0
+            O IA     3.3.3.13 [110/1] via 10.0.101.1, 00:35:43, FastEthernet0/0
+                  4.0.0.0/32 is subnetted, 2 subnets
+            O IA     4.4.4.4 [110/1] via 10.0.101.1, 00:35:47, FastEthernet0/0
+            O IA     4.4.4.11 [110/1] via 10.0.101.1, 00:35:47, FastEthernet0/0
+            corolla#
+
+            OSPF LNE v4 unicast
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            int fa4/0
+            ip addr 10.0.0.99 255.255.0.0
+            no shut
+            !
+            router ospf 1
+            network 10.0.0.99 255.255.0.0 area 0.0.0.0
+            end
+
+            	
+
+
+            #routem config
+            ospf_default_dbd_advertise
+            router ospf
+            neighbor 10.0.0.99 update-source 10.0.101.1
+            networkmask 255.255.0.0
+            router_id 1.0.0.0
+            area 0.0.0.0
+            link 1 99.0.0.0/32 1
+            ext-ip 1 1.0.0.0/32 1
+            ia-ip 2 2.0.0.0/32 1
+            no virtual-link
+            topology
+               network 1.1.1.1
+               bits-for clusters 4
+               bits-for row-col 4
+               bits-for interface 4
+               bits-for local-subnet 4
+               clusters 4
+               rows 4
+               columns 4
+               stub-nets-per-router 5
+               ia-ip 1 31.1.1.0/24 100 
+               ext-ip 1 31.1.1.0/24 100
+               ext-ip-type2 1 31.1.1.0/24 100
+               metric 35
+            topology
+            #
+            router ospf
+            neighbor 10.0.0.99 update-source 10.0.101.2
+            networkmask 255.255.0.0
+            router_id 1.0.1.0
+            area 0.0.0.0
+            link 1 99.1.0.0/32 1
+            ext-ip 1 1.1.0.0/32 1
+            ia-ip 2 2.1.0.0/32 1
+            no virtual-link
+
+            OSPF fast hello
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            !
+            interface FastEthernet4/0
+             ip address 10.0.0.99 255.255.0.0
+             no ip directed-broadcast
+             ip ospf dead-interval minimal hello-multiplier 3
+             no ip mroute-cache
+            !
+            router ospf 1
+             log-adjacency-changes
+             network 10.0.0.0 0.0.255.255 area 0.0.0.0
+            !
+            end
+
+            	
+
+
+            #routem config 
+            ospf_default_dbd_advertise 
+            router ospf 
+            neighbor 10.0.0.99 update-source 10.0.101.1 
+            networkmask 255.255.0.0 
+            router_id 1.0.0.0 
+            area 0.0.0.0 
+            link 1 99.0.0.0/32 1 
+            ext-ip 1 1.0.0.0/32 1 
+            ia-ip 2 2.0.0.0/32 1 
+            no virtual-link
+            dead-interval minimal hello-multiplier 5
+
+            OSPF v4 GRE tunnel
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            int fa4/0
+            ip addr 10.0.0.99 255.255.0.0
+            no shut
+            !
+            interface tunnel 0
+            ip address 6.0.0.1 255.255.255.0
+            tunnel dest 10.0.101.1
+            tunnel source 10.0.0.99
+            tunnel key 1
+            !
+            interface tunnel 1
+            ip address 6.0.1.1 255.255.255.0
+            tunnel dest 10.0.101.2
+            tunnel source 10.0.0.99
+            tunnel key 2
+            !
+            router ospf 1
+            network 6.0.0.0 255.255.255.0 area 1
+            network 6.0.1.0 255.255.255.0 area 2
+            end
+
+            	
+
+
+            #routem config (use routem built-in GRE tunnels)
+            ospf_default_dbd_advertise
+            router ospf
+            neighbor 10.0.0.99 update-source 10.0.101.1
+            networkmask 255.255.0.0
+            router_id 1.0.0.0
+            area 1
+            interface tunnel 1 6.0.0.2 255.255.255.0
+            link 1 99.0.0.0/32 1
+            ext-ip 1 1.0.0.0/32 1
+            ia-ip 2 2.0.0.0/32 1
+
+            router ospf
+            neighbor 10.0.0.99 update-source 10.0.101.2
+            networkmask 255.255.0.0
+            router_id 1.0.1.0
+            area 2
+            interface tunnel 2 6.0.1.2 255.255.255.0
+            link 1 99.1.0.0/32 1
+            ext-ip 1 1.1.0.0/32 1
+            ia-ip 2 2.1.0.0/32 1
+
+            Linux GRE tunnel interfaces required to be configured first
+
+
+            /sbin/modprobe ip_gre (need to run only once to load ip_gre module)
+            /sbin/iptunnel add tu1 mode gre remote 10.0.0.99 local 10.0.101.1 ttl 255 key 1
+            /sbin/ifconfig tu1 6.0.0.2 netmask 255.255.255.0 up
+            /sbin/iptunnel add tu2 mode gre remote 10.0.0.99 local 10.0.101.2 ttl 255 key 2
+            /sbin/ifconfig tu2 6.0.1.2 netmask 255.255.255.0 up
+
+            To delete GRE tunnel interfaces when done
+
+
+            /sbin/iptunnel del tu1
+            /sbin/iptunnel del tu2
+
+            Router 	Routem
+
+
+            router config
+
+            conf t
+            int fa4/0
+            ip addr 10.0.0.99 255.255.0.0
+            no shut
+            !
+            interface tunnel 0
+            ip address 6.0.0.1 255.255.255.0
+            tunnel dest 10.0.101.1
+            tunnel source 10.0.0.99
+            tunnel key 1
+            !
+            interface tunnel 1
+            ip address 6.0.1.1 255.255.255.0
+            tunnel dest 10.0.101.2
+            tunnel source 10.0.0.99
+            tunnel key 2
+            !
+            router ospf 1
+            network 6.0.0.0 255.255.255.0 area 1
+            network 6.0.1.0 255.255.255.0 area 2
+            end
+
+            	
+
+
+            #routem config (use Linux GRE tunnels)
+
+            ospf_default_dbd_advertise
+            ospf_default_gre_tunnel
+            router ospf
+            neighbor 6.0.0.1 update-source 6.0.0.2
+            networkmask 255.255.255.0
+            router_id 1.0.0.0
+            area 1
+            link 1 99.0.0.0/32 1
+            ext-ip 1 1.0.0.0/32 1000
+            ia-ip 2 2.0.0.0/32 20000
+
+            router ospf
+            neighbor 6.0.1.1 update-source 6.0.1.2
+            networkmask 255.255.255.0
+            router_id 1.0.1.0
+            area 2
+            link 1 99.1.0.0/32 1
+            ext-ip 1 1.1.0.0/32 1
+            ia-ip 2 2.1.0.0/32 1
+
+            OSPF redist OSPF VRF
+            Examples
+            Router 	Routem
+
+
+            !router config
+
+            ip vrf VPN2
+             rd 121:123
+             route-target export 125:123
+             route-target import 125:123
+            !
+            interface Loopback0
+             ip address 19.1.0.1 255.255.255.255
+            !
+            interface e1/0
+            ip addr 19.0.0.6 255.255.0.0
+            no shut
+            !
+            interface Tunnel1
+            tunnel source e1/0
+            tunnel destination 19.0.101.1
+            tunnel key 1
+            ip vrf forwarding VPN2
+            ip address 12.1.1.1 255.255.255.0
+            no shut
+            !
+            router ospf 123 vrf VPN2
+             router-id 19.1.0.1
+             log-adjacency-changes
+             network 12.1.1.0 0.0.0.255 area 0
+            !
+            router bgp 10
+             no bgp default ipv4-unicast
+             neighbor 19.0.101.3 remote-as 10
+             neighbor 19.0.101.3 update-source Loopback0
+            !
+             address-family vpnv4
+              neighbor 19.0.101.3 activate
+              neighbor 19.0.101.3 send-community extended
+             exit-address-family
+            !
+             address-family ipv4 vrf VPN2
+             redistribute ospf 123 vrf VPN2 metric 1 match internal external 1 external 2 nssa-external 1 nssa-external 2
+             exit-address-family
+
+            	
+
+
+            #routem config
+
+            router ospf
+            neighbor 12.1.1.1 update-source 12.1.1.2
+            networkmask 255.255.0.0
+            router_id 1.0.0.1
+            area 0.0.0.0
+            link 1 122.1.1.1/32 5
+            no virtual-link
+            dbd_advertise
+            gre_tunnel
+            #
+            router bgp 10
+            neighbor 19.1.0.1 remote-as 10
+            neighbor 19.1.0.1 update-source 19.0.101.3
+            capability ipv4 vpn
+            capability ipv4 unicast disable
+            debuglevel two
+
+            Output
+
+
+            uut1#show ip ospf nei      
+
+            Neighbor ID     Pri   State           Dead Time   Address         Interface
+            1.0.0.1           0   FULL/  -        00:00:35    12.1.1.2        Tunnel1
+            uut1#show ip route vrf VPN2
+
+            Routing Table: VPN2
+            Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+                   D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+                   N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+                   E1 - OSPF external type 1, E2 - OSPF external type 2
+                   i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+                   ia - IS-IS inter area, * - candidate default, U - per-user static route
+                   o - ODR, P - periodic downloaded static route
+
+            Gateway of last resort is not set
+
+                 12.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+            C       12.1.1.0/24 is directly connected, Tunnel1
+            O       12.1.0.0/16 [110/11121] via 12.1.1.2, 00:02:32, Tunnel1
+                 122.0.0.0/32 is subnetted, 5 subnets
+            O       122.1.1.2 [110/11111] via 12.1.1.2, 00:02:32, Tunnel1
+            O       122.1.1.3 [110/11111] via 12.1.1.2, 00:02:32, Tunnel1
+            O       122.1.1.1 [110/11111] via 12.1.1.2, 00:02:32, Tunnel1
+            O       122.1.1.4 [110/11111] via 12.1.1.2, 00:02:32, Tunnel1
+            O       122.1.1.5 [110/11111] via 12.1.1.2, 00:02:32, Tunnel1
+            uut1#show ip bgp vpnv4 all    
+            BGP table version is 33, local router ID is 19.1.0.1
+            Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+                          r RIB-failure, S Stale
+            Origin codes: i - IGP, e - EGP, ? - incomplete
+
+               Network          Next Hop            Metric LocPrf Weight Path
+            Route Distinguisher: 121:123 (default for vrf VPN2)
+            *> 12.1.0.0/16      12.1.1.2                 1         32768 ?
+            *> 12.1.1.0/24      0.0.0.0                  0         32768 ?
+            *> 122.1.1.1/32     12.1.1.2                 1         32768 ?
+            *> 122.1.1.2/32     12.1.1.2                 1         32768 ?
+            *> 122.1.1.3/32     12.1.1.2                 1         32768 ?
+            *> 122.1.1.4/32     12.1.1.2                 1         32768 ?
+            *> 122.1.1.5/32     12.1.1.2                 1         32768 ?
+            uut1#
+
+            GRE tunnel config required for Linux PC:
+
+
+            /sbin/modprobe ip_gre
+            /sbin/iptunnel add tu1 mode gre remote 19.0.0.6 local 19.0.101.1 ttl 255 key 1
+            /sbin/ifconfig tu1 12.1.1.2 netmask 255.255.255.0 up
+
+            OSPF MTR
+            Examples
+            Router 	Routem
+
+
+            router config 
+
+            global-address-family ipv4
+             topology data
+             topology voice
+            !
+            class-map match-all data
+            match ip dscp 25
+            !
+            global-address-family ipv4
+            service-policy type class-routing MTR2
+            !
+            int FastEthernet0/0
+             ip addr 10.0.0.99 255.255.0.0 
+             no shut 
+             topology ipv4 data
+             ip ospf cost 11
+             topology ipv4 voice
+             ip ospf cost 22
+
+            ! 
+            router ospf 1
+             area 0.0.0.0 mtr-mode enabled
+             network 10.0.0.0 255.255.0.0 area 0.0.0.0
+             address-family ipv4 unicast
+             topology data tid 3
+             topology voice tid 40
+
+            	
+
+
+            #routem config 
+
+            ospf_default_dbd_advertise 
+            router ospf 
+            neighbor 10.0.0.99 update-source 10.0.101.1
+            capability tid 0 cost 10 #enable MTR and specify cost for TID 0
+            capability tid 3 cost 23 #enable NTR and specify cost for TID 3
+            networkmask 255.255.0.0 
+            router_id 99.99.99.1
+            area 0.0.0.0
+            link   1 17.0.0.0/32 1 
+            ext-ip 2 18.0.0.0/32 1  
+            ia-ip  3 19.0.0.0/32 1 
+
+            # sample config to send different OSPF prefixes to different topologies
+            router ospf 
+            neighbor 10.0.0.99 update-source 10.0.101.2
+            networkmask 255.255.0.0 
+            router_id 99.99.99.2
+            area 0.0.0.0
+            capability tid 0 cost 11 # topo ID 0 is required for all prefixes
+            capability tid 3 cost 24 network 1,3  # goes to link 1 and ext-ip 3 only
+            capability tid 40 cost 10 network 2,4 # goes to link 2 and ia-ip 4 only
+            link   1 13.0.0.0/16 1
+            link   2 14.0.0.0/16 1
+            ext-ip 3 15.0.0.0/16 1
+            ia-ip  4 16.0.0.0/16 1
+
+            Output
+
+
+            corolla#sh ip ospf nei
+
+            Neighbor ID     Pri   State           Dead Time   Address         Interface
+            99.99.99.1        0   FULL/DROTHER    00:00:36    10.0.101.1      FastEthernet0/0
+            99.99.99.2        0   FULL/DROTHER    00:00:36    10.0.101.2      FastEthernet0/0
+            corolla#
+
+            corolla#sh ip route topology voice
+
+            Routing Table: voice
+            Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+                   D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+                   N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+                   E1 - OSPF external type 1, E2 - OSPF external type 2
+                   i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+                   ia - IS-IS inter area, * - candidate default, U - per-user static route
+                   o - ODR, P - periodic downloaded static route, + - replicated route
+
+            Gateway of last resort is not set
+
+                  10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+            C        10.0.0.0/16 is directly connected, FastEthernet0/0
+            L        10.0.0.99/32 is directly connected, FastEthernet0/0
+                  14.0.0.0/16 is subnetted, 1 subnets
+            O        14.0.0.0 [110/32] via 10.0.101.2, 00:01:54, FastEthernet0/0
+                  16.0.0.0/16 is subnetted, 1 subnets
+            O IA     16.0.0.0 [110/32] via 10.0.101.2, 00:01:54, FastEthernet0/0
+                  20.0.0.0/32 is subnetted, 1 subnets
+            L        20.0.0.200 is directly connected, FastEthernet0/1
+            corolla#
+
+            corolla#sh ip route topology data 
+
+            Routing Table: data
+            Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+                   D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+                   N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+                   E1 - OSPF external type 1, E2 - OSPF external type 2
+                   i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+                   ia - IS-IS inter area, * - candidate default, U - per-user static route
+                   o - ODR, P - periodic downloaded static route, + - replicated route
+
+            Gateway of last resort is not set
+
+                  10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+            C        10.0.0.0/16 is directly connected, FastEthernet0/0
+            L        10.0.0.99/32 is directly connected, FastEthernet0/0
+                  13.0.0.0/16 is subnetted, 1 subnets
+            O        13.0.0.0 [110/35] via 10.0.101.2, 00:02:12, FastEthernet0/0
+                  15.0.0.0/16 is subnetted, 1 subnets
+            O E1     15.0.0.0 [110/35] via 10.0.101.2, 00:02:12, FastEthernet0/0
+                  17.0.0.0/32 is subnetted, 1 subnets
+            O        17.0.0.0 [110/34] via 10.0.101.1, 00:02:13, FastEthernet0/0
+                  18.0.0.0/32 is subnetted, 1 subnets
+            O E1     18.0.0.0 [110/34] via 10.0.101.1, 00:02:13, FastEthernet0/0
+                  19.0.0.0/32 is subnetted, 1 subnets
+            O IA     19.0.0.0 [110/34] via 10.0.101.1, 00:02:15, FastEthernet0/0
+                  20.0.0.0/32 is subnetted, 1 subnets
+            L        20.0.0.200 is directly connected, FastEthernet0/1
+            corolla#
+
+    MSDP
+        Show/Hide
+            MSDP simple
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            int fa4/0
+            ip addr 10.0.109.199 255.255.0.0
+            no shut
+            !
+            no ip domain-lookup
+            ip msdp peer 10.0.101.1
+            ip msdp peer 10.0.101.2
+            end
+
+            	
+
+
+            #routem config
+            router msdp
+            neighbor 10.0.109.199 update-source 10.0.101.1
+            keepalive 30
+            #
+            router msdp
+            neighbor 10.0.109.199 update-source 10.0.101.2
+            keepalive 30
+
+            MSDP negative test
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            int fa4/0
+            ip addr 10.0.109.199 255.255.0.0
+            no shut
+            !
+            no ip domain-lookup
+            ip msdp peer 10.0.101.1
+            end
+
+            	
+
+
+            #routem config
+            router msdp
+            neighbor 10.0.109.199 update-source 10.0.101.1
+            keepalive 30
+            message time 5
+            message 1 04 00 03
+            message 2 01001401 0A0A0A0A 0000000F 0C0C0C0C 01010101
+            message 2 0F0F0F0F
+            debuglevel one
+
+            MSDP SA TLV Messaging
+            Examples
+            Router 	Routem
+
+
+            !router config
+            conf t
+            int fa4/0
+            ip addr 10.0.109.199 255.255.0.0
+            no shut
+            !
+            no ip domain-lookup
+            ip msdp peer 10.0.101.1
+            end
+
+            	
+
+
+            #routem config
+            router msdp
+            neighbor 10.0.109.199 update-source 10.0.101.1
+            # sa  [source-address/group-address]  
+            sa 1 source-address 1.1.0.0 1000
+            sa 1 group-address 239.1.0.0
+            sa 2 source-address 2.2.2.0 1000
+            sa 2 source-address 239.2.0.0 100
+            keepalive 30
+
+            Output
+
+
+
+            NPEg1-2#show ip msdp summ
+            MSDP Peer Status Summary
+            Peer Address     AS    State    Uptime/  Reset SA    Peer Name
+                                            Downtime Count Count
+            10.0.101.1       50    Up       00:12:55 28    600525?
+            NPEg1-2#
+
+    RIP
+        Show/Hide
+            RIP simple
+            Examples
+            Router 	Routem
+
+
+            !router config 
+            conf t 
+            int fa4/0
+            ip addr 10.0.0.99 255.255.0.0 
+            no shut 
+            ! 
+            router rip
+            version 2
+            network 10.0.0.0
+            neighbor 10.0.101.1
+            end
+
+            	
+
+
+            #routem config
+            router rip
+            version 2
+            neighbor 10.0.0.99 update-source 10.0.101.1
+            network 1 210.0.10.0/24 2
+            metric 1 1
+            debuglevel one
+            debuglevel two
+
+    ICMP
+        Show/Hide
+            ICMP v4 ICMP
+            Examples
+            Router 	Routem
+
+
+            None
+
+            	
+
+
+            #routem config
+            router ping
+            neighbor 10.0.0.199 update-source 10.0.101.1
+
+            icmp 1 header 03 04 00 00  00 00 00 00 # icmp header: dest unreach,frag needed
+            icmp 1 data ip src 1.2.3.4 dest 4.5.6.7
+            icmp 1 data ip ttl 222 prot 89 id 16 tos 6 frag 1 #in decimal
+            icmp 1 data ff ff ff ff  ff ff ff ff  ff ff ff ff # data after ip header
+            icmp 1 data ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff
+            icmp 1 data ff ff ff ff  ff ff ff ff  ff ff ff ff
+            icmp 1 sleep 5 #sleep time in seconds after sending this icmp
+
+            icmp 2 header 08 00 00 00  00 00 00 00 # 8 bytes of icmp header
+            icmp 2 data ff ff ff ff  ff ff ff ff  ff ff ff ff #data in hex
+            icmp 2 data ff ff ff ff  ff ff ff ff  ff ff ff ff
+            icmp 2 data ff ff ff ff  ff ff ff ff  ff ff ff ff
+            icmp 2 data ff ff ff ff  ff ff ff ff  ff ff ff ff
+            icmp 2 sleep 2
+            debuglevel three
+
+    TCP
+        Show/Hide
+            TCP client
+            Examples
+            Router 	Routem
+
+
+            None
+
+            	
+
+
+            #routem TCP config with BGP on top
+
+            router tcp
+            dest port 179
+            neighbor 10.0.0.81 update-source 10.0.101.1
+            application bgpsim local-as 1001 remote-as 1
+            application bgpsim network 1 1.1.1.1/32 10000
+            application bgpsim aspath 1 random 5
+            application nlricount 1
+            #
+            router tcp
+            dest port 179
+            neighbor 10.0.0.81 update-source 10.0.101.2
+            application bgpsim local-as 1002 remote-as 1
+            #
+            router tcp
+            dest port 179
+            neighbor 10.0.0.81 update-source 10.0.101.3
+            application bgpsim local-as 1003 remote-as 1
+
+            TCP server
+            Examples
+            Router 	Routem
+
+
+            #router config with IBGP AS 1
+
+            router bgp 1
+            no bgp default route-target filter
+            neighbor ibgp.routem peer-group
+            neighbor ibgp.routem remote-as 1
+            neighbor 20.0.101.1 peer-group ibgp.routem
+            neighbor 20.0.101.2 peer-group ibgp.routem
+            neighbor 20.0.101.3 peer-group ibgp.routem
+            neighbor 20.0.101.4 peer-group ibgp.routem
+            neighbor 20.0.101.5 peer-group ibgp.routem
+            neighbor 20.0.101.6 peer-group ibgp.routem
+            neighbor 20.0.101.7 peer-group ibgp.routem
+            neighbor 20.0.101.8 peer-group ibgp.routem
+            ...
+
+            	
+
+
+            #routem TCP config with BGP on top
+
+            #tcp-ibgp-listen-as-1
+            router tcp
+            source port 179
+            application bgpsim local-as 1 remote-as 1
+            neighbor 0.0.0.0 update-source 0.0.0.0
+
+    SCTP
+        Show/Hide
+            SCTP client
+            Examples
+            Router 	Routem
+
+
+            socktest sctp clear all
+            socktest sctp setport local 8000
+            socktest sctp setport peer 9000
+            socktest sctp add local ip 10.0.0.201
+            socktest sctp add peer ip 10.0.101.1
+            socktest sctp socket inet seqpacket
+            !creates a new socket (FD)
+            socktest sctp setevent all on
+            socktest sctp setoption events 0
+            socktest sctp setinit in 10
+            socktest sctp setinit out 10
+            socktest sctp setoption init-msg 0
+            socktest sctp bindx 0 0
+            socktest sctp listen 0 1000
+
+            	
+
+
+            #routem run with command options - no routem config required
+            ./routem -u "sctp count 100 routem-addr 10.0.101.1 dest-port 8000 time 600 i
+            nterval 0,10000 send 100,1024 sock stream source-port 9000 dest-addr 10.0.0.201 
+            control shutdown-exit"
+
+            SCTP server
+            Examples
+            Router 	Routem
+
+
+            #router socktest config
+            socktest sctp clear all
+            socktest sctp setport local 9000
+            socktest sctp setport peer 8000
+            socktest sctp add local ip 10.0.0.201
+            socktest sctp add peer ip 10.0.101.2
+            socktest sctp socket inet seqpacket
+            socktest sctp setevent all on
+            socktest sctp setoption events 0
+            socktest sctp setinit in 10
+            socktest sctp setinit out 10
+            socktest sctp setoption init-msg 0
+            socktest sctp bindx 0 0
+            socktest sctp connectx 0
+
+            	
+
+
+            # no routem config required
+            ./routem -u "sctp routem-addr 10.0.0.201 time 70 sock seqpacket source-port 
+            8000 server control send 0,1024 interval 0,10000 dest-addr 10.0.101.1"
+
+            Notes
+
+
+            sctp                          : start STCP
+            count                         : number of connections up to 1000
+            sock                          : seqpacket or stream, used in client side only
+            routem-addr                   : routem IP address
+            source-port                   : routem port - required if routem is a server
+            dest-addr                     : destination IP address, usually the router address
+            dest-port                     : destination port, usually the router port
+            idle                          : time wait in seconds before trying the connections
+            send ># packet>,<packet size> : data sending
+            interval <secs>,<usecs>       : interval b/w data sending
+            control                       : enable interactive, usually for debug purpose
+            control shutdown-exit         : exit if shutdown detected
+            server                        : routem is a server
+            debug <index>                 : turn on debug, used in client side only
+            time                          : time in seconds to exit the test
+
+    Traffic Generator
+        Show/Hide
+            Traffic Generator Standalone Unverified Traffic Generator
+            Examples
+            Router 	Routem
+
+
+            interface fastethernet1/1
+             ip address 19.0.1.1 255.255.255.0 
+             no shutdown
+
+            	
+
+
+            #traffic routem config 
+
+            # standalone traffic generator
+            router traffic
+            source ../data/packet.tcp_syn
+            output eth1
+            output-peer 19.0.1.1
+            amount infinite
+            ip.src_addr 8.8.8.8
+            ip.dest_addr 72.1.1.1
+            start
+
+            Traffic Generator BGP and Traffic Generator
+            Examples
+            Router 	Routem
+
+
+            router bgp 100
+             no synchronization
+             neighbor 30.0.1.2 remote-as 50
+
+            	
+
+
+            #traffic routem config 
+
+            # regular BGP portion
+            router bgp 50
+            neighbor 30.0.1.1 remote-as 100
+            neighbor 30.0.1.1 update-source 30.0.1.2
+            network 1 1.0.1.0/24 100000
+            record file prefixes.bin outgoing binary
+
+            # traffic generator
+            router traffic
+            file prefixes.bin
+            source ../data/packet.tcp_syn
+            output eth2
+            output-peer 30.0.2.1
+            capture eth2
+            capture eth1
+            amount 100000
+            delay 7000
+            delay packet 15
+            ip.src_addr 8.8.8.8
+            group ip and
+              match ip.src_addr 8.8.8.8
+
+
+
+
+
+
