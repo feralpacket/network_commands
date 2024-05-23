@@ -378,8 +378,16 @@ sh process memory | in Logger|Syslog
 ! turn your expensive switch into a dumb hub
 no mac address-table learning vlan 1-4094
 
+
 ! can't believe I didn't have this in here before
 ! tell the hardware team, no, the switch port is not bad
 test cable-diagnostics tdr int gi1/0/1
 sh cable-diagnostics tdr int gi1/0/1
+
+
+! extended fast software upgrade ( xfsu )
+! cisco finally got around to adding the old nonstop forwarding ( NSF ) or graceful restart feature, and gave it a new name / acronym
+! as usualy with current implmentations of anything they do now, there is a long list of restrictions, limitations, and requirements
+! your mileage may vary
+install add file flash:image.bin activate xfsu commit
 
