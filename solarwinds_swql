@@ -72,10 +72,18 @@ order by eventtime desc
 
 
 ! machine type counts
+! counts switch stacks as 1
 select count(n.machinetype) as [type], n.machinetype
 from orion.nodes n 
 group by machinetype
 order by type desc
+
+
+! switch stack machine type counts
+select count(n.model) as [number], n.model
+from orion.npm.switchstackmember n
+group by model
+order by number desc
 
 
 ! IOS version counts
