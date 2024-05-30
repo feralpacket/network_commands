@@ -117,10 +117,27 @@ where ( not ( name like '%Transmit%') ) and ( not ( name like '%Transceiver%' ) 
 
 
 ! Cisco inventory with serial numbers
+! this broke with solarwinds version 2023.4.2, the nodecaption field returns as NULL
 select n.node.nodecaption, model, serial
 from ncm.entityphysical n
 where serial not like '' and model not like ''
 order by nodecaption
+
+
+
+! Cisco inventory with serial numbers
+! This works with 2023.4.2 for routers and the active switches in switch stacks or stackwise pairs
+select parentobjectname, model, servicetag
+from orion.hardwarehealth.hardwareinfo
+order by parentobjectname
+
+
+
+! Cisco inventory with serial numbers
+! This works with 2023.4.2 for switch stacks and virtual stackwise pairs.
+select displayname, switchnumber, roledescription, macaddress, model, serialnumber, swpriority
+from orion.npm.switchstackmember
+order by displayname, switchnumber
 
 
 
