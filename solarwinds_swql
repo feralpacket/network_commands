@@ -149,6 +149,13 @@ order by displayname, switchnumber
 
 
 
+! accesspoint count by wlc
+select count(clients) as [AP number], controllername
+from orion.packages.wireless.accesspoints
+group by controllername
+
+
+
 ! raspberrypi up / down query
 select n.caption as [Device]
 , n.ip AS [IP Address]
