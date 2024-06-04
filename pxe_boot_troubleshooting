@@ -24,8 +24,11 @@ sh mac add | in 1/0/10
 sh int gi1/0/10
 
 ! Check - Portfast is enabled on the interface
-! This is the biggest reason PXE boot fails
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! THIS IS THE BIGGEST REASON PXE BOOT FAILS
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Interface will go through the Blocking, Listening, Learning states before forwarding ( which takes 50 seconds )
+! If rapid-PVST is not configured
 sh spanning-tree int gi1/0/10 portfast edge
 
 ! Check - Uplink interface is trusted with IP DHCP Snooping
