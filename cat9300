@@ -391,3 +391,33 @@ sh cable-diagnostics tdr int gi1/0/1
 ! your mileage may vary
 install add file flash:image.bin activate xfsu commit
 
+
+! so, you are being forced to license everything because your previous EA expired and cisco will not sell you a new one until this is done
+conf t
+! make sure revocation-check is set to none
+crypto pki trustpoint SLA-TrustPoint
+revocation-check none
+!
+! set the url and transport 
+license boot level network-advantage addon dna-advantage
+license smart url https://smartreceiver.cisco.com/licservice/license
+license smart url smart https://smartreceiver.cisco.com/licservice/license
+license smart transport smart
+!
+! set the http client source interface to resolve dns issues where the switch tries to use the IPv6 address in the dns response, even if you only have IPv4 configured
+! thanks cisco
+! set the http client trustpoint
+ip http client source-interface Vlan1
+ip http client secure-trustpoint SLA-TrustPoint
+!
+end
+!
+wr mem
+! 
+! need an idtoken so cisco knows which customer and virtual account to register with
+license smart trust idtoken 1234567890abcdefghijklomnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklomnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ all force
+!
+license smart sync all
+
+
+
