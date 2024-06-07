@@ -218,3 +218,25 @@ group by n.nodeid, n.caption, n.router.routingtableflap.routedestination, n.rout
   having
     count(*) >= 5
 order by count(*) desc
+
+
+! verifying switches have checked in with cisco
+! in configuration management -> script management, create a script to run the following command
+show license status | se Usage
+
+! in configuration management, group by machine type, select all of the Cisco Catalyst 9300 Series Switch, execute script, select your show license script
+! in configuration management, check transfer status until they are all complete
+
+! check the status usage reporting
+select ncn.nodecaption, ncn.agentip, ncn.machinetype, nt.deviceoutput, nt.datetime, nt.username
+from ncm.transferresults as nt
+inner join ncm.nodes as ncn on ncn.nodeid = nt.nodeid
+where ncn.machinetype = 'Cisco Catalyst 9300 Series Switch' and nt.requestedscript = 'show license status | se Usage'
+order by ncn.nodecaption
+
+! list the stragglers that are having problems checking in
+select ncn.nodecaption, ncn.agentip, ncn.machinetype, nt.deviceoutput, nt.datetime, nt.username
+from ncm.transferresults as nt
+inner join ncm.nodes as ncn on ncn.nodeid = nt.nodeid
+where ncn.machinetype = 'Cisco Catalyst 9300 Series Switch' and nt.requestedscript = 'show license status | se Usage' and nt.deviceoutput like '%Last ACK received: <none>%'
+order by ncn.nodecaption
