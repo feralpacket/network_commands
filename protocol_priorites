@@ -252,9 +252,12 @@ Open Shortest Path First (OSPF):
  - Designated Router (DR) / Backup Designated Router (BDR) Election
      -> Highest priority selected
      -> Default is 1
+     -> Priority of 0 means the interface cannot be elected as the DR or BDR
+         -> Interface will be DROTHER 
      -> Range 0 - 255
          -> R1(config-if)#ip ospf priority 2
          -> R1(config-if)#ipv6 ospf neighbor 12::2 priority 2
+     -> There is no pre-emption
  - EXSTART Master / Slave Election
      -> Higher router-id selected
          -> R1(config-router)#router-id 0.0.0.2
@@ -263,6 +266,7 @@ Open Shortest Path First (OSPF):
      -> When dealing with LSA Type 4 and there are multiple paths
           -> Broadcast network
  - Router-id
+     -> Used when all of the priorities are the same
      -> Manually configured
      -> Dynamically selected
          -> Highest IP address on a loopback interface
