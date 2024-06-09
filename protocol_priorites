@@ -266,7 +266,7 @@ Open Shortest Path First (OSPF):
      -> When dealing with LSA Type 4 and there are multiple paths
           -> Broadcast network
  - Router-id
-     -> Used when all of the priorities are the same
+     -> Used during DR / BDR elections when all of the priorities are the same
      -> Manually configured
      -> Dynamically selected
          -> Highest IP address on a loopback interface
