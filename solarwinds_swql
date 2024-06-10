@@ -235,8 +235,9 @@ where ncn.machinetype = 'Cisco Catalyst 9300 Series Switch' and nt.requestedscri
 order by ncn.nodecaption
 
 ! list the stragglers that are having problems checking in
+! need to compare datetime against getdate(), otherwise old deviceoutput might be matched and used, 2 hours in the below, adjust as necessary
 select ncn.nodecaption, ncn.agentip, ncn.machinetype, nt.deviceoutput, nt.datetime, nt.username
 from ncm.transferresults as nt
 inner join ncm.nodes as ncn on ncn.nodeid = nt.nodeid
-where ncn.machinetype = 'Cisco Catalyst 9300 Series Switch' and nt.requestedscript = 'show license status | se Usage' and nt.deviceoutput like '%Last ACK received: <none>%'
+where ncn.machinetype = 'Cisco Catalyst 9300 Series Switch' and nt.requestedscript = 'show license status | se Usage' and nt.deviceoutput like '%Last ACK received: <none>%' and datetime >= addhour(-2,getdate()) 
 order by ncn.nodecaption
