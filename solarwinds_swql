@@ -231,7 +231,7 @@ show license status | se Usage
 select ncn.nodecaption, ncn.agentip, ncn.machinetype, nt.deviceoutput, nt.datetime, nt.username
 from ncm.transferresults as nt
 inner join ncm.nodes as ncn on ncn.nodeid = nt.nodeid
-where ncn.machinetype = 'Cisco Catalyst 9300 Series Switch' and nt.requestedscript = 'show license status | se Usage'
+where ncn.machinetype = 'Cisco Catalyst 9300 Series Switch' and nt.requestedscript = 'show license status | se Usage' and datetime >= addhour(-2,getdate()) 
 order by ncn.nodecaption
 
 ! list the stragglers that are having problems checking in
