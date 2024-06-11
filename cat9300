@@ -420,4 +420,17 @@ license smart trust idtoken 1234567890abcdefghijklomnopqrstuvwxyzABCDEFGHIJKLMNO
 license smart sync all
 
 
+! remove IPv6 pre-config
+! at some point, we suspect with 17.5.x code, switches were being shipped with a partial IPv6 config
+! problem is some things, such as cisco SMART licensing, will do a DNS query and get an IPv4 and IPv6 address in the reply
+! and then only try to connect to their licensing server with IPv6
+! thanks cisco
+no ipv6 unicast-routing
+! 
+int vlan 1
+ no ipv6 address dhcp
+ no ipv6 address autoconfig
+ no ipv6 enable
+ no ipv6 dhcp client request vendor
+
 
