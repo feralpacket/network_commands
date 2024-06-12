@@ -434,3 +434,12 @@ int vlan 1
  no ipv6 dhcp client request vendor
 
 
+! to get SMART licensing agent to work if you are using the management port
+ip name-server vrf Mgmt-vrf 8.8.8.8 8.8.4.4
+ip http client source-interface gi0/0
+!
+ntp server vrf Mgmt-vrf 0.pool.ntp.org prefer
+ntp server vrf Mgmt-vrf 1.pool.ntp.org
+!
+! this command seems to have been added in 17.9.x
+license smart vrf Mgmt-vrf
