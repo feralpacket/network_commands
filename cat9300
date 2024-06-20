@@ -443,3 +443,8 @@ ntp server vrf Mgmt-vrf 1.pool.ntp.org
 !
 ! this command seems to have been added in 17.9.x
 license smart vrf Mgmt-vrf
+
+
+
+! to scp a file from crashinfo: add a /
+scp feralpacket@192.0.2.1:crashinfo-3:/feralpacket_9300_a_3_RP_0_trace_archive_0-20240620-123456.tar.gz .
