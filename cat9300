@@ -448,3 +448,27 @@ license smart vrf Mgmt-vrf
 
 ! to scp a file from crashinfo: add a /
 scp feralpacket@192.0.2.1:crashinfo-3:/feralpacket_9300_a_3_RP_0_trace_archive_0-20240620-123456.tar.gz .
+
+
+! need to license a switch with a usage report?
+conf t
+license smart transport off
+end
+wr mem
+!
+license smart save usage all file flash:feralpacket_all_rum.txt
+!
+! copy off of switch ( from a windows box )
+scp feralpacket@feralpacketswitch:ferlapacket_all_rum.txt .
+!
+! upload to the appropriate report page on software.cisco.com
+! wait for it to be processed, download the result
+!
+! copy acknoledgement to switch ( from a windows box )
+scp ACK_feralpacket_all_rum.txt feralpacket@feralpacketswitch:ACK_feralpacket_all_rum.txt
+!
+license smart import flash:ACK_feralpacket_all_rum.txt
+!
+sh license status
+
+
