@@ -193,3 +193,8 @@ clear platform condition all
 show platform packet-trace summary | redirect bootflash:fia_bfd.txt
 show platform packet-trace packet all decode | append bootflash:fia_decode_bfd.txt
 
+
+
+! this helps with the BFD session problem
+request platform software sdwan security ipsec-rekey
+
