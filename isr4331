@@ -198,4 +198,4 @@ show platform packet-trace packet all decode | append bootflash:fia_decode_bfd.t
 ! this helps with the BFD session problem, run it twice, seriously
 request platform software sdwan security ipsec-rekey
 request platform software sdwan security ipsec-rekey
-
+show sdwan ipsec local-sa
