@@ -472,3 +472,11 @@ license smart import flash:ACK_feralpacket_all_rum.txt
 sh license status
 
 
+
+! why is ISE sending all of this IPv6 data into firepower via PXGrid?  we are not using IPv6.
+device-tracking policy IPDT_MAX_10
+ no protocol ndp
+ no protocol dhcp6
+
+
+
