@@ -177,3 +177,13 @@ ip access-list extended TTL
 ! when troubleshooting syslog message drops
 ! i.e. your splunk server is not able to keep up
 logging message-counter log
+
+
+! using a switch as a HTTP server
+ip http active-session-modules all
+ip http secure-active-session-modules all
+! using the SSD
+ip http path disk0:/
+! ip http path usbflash0:/
+ip http authentication local
+username cisco privilege 15 algorithm-type scrypt secret Cisco123!@#
