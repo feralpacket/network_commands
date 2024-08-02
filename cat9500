@@ -182,7 +182,8 @@ logging message-counter log
 ! using a switch as a HTTP server
 ip http active-session-modules all
 ip http secure-active-session-modules all
-! using the SSD
+! using the SSD, which should be EXT4 for those big file
+! show disk0: filesys
 ip http path disk0:/
 ! ip http path usbflash0:/
 ip http authentication local
