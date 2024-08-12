@@ -61,3 +61,14 @@ ciscoFlashPartitionFreeSpaceExtended
 1.3.6.1.4.1.9.9.10.1.1.4.1.1.14.1.1 - 
 1.3.6.1.4.1.9.9.10.1.1.4.1.1.14.2.1 - 
  - Gauge64
+
+
+
+! interface duplex
+snmpwalk -v2c -c hermes 192.0.2.1 1.3.6.1.2.1.10.7.2.1.19
+EtherLike-MIB::dot3StatsDuplexStatus.11201 = INTEGER: unknown(1)
+EtherLike-MIB::dot3StatsDuplexStatus.11202 = INTEGER: halfDuplex(2)
+EtherLike-MIB::dot3StatsDuplexStatus.11203 = INTEGER: fullDuplex(3)
+
+
+
