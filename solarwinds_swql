@@ -241,3 +241,14 @@ from ncm.transferresults as nt
 inner join ncm.nodes as ncn on ncn.nodeid = nt.nodeid
 where ncn.machinetype = 'Cisco Catalyst 9300 Series Switch' and nt.requestedscript = 'show license status | se Usage' and nt.deviceoutput like '%Last ACK received: <none>%' and datetime >= addhour(-2,getdate()) 
 order by ncn.nodecaption
+
+
+
+! interface duplex
+select fullname, duplexmode
+from orion.npm.interfaces as n
+
+where n.duplexmode = 2
+-- 1 = unknown
+-- 2 = halfDuplex
+-- 3 = fullDuplex
