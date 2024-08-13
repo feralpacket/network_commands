@@ -254,6 +254,7 @@ where n.duplexmode = 2
 -- 3 = fullDuplex
 
 
+
 ! recent config changes - campus
 ! modern dashboard
 ! with custom property node_type
@@ -275,8 +276,6 @@ WHERE (DownloadTime >= ADDHOUR(-24, GETDATE()) AND DiffResults.ComparisonType = 
 
 
 
-
-
 ! recent config changes - campus
 ! widget
 ! with custom property node_type
@@ -295,10 +294,6 @@ FROM Orion.Nodes AS ONodes
  INNER JOIN Cirrus.CacheDiffResults as DiffResults ON ConfigArchive.ConfigID = DiffResults.ConfigID
 
 WHERE (DownloadTime >= ADDHOUR(-24, GETDATE()) AND DiffResults.ComparisonType = 4 AND DiffResults.DiffFlag = 1) AND ( ONodes.CustomProperties.Node_Type = 'MDF' OR ONodes.CustomProperties.Node_Type = 'IDF' )
-
-
-
-
 
 
 
