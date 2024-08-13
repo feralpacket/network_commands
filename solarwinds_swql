@@ -282,7 +282,7 @@ WHERE (DownloadTime >= ADDHOUR(-24, GETDATE()) AND DiffResults.ComparisonType = 
 SELECT 
  ONodes.Status,
  ONodes.DetailsUrl,
- NNodes.NodeCaption,
+ '<a href="' + ToString (ONodes.DetailsUrl) + '">' + ToString (NNodes.NodeCaption) + '</a>' as NodeName,
  ConfigArchive.ConfigTitle,
  ConfigArchive.DownloadTime,
  '<a href="/Orion/NCM/ConfigChangeReport.aspx?ConfigID=' + ToString (ConfigArchive.ConfigID) + '&ComparisonType=4&NodeID=' + ToString (NNodes.NodeID) + '">View Change Report</a>' as ConfigChnageReportUrl,
@@ -303,7 +303,7 @@ WHERE (DownloadTime >= ADDHOUR(-24, GETDATE()) AND DiffResults.ComparisonType = 
 SELECT 
  ONodes.Status,
  ONodes.DetailsUrl,
- NNodes.NodeCaption,
+ '<a href="' + ToString (ONodes.DetailsUrl) + '">' + ToString (NNodes.NodeCaption) + '</a>' as NodeName,
  ConfigArchive.ConfigTitle,
  ConfigArchive.DownloadTime,
   '<a href="/Orion/NCM/ConfigChangeReport.aspx?ConfigID=' + ToString (ConfigArchive.ConfigID) + '&ComparisonType=4&NodeID=' + ToString (NNodes.NodeID) + '">View Change Report</a>' as ConfigChnageReportUrl,
