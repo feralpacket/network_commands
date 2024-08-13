@@ -252,3 +252,71 @@ where n.duplexmode = 2
 -- 1 = unknown
 -- 2 = halfDuplex
 -- 3 = fullDuplex
+
+
+! recent config changes - campus
+! modern dashboard
+! with custom property node_type
+SELECT 
+ ONodes.Status,
+ ONodes.DetailsUrl,
+ NNodes.NodeCaption,
+ ConfigArchive.ConfigTitle,
+ ConfigArchive.DownloadTime,
+ '/Orion/NCM/ConfigChangeReport.aspx?ConfigID=' + ToString (ConfigArchive.ConfigID) + '&ComparisonType=4&NodeID=' + ToString (NNodes.NodeID) as ConfigChnageReportUrl,
+ ONodes.CustomProperties.Node_Type
+
+FROM Orion.Nodes AS ONodes 
+ INNER JOIN NCM.Nodes AS NNodes ON NNodes.CoreNodeId = ONodes.NodeId
+ INNER JOIN NCM.ConfigArchive as ConfigArchive ON NNodes.NodeId = ConfigArchive.NodeId
+ INNER JOIN Cirrus.CacheDiffResults as DiffResults ON ConfigArchive.ConfigID = DiffResults.ConfigID
+
+WHERE (DownloadTime >= ADDHOUR(-24, GETDATE()) AND DiffResults.ComparisonType = 4 AND DiffResults.DiffFlag = 1) AND ( ONodes.CustomProperties.Node_Type = 'MDF' OR ONodes.CustomProperties.Node_Type = 'IDF' )
+
+
+
+
+
+! recent config changes - campus
+! widget
+! with custom property node_type
+SELECT 
+ ONodes.Status,
+ ONodes.DetailsUrl,
+ NNodes.NodeCaption,
+ ConfigArchive.ConfigTitle,
+ ConfigArchive.DownloadTime,
+ '<a href="/Orion/NCM/ConfigChangeReport.aspx?ConfigID=' + ToString (ConfigArchive.ConfigID) + '&ComparisonType=4&NodeID=' + ToString (NNodes.NodeID) + '">View Change Report</a>' as ConfigChnageReportUrl,
+ ONodes.CustomProperties.Node_Type
+
+FROM Orion.Nodes AS ONodes 
+ INNER JOIN NCM.Nodes AS NNodes ON NNodes.CoreNodeId = ONodes.NodeId
+ INNER JOIN NCM.ConfigArchive as ConfigArchive ON NNodes.NodeId = ConfigArchive.NodeId
+ INNER JOIN Cirrus.CacheDiffResults as DiffResults ON ConfigArchive.ConfigID = DiffResults.ConfigID
+
+WHERE (DownloadTime >= ADDHOUR(-24, GETDATE()) AND DiffResults.ComparisonType = 4 AND DiffResults.DiffFlag = 1) AND ( ONodes.CustomProperties.Node_Type = 'MDF' OR ONodes.CustomProperties.Node_Type = 'IDF' )
+
+
+
+
+
+
+
+! recent config changes - data center
+! widget
+! with custom property site
+SELECT 
+ ONodes.Status,
+ ONodes.DetailsUrl,
+ NNodes.NodeCaption,
+ ConfigArchive.ConfigTitle,
+ ConfigArchive.DownloadTime,
+  '<a href="/Orion/NCM/ConfigChangeReport.aspx?ConfigID=' + ToString (ConfigArchive.ConfigID) + '&ComparisonType=4&NodeID=' + ToString (NNodes.NodeID) + '">View Change Report</a>' as ConfigChnageReportUrl,
+ ONodes.CustomProperties.Site
+
+FROM Orion.Nodes AS ONodes 
+ INNER JOIN NCM.Nodes AS NNodes ON NNodes.CoreNodeId = ONodes.NodeId
+ INNER JOIN NCM.ConfigArchive as ConfigArchive ON NNodes.NodeId = ConfigArchive.NodeId
+ INNER JOIN Cirrus.CacheDiffResults as DiffResults ON ConfigArchive.ConfigID = DiffResults.ConfigID
+
+WHERE (DownloadTime >= ADDHOUR(-24, GETDATE()) AND DiffResults.ComparisonType = 4 AND DiffResults.DiffFlag = 1) AND ONodes.CustomProperties.Site like '%Datacenter%'
