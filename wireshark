@@ -1,0 +1,22 @@
+! display filters
+
+! multicast IP addresses
+ip.dst==224.0.0.0/4
+
+! multicast MAC addresses
+eth.addr[0:3]==01:80:c2
+
+
+! I/G bit set ( in MAC addresses )
+ - I/G bit == 0 ( unicast )
+ - I/G bit == 1 ( multicast )
+eth.ig==1
+eth.dst.ig==1
+
+
+
+
+! capture filters
+
+
+
