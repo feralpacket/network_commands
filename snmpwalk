@@ -111,3 +111,21 @@ EtherLike-MIB::dot3StatsDuplexStatus.11203 = INTEGER: fullDuplex(3)
  ----------------------------------------------------------------------
  | clcCdpApCacheInterfaceSpeed  | hundredMbps(2)    | hundredMbps(2)   |
  ----------------------------------------------------------------------"
+
+$ snmpwalk -v2c -c feralpacket 192.1.2.1 1.3.6.1.4.1.9.9.623.1.3.1 | grep 82.219.214.123.79.224
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.2.82.219.214.123.79.224.1 = STRING: "AP_FERALPACKET"
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.3.82.219.214.123.79.224.1 = INTEGER: 1
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.4.82.219.214.123.79.224.1 = Hex-STRING: 0A AA BB CC 
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.5.82.219.214.123.79.224.1 = INTEGER: 1
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.6.82.219.214.123.79.224.1 = STRING: "IDF1_9300.feralpacket.corp"
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.7.82.219.214.123.79.224.1 = INTEGER: 1
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.8.82.219.214.123.79.224.1 = Hex-STRING: 0A 1A 2B 2C 
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.9.82.219.214.123.79.224.1 = STRING: "GigabitEthernet4/0/45"
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.10.82.219.214.123.79.224.1 = STRING: "Cisco IOS Software [Amsterdam], Catalyst L3 Switch Software (CAT9K_IOSXE), Version 17.3.5, RELEASE SOFTWARE (fc2)
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.11.82.219.214.123.79.224.1 = INTEGER: 2
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.12.82.219.214.123.79.224.1 = STRING: "cisco C9300-48P"
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.13.82.219.214.123.79.224.1 = STRING: "Switch IGMP "
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.14.82.219.214.123.79.224.1 = Gauge32: 1234567891
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.15.82.219.214.123.79.224.1 = INTEGER: 2
+SNMPv2-SMI::enterprises.9.9.623.1.3.1.1.16.82.219.214.123.79.224.1 = INTEGER: 4
+
