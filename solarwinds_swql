@@ -315,3 +315,62 @@ FROM Orion.Nodes AS ONodes
  INNER JOIN Cirrus.CacheDiffResults as DiffResults ON ConfigArchive.ConfigID = DiffResults.ConfigID
 
 WHERE (DownloadTime >= ADDHOUR(-24, GETDATE()) AND DiffResults.ComparisonType = 4 AND DiffResults.DiffFlag = 1) AND ONodes.CustomProperties.Site like '%Datacenter%'
+
+
+
+! wireless lan controllers
+! swql query for a "modern" dashboard widget
+! with custom property node_type
+SELECT IPAddress, Caption, IOSVersion, LastBoot, CPUCount, CPULoad, PercentMemoryUsed, MachineType, DetailsUrl
+FROM Orion.Nodes as n
+
+WHERE (n.CustomProperties.Node_Type LIKE '%WLC%')
+
+
+! wireless lan controller AP counts
+! swql query for a "modern" dashboard widget
+SELECT  n.Name,n.IPAddress,n.ThinAPsCount,n.RogueAPsCount 
+FROM Orion.Packages.Wireless.Controllers n
+
+
+! 9800 wireless lan controller drive space
+! because they keep filling up flash and will crash when it's full
+! swql query for a "modern" dashboard widget
+! with custom poller for CISCO-FLASH-MIB 1.3.6.1.4.1.9.9.10.1.1.4.1.1.4.1.1
+! ciscoFlashPartitionFreeSpaceExtended
+! 1.3.6.1.4.1.9.9.10.1.1.4.1.1.14.1.1
+select n.caption, n.custompollerassignmentonnode.custompollerstatus.status as [Free Space], ( n.custompollerassignmentonnode.custompollerstatus.status / 14822125568 ) * 100 as [Percentage Free]
+from orion.nodes as n
+
+where n.custompollerassignmentonnode.assignmentName like '%Free%'
+
+order by ( n.custompollerassignmentonnode.custompollerstatus.status / 14822125568 ) * 100
+
+
+! wireless lan controller campus access points
+! swql query for a "modern" dashboard widget
+SELECT ID, ControllerID, IPAddress, Clients, SSID, round((ap.Inbps / 1000000),2) as InMbps,  round((ap.Outbps / 1000000),2) as OutMbps, Name, ControllerName, DetailsUrl
+
+FROM Orion.Packages.Wireless.AccessPoints as AP
+
+where ap.controllername not like '[Ss]tore%'
+
+order by ap.clients desc
+
+
+! wireless lan controller store access points
+! swql query for a "modern" dashboard widget
+SELECT ID, ControllerID, IPAddress, Clients, SSID, round((ap.Inbps / 1000000),2) as InMbps,  round((ap.Outbps / 1000000),2) as OutMbps, Name, ControllerName, DetailsUrl
+
+FROM Orion.Packages.Wireless.AccessPoints as AP
+
+where ap.controllername like '[Ss]tore%'
+
+order by ap.ipaddress
+
+
+! wireless lan controller wireless clients
+! swql query for a "modern" dashboard widget
+SELECT TOP 1000 IPAddress, Name, MAC, SSID, SignalStrength, round((wc.InTotalBytes / 1000000),2) as InTotalMBytes, round((wc.OutTotalBytes / 1000000),2) as OutTotalMBps, round((wc.Inbps / 1000000),2) as InMbps,  round((wc.Outbps / 1000000),2) as OutMbps, round((wc.TotalBytes / 1000000),2) as TotalMBytes, TotalBytes, TotalPackets
+
+FROM Orion.Packages.Wireless.Clients as WC
