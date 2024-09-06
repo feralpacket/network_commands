@@ -374,3 +374,15 @@ order by ap.ipaddress
 SELECT TOP 1000 IPAddress, Name, MAC, SSID, SignalStrength, round((wc.InTotalBytes / 1000000),2) as InTotalMBytes, round((wc.OutTotalBytes / 1000000),2) as OutTotalMBps, round((wc.Inbps / 1000000),2) as InMbps,  round((wc.Outbps / 1000000),2) as OutMbps, round((wc.TotalBytes / 1000000),2) as TotalMBytes, TotalBytes, TotalPackets
 
 FROM Orion.Packages.Wireless.Clients as WC
+
+
+! cdp neighbors
+! node details page widget
+! from https://thwack.solarwinds.com/products/network-performance-monitor-npm/f/forum/17234/cdp_neighbor_resource_v2-swql
+! note:  switch interfaces will be missing ( blank ) if the access layer ports are not monitored as a resource
+SELECT I.InterfaceCaption AS [Local Interface]
+, CDP.IPAddress AS [Remote IP]
+, DeviceId AS [Remote Node]
+, DevicePort AS [Remote Interface]
+, 'NPM' AS [Source]
+, (SELECT TOP 1 N2.DetailsURL from Orion.Nodes N2 JOIN Orion.NodeIPAddresses NIP ON (N2.NodeID = NIP.NodeID) WHERE NIP.IPAddress = CDP.IPAddress AND NIP.InterfaceIndex IS NOT NULL) AS [_LinkFor_Device]
