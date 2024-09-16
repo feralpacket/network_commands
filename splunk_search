@@ -64,3 +64,6 @@ eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="IEEE_DISCONNECT" | s
 ! high TX and RX untilization
 "OrionAlertEngine: High TX Utilization" | rex "(?<interface_name>Interface \S+ · \S+)" | rex "(?<node_name>node \S+)" | stats count by node_name, interface_name | sort -count
 "OrionAlertEngine: High RX Utilization" | rex "(?<interface_name>Interface \S+ · \S+)" | rex "(?<node_name>node \S+)" | stats count by node_name, interface_name | sort -count
+
+! insufficient PoE power
+inline power denied. Reason: insufficient power | stats count by host, message_text
