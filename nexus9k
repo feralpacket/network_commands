@@ -95,3 +95,7 @@ u all
 
 ! equivalent to sh int gi1/0/1 controller in IOS or IOS XE
 sh int e1/32 counters detailed all
+
+! equivalent to sh interfaces po1 counters ethernet in IOS or IOS XE
+! shows traffic distribution across the port-channel members
+sh port-channel traffic
