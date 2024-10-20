@@ -371,6 +371,7 @@ Best Path Algorithm:
         
      -> maximum-paths eibgp 2
         -> install parallel iBGP and eBGP routes
+        -> Will generate the following log message:  %BGP-4-MULTIPATH_LOOP: This may cause traffic loop if not used properly (command accepted).
         
      -> maximum-paths eibgp 2 import 2
         -> specifies the number of redundant paths configured as back up multipaths for a VRF
