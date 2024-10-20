@@ -390,7 +390,7 @@ Best Path Algorithm:
             -> %      Converting to 'import path selection all; import path limit 2'.
             -> %PARSER-5-HIDDEN: Warning!!! ' maximum-paths ibgp 2 import 2 ' is a hidden command. Use of this command is not recommended/supported and will be removed in future.
 
--> maximum-paths ibgp unequal-cost 2
+     -> maximum-paths ibgp unequal-cost 2
          -> install iBGP unequal-cost routes for a VRF
          -> only in address-family ipv4 vrf VRF_NAME and address-family ipv6 vrf VRF_NAME
          
