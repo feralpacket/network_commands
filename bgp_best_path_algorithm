@@ -375,6 +375,10 @@ Best Path Algorithm:
         
      -> maximum-paths eibgp 2 import 2
         -> specifies the number of redundant paths configured as back up multipaths for a VRF
+        -> Will generate the follow log messages:  
+           -> %NOTE: Import option has been deprecated.
+           -> %      Converting to 'import path selection all; import path limit 2'.
+           -> %PARSER-5-HIDDEN: Warning!!! ' maximum-paths 2 import 2 ' is a hidden command. Use of this command is not recommended/supported and will be removed in future.
         
      -> maximum-paths ibgp 2
          -> install both equal-cost and unequal-cost iBGP routes
