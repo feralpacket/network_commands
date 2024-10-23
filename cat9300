@@ -480,3 +480,7 @@ device-tracking policy IPDT_MAX_10
 
 
 
+! dmesg!!!
+sh platform software dmesg slot switch 1 r0
+
+
