@@ -18,6 +18,7 @@ Why Routers Ignore Paths:
  - backdoor routes configured with the network backdoor command are not advertised in BGP updates
  - RR will not reflect routes when no bgp client-to-client reflection is configured
  - routes will be discarded if the AS_PATH exceeds the bgp maxas-limit when configured
+ - routes will be discarded if the number of prefixes exceeds the neighbor maximum-prefix when configured
  - routes will be discarded if the number of communities exceeds the bgp maxcommunity-limit when configured
  - routes will be discarded if the number of extended communities exceeds the bgp maxextcommunity-limit when configured
  - routes will be discarded if the number of large communities exceeds the bgp maxlargecommunity-limit when configured
@@ -27,7 +28,7 @@ Why Routers Ignore Paths:
    for multipath if there is no alternative prefix that is marked valid
 
 Best Path Algorithm:
- note: if extended community cost is configured for pre-bestpath, compare before anything else
+ note: if extended community cost is configured for pre-bestpath, compare before anything e
      -> lowest is best
      -> set extcommunity cost pre-bestpath <community-id> <cost>
      -> bgp bestpath cost-community ignore
