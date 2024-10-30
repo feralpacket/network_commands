@@ -202,7 +202,14 @@ Best Path Algorithm:
      
      -> neighbor 192.0.2.1 allowas-in
      -> accept an AS_PATH that contains the local AS
-     
+
+     -> route-map TAG_SET_AS permit 10
+     ->     set as-path tag
+     -> neighbor 192.0.2.1 redistribute ospf 1 match internal external route-map TAG_SET_AS
+     -> the AS_PATH is lost when BGP is redistributed into an IGP
+     -> however, the BGP ASN is used to set the route tag
+     -> set as-path tag will use the route tag to set the AS_PATH
+
      -> route-map REPLACE_AS permit 10
      ->     set as-path replace 100
      -> neighbor 192.0.2.1 route-map REPLACE_AS in
