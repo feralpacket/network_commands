@@ -169,10 +169,13 @@ Best Path Algorithm:
      -> local-as is intended to help with BGP ASN or ISP migrations
      -> local-as number must be different than the local AS and the peer AS
      -> local-as will be added to the AS_PATH making it longer
+
      -> neighbor 192.0.2.1 local-as 99 no-prepend
      -> local-as will not be added to the AS_PATH
+
      -> neighbor 192.0.2.1 local-as 99 no-prepend replace-as
      -> replace real AS with local AS in the eBGP updates
+
      -> neighbor 192.0.2.1 local-as 99 no-prepend replace-as dual-as
      -> accept either real AS or local AS from the eBGP peer
      -> error:  % dual-as not allowed without no-prepend/replace-as for eBGP local-as
