@@ -1,0 +1,4 @@
+! flash LEDs for the hardware team
+locate-switch 255
+
+sh locate-switch
