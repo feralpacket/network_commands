@@ -369,6 +369,7 @@ Best Path Algorithm:
         -> neighboring AS or sub-AS
         -> AS-PATH
            -> unless bgp bestpath as-path multipath-relax is configured
+           -> or bgp bestpath as-path ignore is configured
         -> for eBGP multipath
            -> learned from an external or confederation-external neighbor
            -> the IGP metric to the BGP next hop must be equal to the best-path IGP metric
