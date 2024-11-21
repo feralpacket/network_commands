@@ -1,4 +1,4 @@
-! blink the LEDs for the hardware team
+! blink the LEDs red and green for the hardware team
 locate-switch 255
 
 sh locate-switch
