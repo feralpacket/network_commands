@@ -2,3 +2,4 @@
 locate-switch 255
 
 sh locate-switch
+sh hardware led
