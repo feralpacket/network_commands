@@ -34,6 +34,7 @@
    - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-s5.html
 
  - giants
+   - This is a drop counter.
    - "Received packets larger than the configured MTU."
    - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-9500-series-switches/217233-troubleshoot-mtu-on-catalyst-9000-series.html
    - "Intermediate System-to-Intermediate System (IS-IS) adjacencies do not come up. By default, IS-IS uses hello-padding; therefore, hellos might be characterized as giants and might be dropped when one router has an MTU value that is lower than the values at the other routers."
@@ -272,7 +273,9 @@
 
  - Invalid frames, too large
  - Invalid frames, too smale
- - Valid frames, too large
+
+- Valid frames, too large
+   - This is a frame counter and not a drop counter.
    - This counter will increase on Cisco 2960x interfaces configured as a trunk.  Frames with the dot1q header will be 1518 bytes.  This is normal.
 
  - Valid frames, too small
@@ -282,7 +285,8 @@
    - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
 
  - Too large frames
-   -    - This counter will increase on Cisco 2960x interfaces configured as a trunk.  Frames with the dot1q header will be 1518 bytes.  This is normal.
+   - This is a frame counter and not a drop counter.
+   - This counter will increase on Cisco 2960x interfaces configured as a trunk.  Frames with the dot1q header will be 1518 bytes.  This is normal.
  
  - VLAN discard frames
    - "The number of frames dropped on an interface because the CFI bit is set."
