@@ -8,3 +8,8 @@ sh platform tcam utilization
 ! 802.3az
 int gi1/0/1
  no power efficient-ethernet
+
+! stuff
+sh controllers cpu-interface
+sh platform port-asic stats drop
+sh platform ip unicast counts 
