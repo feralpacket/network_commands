@@ -327,7 +327,7 @@
 
 
 
-! "show tcp" error counters
+! "show tcp" error counters and stuff
 
  - out of order
  - retransmit
