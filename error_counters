@@ -87,6 +87,9 @@
  - collisions
    - "Number of messages retransmitted because of an Ethernet collision. This is usually the result of an overextended LAN (Ethernet or transceiver cable too long, more than two repeaters between stations, or too many cascaded multiport transceivers). A packet that collides is counted only once in output packets."
    - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-s5.html
+   - "The number of times a collision occurred before the interface transmitted a frame to the media successfully."
+   - "Collisions are normal for interfaces configured as half-duplex but must not be seen on full duplex interfaces. If collisions increase dramatically, this points to a highly utilized link or possibly a duplex mismatch with the attached device."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
 
  - interface resets
    - "Number of times an interface has been completely reset. This can happen if packets queued for transmission were not sent within several seconds. Interface resets can occur when an interface is looped back or shut down."
@@ -107,6 +110,8 @@
  - deferred
    - "Number of times that the interface had to defer while ready to transmit a frame because the carrier was asserted."
    - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-s5.html
+   - "This is usually seen in half-duplex environments where the carrier is already in use when it tries to transmit a frame."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
 
  - lost carrier
    - "Number of times the carrier was lost during transmission."
@@ -131,16 +136,52 @@
 
 ! "show interface counters error" IOS-XE error counters
  - Align-Err
+   - "Alignment errors are a count of the number of frames received that do not end with an even number of octets and have a bad Cyclic Redundancy Check (CRC)."
+   - "These are usually the result of a duplex mismatch or a physical problem (such as cabling, a bad port, or a bad NIC). When the cable is first connected to the port, some of these errors can occur. Also, if there is a hub connected to the port, collisions between other devices on the hub can cause these errors."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
+
  - FCS-Err
+   - "The number of valid size frames with Frame Check Sequence (FCS) errors but no frame errors. "
+   - "This is typically a physical issue (such as cabling, a bad port, or a bad Network Interface Card (NIC)) but can also indicate a duplex mismatch."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
+
  - Xmit-Err
+   - "This is an indication that the internal send (Tx) buffer is full."
+   - "A common cause of Xmit-Err can be traffic from a high bandwidth link that is switched to a lower bandwidth link, or traffic from multiple inbound links that are switched to a single outbound link."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
+
  - Rcv-Err
+
+
  - UnderSize
  - OutDiscards
+   - "The number of outbound packets chosen to be discarded even though no errors have been detected."
+   - "One possible reason to discard such a packet can be to free up buffer space"
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
+
  - Single-Col
+   - "The number of times one collision occurred before the interface transmitted a frame to the media successfully."
+   - "Collisions are normal for interfaces configured as half-duplex but must not be seen on full duplex interfaces. If collisions increase dramatically, this points to a highly utilized link or possibly a duplex mismatch with the attached device."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
+
  - Multi-Col
+   - "The number of times multiple collisions occurred before the interface transmitted a frame to the media successfully. "
+   - "Collisions are normal for interfaces configured as half-duplex but must not be seen on full duplex interfaces. If collisions increase dramatically, this points to a highly utilized link or possibly a duplex mismatch with the attached device."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
+
  - Late-Col
+   - "The number of times a collision is detected on a particular interface late in the transmission process. For a 10 Mbit/s port this is later than 512 bit-times into the transmission of a packet. Five hundred and twelve bit-times corresponds to 51.2 microseconds on a 10 Mbit/s system."
+   - "This error can indicate a duplex mismatch among other things. For the duplex mismatch scenario, the late collision is seen on the half-duplex side. As the half-duplex side transmits, the full duplex side does not wait its turn and transmits simultaneously which causes a late collision."
+   - "Late collisions can also indicate an Ethernet cable or segment that is too long. Collisions must not be seen on interfaces configured as full duplex."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
+
  - Excess-Col
+
  - Carri-Sen
+   - "The Carri-Sen (carrier sense) counter increments every time an Ethernet controller wants to send data on a half-duplex connection. The controller senses the wire and checks if it is not busy before it transmits."
+   - "This is normal on an half-duplex Ethernet segment."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
+
  - Runts
  - ! Cisco 4500-X
  - CrcAlign-Err
