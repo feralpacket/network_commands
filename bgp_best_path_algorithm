@@ -28,7 +28,7 @@ Why Routers Ignore Paths:
    for multipath if there is no alternative prefix that is marked valid
 
 Best Path Algorithm:
- note: if extended community cost is configured for pre-bestpath, compare before anything e
+ note: if extended community cost is configured for pre-bestpath, compare before anything else
      -> lowest is best
      -> set extcommunity cost pre-bestpath <community-id> <cost>
      -> bgp bestpath cost-community ignore
