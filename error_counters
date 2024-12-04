@@ -273,6 +273,8 @@
  - Invalid frames, too large
  - Invalid frames, too smale
  - Valid frames, too large
+   - This counter will increase on Cisco 2960x interfaces configured as a trunk.  Frames with the dot1q header will be 1518 bytes.  This is normal.
+
  - Valid frames, too small
 
  - Too old frames
@@ -280,6 +282,7 @@
    - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
 
  - Too large frames
+   -    - This counter will increase on Cisco 2960x interfaces configured as a trunk.  Frames with the dot1q header will be 1518 bytes.  This is normal.
  
  - VLAN discard frames
    - "The number of frames dropped on an interface because the CFI bit is set."
