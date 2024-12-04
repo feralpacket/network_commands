@@ -1,0 +1,82 @@
+! error counters and what they mean
+ - work in progress
+
+
+! "show interface" error counters
+
+ - output hang
+ - Input queue - drops
+ - Inpus queue - flushes
+ - Total output drops
+ - no buffer
+ - runts
+ - giants
+ - throttles
+ - input errors
+ - CRC
+ - frame
+ - overrun
+ - ignored
+ - underruns
+ - output errors
+ - collisions
+ - interface resets
+ - unknown protocol drops
+ - babbles
+ - late collision
+ - deferred
+ - lost carrier
+ - no carrier
+ - output buffer failures
+ - output buffer swapped out
+
+
+
+! "show ip traffic" error counters
+
+ - IP statistics
+ - format errors
+ - checksum errors
+ - bad hop count
+ - unknown protocol
+ - not a gateway
+ - security failures
+ - bad options
+ - with options
+
+ - Opts
+ - end
+ - nop
+ - basic security
+ - loose source route
+ - timestamp
+ - extended security
+ - record route
+ - stream ID
+ - strict source route
+ - alert
+ - cipso
+ - ump
+ - other
+
+ - Frags
+ - reassembled
+ - timeouts
+ - couldn't reassemble
+ - fragmented
+ - fragments
+ - couldn't fragment
+ - invalid hole
+
+ - Drop
+ - encapsulation failed
+ - unresolved
+ - no adjacency
+ - no route
+ - unicast RPF
+ - forced drop
+ - unsupported-addr
+ - options denied
+ - source IP address zero
+ 
+
