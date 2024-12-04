@@ -178,6 +178,9 @@
  - MTU exceeded frames
  - Alignment errors
  - FCS errors
+ - Gold frames dropped
+ - Gold frames truncated
+ - Gold frames successful
 
  - ValidOverSize
  - can also be "Valid oversize frames" ( Cisco 2960x )
