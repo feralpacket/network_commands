@@ -125,6 +125,45 @@
 
 
 
+
+! "show interface counters error" IOS-XE error counters
+ - Align-Err
+ - FCS-Err
+ - Xmit-Err
+ - Rcv-Err
+ - UnderSize
+ - OutDiscards
+ - Single-Col
+ - Multi-Col
+ - Late-Col
+ - Excess-Col
+ - Carri-Sen
+ - Runts
+
+
+! "show interface counters errors" NX-OS error counters
+ - Align-Err
+ - FCS-Err
+ - Xmit-Err
+ - Rcv-Err
+ - UnderSize
+ - OutDiscards
+ - Single-Col
+ - Multi-Col
+ - Late-Col
+ - Carri-Sen
+ - Runts
+ - Giants
+ - SQETest-Err
+ - Deferred-Tx
+ - IntMacTx-Er
+ - IntMacRx-Er
+ - Symbol-Err
+ - InDiscards
+ - Stomped-CRC
+
+
+
 ! "show controllers" error counters
  - will vary depending on the interface hardware and the switch hardware
 
