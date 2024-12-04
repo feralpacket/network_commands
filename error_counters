@@ -259,15 +259,33 @@
  - 14 collision frames
  - 15 collision frames
  - Excess collision frames
+
  - Good (1 coll) frames
+   - "The total number of frames which experience exactly one collision and are then successfully transmitted."
+   - "Collisions in a half-duplex environment are normal expected behavior."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
+
  - Good (>1 coll) frames
+   - "The total number of frames which experience between 2 and 15 collisions, inclusive, and are then successfully transmitted."
+   - "Collisions in a half-duplex environment are normal expected behavior. Frames that increment at the upper end of this counter can exceed the 15 collisions and can be counted as Excessive collisions."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
+
  - Invalid frames, too large
  - Invalid frames, too smale
  - Valid frames, too large
  - Valid frames, too small
+
  - Too old frames
+   - "Number of frames that took longer than two seconds to travel through the switch. For this reason, they were discarded by the switch. This only happens under extreme, high stress conditions."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
+
  - Too large frames
+ 
  - VLAN discard frames
+   - "The number of frames dropped on an interface because the CFI bit is set."
+   - "The Canonical Format Indicator (CFI) bit in the TCI of an 802.1q frame is is set to 0 for the ethernet canonical frame format. If the CFI bit is set to 1, this indicates the presence of a RIF (Routing Information Field) or Token Ring noncanonical frame which is discarded."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
+
  - MTU exceeded frames
  - Alignment errors
  - FCS errors
