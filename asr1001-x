@@ -26,3 +26,22 @@ sh hw-module subslot 0/0 transceiver 2 idprom detail
 ! reload reason history
 sh redundancy history reload
 sh logging onboard uptime
+
+
+! drops
+sh platform hardware qfp active interface if-name gi0/0/0 statistics
+sh platform hardware qfp active interface if-name gi0/0/0 statistics detail 
+sh platform hardware port 0/0/0 plim statistics  
+sh platform hardware subslot 0/0 plim statistics 
+sh platform hardware slot 0 plim statistics 
+sh platform hardware slot 0 plim statistics internal
+sh platform hardware qfp active infrastructure punt statistics type per-cause
+sh platform hardware qfp active infrastructure punt statistics type punt-drop | ex _0_
+sh platform hardware qfp active infrastructure punt statistics type inject-drop | ex _0_
+sh platform hardware qfp active infrastructure punt statistics type global-drop
+sh platform software infrastructure lsmpi punt 
+sh int gi0/0/0 accounting
+sh platform hardware qfp active statistics drop
+
+https://www.cisco.com/c/en/us/support/docs/routers/asr-1000-series-aggregation-services-routers/110531-asr-packet-drop.html
+
