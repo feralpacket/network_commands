@@ -34,6 +34,8 @@
    - "Intermediate System-to-Intermediate System (IS-IS) adjacencies do not come up. By default, IS-IS uses hello-padding; therefore, hellos might be characterized as giants and might be dropped when one router has an MTU value that is lower than the values at the other routers."
    - "Open Shortest Path First (OSPF) adjacencies get stuck in Exstart or Exchange state, because large database descriptor (DBD) packets might be characterized as giants and might be dropped. When the packets are received on a router with a lower MTU value, the databases are not synchronized."
    - https://www.cisco.com/c/en/us/support/docs/ios-nx-os-software/ios-xr-software/116350-trouble-ios-xr-mtu-00.html
+   - "Giant frames are defined as any frame over the maximum size of an ethernet frame (larger than 1518 bytes) that has a bad FCS."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
 
  - throttles
    - "Number of times the receiver on the port was disabled, possibly because of buffer or processor overload."
