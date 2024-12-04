@@ -166,8 +166,21 @@
  - 14 collision frames
  - 15 collision frames
  - Excess collision frames
+ - Good (1 coll) frames
+ - Good (>1 coll) frames
+ - Invalid frames, too large
+ - Invalid frames, too smale
+ - Valid frames, too large
+ - Valid frames, too small
+ - Too old frames
+ - Too large frames
+ - VLAN discard frames
+ - MTU exceeded frames
+ - Alignment errors
+ - FCS errors
 
  - ValidOverSize
+ - can also be "Valid oversize frames" ( Cisco 2960x )
    - "Received packets larger than the configured MTU."
    - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-9500-series-switches/217233-troubleshoot-mtu-on-catalyst-9000-series.html
 
