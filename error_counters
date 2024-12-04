@@ -325,3 +325,53 @@
  - Fragments timed out
 
 
+
+
+! "show tcp" error counters
+
+ - out of order
+ - retransmit
+ - fastretransmit
+ - partialack
+ - Second Congestion
+ - fast lock acquisition failures
+
+ - unread input bytes
+
+ - Enqueued packets for retransmit
+ - mis-ordered
+
+ - Event Timers
+ - Restrans
+ - Timewait
+ - AckHold
+ - SendWnd
+ - KeepAlive
+ - GiveUp
+ - PmtuAger
+ - DeadWait
+ - Linger
+ - ProcessQ
+
+ - iss
+ - snduna
+ - sndnxt
+ - irs
+ - rcvnxt
+
+ - sndwnd
+ - maxrcvwnd
+ - rcvwnd
+ - delrcvwnd
+
+ - SRTT
+ - RTT0
+ - RTV
+ - KRTT
+ - minRTT
+ - maxRTT
+ - ACK hold
+ - Send idletime
+ - Receive idletime
+ - Status Flags
+ - Option Flags
