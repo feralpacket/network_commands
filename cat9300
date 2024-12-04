@@ -293,11 +293,16 @@ sh hardware led stack 2
 
 ! PoE features
 ! allow class 4 devices to request up to 30W without CDP or LLDP
-! enable persistent PoE
+!
+! enable persistent / perpetual PoE
+! NOTE:  this helped with a weird, dumb PoE device that just did not like being power cycled
+! but for other things, perpetual PoE turned out to be a bad idea
+! it's caused all kinds of weird problems with Cisco APs
+!
 ! enable fast PoE
 int gi1/0/1
  power inline port 2-event
- power inline port perpetual-poe-ha
+ !!! TEST FIRST !!! THEN THINK TWICE !!! THEN TEST AGAIN !!! power inline port perpetual-poe-ha
  power inline port poe-ha
  shut
  no shut
