@@ -25,6 +25,9 @@
    - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-s5.html
 
  - no buffer
+   - "The number of received packets discarded because there is no buffer space."
+   - "Compare with ignored count. Broadcast storms can often be responsible for these events."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
 
  - runts
    - "Number of packets that are discarded because they are smaller than the minimum packet size of the medium."
