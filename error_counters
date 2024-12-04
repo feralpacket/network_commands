@@ -139,6 +139,16 @@
  - Excess-Col
  - Carri-Sen
  - Runts
+ - ! Cisco 4500-X
+ - CrcAlign-Err
+ - Dropped-Bad-Pkts
+ - Collisions
+ - Oversize
+ - Fragments
+ - Jabbers
+ - Deferred-Col
+ - False-Car
+ - Sequence-Err
 
 
 ! "show interface counters errors" NX-OS error counters
