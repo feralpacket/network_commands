@@ -126,6 +126,45 @@
 ! "show controllers" error counters
  - will vary depending on the interface hardware and the switch hardware
 
+ - System FCS error frames
+ - IpgVoilation frames
+ - MacUnderrun frames
+ - MacOverrun frames
+ - Pause frames
+ - Cos 0 Pause frames
+ - Cos 1 Pause frames
+ - Cos 2 Pause frames
+ - Cos 3 Pause frames
+ - Cos 4 Pause frames
+ - Cos 5 Pause frames
+ - Cos 6 Pause frames
+ - Cos 7 Pause frames
+ - Oam frames
+ - OamProcessed frames
+ - OamDropped frames
+ - Late collision frames
+ - SymbolErr frames
+ - Excess Defer frames
+ - Collision fragments
+ - Deferred frames
+ - ValidUnderSize frames
+ - 1 collision frames
+ - 2 collision frames
+ - 3 collision frames
+ - 4 collision frames
+ - 5 collision frames
+ - 6 collision frames
+ - 7 collision frames
+ - 8 collision frames
+ - 9 collision frames
+ - 10 collision frames
+ - 11 collision frames
+ - 12 collision frames
+ - 13 collision frames
+ - 14 collision frames
+ - 15 collision frames
+ - Excess collision frames
+
  - ValidOverSize
    - "Received packets larger than the configured MTU."
    - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-9500-series-switches/217233-troubleshoot-mtu-on-catalyst-9000-series.html
@@ -140,8 +179,53 @@
 
 
 
+! "show interface counters detailed all" NX-OS error counters
 
-! "show ip traffic" error counters
+ - Runt Errors
+ - Rx Storm Suppression
+ - Input Errors
+ - Input CRC Errors
+ - ECC Errors
+ - Overrun Errors
+ - Ignored Errors
+ - Watchdog Errors
+ - Dribble Errors
+ - If Down Drop Errors
+ - Bad Etype Drop Errors
+ - Bad Proto Drop Errors
+ - Underrun Errors
+ - Output Errors
+ - Collision Errors
+ - Resets
+ - Babble Errors
+ - Late Collision Errors
+ - Deferred Errors
+ - Lost Carrier Errors
+ - No Carrier Errors
+ - Tx Pause
+ - Single Collision Errors
+ - Multi-Collisions Errors
+ - Excess Collision Errors
+ - Jabber Errors
+ - Short Frame Errors
+ - Input Discard Errors
+ - Bad Encapsulation Errors
+ - Output CRC Errors
+ - Symbol Errors
+ - Output Dropped Errors
+ - SQETest
+ - Output BPDU Lost
+ - Output Cos0 Lost
+ - Output Cos1 Lost
+ - Output Cos2 Lost
+ - Output Cos3 Lost
+ - Output Cos4 Lost
+ - Output Cos5 Lost
+ - Output Cos6 Lost
+ - Output Cos7 Lost
+
+
+! "show ip traffic" IOS XE error counters
 
  - IP statistics
  - format errors
@@ -188,4 +272,56 @@
  - options denied
  - source IP address zero
  
+
+
+
+
+! "show ip traffic" NX-OS error counters
+
+ - Bad checksum
+ - packet too small
+ - bad version
+ - Bad header length
+ - bad packet length
+ - bad destination
+ - Bad ttl
+ - could not forward
+ - no buffer dropped
+ - Bad encapsulation
+ - no route
+ - non-existent protocol
+ - Bad options
+
+ - Vinci Migration Packets
+
+ - Total packet snooped
+ - Total packet on down svi
+
+ - Stateful Restart Recovery
+ - MBUF pull up fail
+ - Bad context id
+ - rpf drops
+ - Bad GW MAC
+ - Ingress option processing failed
+ - NAT inside drop
+ - NAT outside drop
+ - Ingress option processing failed
+ - Ingress mforward failed
+
+ - Ingress lisp drop
+ - Ingress lisp decap drop
+ - Ingress lisp encap drop
+ - Ingress lisp encap
+ - Ingress RA/Reass drop
+ - Ingress ICMP Redirect processing drop
+ - Ingress Drop (ifmgr init)
+ - Ingress Drop (invalid filter)
+ - Ingress Drop (Invalid L2 msg)
+
+ - ACL Filter Drops
+
+ - Fragments dropped
+ - packets with DF
+ - Fragments timed out
+
 
