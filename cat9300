@@ -300,6 +300,8 @@ sh hardware led stack 2
 ! it's caused all kinds of weird problems with Cisco APs
 !
 ! enable fast PoE
+! NOTE:  this also caused problems with dumb PoE devices that just did not know what to do when the link is up but the default gateway is not reachable and would just give up
+!
 int gi1/0/1
  power inline port 2-event
  !!! TEST FIRST !!! THEN THINK TWICE !!! THEN TEST AGAIN !!! power inline port perpetual-poe-ha
