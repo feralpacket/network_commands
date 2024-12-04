@@ -15,10 +15,20 @@
  - input errors
  - CRC
  - frame
+
  - overrun
- - ignored
+   - "Overrun counter accounts number of times the receiver hardware was unable to hand received data to a hardware buffer. In other words, the input rate of traffic exceeded the ability of the receiver to handle the data."
+   - "A Catalyst 6500 might experience interface overrun when a Layer 2 Distributed Etherchannel (DEC) is configured. DEC is an etherchannel across 2 or more Distriubuted Forwarding Card (DFC) modules. An Etherchannel with 2 member interfaces connected on the same linecard but on different fabric channels is not considered a DEC."
+   - "Overrun counter can start  incrementing when the fabric utilization reaches about 50%." - On 6500s.
+   - "overrun (drops) are happening on ingress due to ingress flow control."
+   - "6500#show platform hardware capacity rewrite-engine performance slot 2"
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/200089-Troubleshoot-Interface-Overrun-caused-by.html
+
+- ignored
+
  - underruns
- - output errors
+
+- output errors
  - collisions
  - interface resets
  - unknown protocol drops
