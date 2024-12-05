@@ -133,6 +133,7 @@ Best Path Algorithm:
         -> AIGP can be translated to MED
         
      -> bgp bestpath aigp ignore
+        -> Do not evaluate AIGP during best path selection
      
      -> route-map AIGP permit 10
      ->  set aigp-metric igp-metric
