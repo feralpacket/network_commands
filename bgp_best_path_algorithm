@@ -159,9 +159,25 @@ Best Path Algorithm:
      -> range of 1 - 255 
      -> well-known mandatory attribute AS_PATH
      -> primary purpose is to provide loop prevention for inter-AS routing
+
+     -> AS_SEQUENCE is an AS_PATH attribute that is an ordered list of AS numbers
+
+     -> AS_SET is an AS_PATH attribute that is an unordered list of AS numbers added to an aggregate route
+     -> AS_SET restores the loop avoidance that can be lost with aggregation
+     -> RFC 6472 recocmmends that AS_SET not be used except where a few "corner cases" might justify it
+     -> AS_SET should not be used with a single AS
+     -> AS_SET should not be used with reserved ( private ) AS numbers
+     -> AS_SET must always contain less specific prefixes and must never aggregate an exaxt match
+     -> AS_SET counts as 1 hop, no matter how many AS are in the set
+     -> aggregate-address 192.0.2.0 255.255.255.0 as-set
+
+     -> AS_CONFED_SEQUENCE is similar to AS_SEQUENCE, but only holds confederation member AS numbers
+     -> AS_CONFED_SET is similar to AS_SET, but only holds confederation member AS numbers
+     -> AS_CONFED_SEQUENCE and AS_CONFED_SET are not included in the AS_PATH length
      
      -> bgp bestpath as-path ignore
-     
+        -> Do not evaluate AS_PATH during best path selection
+
      -> route-map PREPEND permit 10
      ->   set as-path prepend 100 100
      -> neighbor 192.0.2.1 route-map PREPEND out
