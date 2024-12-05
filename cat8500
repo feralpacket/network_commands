@@ -8,3 +8,7 @@ sdwan
   
 ! for some reason, logging hardware alarms is disabled by default
 logging alarm
+
+
+! drops
+sh drops
