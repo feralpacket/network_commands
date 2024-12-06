@@ -12,3 +12,13 @@ logging alarm
 
 ! drops
 sh drops
+
+! to see all of the zero counter drops
+sh platform hardware qfp active statistics drop all
+
+! the 8500 uses similar commands as the asr1001-x to troubleshoot commands.
+! big difference is the 1001x uses plim and the 8500 uses ezman.
+! 1001x physical layer interface module
+sh platform hardware slot 0 plim statistics 
+! 8500 EZchip manager
+sh platform hardware slot 0 ezman statistics
