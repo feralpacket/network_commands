@@ -99,3 +99,14 @@ sh int e1/32 counters detailed all
 ! equivalent to sh interfaces po1 counters ethernet in IOS or IOS XE
 ! shows traffic distribution across the port-channel members
 sh port-channel traffic
+
+
+! errors and drops
+sh int counters errors non-zero
+slot 1 show hardware internal tah counters asic 0
+show system inband queuing statistics
+! similar to sh tcp in IOS XE
+sh sockets statistics
+sh sockets connection tcp detail
+sh sockets connection udp detail
+sh queuing summary
