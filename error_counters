@@ -200,7 +200,11 @@
  - Align-Err
  - FCS-Err
  - Xmit-Err
+
  - Rcv-Err
+   - "is the sum of all input errors (CRC or otherwise) received by the interface"
+   - https://www.cisco.com/c/en/us/support/docs/ios-nx-os-software/nx-os-software/217554-understand-cyclic-redundancy-check-crc.html
+
  - UnderSize
  - OutDiscards
  - Single-Col
