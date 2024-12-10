@@ -207,4 +207,8 @@ https://www.iana.org/assignments/dscp-registry/dscp-registry.xhtml
 ! capture filters
 ! needed on 40G and 100G links
 
+! meh
+https://www.wireshark.org/docs/man-pages/pcap-filter.html
+
+
 
