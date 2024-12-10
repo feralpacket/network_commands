@@ -13,10 +13,198 @@ eth.addr[0:3]==01:80:c2
 eth.ig==1
 eth.dst.ig==1
 
+! spanning-tree
+stp
+
+! NTP and PTP!!!
+! if you'd like to get a fairly accurate time / date stamp in your capture
+ntp
+ptp
+
+! CDP and LLDP
+! useful to see PoE power requests
+cdp || lldp
+
+! RADIUS and TACACS
+radius
+tacacs
+
+! dot1x
+eapol
+eap
+radius
+tls
+
+! ISAKMP
+! which port is it using, this time?
+! is there a response to the request?
+isakmp
+
+! DHCP
+! proxyDHCP used with PXE boots use UDP port 4011
+dhcp
+
+! Kerberos
+! because you can't filter on KRB5 for some reason
+tcp.port == 88
+
+! mdns
+! bonjour and all the apples devices
+mdns
+dns and udp.port eq 5353
+dns and udp.port eq 5353 and ip.addr eq 224.0.0.0/24
+
+! common industrial protocol and ISO on TCP
+cip || cipio || cipcm || tpkt
+
+! HTTP/XML
+xml
+
+! Ethernet address
+eth.addr == 00:00:fe:ed:fa:ce
+
+! Ethernet OUI
+eth.src[0:3] == 00:00:fe
+eth.dst[0:3] == 00:00:fe
+
+! Ethernet type ( ARP )
+eth.type == 0x0806
+
+! Ethernet broadcast
+eth.addr == ff:ff:ff:ff:ff:ff
+
+! No ARP
+not arp
+
+! IPv4 only
+ip
+
+! IPv4 address
+ip.addr == 192.0.2.1
+ip.dst 192.0.0.0/16
+
+! Not IPv4 address
+!(ip.addr == 192.0.2.1)
+
+! IPv6 only
+ipv6
+
+! IPv6 address
+ipv6.addr == 2001:db8::1
+
+! TCP or UDP only
+tcp
+udp
+
+! Not DNS
+!(udp.port == 53 || tcp.port == 53)
+not dns
+
+! TCP or UDP ports
+tcp.port == 80 || udp.port == 80
+not arp and !(udp.port == 53)
+ip.addr == 192.0.2.1 and not tcp.port in {25 80}
+
+! HTTP
+http
+
+! TCP syn
+tcp.flags.syn eq 1
+
+! TCP reset
+tcp.flags.reset eq 1
+
+! TCP retransmit
+tcp.analysis.retransmission
+
+! TCP keepalive
+tcp.analysis.keep_alive
+
+! 802.3x pause frame
+macc.opcode == pause
+
+! reassembled TCP data
+tcp.reassembled.data
+
+! TCP MSS
+tcp.connection.syn
+
+! SSL cert hello
+ssl.handshake.type == 2
+
+! TLS alerts
+! show all the alerts
+tls.alert_message
+
+! Unsuppored cert
+tls.alert_message == 43
+
+! Expired cert
+tls.alert_message == 45
+
+! SSL / TLS cipher mismatch handshack fail
+tls.alert_message == 40
+
+! Handshake failure
+tls.record.content_type == 21
+
+! Fun with header lengths
+! stuff can be added, subtracted, multiplied, etc.
+frame.cap_len < { 14 + ip.hdr_len + tcp.hdr_len }
+frame.cap_len < { 15 + ip.hdr_len + tcp.hdr_len }
+frame.cap_len > { 1420 + ip.hdr_len + tcp.hdr_len }
+frame.cap_len > { 1474 + ip.hdr_len + tcp.hdr_len }
+
+! QoS stuff
+! DSCP EF - expedited forwarding
+ip.dsfield == 0xb8
+ip.dsfield.dscp == 46
+
+! DSCP AF41
+ip.dsfield == 0x88
+ip.dsfield.dscp == 34
+
+! DSCP A11
+ip.dsfield == 0x28
+ip.dsfield.dscp == 10
+
+! DSCP CS1 - low priority data
+ip.dsfield.dscp == 8
+
+! DSCP CS2
+ip.dsfield == 0x40
+ip.dsfield.dscp == 16
+
+! DSCP CS3
+ip.dsfield == 0x60
+ip.dsfield.dscp == 24
+
+! DSCP CS5 - signaling
+ip.dsfield.dscp == 40
+
+! DSCP CS6 - network control
+ip.dsfield == 0xC0
+ip.dsfield.dscp == 48
+
+! Default DSCP
+ip.dsfield == 0x0
+ip.dsfield.dscp == 0
+
+! DSCP LE - low effort RFC 8622
+ip.dsfield.dscp == 1
+
+! DSCP 2 - seen on low priority storage traffic
+! background data transfers or bulk data movement
+! not listed with IANA
+ip.dsfield.dscp == 2
+
+
+https://www.iana.org/assignments/dscp-registry/dscp-registry.xhtml
+
 
 
 
 ! capture filters
-
+! needed on 40G and 100G links
 
 
