@@ -102,7 +102,7 @@
 "               highlighting for interface statistics
 "
 "           .628
-"               Additions: helper-address
+"               Additions: helper-address, logging onboard, route-cache
 "
 " }}}
 " Setup {{{
@@ -1216,6 +1216,7 @@ exe s:h . "int_ip_KW" . s:keyword1
 synt region int_ip matchgroup=int_ip_KW start=/^ \+ip / end=/$/ keepend transparent
 
 synt match int_ip_subcommands /router/ skipwhite contained containedin=int_ip nextgroup=int_ip_router_protocol
+synt match int_ip_subcommands /route-cache/ skipwhite contained containedin=int_ip
 synt match int_ip_subcommands /address/ skipwhite contained containedin=int_ip
 synt match int_ip_subcommands /helper-address/ skipwhite contained containedin=int_ip
 synt match int_ip_subcommands /summary-address/ skipwhite contained containedin=int_ip nextgroup=int_ip_summ
@@ -1465,6 +1466,9 @@ exe s:h . 'ip_KW' . s:keyword1
 synt match ip_route / route/ skipwhite contained containedin=ip_rt nextgroup=ip_route_vrf,ipaddress,subnetmask,wildcard
 exe s:h . "ip_route" . s:keyword2
 
+synt match ip_route / route-cache/ skipwhite contained containedin=ip_rt
+exe s:h . "ip_route" . s:keyword2
+
 synt match ip_route_vrf /vrf/ skipwhite contained containedin=ip_route nextgroup=ip_route_vrf_name skipwhite
 exe s:h . "ip_route_vrf" . s:bold . s:fgred
 
@@ -1683,6 +1687,7 @@ synt match logging_kw2 /host/            skipwhite contained
 synt match logging_kw2 /message-counter/ skipwhite contained nextgroup=logging_mc
 synt match logging_kw2 /monitor/         skipwhite contained nextgroup=logging_buffered
 synt match logging_kw2 /on/              skipwhite contained
+synt match logging_kw2 /onboard/              skipwhite contained
 synt match logging_kw2 /origin\-id/      skipwhite contained nextgroup=parameter2
 synt match logging_kw2 /persistent/           skipwhite contained
 synt match logging_kw2 /queue-limit/          skipwhite contained
