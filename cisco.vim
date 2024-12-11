@@ -103,6 +103,8 @@
 "
 "           .628
 "               Additions: helper-address, logging onboard, route-cache
+"               TwentyFiveGigE, FortyGigE, HundredGigE interfaces, fixed 
+"               err-disabled, App interfaces
 "
 " }}}
 " Setup {{{
@@ -498,6 +500,12 @@ synt match ciscointerfacetype excludenl /[Tt]e \{0,1}/                          
 synt match ciscointerfacetype excludenl /[Tt]en \{0,1}/                          nextgroup=ciscointerfacenumber skipwhite contained 
 synt match ciscointerfacetype excludenl /[Tt]en[Gg]i \{0,1}/                     nextgroup=ciscointerfacenumber skipwhite contained 
 synt match ciscointerfacetype excludenl /[Tt]en[Gg]igabit[Ee]thernet \{0,1}/     nextgroup=ciscointerfacenumber skipwhite contained 
+synt match ciscointerfacetype excludenl /[Tt]we \{0,1}/                          nextgroup=ciscointerfacenumber skipwhite contained 
+synt match ciscointerfacetype excludenl /[Tt]wenty[Ff]ive[Gg]ig[Ee] \{0,1}/    	 nextgroup=ciscointerfacenumber skipwhite contained 
+synt match ciscointerfacetype excludenl /[Ff]o \{0,1}/                           nextgroup=ciscointerfacenumber skipwhite contained 
+synt match ciscointerfacetype excludenl /[Ff]orty[Gg]ig[Ee] \{0,1}/    		 nextgroup=ciscointerfacenumber skipwhite contained 
+synt match ciscointerfacetype excludenl /[Hh]un \{0,1}/                          nextgroup=ciscointerfacenumber skipwhite contained 
+synt match ciscointerfacetype excludenl /[Hh]undred[Gg]ig[Ee] \{0,1}/    	 nextgroup=ciscointerfacenumber skipwhite contained 
 synt match ciscointerfacetype excludenl /[Dd]ot11[Rr]adio \{0,1}/                nextgroup=ciscointerfacenumber skipwhite contained 
 synt match ciscointerfacetype excludenl /[Ss]er \{0,1}/                          nextgroup=ciscointerfacenumber skipwhite contained 
 synt match ciscointerfacetype excludenl /[Ss]erial \{0,1}/                       nextgroup=ciscointerfacenumber skipwhite contained 
@@ -530,6 +538,7 @@ exe s:h . "ciscosubinterface" . s:ul_bold . s:fgorange
 " it is highlighted
 synt region ciscointregion excludenl start="\v[vV][eE]th {0,1}\d{-1,4}[^0-9a-zA-Z]"          end=/$/ end="[,-: ]\|\s"re=e-1 transparent contains=ciscointerfacetype
 synt region ciscointregion excludenl start="\v[vV][eE]thernet {0,1}\d{-1,4}"                 end=/$/ end="[,-: ]\|\s"re=e-1 transparent contains=ciscointerfacetype
+synt region ciscointregion excludenl start="\v[aA]p {0,1}\d{-1,3}[^0-9a-zA-Z]"              end=/$/ end="[,-: ]\|\s"re=e-1 transparent contains=ciscointerfacetype
 synt region ciscointregion excludenl start="\v[eE]th {0,1}\d{-1,3}[^0-9a-zA-Z]"              end=/$/ end="[,-: ]\|\s"re=e-1 transparent contains=ciscointerfacetype
 synt region ciscointregion excludenl start="\v[eE]thernet {0,1}\d{-1,3}"                     end=/$/ end="[,-: ]\|\s"re=e-1 transparent contains=ciscointerfacetype
 synt region ciscointregion excludenl start="\v[fF]as{0,1} {0,1}\d{-1,2}[^0-9a-zA-Z]"         end=/$/ end="[,-: ]\|\s" transparent contains=ciscointerfacetype
@@ -539,6 +548,12 @@ synt region ciscointregion excludenl start="\v[gG]igabit[eE]thernet {0,1}\d{-1,2
 synt region ciscointregion excludenl start="\v[tT]en{0,1} {0,1}\d{-1,2}[^0-9a-zA-Z]"         end=/$/ end="[,-: ]\|\s" transparent contains=ciscointerfacetype
 synt region ciscointregion excludenl start="\v[tT]en[gG]i {0,1}\d{-1,2}"                     end=/$/ end="[,-: ]\|\s" transparent contains=ciscointerfacetype
 synt region ciscointregion excludenl start="\v[tT]en[gG]igabit[eE]thernet {0,1}\d{-1,2}"     end=/$/ end="[,-: ]\|\s" transparent contains=ciscointerfacetype
+synt region ciscointregion excludenl start="\v[tT]we{0,1} {0,1}\d{-1,2}[^0-9a-zA-Z]"         end=/$/ end="[,-: ]\|\s" transparent contains=ciscointerfacetype
+synt region ciscointregion excludenl start="\v[tT]wenty[fF]ive[gG]ig[eE] {0,1}\d{-1,2}"      end=/$/ end="[,-: ]\|\s" transparent contains=ciscointerfacetype
+synt region ciscointregion excludenl start="\v[fF]o{0,1} {0,1}\d{-1,2}[^0-9a-zA-Z]"          end=/$/ end="[,-: ]\|\s" transparent contains=ciscointerfacetype
+synt region ciscointregion excludenl start="\v[fF]orty[gG]ig[eE] {0,1}\d{-1,2}"              end=/$/ end="[,-: ]\|\s" transparent contains=ciscointerfacetype
+synt region ciscointregion excludenl start="\v[hH]un{0,1} {0,1}\d{-1,2}[^0-9a-zA-Z]"         end=/$/ end="[,-: ]\|\s" transparent contains=ciscointerfacetype
+synt region ciscointregion excludenl start="\v[hH]undred[gG]ig[eE] {0,1}\d{-1,2}"     	     end=/$/ end="[,-: ]\|\s" transparent contains=ciscointerfacetype
 synt region ciscointregion excludenl start="\v[Dd]ot11[Rr]adio {0,1}\d{-1,2}"                end=/$/ end="[,-: ]\|\s" transparent contains=ciscointerfacetype
 synt region ciscointregion excludenl start="\v[pP][oO][sS]{0,1}\d{-1,4}[^0-9a-zA-Z]"         end=/$/ end="[,-: ]\|\s" transparent contains=ciscointerfacetype
 synt region ciscointregion excludenl start="\v[pP]o {0,1}\d{-1,4}[^0-9a-zA-Z]"               end=/$/ end="[,-: ]\|\s" transparent contains=ciscointerfacetype
@@ -701,6 +716,7 @@ synt match notconnect /not *connect/
 synt match notconnect /not *connec[t]\{,1}[e]\{,1}[d]\{,1}/
 synt match notconnect /secViolEr/
 synt match notconnect /errDisable/
+synt match notconnect /err-disable[d]/
 exe s:h . "notconnect" . s:rev . s:fgred
 
 synt match ciscodisable /disable[d]/
