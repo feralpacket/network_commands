@@ -22,7 +22,7 @@ Fix a font bug where italic characters get cut off.
 set guifont=Consolas:h12:cANSI:qDRAFT
 ```
 
-Why am I unable to set guifont?  Settings such as guifont can be set multiple times.  Only the last one is used.  Check to make sure isn't not being set in multiple rc files.
+**Why am I unable to set guifont?**  Settings such as guifont can be set multiple times.  Only the last one is used.  Check to make sure isn't not being set in multiple rc files.
 
 List the varions locations of VIM configuration files.
 ```
