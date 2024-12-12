@@ -19,5 +19,38 @@ set syntax=cisco
 
 Fix a font bug where italic characters get cut off.
 ```
-set guifont=Consolas
+set guifont=Consolas:h12:cANSI:qDRAFT
+```
+
+Why am I unable to set guifont?  Settings such as guifont can be set multiple times.  Only the last one is used.  Check to make sure isn't not being set in multiple rc files.
+
+List the varions locations of VIM configuration files.
+```
+:version
+
+   system vimrc file: "$VIM\vimrc"
+     user vimrc file: "$HOME\_vimrc"
+ 2nd user vimrc file: "HOME\vimriles\vimrc"
+ 3rd user vimrc file: "VIM\_vimmrc"
+      user exrc file: "$HOME\_exrc"
+  2nd user exrc file: "$VIM\_exrc"
+  system gvimrc file: "$VIM\gvimrc"
+    user gvimrc file: "$HOME\_gvimrc"
+2nd user gvimrc file: "$HOME\vimfiles\gvimrc"
+3rd user gvimrc file: "$VIM\_gvimrc"
+       defaults file: "$VIMRUNTIME\defaults.vim"
+    system menu file: "$VIMRUNTIME\menu.vim"
+```
+
+List the VIM configuration files that were loaded.
+```
+:scriptnames
+```
+
+To display environment variables.
+```
+:echo($MYVIMRC)
+:echo($VIM)
+:echo($VIMRUNTIME)
+:echo($HOME)
 ```
