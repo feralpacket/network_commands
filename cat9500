@@ -188,3 +188,10 @@ ip http path disk0:/
 ! ip http path usbflash0:/
 ip http authentication local
 username cisco privilege 15 algorithm-type scrypt secret Cisco123!@#
+
+
+! the show command from the documentation to look at stackwise virtual BUM traffic configuration or information
+! but there is not explanation as to what the output even means
+! thanks cisco
+sh platform software fed switch active fss bum-opt summary
+
