@@ -196,3 +196,7 @@ username cisco privilege 15 algorithm-type scrypt secret Cisco123!@#
 ! thanks cisco
 sh platform software fed switch active fss bum-opt summary
 
+
+! packet punt rates
+sh platform software fed switch active punt rates interfaces
+sh platform software fed switch active punt cpuq rates
