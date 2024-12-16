@@ -9,6 +9,7 @@ logging host 198.51.100.9 vrf Mgmt-vrf discriminator LOWPOWER
 
 ! list TCAM utilization
 sh platform hardware fed active fwd-asic resource tcam utilization
+sh platform software fed active ip route summary
 
 ! my favorite uptime and reload reason command
 sh logging onboard switch 1 rp active uptime detail
