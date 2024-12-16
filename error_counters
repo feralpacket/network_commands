@@ -152,9 +152,13 @@
    - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
 
  - Rcv-Err
-
+   - "This is an indication that the receive buffer is full."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/17053-46.html
 
  - UnderSize
+   - "These are frames that are smaller than 64 bytes, which includes FCS, and have a good FCS value."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/17053-46.html
+
  - OutDiscards
    - "The number of outbound packets chosen to be discarded even though no errors have been detected."
    - "One possible reason to discard such a packet can be to free up buffer space"
@@ -177,6 +181,8 @@
    - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
 
  - Excess-Col
+   - "Excessive collisions are the number of frames that are dropped after 16 attempts to send the packet resulted in 16 collisions."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/17053-46.html
 
  - Carri-Sen
    - "The Carri-Sen (carrier sense) counter increments every time an Ethernet controller wants to send data on a half-duplex connection. The controller senses the wire and checks if it is not busy before it transmits."
@@ -184,7 +190,10 @@
    - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/12027-53.html#toc-hId--939937013
 
  - Runts
- - ! Cisco 4500-X
+   - "These are frames smaller than 64 bytes with a bad FCS value."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/17053-46.html
+
+ - ! Additional counters seen on Cisco 4500-X Switches
  - CrcAlign-Err
  - Dropped-Bad-Pkts
  - Collisions
