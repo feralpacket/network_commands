@@ -99,6 +99,16 @@
  - unknown protocol drops
    - "Unknown protocol drops are normally dropped because the interface where these packets are received is not configured for this type of protocol, or it can be any protocol that the switch does not recognize. For example, if you have two switches connected and you disable CDP on one switch interface, this results in unknown protocol drops on that interface. The CDP packets are no longer recognized, and they are dropped."
    - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-9500-series-switches/218397-troubleshoot-port-flaps-on-catalyst-9000.html
+   - Common causes, other side of the link is configured for one of the following protocols:
+   - DTP
+   - CDP
+   - LLDP
+   - VTP
+   - BPDU
+   - UDLD
+   - IS-IS hello packets
+   - IPv6 neighbor discovery packets
+   - https://community.cisco.com/t5/service-providers-knowledge-base/asr9000-xr-drops-for-unrecognized-upper-level-protocol-error/ta-p/3126096
 
  - babbles
    - "Transmit jabber timer expired."
