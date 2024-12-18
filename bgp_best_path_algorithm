@@ -84,7 +84,7 @@ Best Path Algorithm:
      -> default 100 for every route
      
      -> bgp default local-preference 200
-     -> change the default local-preference
+        -> change the default local-preference
      
      -> route-map LP permit 10
      ->     set local-preference 200
@@ -242,17 +242,18 @@ Best Path Algorithm:
 
      -> to strip the AS_PATH and replace with only the local AS, configure a locally originated path
      -> ip route 0.0.0.0 0.0.0.0 null0 name STRIP_AS_PATH_INFORMATION
-         -> static routes to inject prefixes into BGP should point to null0, incase the a route to destination is not present or flaps
+        -> static routes to inject prefixes into BGP should point to null0, incase the a route to destination is not present or flaps
      -> network 0.0.0.0
         -> an AS_PATH of 123 234 345 456 567 becomes 100
-     
-     -> aggregate-address summary-only
-        -> causes the loss of individual path attributes, such as AS_PATH, replaced only with the local AS
+
      -> aggregate-address 10.11.0.0 255.255.0.0 summary-only
-     
-     -> aggregate-address summary-only with as-set
-        -> causes the path information from the individual paths to be retained and summarized in a set, 300 {200,100}
+        -> aggregate-address summary-only
+        -> causes the loss of individual path attributes, such as AS_PATH, replaced only with the local AS
+
      -> aggregate-address 10.11.0.0 255.255.0.0 summary-only as-set
+        -> aggregate-address summary-only with as-set
+        -> causes the path information from the individual paths to be retained and summarized in a set, 300 {200,100}
+
 
 
  5.  ORIGIN
@@ -284,14 +285,14 @@ Best Path Algorithm:
      -> optional non-transitive attribute MULTI_EXIT_DISC
      -> range 0 to 4,294,967,295
      -> default is 0 for received routes
-         -> when MED is not assigned
+        -> when MED is not assigned
      -> set to the value of the IGP metric for routes injected into BGP
-         -> network or redistribute commands
+        -> network or redistribute commands
      -> if the injected route is a connected route, set the MED to 0
-         -> network or redistribute commands
+        -> network or redistribute commands
      -> if the route was injected by the aggregate-address command, set the MED to 0
-     -> used to influence a neighboring AS with multiple entry points
-     -> or a neighboring AS may be influencing the local AS with multiple entry points
+        -> used to influence a neighboring AS with multiple entry points
+        -> or a neighboring AS may be influencing the local AS with multiple entry points
      -> compared only if the first AS in the AS_SEQUENCE is the same for multiple paths
      -> confederation sub-ASs are ignored unless configured
      
@@ -351,9 +352,9 @@ Best Path Algorithm:
      -> locally significant to the router ( Loc-RIB )
 
      -> bgp bestpath igp-metric ignore
-         -> address-family command
-         -> must be used when the Diverse Path feature is used and the route-reflector and shadow route-reflector are not co-located
-         -> in this case, configured on the RR, shadow RR, and PE routers
+        -> address-family command
+        -> must be used when the Diverse Path feature is used and the route-reflector and shadow route-reflector are not co-located
+        -> in this case, configured on the RR, shadow RR, and PE routers
 
 
 8a.  extended cost community
@@ -380,7 +381,7 @@ Best Path Algorithm:
      -> aggregate-address 192.0.2.0 255.255.255.252 attribute-map EXTCOMMUMITYCOST
 
      -> bgp bestpath cost-community ignore
-         -> this command was intended only to assist in troubleshooting path selection
+        -> this command was intended only to assist in troubleshooting path selection
 
      -> Note-to-self:  This is out of place.  Need to find a new home for this.
         -> was in the AS_PATH step, sort of fits better here because of EIGRP MPLS VPNs
