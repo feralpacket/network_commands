@@ -26,13 +26,20 @@ Why Routers Ignore Paths:
    BGP routing table, will not be considered as a bestpath, and will not be considered as a candidate for multipath 
  - BGP-Origin AS Validation is configured and a prefix is marked as not found, it will only be considered for bestpath or a candidate
    for multipath if there is no alternative prefix that is marked valid
+ - in EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath point of insertion
 
 Best Path Algorithm:
- note: if extended community cost is configured for pre-bestpath, compare before anything else
-     -> lowest is best
+ note: if extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else
+     -> lowest cost community ID number is best
+     -> then lowest cost community number is best
      -> set extcommunity cost pre-bestpath <community-id> <cost>
      -> bgp bestpath cost-community ignore
          -> this command was intended only to assist in troubleshooting path selection
+     -> introduced for use with EIGRP MPLS VPN PE-CE with backdoor links before EIGRP Site of Origin ( SoO ) was introduced
+     -> the pre-bestpath POI was meant to support mixed EIGRP VPN topologies with back door links
+     -> back door links in EIGRP MPLS VPN topologies will be preferred to BGP
+     -> the BGP extended cost community carries the pre-bestpath POI, EIGRP route type, and route metric
+
 
 - Important, next hop needs to be valid
 
@@ -209,13 +216,6 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 as-override
      -> replaces the AS of the customer in AS_PATH with the AS of the provider
      -> used in address-family ipv4 vrf VRF_NAME or address-family ipv6 vrf VRF_NAME
-
-     -> Note-to-self:  This is out of place.  Need to find a new home for this.
-     -> configured a site-of-origin to prevent routing loops
-     -> neighbor 192.0.2.1 soo 64496:64511
-     -> route-map SOO permit 10
-     ->     set extcommunity soo 64496:645111
-     -> neighbor 192.0.2.1 route-map SOO in
      
      -> neighbor 192.0.2.1 allowas-in
      -> accept an AS_PATH that contains the local AS
@@ -348,28 +348,46 @@ Best Path Algorithm:
  8.  IGP metric to the BGP next hop
      -> lowest is best
      -> locally significant to the router ( Loc-RIB )
-     
+
      -> bgp bestpath igp-metric ignore
          -> address-family command
          -> must be used when the Diverse Path feature is used and the route-reflector and shadow route-reflector are not co-located
          -> in this case, configured on the RR, shadow RR, and PE routers
 
 
-8a.  extended community cost
+8a.  extended cost community
      -> IGP point of insertion (POI)
-     -> lowest is best
-     
-       -> route-map EXTCOMMUMITYCOST permit 10
-         ->   set extcommunity cost 1 1
-    
-       -> route-map EXTCOMMUMITYCOST permit 10
-         ->   set extcommunity cost igp 1 1
-         -> neighbor 192.0.2.1 route-map EXTCOMMUMITYCOST out
-         -> neighbor 192.0.2.1 default-originate route-map EXTCOMMUMITYCOST out
-         -> redistribute eigrp 1 route-map EXTCOMMUMITYCOST
-         -> redistribute ospf 1 route-map EXTCOMMUMITYCOST match internal external 1 external 2
-         -> network 192.0.2.0 mask 255.255.255.0 route-map EXTCOMMUMITYCOST
-         -> aggregate-address 192.0.2.0 255.255.255.252 attribute-map EXTCOMMUMITYCOST
+     -> lowest cost community ID number is best
+     -> then lowest cost community number is best
+     -> locally significant to the router ( Loc-RIB )
+     -> cost community ID number 0 to 255
+     -> cost number range 0 to 4294967295
+     -> default is 2147483647
+     -> NOTE:  paths that do not have the extended community cost attribute are considered to have the default value by the best path selection process
+     -> non-transitive extended community
+     -> only advertised to iBGP neighbors, not eBGP neighbors
+     -> if used, must be configured in the entire AS or confederation to prevent routing loops
+
+     -> route-map EXTCOMMUMITYCOST permit 10
+     ->   set extcommunity cost igp 1 1
+     -> neighbor 192.0.2.1 send-community
+     -> neighbor 192.0.2.1 route-map EXTCOMMUMITYCOST out
+     -> neighbor 192.0.2.1 default-originate route-map EXTCOMMUMITYCOST out
+     -> redistribute eigrp 1 route-map EXTCOMMUMITYCOST
+     -> redistribute ospf 1 route-map EXTCOMMUMITYCOST match internal external 1 external 2
+     -> network 192.0.2.0 mask 255.255.255.0 route-map EXTCOMMUMITYCOST
+     -> aggregate-address 192.0.2.0 255.255.255.252 attribute-map EXTCOMMUMITYCOST
+
+     -> bgp bestpath cost-community ignore
+         -> this command was intended only to assist in troubleshooting path selection
+
+     -> Note-to-self:  This is out of place.  Need to find a new home for this.
+        -> was in the AS_PATH step, sort of fits better here because of EIGRP MPLS VPNs
+     -> configured a site-of-origin to prevent routing loops
+     -> neighbor 192.0.2.1 soo 64496:64511
+     -> route-map SOO permit 10
+     ->     set extcommunity soo 64496:645111
+     -> neighbor 192.0.2.1 route-map SOO in
 
 
 9.  multipath
@@ -380,25 +398,32 @@ Best Path Algorithm:
      -> the following need to be equal for multipath
         -> weight
         -> local preference
+        -> received or locally originated route
+        -> accumulated interior gateway protocol, if configured
+           -> or bgp bestpath aigp ignore is configured
         -> AS-PATH length
-        -> origin
-        -> MED
-        -> neighboring AS or sub-AS
         -> AS-PATH
            -> unless bgp bestpath as-path multipath-relax is configured
            -> or bgp bestpath as-path ignore is configured
-        -> for eBGP multipath
-           -> learned from an external or confederation-external neighbor
-           -> the IGP metric to the BGP next hop must be equal to the best-path IGP metric
-        -> for iBGP multipath
-           -> learned from an internal neighbor
-           -> the IGP metric to the BGP next hop must be equal to the best-path IGP metric
-              -> unless unequal-cost iBGP multipath is configured
-              -> for unequal-cost load balancing, BGP Link Bandwidth can be used
-                 -> bgp dmzlink-bw
-                 -> neighbor 192.0.2.1 dmzlink-bw
-                 -> neighbor 192.0.2.1 send-community both
-     
+        -> neighboring AS or sub-AS
+        -> origin
+        -> MED
+        -> eBGP or iBGP
+        -> IGP metric to the BGP next hop
+           -> for eBGP multipath
+              -> learned from an external or confederation-external neighbor
+              -> the IGP metric to the BGP next hop must be equal to the best-path IGP metric
+           -> for iBGP multipath
+              -> learned from an internal neighbor
+              -> the IGP metric to the BGP next hop must be equal to the best-path IGP metric
+                 -> unless unequal-cost iBGP multipath is configured
+                 -> for unequal-cost load balancing, BGP Link Bandwidth can be used
+                    -> bgp dmzlink-bw
+                    -> neighbor 192.0.2.1 dmzlink-bw
+                    -> neighbor 192.0.2.1 send-community both
+           -> or bgp bestpath igp-metric ignore is configured
+        -> extended cost community, if configured or in EIGRP MPLS VPN topologies
+
      -> maximum-paths 2
         -> protocol independent command for equal-costs paths
         
