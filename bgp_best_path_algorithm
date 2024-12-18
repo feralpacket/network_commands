@@ -120,8 +120,8 @@ Best Path Algorithm:
           -> the aggregate-timer is set to 30 seconds by default.  new, longer prefixes may be briefly advertised until 
              the aggregate-timer runs
              -> the new, longer-prefix will then be withdrawn from the neighbors.
-          -> if this may be a problem, such as in data centers or if the longer prefix can slip through policies or filters on 
-             other routers, bgp aggregate-timer 0
+             -> if this may be a problem, such as in data centers or if the longer prefix can slip through policies or filters on 
+                other routers, bgp aggregate-timer 0
      -> redistribute command
 
 
@@ -266,6 +266,7 @@ Best Path Algorithm:
           -> predecessor to BGP
           -> historically, used to to transition from EGP to BGP
           -> the "set origin egp" command was removed in IOS 12.4(2)T
+          -> you should never see it, take a screenshot and tell the world if you do
      -> INCOMPLETE
           -> redistribute command
           
