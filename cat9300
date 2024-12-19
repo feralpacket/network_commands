@@ -54,7 +54,7 @@ show logging process iosrp | in parser_cmd
 
 ! is traffic being evenly distributed across the physical interfaces in an etherchannel?
 ! probably not
-sh interfaces po1 counters ethernet
+sh interfaces po1 counters etherchannel
 
 
 ! test etherchannel load-balancing
