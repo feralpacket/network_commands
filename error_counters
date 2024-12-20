@@ -403,20 +403,48 @@
  - bad options
  - with options
 
- - Opts
- - end
+ - Opts - IP Options
+   - https://www.iana.org/assignments/ip-parameters/ip-parameters.xhtml
+
+- end
+   - End of list, number 0, value 0.  Indicates no more options
+
  - nop
+   - No op, number 1, value 1.  Inidcates no opoeration to perform.  Used for padding.
+
  - basic security
+   - DoD Basic Security Option.  Number 2, value 130.  Super secret DoD stuff.
+
  - loose source route
+   - Number 3, value 131.  Sender lists router "way-points" for the packet to traverse when forwarded.  Loose means other routers can be included.
+
  - timestamp
+   - Number 4, variable 68.  Records the time of dayat a packet's source and destination.
+
  - extended security
+   - DoD Extended Security Option.  Number 5, value 133.  Super secret DoD stuff.
+
  - record route
+   - Number 7, value 7.  Records the route taken by a packet in it's header.  Used by IGMP and RSVP.
+
  - stream ID
+   - Number 8, value 136.  Carries the 16-bit SATNET stream identifier.  Deprecated in RFC 6814.
+
  - strict source route
+   - Number 9, value 137.  Sender lists router "way-points" for the packet to traverse when forwarded.  Strict means all way-points have to be traversed exactly in order.
+
  - alert
+   - Router alert, number 20, value 148.  Inidcates that a router needs to inspect the contents of the packet.
+
  - cipso
+   - Commercial IP Security Option, number 6, value 134.  
+
  - ump
+   - Upstream Multicast Packet, number 24, value 152.  Deprecated in RFC 6814.
+
  - other
+   - Some IP option that does have it's own counter.
+
 
  - Frags
  - reassembled
