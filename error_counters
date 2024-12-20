@@ -528,6 +528,8 @@
    - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
 
  - Second Congestion
+   - Number of second retransmissions sent due to congestion.
+   - https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/17-11/command_reference/b_1711_9500_cr/ip_routing_commands.html
 
  - fast lock acquisition failures
 
@@ -570,6 +572,8 @@
    - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
 
  - DeadWait
+   - Expiration timer for dead segments.
+   - https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/17-11/command_reference/b_1711_9500_cr/ip_routing_commands.html
 
  - Linger
 
