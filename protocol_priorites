@@ -18,6 +18,8 @@ Generally, but not always:
     -> Metrics / Attributes
         -> Differ depending on the routing protocol
         -> Used to select candidate prefixes that may be installed into the routing table
+        -> If for some reason you change the AD to match that of another active routing protocol,
+           the default AD for those two protocols is used
     -> Administrative distance
         -> Lowest preferred
         -> Used to select the prefixes from different routing protocols to be installed into the routing table
