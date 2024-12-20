@@ -705,6 +705,8 @@
    - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
 
  - embryonic dropped
+   - An embryonic connection is a connection request that has not finished the necessary handshake between source and destination.
+   - https://www.cisco.com/c/en/us/td/docs/security/asa/asa98/asdm78/firewall/asdm-78-firewall-config/conns-connlimits.html
 
 
 
