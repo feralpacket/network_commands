@@ -487,6 +487,29 @@
 
 
 ! "show tcp" error counters and stuff
+ - Connection state
+   - A connection progresses through a series of states during its lifetime. The states that follow are shown in the order in which a connection progresses through them.
+   - LISTEN--Waiting for a connection request from any remote TCP and port.
+   - SYNSENT--Waiting for a matching connection request after having sent a connection request.
+   - SYNRCVD--Waiting for a confirming connection request acknowledgment after having both received and sent a connection request.
+   - ESTAB--Indicates an open connection; data received can be delivered to the user. This is the normal state for the data transfer phase of the connection.
+   - FINWAIT1--Waiting for a connection termination request from the remote TCP or an acknowledgment of the connection termination request previously sent.
+   - FINWAIT2--Waiting for a connection termination request from the remote TCP host.
+   - CLOSEWAIT--Waiting for a connection termination request from the local user.
+   - CLOSING--Waiting for a connection termination request acknowledgment from the remote TCP host.
+   - LASTACK--Waiting for an acknowledgment of the connection termination request previously sent to the remote TCP host.
+   - TIMEWAIT--Waiting for enough time to pass to be sure that the remote TCP host has received the acknowledgment of its connection termination request.
+   - CLOSED--Indicates no connection state at all.
+   - For more information about TCBs, see RFC 793, Transmission Control Protocol Functional Specification.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - Enqueued packets for retransmit
+   - Number of packets that are waiting on the retransmit queue. These are packets on this TCP connection that have been sent but that have not yet been acknowledged by the remote TCP host.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - Event Timer Wakeups
+   - Number of keepalives sent without receiving any response. (This field is reset to zero when a response is received.)
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
 
  - out of order
    - Number of datagrams that were out of order.
@@ -497,14 +520,20 @@
    - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
 
  - fastretransmit
+   - Number of packets retransmitted before timer expiry because of excessive duplicate ACKs.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
 
  - partialack
+   - Number of times that TCP switched from packet I/O to octet buffer I/O because of partially acknowledged data.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
 
  - Second Congestion
 
  - fast lock acquisition failures
 
  - unread input bytes
+   - Number of bytes that the lower-level TCP processes have read but that the higher-level TCP processes have not yet processed.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
 
  - Enqueued packets for retransmit
    - Number of packets that are waiting on the retransmit queue. These are packets on this TCP connection that have been sent but that have not yet been acknowledged by the remote TCP host.
@@ -614,6 +643,64 @@
  - Option Flags
 
 
+
+
 ! "show tcp statistics" error counters and stuff
+ - no port
+   - Number of packets received with no port.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - checksum error
+   - Number of packets received with checksum error.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - bad offset
+   - Number of packets received with bad offset to data.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - too short
+   - 	Number of packets received that were too short.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - dup packets
+   - Number of duplicate packets received.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - partially dup packets
+   - Number of packets received with partially duplicated data.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - out-of-order packets
+   - Number of packets received out of order.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - retransmitted out-of-order packets
+
+ - packets with data after window
+   - Number of packets received with data that exceeded the window size of the receiver.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - packets after close
+   - Number of packets received after the connection was closed.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - dup ack packets
+   - Number of duplicate acknowledgment packets received
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - ack packets with unsend data
+   - Number of acknowledgment packets received with unsent data.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - retransmitted
+   - Number of acknowledgment packets received with unsent data.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - fastransmitted
+   - Number of packets retransmitted before timer expiry because of excessive duplicate ACKs.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - embryonic dropped
+
 
 
