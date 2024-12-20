@@ -489,47 +489,125 @@
 ! "show tcp" error counters and stuff
 
  - out of order
+   - Number of datagrams that were out of order.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - retransmit
+   - Number of datagrams that needed to be retransmitted.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - fastretransmit
+
  - partialack
+
  - Second Congestion
+
  - fast lock acquisition failures
 
  - unread input bytes
 
  - Enqueued packets for retransmit
+   - Number of packets that are waiting on the retransmit queue. These are packets on this TCP connection that have been sent but that have not yet been acknowledged by the remote TCP host.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - mis-ordered
 
- - Event Timers
  - Restrans
+   - Retransmission timer is used to time TCP packets that have not been acknowledged and that are waiting for retransmission.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - Timewait
+   - A time-wait timer ensures that the remote system receives a request to disconnect a session.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - AckHold
+   - An acknowledgment timer delays the sending of acknowledgments to the remote TCP in an attempt to reduce network use.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - SendWnd
+   - A send-window timer ensures that there is no closed window due to a lost TCP acknowledgment.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - KeepAlive
+   - A keepalive timer controls the transmission of test messages to the remote device to ensure that the link has not been broken without the knowledge of the local device.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - GiveUp
+   - A give-up timer determines the amount of time a local host will wait for an acknowledgment (or other appropriate reply) of a transmitted message after the the maximum number of retransmissions has been reached. If the timer expires, the local host gives up retransmission attempts and declares the connection dead.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - PmtuAger
+   - A path MTU (PMTU) age timer is an interval that displays how often TCP estimates the PMTU with a larger maximum segment size (MSS). When the age timer is used, TCP path MTU becomes a dynamic process. If the MSS is smaller than what the peer connection can manage, a larger MSS is tried every time the age timer expires. The discovery process stops when the send MSS is as large as the peer negotiated or the timer has been manually disabled by being set to infinite.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - DeadWait
+
  - Linger
+
  - ProcessQ
 
  - iss
+   - Initial send sequence number.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - snduna
+   - Last send sequence number that the local host sent but for which it has not received an acknowledgment.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - sndnxt
+   - Sequence number that the local host will send next.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - irs
+   - Initial receive sequence number.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - rcvnxt
+   - Last receive sequence number that the local host has acknowledged
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
 
  - sndwnd
+   - TCP window size of the remote host.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - maxrcvwnd
+
  - rcvwnd
+   - TCP window size of the local host.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - delrcvwnd
+   - Delayed receive window--data that the local host has read from the connection but has not yet subtracted from the receive window that the host has advertised to the remote host. The value in this field gradually increases until it is larger than a full-sized packet, at which point it is applied to the rcvwnd field.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
 
  - SRTT
- - RTT0
+   - Scaled round-trip time.  Or, a calculated smothed round-trip timeout.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
+ - RTTO
+   - Round-trip timeout, in miliseconds.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - RTV
+   - Round-trip time variance.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - KRTT
+   - New round-trip timeout, using the Karn algorithm.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - minRTT
+   - Minimum round-trip time, in miliseconds.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - maxRTT
+   - Maximum round-trip time, in miliseconds
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - ACK hold
+   - Time for which the local host will delay an ackknowledgement in order to add data to it.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html#wp8573754160
+
  - Send idletime
  - Receive idletime
  - Status Flags
