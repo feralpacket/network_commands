@@ -198,9 +198,12 @@ ip.dsfield.dscp == 1
 ! not listed with IANA
 ip.dsfield.dscp == 2
 
-
 https://www.iana.org/assignments/dscp-registry/dscp-registry.xhtml
 
+! ip options
+ip.hdr_len > 20
+ip.opt.type
+ip.option.routeralert
 
 
 
@@ -210,5 +213,7 @@ https://www.iana.org/assignments/dscp-registry/dscp-registry.xhtml
 ! meh
 https://www.wireshark.org/docs/man-pages/pcap-filter.html
 
+! ip options
+ip[0] & 0xf != 5
 
 
