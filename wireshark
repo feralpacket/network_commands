@@ -216,4 +216,6 @@ https://www.wireshark.org/docs/man-pages/pcap-filter.html
 ! ip options
 ip[0] & 0xf != 5
 
+! multicast traffic
+ether[0] & 1 != 0
 
