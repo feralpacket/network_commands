@@ -612,3 +612,8 @@
  - Receive idletime
  - Status Flags
  - Option Flags
+
+
+! "show tcp statistics" error counters and stuff
+
+
