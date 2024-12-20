@@ -388,8 +388,15 @@
 
  - IP statistics
  - format errors
+   - Indicates a gross error in the packet format, such as an impossible Internet header length.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s2.html#wp3989717016
+
  - checksum errors
+
  - bad hop count
+   - Occurs when a packet is discarded because its time-to-live (TTL) field was decremented to zero.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s2.html#wp3989717016
+
  - unknown protocol
  - not a gateway
  - security failures
@@ -421,10 +428,17 @@
  - invalid hole
 
  - Drop
+
  - encapsulation failed
+   - Usually indicates that the router had no ARP request entry and therefore did not send a datagram.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s2.html#wp3989717016
+
  - unresolved
  - no adjacency
  - no route
+   - Counted when the Cisco IOS software discards a datagram that it did not know how to route.
+   - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s2.html#wp3989717016
+
  - unicast RPF
  - forced drop
  - unsupported-addr
