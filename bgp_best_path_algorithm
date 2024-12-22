@@ -26,7 +26,8 @@ Why Routers Ignore Paths:
    BGP routing table, will not be considered as a bestpath, and will not be considered as a candidate for multipath 
  - BGP-Origin AS Validation is configured and a prefix is marked as not found, it will only be considered for bestpath or a candidate
    for multipath if there is no alternative prefix that is marked valid
- - in EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath point of insertion
+ - in EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath point 
+   of insertion
 
 Best Path Algorithm:
  note: if extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else
@@ -72,8 +73,8 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 route-map WEIGHT in
      -> neighbor 192.0.2.1 default-originate route-map WEIGHT in
      -> network 192.0.2.0 mask 255.255.255.0 route-map WEIGHT
-         -> This works.  As does applying the route-map to the redistribute and aggregate-address commands.  But why would you do this to 
-            locally originated routes since it’s only locally significant.
+         -> This works.  As does applying the route-map to the redistribute and aggregate-address commands.  But why 
+            would you do this to locally originated routes since it’s only locally significant.
 
 
  2.  local_preference
@@ -120,8 +121,8 @@ Best Path Algorithm:
           -> the aggregate-timer is set to 30 seconds by default.  new, longer prefixes may be briefly advertised until 
              the aggregate-timer runs
              -> the new, longer-prefix will then be withdrawn from the neighbors.
-             -> if this may be a problem, such as in data centers or if the longer prefix can slip through policies or filters on 
-                other routers, bgp aggregate-timer 0
+             -> if this may be a problem, such as in data centers or if the longer prefix can slip through policies or 
+                filters on other routers, bgp aggregate-timer 0
      -> redistribute command
 
 
@@ -174,7 +175,7 @@ Best Path Algorithm:
      -> RFC 6472 recocmmends that AS_SET not be used except where a few "corner cases" might justify it
      -> AS_SET should not be used with a single AS
      -> AS_SET should not be used with reserved ( private ) AS numbers
-     -> AS_SET must always contain less specific prefixes and must never aggregate an exaxt match
+     -> AS_SET must always contain less specific prefixes and must never aggregate an exact match
      -> AS_SET counts as 1 hop, no matter how many AS are in the set
      -> aggregate-address 192.0.2.0 255.255.255.0 as-set
 
@@ -242,7 +243,8 @@ Best Path Algorithm:
 
      -> to strip the AS_PATH and replace with only the local AS, configure a locally originated path
      -> ip route 0.0.0.0 0.0.0.0 null0 name STRIP_AS_PATH_INFORMATION
-        -> static routes to inject prefixes into BGP should point to null0, incase the a route to destination is not present or flaps
+        -> static routes to inject prefixes into BGP should point to null0, incase the a route to destination is not present 
+           or flaps
      -> network 0.0.0.0
         -> an AS_PATH of 123 234 345 456 567 becomes 100
 
@@ -315,8 +317,8 @@ Best Path Algorithm:
      
      -> route-map MED permit 10
      ->     set metric-type internal
-              -> if a border router learns a route from an iBGP peer, set the metric to the IGP cost instead of removing MED from the 
-                 UPDATE sent to the eBGP peer
+              -> if a border router learns a route from an iBGP peer, set the metric to the IGP cost instead of removing MED 
+                 from the UPDATE sent to the eBGP peer
               -> if the route originates from IS-IS, use the internal metric
          
      ->     set metric-type external
@@ -365,7 +367,8 @@ Best Path Algorithm:
      -> cost community ID number 0 to 255
      -> cost number range 0 to 4294967295
      -> default is 2147483647
-     -> NOTE:  paths that do not have the extended community cost attribute are considered to have the default value by the best path selection process
+     -> NOTE:  paths that do not have the extended community cost attribute are considered to have the default value by the best 
+        path selection process
      -> non-transitive extended community
      -> only advertised to iBGP neighbors, not eBGP neighbors
      -> if used, must be configured in the entire AS or confederation to prevent routing loops
@@ -438,7 +441,8 @@ Best Path Algorithm:
         -> Will generate the follow log messages:  
            -> %NOTE: Import option has been deprecated.
            -> %      Converting to 'import path selection all; import path limit 2'.
-           -> %PARSER-5-HIDDEN: Warning!!! ' maximum-paths eibgp 2 import 2 ' is a hidden command. Use of this command is not recommended/supported and will be removed in future.
+           -> %PARSER-5-HIDDEN: Warning!!! ' maximum-paths eibgp 2 import 2 ' is a hidden command. Use of this command is not 
+              recommended/supported and will be removed in future.
         
      -> maximum-paths ibgp 2
          -> install both equal-cost and unequal-cost iBGP routes
@@ -448,7 +452,8 @@ Best Path Algorithm:
          -> Will generate the follow log messages:  
             -> %NOTE: Import option has been deprecated.
             -> %      Converting to 'import path selection all; import path limit 2'.
-            -> %PARSER-5-HIDDEN: Warning!!! ' maximum-paths ibgp 2 import 2 ' is a hidden command. Use of this command is not recommended/supported and will be removed in future.
+            -> %PARSER-5-HIDDEN: Warning!!! ' maximum-paths ibgp 2 import 2 ' is a hidden command. Use of this command is not 
+               recommended/supported and will be removed in future.
 
      -> maximum-paths ibgp unequal-cost 2
          -> install iBGP unequal-cost routes for a VRF
