@@ -10,7 +10,7 @@ Been using VIM when creating and editing device configurations to point out typo
 
 Started making changes to the VIM syntax configuration file for Cisco.  Calling it version .628 for now.
 
-Drop cisco.vim into C:\Program Files\Vim\vim91\syntax or the syntax directory of wherever it's been installed.
+Drop **cisco.vim** into **C:\Program Files\Vim\vim91\syntax** or the syntax directory of wherever it's been installed.
 
 The original file, version .627, can be found here.
 
