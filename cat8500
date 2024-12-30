@@ -22,3 +22,13 @@ sh platform hardware qfp active statistics drop all
 sh platform hardware slot 0 plim statistics 
 ! 8500 EZchip manager
 sh platform hardware slot 0 ezman statistics
+
+! backup interface
+int te0/0/0
+  backup interface te0/0/1
+  ip add 192.0.2.1 255.255.255.0
+!
+int te0/0/1
+  ip add 192.0.2.1 255.255.255.0
+
+
