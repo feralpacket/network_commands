@@ -2,6 +2,11 @@
 Configure Route-Maps Applied with Redistribution Command
 https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/49111-route-map-bestp.html
 
+ - Supported commands are marked with a Yes.
+ - Unsupported commands are marked with a dash (—).
+ - Unsupported commands known to perform an action (probably an unwanted action) are marked with a No.
+
+Route-map Commands to Match Routes Installed into Routing Tables by Protocols
 | command                                | connected | static | RIP | EIGRP | OSPF | IS-IS | BGP |
 | match clns address                     | —         | Yes    | —   | —     | —    | Yes   | Yes |
 | match clns next-hop                    | —         | Yes    | —   | —     | —    | Yes   | —   |
