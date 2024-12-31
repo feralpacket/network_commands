@@ -8,6 +8,7 @@ https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/49111-
 
 Route-map Commands to Match Routes Installed into Routing Tables by Protocols
 | command                                | connected | static | RIP | EIGRP | OSPF | IS-IS | BGP |
+|----------------------------------------|-----------|--------|-----|-------|------|-------|-----|
 | match clns address                     | —         | Yes    | —   | —     | —    | Yes   | Yes |
 | match clns next-hop                    | —         | Yes    | —   | —     | —    | Yes   | —   |
 | match interface                        | Yes       | Yes    | Yes | Yes   | Yes  | Yes   | —   |
