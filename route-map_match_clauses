@@ -1,0 +1,26 @@
+
+Configure Route-Maps Applied with Redistribution Command
+https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/49111-route-map-bestp.html
+
+
+| command                                | connected | static | RIP | EIGRP | OSPF | IS-IS | BGP |
+| match clns address                     | —         | Yes    | —   | —     | —    | Yes   | Yes |
+| match clns next-hop                    | —         | Yes    | —   | —     | —    | Yes   | —   |
+| match interface                        |           |        |     |       |      |       |     |
+| match ip address                       |           |        |     |       |      |       |     |
+| match ip address prefix-list           |           |        |     |       |      |       |     |
+| match ip next-hop                      |           |        |     |       |      |       |     |
+| match ip next-hop prefix-list          |           |        |     |       |      |       |     |
+| match ip route-source                  |           |        |     |       |      |       |     |
+| match ip route-source prefix-list      |           |        |     |       |      |       |     |
+| match ipv6 address [prefix-list]       |           |        |     |       |      |       |     |
+| match ipv6 next-hop [prefix-list]      |           |        |     |       |      |       |     |
+| match ipv6 route-source [prefix-list]  |           |        |     |       |      |       |     |
+| match metric                           |           |        |     |       |      |       |     |
+| match policy-list                      |           |        |     |       |      |       |     |
+| match route-type external              |           |        |     |       |      |       |     |
+| match route-type internal              |           |        |     |       |      |       |     |
+| match route-type local                 |           |        |     |       |      |       |     |
+| match route-type nssa-external         |           |        |     |       |      |       |     |
+| match route-type {level-1|level-2}     |           |        |     |       |      |       |     |
+| match tag                              |           |        |     |       |      |       |     |
