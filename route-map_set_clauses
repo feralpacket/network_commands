@@ -8,6 +8,7 @@ https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/49111-
 
 Commands that Modify Route Attributes During Redistribution into the Target Protocol
 | command                                | RIP | EIGRP | OSPF | IS-IS | BGP |
+|----------------------------------------|-----|-------|------|-------|-----|
 | set as-path tag                        | —   | —     | —    | —     | Yes |
 | set community                          | —   | —     | —    | —     | Yes |
 | set ip next-hop                        | —   | —     | —    | —     | Yes |
