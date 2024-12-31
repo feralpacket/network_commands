@@ -1,0 +1,25 @@
+
+Configure Route-Maps Applied with Redistribution Command
+https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/49111-route-map-bestp.html
+
+Commands that Modify Route Attributes During Redistribution into the Target Protocol
+| command                                | RIP | EIGRP | OSPF | IS-IS | BGP |
+| set as-path tag                        |     |       |      |       |     |
+| set community                          |     |       |      |       |     |
+| set ip next-hop                        |     |       |      |       |     |
+| set ip next-hop peer-address           |     |       |      |       |     |
+| set ipv6 next-hop                      |     |       |      |       |     |
+| set level {backbone|stub-area}         |     |       |      |       |     |
+| set level {level-1|level-2|level-1-2}  |     |       |      |       |     |
+| set local-preference                   |     |       |      |       |     |
+| set metric                             |     |       |      |       |     |
+| set metric +/-                         |     |       |      |       |     |
+| set metric eigrp-metric                |     |       |      |       |     |
+| set metric +/- eigrp-metric            |     |       |      |       |     |
+| set metric-type internal               |     |       |      |       |     |
+| set metric-type external               |     |       |      |       |     |
+| set metric-type {type-1|type-2}        |     |       |      |       |     |
+| set nlri                               |     |       |      |       |     |
+| set origin                             |     |       |      |       |     |
+| set tag                                |     |       |      |       |     |
+| set weight                             |     |       |      |       |     |
