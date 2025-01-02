@@ -2,9 +2,21 @@
 show cli commands
 
 
-# 
+# tcpdump
 tcpdump session TCPDUMP interface ethernet1
 
 sh tcpdump TCPDUMP
 sh tcpdump TCPDUMP verbose
+
+# bash shell
+localhost login: admin
+localhost>en
+localhost#bash
+
+Arista Networks EOS shell
+
+[admin@localhost ~]$ sudo bash
+bash-4.2# whoami
+root
+bash-4.2#
 
