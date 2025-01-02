@@ -1,2 +1,10 @@
 # show all the commands
 show cli commands
+
+
+# 
+tcpdump session TCPDUMP interface ethernet1
+
+sh tcpdump TCPDUMP
+sh tcpdump TCPDUMP verbose
+
