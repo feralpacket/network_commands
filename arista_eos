@@ -20,3 +20,7 @@ bash-4.2# whoami
 root
 bash-4.2#
 
+
+# create log messages
+send log message Bouncing Ethernet1 Incident 123456 feralpacket
+
