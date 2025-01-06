@@ -6,7 +6,7 @@ Why Routers Ignore Paths:
  - Next hop is inaccessible or unreachable.
  - Path from eBGP neighbor has local AS in AS_PATH.
  - "bgp enforce-first-as" is set and the update doesn’t list the neighbor AS as the first AS.
- - Paths are marked “receive only” in sh ip bgp longer-prefixes output.
+ - Paths are marked “receive only” in "sh ip bgp longer-prefixes" output.
      -> sh ip bgp 192.0.2.0 255.255.255.0 longer-prefixes
      -> sh ip bgp 192.0.2.0 255.255.255.0
  - Path is not synchronized and synchronization is enabled.
@@ -16,7 +16,7 @@ Why Routers Ignore Paths:
      -> neighbor 192.0.2.1 soft-reconfiguration inbound
  - Route is dampened.
  - Backdoor routes configured with the network backdoor command are not advertised in BGP updates.
- - RR will not reflect routes when no bgp client-to-client reflection is configured.
+ - Route Reflectors will not reflect routes when "no bgp client-to-client reflection" is configured.
  - Routes will be discarded if the AS_PATH exceeds the bgp maxas-limit when configured.
  - Routes will be discarded if the number of prefixes exceeds the neighbor maximum-prefix when configured.
  - Routes will be discarded if the number of communities exceeds the bgp maxcommunity-limit when configured.
