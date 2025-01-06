@@ -2,47 +2,47 @@ BGP Best Path Selection Algorithm
 http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-25.html
 
 Why Routers Ignore Paths:
- - path are marked “not synchronized” in sh ip bgp longer-prefixes output
- - next hop is inaccessible or unreachable
- - path from eBGP neighbor has local AS in AS_PATH
- - bgp enforce-first-as is set and the update doesn’t list the neighbor AS as the first AS
- - paths are marked “receive only” in sh ip bgp longer-prefixes output
+ - Paths are marked “not synchronized” in "sh ip bgp longer-prefixes" output.
+ - Next hop is inaccessible or unreachable.
+ - Path from eBGP neighbor has local AS in AS_PATH.
+ - "bgp enforce-first-as" is set and the update doesn’t list the neighbor AS as the first AS.
+ - Paths are marked “receive only” in sh ip bgp longer-prefixes output.
      -> sh ip bgp 192.0.2.0 255.255.255.0 longer-prefixes
      -> sh ip bgp 192.0.2.0 255.255.255.0
- - path is not synchronized and synchronization is enabled
- - path is denied by inbound BGP policies or inbound soft reset is configured
+ - Path is not synchronized and synchronization is enabled.
+ - Path is denied by inbound BGP policies or inbound soft reset is configured.
      -> bgp soft-reconfig-backup
-          -> configure soft reconfiguration for peers that do not support the route refresh capability
+          -> Configure soft reconfiguration for peers that do not support the route refresh capability.
      -> neighbor 192.0.2.1 soft-reconfiguration inbound
- - route is dampened
- - backdoor routes configured with the network backdoor command are not advertised in BGP updates
- - RR will not reflect routes when no bgp client-to-client reflection is configured
- - routes will be discarded if the AS_PATH exceeds the bgp maxas-limit when configured
- - routes will be discarded if the number of prefixes exceeds the neighbor maximum-prefix when configured
- - routes will be discarded if the number of communities exceeds the bgp maxcommunity-limit when configured
- - routes will be discarded if the number of extended communities exceeds the bgp maxextcommunity-limit when configured
- - routes will be discarded if the number of large communities exceeds the bgp maxlargecommunity-limit when configured
+ - Route is dampened.
+ - Backdoor routes configured with the network backdoor command are not advertised in BGP updates.
+ - RR will not reflect routes when no bgp client-to-client reflection is configured.
+ - Routes will be discarded if the AS_PATH exceeds the bgp maxas-limit when configured.
+ - Routes will be discarded if the number of prefixes exceeds the neighbor maximum-prefix when configured.
+ - Routes will be discarded if the number of communities exceeds the bgp maxcommunity-limit when configured.
+ - Routes will be discarded if the number of extended communities exceeds the bgp maxextcommunity-limit when configured.
+ - Routes will be discarded if the number of large communities exceeds the bgp maxlargecommunity-limit when configured.
  - BGP-Origin AS Validation is configured and a prefix is marked as invalid, it will not be advertised, will be withdrawn from the 
-   BGP routing table, will not be considered as a bestpath, and will not be considered as a candidate for multipath 
+   BGP routing table, will not be considered as a bestpath, and will not be considered as a candidate for multipath.
  - BGP-Origin AS Validation is configured and a prefix is marked as not found, it will only be considered for bestpath or a candidate
-   for multipath if there is no alternative prefix that is marked valid
- - in EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath point 
-   of insertion
+   for multipath if there is no alternative prefix that is marked valid.
+ - In EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath point 
+   of insertion.
 
 Best Path Algorithm:
- note: if extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else
-     -> lowest cost community ID number is best
-     -> then lowest cost community number is best
+ Note: If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
+     -> Lowest cost community ID number is best.
+     -> Then lowest cost community number is best.
      -> set extcommunity cost pre-bestpath <community-id> <cost>
      -> bgp bestpath cost-community ignore
-         -> this command was intended only to assist in troubleshooting path selection
-     -> introduced for use with EIGRP MPLS VPN PE-CE with backdoor links before EIGRP Site of Origin ( SoO ) was introduced
-     -> the pre-bestpath POI was meant to support mixed EIGRP VPN topologies with back door links
-     -> back door links in EIGRP MPLS VPN topologies will be preferred to BGP
-     -> the BGP extended cost community carries the pre-bestpath POI, EIGRP route type, and route metric
+         -> This command was intended only to assist in troubleshooting path selection.
+     -> Introduced for use with EIGRP MPLS VPN PE-CE with backdoor links before EIGRP Site of Origin ( SoO ) was introduced.
+     -> The pre-bestpath POI was meant to support mixed EIGRP VPN topologies with back door links.
+     -> Back door links in EIGRP MPLS VPN topologies will be preferred to BGP.
+     -> The BGP extended cost community carries the pre-bestpath POI, EIGRP route type, and route metric.
 
 
-- Important, next hop needs to be valid
+- Important, next hop needs to be valid!
 
 - It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), highest is best.  
   Everything else, lowest, shortest, or oldest is best.
@@ -54,14 +54,14 @@ Best Path Algorithm:
 - The steps below include the IOS configuration commands that can modify the default behavior of each step.
 
 
- 1.  weight
-     -> highest is best
-     -> Cisco proprietary
-     -> not actually a BGP attribute
-     -> locally significant to the router
-     -> range 0 to 65,535
-     -> default is 0 for received routes
-     -> default is 32768 for locally generated routes
+ 1.  Weight
+     -> Highest is best.
+     -> Cisco proprietary.
+     -> Not actually a BGP attribute.
+     -> Locally significant to the router.
+     -> Range 0 to 65,535.
+     -> Default is 0 for received routes.
+     -> Default is 32768 for locally generated routes.
 
      -> neighbor 192.0.2.1 weight 40000
      -> template peer-policy LOCAL_POLICY
@@ -77,15 +77,15 @@ Best Path Algorithm:
             would you do this to locally originated routes since it’s only locally significant.
 
 
- 2.  local_preference
-     -> highest is best
-     -> well-known, discretionary attribute LOCAL_PREF
-     -> significant only in the local (internal) AS
-     -> range 0 to 4294967295
-     -> default 100 for every route
+ 2.  Local_preference
+     -> Highest is best.
+     -> Well-known, discretionary attribute LOCAL_PREF.
+     -> Significant only in the local (internal) AS.
+     -> Range 0 to 4294967295.
+     -> Default 100 for every route.
      
      -> bgp default local-preference 200
-        -> change the default local-preference
+        -> Change the default local-preference.
      
      -> route-map LP permit 10
      ->     set local-preference 200
@@ -96,52 +96,52 @@ Best Path Algorithm:
      -> network 192.0.2.0 mask 255.255.255.0 route-map LP
      -> aggregate-address 192.0.2.0 255.255.255.252 attribute-map LP
      
-     -> to clear or reset the LOCAL_PREF sent by a peer, set to the default value
+     -> To clear or reset the LOCAL_PREF sent by a peer, set to the default value.
      -> route-map CLEAR_LP permit 10
      ->     set local-preference 100
      -> neighbor 192.0.2.1 route-map CLEAR_LP in
 
 
- 3.  locally originated path
-     -> locally generated routes are preferred over received routes
+ 3.  Locally originated path
+     -> Locally generated routes are preferred over received routes.
      -> default-originate
-          -> configured per neighbor
+          -> Configured per neighbor.
           -> neighbor 192.0.2.1 default-originate
-          -> advertise a default route to the neighbor, even if one is not currently in the RIB
+          -> Advertise a default route to the neighbor, even if one is not currently in the RIB.
      -> default-information originate
-          -> configured per address family
-          -> add a default route to the BGP table and advertise to all neighbors, even if one is not currently in the RIB
-     -> network command
+          -> Configured per address family.
+          -> Add a default route to the BGP table and advertise to all neighbors, even if one is not currently in the RIB.
+     -> "network" command.
           -> network 0.0.0.0
-          -> if 0.0.0.0 is present in the RIB, add to BGP table and advertise to all neighbors
+          -> If 0.0.0.0 is present in the RIB, add to BGP table and advertise to all neighbors.
      -> aggregate-address command
           -> summary-only
-          -> advertise only the aggregate address, suppress longer prefixes
+          -> Advertise only the aggregate address, suppress longer prefixes.
           -> aggregate-address 10.11.0.0 255.255.0.0 summary-only
-          -> the aggregate-timer is set to 30 seconds by default.  new, longer prefixes may be briefly advertised until 
-             the aggregate-timer runs
-             -> the new, longer-prefix will then be withdrawn from the neighbors.
-             -> if this may be a problem, such as in data centers or if the longer prefix can slip through policies or 
-                filters on other routers, bgp aggregate-timer 0
-     -> redistribute command
+          -> The aggregate-timer is set to 30 seconds by default.  New, longer prefixes may be briefly advertised until 
+             the aggregate-timer runs.
+             -> The new, longer-prefix will then be withdrawn from the neighbors.
+             -> If this may be a problem, such as in data centers or if the longer prefix can slip through policies or 
+                filters on other routers, "bgp aggregate-timer 0".
+     -> "redistribute" command.
 
 
  3a.  Accumulated Interior Gateway Protocol (AIGP)
-     -> lowest is best
-     -> significant only in the local (internal) AS
-     -> AIGP is an optional, non-transitive attribute
-     -> range 0 - 4294967295
-     -> AIGP path compared to AIGP path, the value of the AIGP metric is added to the metric towards the next-hop
-     -> AIGP path compared to non-AIGP path, path with AIGP attribute is preferred
-     -> Using AIGP with non-AIGP capable neighbors
-        -> AIGP can be translated to a cost community
-            -> The cost community point of insertion (POI) is specified
+     -> Lowest is best.
+     -> Significant only in the local (internal) AS.
+     -> AIGP is an optional, non-transitive attribute.
+     -> Range 0 - 4294967295.
+     -> AIGP path compared to AIGP path, the value of the AIGP metric is added to the metric towards the next-hop.
+     -> AIGP path compared to non-AIGP path, path with AIGP attribute is preferred.
+     -> Using AIGP with non-AIGP capable neighbors.
+        -> AIGP can be translated to a cost community.
+            -> The cost community point of insertion (POI) is specified.
                 -> Pre-bestpath
                 -> IGP metric
-        -> AIGP can be translated to MED
+        -> AIGP can be translated to MED.
         
      -> bgp bestpath aigp ignore
-        -> Do not evaluate AIGP during best path selection
+        -> Do not evaluate AIGP during best path selection.
      
      -> route-map AIGP permit 10
      ->    set aigp-metric igp-metric
@@ -154,124 +154,124 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 aigp send cost-community 100 poi pre-bestpath transitive
      -> neighbor 192.0.2.1 aigp send med
      -> neighbor 192.0.2.1 path-attribute treat-as-withdraw 26 in
-         -> all prefixes in the UPDATE are removed from the BGP routing table
-         -> path-attribute treat-as-withdraw cannot be used with most attributes
+         -> All prefixes in the UPDATE are removed from the BGP routing table.
+         -> "path-attribute treat-as-withdraw" cannot be used with most attributes.
      -> neighbor 192.0.2.1 path-attribute discard 26 in
-         -> drop the AIGP path attribute, then process the UPDATE as usual
-         -> path-attribute discard cannot be used with most attributes
+         -> Drop the AIGP path attribute, then process the UPDATE as usual.
+         -> Path-attribute discard cannot be used with most attributes.
 
 
  4.  AS_PATH
-     -> shortest is best
-     -> significant external to AS
-     -> range of 1 - 255 
-     -> well-known mandatory attribute AS_PATH
-     -> primary purpose is to provide loop prevention for inter-AS routing
+     -> Shortest is best.
+     -> Significant external to AS.
+     -> Range of 1 - 255 .
+     -> Well-known mandatory attribute AS_PATH.
+     -> Primary purpose is to provide loop prevention for inter-AS routing.
 
-     -> AS_SEQUENCE is an AS_PATH attribute that is an ordered list of AS numbers
+     -> AS_SEQUENCE is an AS_PATH attribute that is an ordered list of AS numbers.
 
-     -> AS_SET is an AS_PATH attribute that is an unordered list of AS numbers added to an aggregate route
-     -> AS_SET restores the loop avoidance that can be lost with aggregation
-     -> RFC 6472 recocmmends that AS_SET not be used except where a few "corner cases" might justify it
-     -> AS_SET should not be used with a single AS
-     -> AS_SET should not be used with reserved ( private ) AS numbers
-     -> AS_SET must always contain less specific prefixes and must never aggregate an exact match
-     -> AS_SET counts as 1 hop, no matter how many AS are in the set
+     -> AS_SET is an AS_PATH attribute that is an unordered list of AS numbers added to an aggregate route.
+     -> AS_SET restores the loop avoidance that can be lost with aggregation.
+     -> RFC 6472 recocmmends that AS_SET not be used except where a few "corner cases" might justify it.
+     -> AS_SET should not be used with a single AS.
+     -> AS_SET should not be used with reserved ( private ) AS numbers.
+     -> AS_SET must always contain less specific prefixes and must never aggregate an exact match.
+     -> AS_SET counts as 1 hop, no matter how many AS are in the set.
      -> aggregate-address 192.0.2.0 255.255.255.0 as-set
 
-     -> AS_CONFED_SEQUENCE is similar to AS_SEQUENCE, but only holds confederation member AS numbers
-     -> AS_CONFED_SET is similar to AS_SET, but only holds confederation member AS numbers
-     -> AS_CONFED_SEQUENCE and AS_CONFED_SET are not included in the AS_PATH length
+     -> AS_CONFED_SEQUENCE is similar to AS_SEQUENCE, but only holds confederation member AS numbers.
+     -> AS_CONFED_SET is similar to AS_SET, but only holds confederation member AS numbers.
+     -> AS_CONFED_SEQUENCE and AS_CONFED_SET are not included in the AS_PATH length.
      
      -> bgp bestpath as-path ignore
-        -> Do not evaluate AS_PATH during best path selection
+        -> Do not evaluate AS_PATH during best path selection.
 
      -> route-map PREPEND permit 10
      ->     set as-path prepend 100 100
      -> neighbor 192.0.2.1 route-map PREPEND out
      
      -> neighbor 192.0.2.1 local-as 99
-        -> local-as is intended to help with BGP ASN or ISP migrations
-        -> local-as number must be different than the local AS and the peer AS
-        -> local-as will be added to the AS_PATH making it longer
+        -> "local-as" is intended to help with BGP ASN or ISP migrations.
+        -> "local-as" number must be different than the local AS and the peer AS.
+        -> "local-as" will be added to the AS_PATH making it longer.
 
      -> neighbor 192.0.2.1 local-as 99 no-prepend
-        -> local-as will not be added to the AS_PATH
+        -> "local-as" will not be added to the AS_PATH.
 
      -> neighbor 192.0.2.1 local-as 99 no-prepend replace-as
-        -> replace real AS with local AS in the eBGP updates
+        -> Replace real AS with local AS in the eBGP updates.
 
      -> neighbor 192.0.2.1 local-as 99 no-prepend replace-as dual-as
-        -> accept either real AS or local AS from the eBGP peer
-        -> error:  % dual-as not allowed without no-prepend/replace-as for eBGP local-as
+        -> Accept either real AS or local AS from the eBGP peer.
+        -> Error:  % dual-as not allowed without no-prepend/replace-as for eBGP local-as
      
      -> neighbor 192.0.2.1 remove-private-as
-        -> removes private AS numbers from AS_PATH
-        -> will cause the AS_PATH length to decrease
+        -> Removes private AS numbers from AS_PATH.
+        -> Will cause the AS_PATH length to decrease.
 
      -> neighbor 192.0.2.1 remove-private-as all replace-as
-        -> replaces private AS numbers with router's local AS number
-        -> will retain the AS_PATH length
+        -> Replaces private AS numbers with router's local AS number.
+        -> Will retain the AS_PATH length.
      
-     -> replaces any private AS in AS_PATH with router's local AS
+     -> Replaces any private AS in AS_PATH with router's local AS.
      -> neighbor 192.0.2.1 as-override
-        -> replaces the AS of the customer in AS_PATH with the AS of the provider
-        -> used in address-family ipv4 vrf VRF_NAME or address-family ipv6 vrf VRF_NAME
+        -> Replaces the AS of the customer in AS_PATH with the AS of the provider.
+        -> Used in address-family ipv4 vrf VRF_NAME or address-family ipv6 vrf VRF_NAME.
      
      -> neighbor 192.0.2.1 allowas-in
-        -> accept an AS_PATH that contains the local AS
+        -> Accept an AS_PATH that contains the local AS.
 
      -> route-map TAG_SET_AS permit 10
      ->     set as-path tag
      -> neighbor 192.0.2.1 redistribute ospf 1 match internal external route-map TAG_SET_AS
-        -> the AS_PATH is lost when BGP is redistributed into an IGP, however, the BGP ASN is used to set the route tag
-        -> route tag will be used to set the AS_PATH
+        -> The AS_PATH is lost when BGP is redistributed into an IGP, however, the BGP ASN is used to set the route tag.
+        -> Route tag will be used to set the AS_PATH.
 
      -> route-map REPLACE_AS permit 10
      ->     set as-path replace 100
      -> neighbor 192.0.2.1 route-map REPLACE_AS in
-        -> replace the AS 100 in AS_PATH with the local AS
-        -> feature added in IOS XE 17.1.1
-        -> note:  the AS_PATH length is not changed
+        -> Replace the AS 100 in AS_PATH with the local AS.
+        -> Feature added in IOS XE 17.1.1.
+        -> Note:  The AS_PATH length is not changed.
      
      -> route-map REPLACE_AS permit 10
      ->     set as-path replace any
      -> neighbor 192.0.2.1 route-map REPLACE_AS in
-        -> replace all AS listed in AS_PATH with the local AS
-        -> note:  the AS_PATH length is not changed
-        -> an AS_PATH of 123 234 345 456 567 becomes 100 100 100 100 100
+        -> Replace all AS listed in AS_PATH with the local AS.
+        -> Note:  The AS_PATH length is not changed.
+        -> An AS_PATH of 123 234 345 456 567 becomes 100 100 100 100 100.
 
-     -> to strip the AS_PATH and replace with only the local AS, configure a locally originated path
+     -> To strip the AS_PATH and replace with only the local AS, configure a locally originated path.
      -> ip route 0.0.0.0 0.0.0.0 null0 name STRIP_AS_PATH_INFORMATION
-        -> static routes to inject prefixes into BGP should point to null0, incase the a route to destination is not present 
-           or flaps
+        -> Note:  Static routes to inject prefixes into BGP should point to null0, incase the a route to destination is not 
+                  present or flaps.
      -> network 0.0.0.0
-        -> an AS_PATH of 123 234 345 456 567 becomes 100
+        -> An AS_PATH of 123 234 345 456 567 becomes 100.
 
      -> aggregate-address 10.11.0.0 255.255.0.0 summary-only
-        -> aggregate-address summary-only
-        -> causes the loss of individual path attributes, such as AS_PATH, replaced only with the local AS
+        -> "aggregate-address" "summary-only" command.
+        -> Causes the loss of individual path attributes, such as AS_PATH, replaced only with the local AS.
 
      -> aggregate-address 10.11.0.0 255.255.0.0 summary-only as-set
-        -> aggregate-address summary-only with as-set
-        -> causes the path information from the individual paths to be retained and summarized in a set, 300 {200,100}
+        -> "aggregate-address" "summary-only" command with "as-set".
+        -> Causes the path information from the individual paths to be retained and summarized in a set, 300 {200,100}.
 
 
 
  5.  ORIGIN
-     -> lowest type is best
-     -> significant external to AS
-     -> well-known mandatory attribute ORIGIN
-     -> IGP is lower (better) than EGP, EGP is lower (better) than INCOMPLETE
+     -> Lowest type is best.
+     -> Significant external to AS.
+     -> Well-known mandatory attribute ORIGIN.
+     -> IGP is lower (better) than EGP, EGP is lower (better) than INCOMPLETE.
      -> IGP
-          -> network command
+          -> "network" command.
      -> EGP
-          -> predecessor to BGP
-          -> historically, used to to transition from EGP to BGP
-          -> the "set origin egp" command was removed in IOS 12.4(2)T
-          -> you should never see it, take a screenshot and tell the world if you do
+          -> Predecessor to BGP.
+          -> Historically, used to to transition from EGP to BGP.
+          -> The "set origin egp" command was removed in IOS 12.4(2)T.
+          -> You should never see it, take a screenshot and tell the world if you do.
      -> INCOMPLETE
-          -> redistribute command
+          -> "redistribute" command.
           
      -> route-map ORIGIN permit 10
      ->    set origin igp
@@ -281,32 +281,32 @@ Best Path Algorithm:
 
 
  6.  multi-exit discriminator (MED)
-     -> metric
-     -> significant external to AS
-     -> lowest is best
-     -> optional non-transitive attribute MULTI_EXIT_DISC
-     -> range 0 to 4,294,967,295
-     -> default is 0 for received routes
-        -> when MED is not assigned
-     -> set to the value of the IGP metric for routes injected into BGP
-        -> network or redistribute commands
-     -> if the injected route is a connected route, set the MED to 0
-        -> network or redistribute commands
-     -> if the route was injected by the aggregate-address command, set the MED to 0
-        -> used to influence a neighboring AS with multiple entry points
-        -> or a neighboring AS may be influencing the local AS with multiple entry points
-     -> compared only if the first AS in the AS_SEQUENCE is the same for multiple paths
-     -> confederation sub-ASs are ignored unless configured
+     -> Metric
+     -> Significant external to AS.
+     -> Lowest is best.
+     -> Optional non-transitive attribute MULTI_EXIT_DISC.
+     -> Range 0 to 4,294,967,295.
+     -> Default is 0 for received routes.
+        -> When MED is not assigned.
+     -> Set to the value of the IGP metric for routes injected into BGP.
+        -> "network" or "redistribute" commands.
+     -> If the injected route is a connected route, set the MED to 0.
+        -> "network" or "redistribute" commands.
+     -> If the route was injected by the aggregate-address command, set the MED to 0.
+        -> Used to influence a neighboring AS with multiple entry points.
+        -> Or a neighboring AS may be influencing the local AS with multiple entry points.
+     -> Compared only if the first AS in the AS_SEQUENCE is the same for multiple paths.
+     -> Confederation sub-ASs are ignored unless configured.
      
      -> bgp deterministic-med
-         -> compare routes advertised by different peers in the same AS
+         -> Compare routes advertised by different peers in the same AS.
      
      -> bgp always-compare-med
-         -> compare routes advertised by different ASs.
-         -> if used, must be configured in the entire AS to prevent routing loops
+         -> Compare routes advertised by different ASs.
+         -> If used, must be configured in the entire AS to prevent routing loops.
      
      -> bgp bestpath med confed
-         -> compare all paths that consist only of AS_CONFED_SEQUENCE
+         -> Compare all paths that consist only of AS_CONFED_SEQUENCE.
      
      -> bgp bestpath med confed missing-as-worst
      
@@ -317,18 +317,18 @@ Best Path Algorithm:
      
      -> route-map MED permit 10
      ->     set metric-type internal
-              -> if a border router learns a route from an iBGP peer, set the metric to the IGP cost instead of removing MED 
-                 from the UPDATE sent to the eBGP peer
-              -> if the route originates from IS-IS, use the internal metric
+              -> If a border router learns a route from an iBGP peer, set the metric to the IGP cost instead of removing MED 
+                 from the UPDATE sent to the eBGP peer.
+              -> If the route originates from IS-IS, use the internal metric.
          
      ->     set metric-type external
-              -> if the route originates from IS-IS, use the external metric
+              -> If the route originates from IS-IS, use the external metric.
          
      ->     set metric-type type-1
-              -> if the route originates from OSPF, use the external type-1 metric
+              -> If the route originates from OSPF, use the external type-1 metric.
          
      ->     set metric-type type-2
-              -> if the route originates from OSPF, use the external type-2 metric
+              -> If the route originates from OSPF, use the external type-2 metric.
 
      -> neighbor 192.0.2.1 route-map MED out
      -> neighbor 192.0.2.1 default-originate route-map MED out
@@ -340,38 +340,38 @@ Best Path Algorithm:
      -> aggregate-address 192.0.2.0 255.255.255.252 attribute-map MED
 
      -> bgp dynamic-med-interval 60
-       -> by default, BGP will change the MED value associated with a prefix and re-advertise if necessary every 600 seconds
-       -> interval range from 60 seconds to 136 years ( 4,294,967,295 seconds ).  in other words, never update if set to max.
+       -> By default, BGP will change the MED value associated with a prefix and re-advertise if necessary every 600 seconds.
+       -> Interval range from 60 seconds to 136 years ( 4,294,967,295 seconds ).  In other words, never update if set to max.
 
 
  7.  eBGP over iBGP
-     -> paths that contain AS_CONFED_SEQUENCE and AS_CONFED_SET are considered internal
-     -> locally significant to the router ( Loc-RIB )
+     -> Paths that contain AS_CONFED_SEQUENCE and AS_CONFED_SET are considered internal.
+     -> Locally significant to the router ( Loc-RIB ).
 
 
  8.  IGP metric to the BGP next hop
-     -> lowest is best
-     -> locally significant to the router ( Loc-RIB )
+     -> Lowest is best.
+     -> Locally significant to the router ( Loc-RIB ).
 
      -> bgp bestpath igp-metric ignore
-        -> address-family command
-        -> must be used when the Diverse Path feature is used and the route-reflector and shadow route-reflector are not co-located
-        -> in this case, configured on the RR, shadow RR, and PE routers
+        -> "address-family" command.
+        -> Must be used when the Diverse Path feature is used and the route-reflector and shadow route-reflector are not co-located.
+        -> In this case, configured on the RR, shadow RR, and PE routers.
 
 
 8a.  extended cost community
-     -> IGP point of insertion (POI)
-     -> lowest cost community ID number is best
-     -> then lowest cost community number is best
-     -> locally significant to the router ( Loc-RIB )
-     -> cost community ID number 0 to 255
-     -> cost number range 0 to 4294967295
-     -> default is 2147483647
-     -> NOTE:  paths that do not have the extended community cost attribute are considered to have the default value by the best 
-        path selection process
-     -> non-transitive extended community
-     -> only advertised to iBGP neighbors, not eBGP neighbors
-     -> if used, must be configured in the entire AS or confederation to prevent routing loops
+     -> IGP point of insertion (POI).
+     -> Lowest cost community ID number is best.
+     -> Then lowest cost community number is best.
+     -> Locally significant to the router ( Loc-RIB ).
+     -> Cost community ID number 0 to 255.
+     -> Cost number range 0 to 4294967295.
+     -> Default is 2147483647.
+     -> Note:  Paths that do not have the extended community cost attribute are considered to have the default value by the best
+        path selection process.
+     -> Non-transitive extended community.
+     -> Only advertised to iBGP neighbors, not eBGP neighbors.
+     -> If used, must be configured in the entire AS or confederation to prevent routing loops.
 
      -> route-map EXTCOMMUMITYCOST permit 10
      ->    set extcommunity cost igp 1 1
@@ -384,60 +384,69 @@ Best Path Algorithm:
      -> aggregate-address 192.0.2.0 255.255.255.252 attribute-map EXTCOMMUMITYCOST
 
      -> bgp bestpath cost-community ignore
-        -> this command was intended only to assist in troubleshooting path selection
+        -> This command was intended only to assist in troubleshooting path selection.
 
      -> Note-to-self:  This is out of place.  Need to find a new home for this.
-        -> was in the AS_PATH step, sort of fits better here because of EIGRP MPLS VPNs
-     -> configured a site-of-origin to prevent routing loops
+        -> Was in the AS_PATH step, sort of fits better here because of EIGRP MPLS VPNs.
+     -> Configured a site-of-origin to prevent routing loops.
      -> neighbor 192.0.2.1 soo 64496:64511
      -> route-map SOO permit 10
      ->     set extcommunity soo 64496:645111
      -> neighbor 192.0.2.1 route-map SOO in
 
 
-9.  multipath
-     -> if multiple paths match the above steps
-     -> determine if multiple paths require installation into the routing table
-     -> default, only one best path is installed into the routing table
-     -> even with multipath, the router still designates one of the paths as the best path and advertises this best path to it's neighbors
-     -> the following need to be equal for multipath
-        -> weight
-        -> local preference
-        -> received or locally originated route
-        -> accumulated interior gateway protocol, if configured
-           -> or bgp bestpath aigp ignore is configured
+9.  Multipath
+     -Note:  Route reflectors will only advertise one best path.  To add the mutlipath capability back into a route reflector architecture, 
+             one of the BGP Diverse Path Distribution solutions would need to be implemented.
+        -> VPN unique RD
+        -> BGP Shadow Route Reflector
+        -> BGP Shadow Session
+        -> BGP Best External
+        -> BGP Add-Path
+        -> BGP Optimal Route Reflection ( ORR )
+     -> Multipath only if multiple paths match the above steps.
+     -> Determine if multiple paths require installation into the routing table.
+     -> Default, only one best path is installed into the routing table.
+     -> Even with multipath, the router still designates one of the paths as the best path and advertises this best path to it's neighbors.
+
+     -> The following needs to be equal for each prefix to multipath.
+        -> Weight
+        -> Local preference
+        -> Received or locally originated route.
+        -> Accumulated interior gateway protocol, if configured.
+           -> Or "bgp bestpath aigp ignore" is configured.
         -> AS-PATH length
         -> AS-PATH
-           -> unless bgp bestpath as-path multipath-relax is configured
-           -> or bgp bestpath as-path ignore is configured
-        -> neighboring AS or sub-AS
-        -> origin
+           -> Unless "bgp bestpath as-path multipath-relax" is configured.
+           -> Or "bgp bestpath as-path ignore" is configured.
+        -> Neighboring AS or sub-AS
+        -> Origin
         -> MED
         -> eBGP or iBGP
-        -> IGP metric to the BGP next hop
-           -> for eBGP multipath
-              -> learned from an external or confederation-external neighbor
-              -> the IGP metric to the BGP next hop must be equal to the best-path IGP metric
-           -> for iBGP multipath
-              -> learned from an internal neighbor
-              -> the IGP metric to the BGP next hop must be equal to the best-path IGP metric
-                 -> unless unequal-cost iBGP multipath is configured
-                 -> for unequal-cost load balancing, BGP Link Bandwidth can be used
-                    -> bgp dmzlink-bw
-                    -> neighbor 192.0.2.1 dmzlink-bw
-                    -> neighbor 192.0.2.1 send-community both
-           -> or bgp bestpath igp-metric ignore is configured
-        -> extended cost community, if configured or in EIGRP MPLS VPN topologies
+        -> IGP metric to the BGP next hop for eBGP multipath.
+           -> Learned from an external or confederation-external neighbor.
+           -> The IGP metric to the BGP next hop must be equal to the best-path IGP metric.
+           -> Or "bgp bestpath igp-metric ignore" is configured.
+        -> IGP metric to the BGP next hop for iBGP multipath.
+           -> Learned from an internal neighbor.
+           -> The IGP metric to the BGP next hop must be equal to the best-path IGP metric.
+              -> Unless unequal-cost iBGP multipath is configured.
+              -> For unequal-cost load balancing, BGP Link Bandwidth can be used.
+                 -> bgp dmzlink-bw
+                 -> neighbor 192.0.2.1 dmzlink-bw
+                 -> neighbor 192.0.2.1 send-community both
+           -> Or "bgp bestpath igp-metric ignore" is configured.
+        -> "extended cost community", if configured or in EIGRP MPLS VPN topologies.
 
      -> maximum-paths 2
-        -> protocol independent command for equal-costs paths
+        -> Protocol independent command for equal-costs paths.
         
      -> maximum-paths eibgp 2
-        -> install parallel iBGP and eBGP routes
+        -> Install parallel iBGP and eBGP routes.
         -> Will generate the following log message:  %BGP-4-MULTIPATH_LOOP: This may cause traffic loop if not used properly (command accepted).
         
      -> maximum-paths eibgp 2 import 2
-        -> specifies the number of redundant paths configured as back up multipaths for a VRF
+        -> Specifies the number of redundant paths configured as back up multipaths for a VRF.
         -> Will generate the follow log messages:  
            -> %NOTE: Import option has been deprecated.
            -> %      Converting to 'import path selection all; import path limit 2'.
@@ -445,10 +454,10 @@ Best Path Algorithm:
               recommended/supported and will be removed in future.
         
      -> maximum-paths ibgp 2
-         -> install both equal-cost and unequal-cost iBGP routes
+         -> Install both equal-cost and unequal-cost iBGP routes.
          
      -> maximum-paths ibgp 2 import 2
-         -> specifies the number of redundant paths configured as back up multipaths for a VRF
+         -> Specifies the number of redundant paths configured as back up multipaths for a VRF.
          -> Will generate the follow log messages:  
             -> %NOTE: Import option has been deprecated.
             -> %      Converting to 'import path selection all; import path limit 2'.
@@ -456,42 +465,42 @@ Best Path Algorithm:
                recommended/supported and will be removed in future.
 
      -> maximum-paths ibgp unequal-cost 2
-         -> install iBGP unequal-cost routes for a VRF
-         -> only in address-family ipv4 vrf VRF_NAME and address-family ipv6 vrf VRF_NAME
+         -> Install iBGP unequal-cost routes for a VRF.
+         -> Only in address-family ipv4 vrf VRF_NAME and address-family ipv6 vrf VRF_NAME.
          
      -> bgp bestpath as-path mutlipath-relax
-        -> hidden command in older IOS versions
-        -> if multipath is configured and multiple routes have different AS in the path, but the AS_PATH lengths are the same (parallel paths),  
-           install the multiple paths into the routing table
-           -> solves a problem with BGP in data center CLOS networks described in RFC 7938
+        -> Hidden command in older IOS versions.
+        -> If multipath is configured and multiple routes have different AS in the path, but the AS_PATH lengths are the same (parallel paths),  
+           install the multiple paths into the routing table.
+           -> Solves a problem with BGP in data center CLOS networks described in RFC 7938.
 
 
- 10.  oldest route
-     -> when multiple paths are external, prefer the path that was received first
-     -> oldest is best
-     -> locally significant to the router ( Loc-RIB )
-     -> this step can be skipped by forcing BGP to compare router-ids
+ 10.  Oldest route
+     -> When multiple paths are external, prefer the path that was received first.
+     -> Oldest is best.
+     -> Locally significant to the router ( Loc-RIB ).
+     -> This step can be skipped by forcing BGP to compare router-ids.
      
      -> bgp bestpath compare-router-id
 
 
- 11.  router-id
-     -> lowest is best
-     -> locally significant to the router ( Loc-RIB )
-     -> not the same thing as the ORIGINATOR_ID attribute, which is used by route reflectors
-     -> ORIGINATOR_ID is an optional, non-transitive attribute
-     -> ORIGINATOR_ID is compared instead of the router-id when route reflector attributes are present
+ 11.  Router-id
+     -> Lowest is best.
+     -> Locally significant to the router ( Loc-RIB ).
+     -> Not the same thing as the ORIGINATOR_ID attribute, which is used by route reflectors.
+     -> ORIGINATOR_ID is an optional, non-transitive attribute.
+     -> ORIGINATOR_ID is compared instead of the router-id when route reflector attributes are present.
 
 
- 12.  cluster length
-     -> lowest is best
-     -> locally significant to the router ( Loc-RIB )
-     -> CLUSTER_LIST is an optional, non-transitive attribute
-     -> lowest CLUSTER_LIST length
-     -> router reflectors only
+ 12.  Cluster length
+     -> Lowest is best
+     -> Locally significant to the router ( Loc-RIB ).
+     -> CLUSTER_LIST is an optional, non-transitive attribute.
+     -> Lowest CLUSTER_LIST length.
+     -> Router reflectors only.
 
 
- 13.  neighbor address
-     -> lowest is best
-     -> locally significant to the router ( Loc-RIB )
-     -> remote peer used in the TCP connection
+ 13.  Neighbor address
+     -> Lowest is best.
+     -> Locally significant to the router ( Loc-RIB ).
+     -> Remote peer used in the TCP connection.
