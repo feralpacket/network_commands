@@ -129,7 +129,7 @@ Best Path Algorithm:
  3a.  Accumulated Interior Gateway Protocol (AIGP)
      -> Lowest is best.
      -> Significant only in the local (internal) AS.
-     -> AIGP is an optional, non-transitive attribute.
+     -> AIGP is an optional, non-transitive attribute described in RFC 7311.
      -> Range 0 - 4294967295.
      -> AIGP path compared to AIGP path, the value of the AIGP metric is added to the metric towards the next-hop.
      -> AIGP path compared to non-AIGP path, path with AIGP attribute is preferred.
@@ -165,7 +165,7 @@ Best Path Algorithm:
      -> Shortest is best.
      -> Significant external to AS.
      -> Range of 1 - 255 .
-     -> Well-known mandatory attribute AS_PATH.
+     -> Well-known, mandatory attribute AS_PATH.
      -> Primary purpose is to provide loop prevention for inter-AS routing.
 
      -> AS_SEQUENCE is an AS_PATH attribute that is an ordered list of AS numbers.
@@ -261,7 +261,7 @@ Best Path Algorithm:
  5.  ORIGIN
      -> Lowest type is best.
      -> Significant external to AS.
-     -> Well-known mandatory attribute ORIGIN.
+     -> Well-known, mandatory attribute ORIGIN.
      -> IGP is lower (better) than EGP, EGP is lower (better) than INCOMPLETE.
      -> IGP
           -> "network" command.
@@ -284,7 +284,7 @@ Best Path Algorithm:
      -> Metric
      -> Significant external to AS.
      -> Lowest is best.
-     -> Optional non-transitive attribute MULTI_EXIT_DISC.
+     -> Optional, non-transitive attribute MULTI_EXIT_DISC.
      -> Range 0 to 4,294,967,295.
      -> Default is 0 for received routes.
         -> When MED is not assigned.
