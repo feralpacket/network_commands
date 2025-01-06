@@ -297,6 +297,7 @@ Best Path Algorithm:
         -> Or a neighboring AS may be influencing the local AS with multiple entry points.
      -> Compared only if the first AS in the AS_SEQUENCE is the same for multiple paths.
      -> Confederation sub-ASs are ignored unless configured.
+     -> MED can introduce route oscillations in some environments.  BGP Additional Paths ( ADD-PATH ) can address this problem.
      
      -> bgp deterministic-med
          -> Compare routes advertised by different peers in the same AS.
@@ -402,12 +403,13 @@ Best Path Algorithm:
         -> BGP Shadow Route Reflector
         -> BGP Shadow Session
         -> BGP Best External
-        -> BGP Add-Path
+        -> BGP Additional Paths ( ADD-PATH )
         -> BGP Optimal Route Reflection ( ORR )
      -> Multipath only if multiple paths match the above steps.
      -> Determine if multiple paths require installation into the routing table.
      -> Default, only one best path is installed into the routing table.
      -> Even with multipath, the router still designates one of the paths as the best path and advertises this best path to it's neighbors.
+        -> Unless BGP Additional Paths ( ADD-PATH ) is configured.
 
      -> The following needs to be equal for each prefix to multipath.
         -> Weight
@@ -466,7 +468,7 @@ Best Path Algorithm:
 
      -> maximum-paths ibgp unequal-cost 2
          -> Install iBGP unequal-cost routes for a VRF.
-         -> Only in address-family ipv4 vrf VRF_NAME and address-family ipv6 vrf VRF_NAME.
+         -> Only in "address-family ipv4 vrf VRF_NAME" and "address-family ipv6 vrf VRF_NAME".
          
      -> bgp bestpath as-path mutlipath-relax
         -> Hidden command in older IOS versions.
