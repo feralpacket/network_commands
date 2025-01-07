@@ -13,14 +13,17 @@ Why Routers Ignore Paths:
      -> bgp soft-reconfig-backup
           -> Configure soft reconfiguration for peers that do not support the route refresh capability.
 
- - Route is dampened.
+ - Routes will not be advertised if "as-set" is used with "aggregate-address" and one of the routes has the community "no-export" or no-advertise".
+ - Routes will be dropped if "as-set" is used with "aggregate-address" and the receiving router sees it's own local AS in the AS_SET.
+ - Routes will be dropped if it is dampened.
  - Backdoor routes configured with the network backdoor command are not advertised in BGP updates.
  - Route Reflectors will not reflect routes when "no bgp client-to-client reflection" is configured.
- - Routes will be discarded if the AS_PATH exceeds the bgp maxas-limit when configured.
- - Routes will be discarded if the number of prefixes exceeds the neighbor maximum-prefix when configured.
- - Routes will be discarded if the number of communities exceeds the bgp maxcommunity-limit when configured.
- - Routes will be discarded if the number of extended communities exceeds the bgp maxextcommunity-limit when configured.
- - Routes will be discarded if the number of large communities exceeds the bgp maxlargecommunity-limit when configured.
+ - Route Reflectores in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id any" is configured.
+ - Routes will be discarded if the AS_PATH exceeds the "bgp maxas-limit" when configured.
+ - Routes will be discarded if the number of prefixes exceeds the "neighbor maximum-prefix" when configured.
+ - Routes will be discarded if the number of communities exceeds the "bgp maxcommunity-limit" when configured.
+ - Routes will be discarded if the number of extended communities exceeds the "bgp maxextcommunity-limit" when configured.
+ - Routes will be discarded if the number of large communities exceeds the "bgp maxlargecommunity-limit" when configured.
  - BGP-Origin AS Validation is configured and a prefix is marked as invalid, it will not be advertised, will be withdrawn from the 
    BGP routing table, will not be considered as a bestpath, and will not be considered as a candidate for multipath.
  - BGP-Origin AS Validation is configured and a prefix is marked as not found, it will only be considered for bestpath or a candidate
