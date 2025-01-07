@@ -185,6 +185,11 @@ Best Path Algorithm:
      -> bgp bestpath as-path ignore
         -> Do not evaluate AS_PATH during best path selection.
 
+     -> no bgp enforce-first-as
+        -> Disables requirement that an update received from an eBGP peer list its AS number at the beginning of the AS_PATH.
+        -> Needed with BGP route servers which is a feature designed for internet exchange (IX) operators that provides an 
+           alternative to full eBGP mesh peering among the service providers who have a presence at the IX. 
+
      -> route-map PREPEND permit 10
      ->     set as-path prepend 100 100
      -> neighbor 192.0.2.1 route-map PREPEND out
