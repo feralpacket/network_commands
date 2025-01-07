@@ -284,8 +284,8 @@ Best Path Algorithm:
         -> Causes the path information from the individual paths to be retained and summarized in a set, 300 {200,100}.
 
      -> aggregate-address 10.11.0.0 255.255.0.0 as-set summary-only advertise-map ADV_MAP
-        -> Use an "advertise-map" to select the specific routes ( route information ) to include in the aggregate route.
-        -> Can be used to ensure routing information is not included in the aggregate route that would cause it to be dropped.
+        -> Use an "advertise-map" to select the specific routes and routing attributes to include in the aggregate route.
+        -> Can be used to ensure routing attributes are not included in the aggregate route that would cause it to be dropped.
            Such as omitting an AS from the AS_SET that would be dropped by a receiving router.
 
 
