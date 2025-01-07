@@ -157,15 +157,6 @@ Best Path Algorithm:
            -> If this may be a problem, such as in data centers or if the longer prefix can slip through policies or 
               filters on other routers, "bgp aggregate-timer 0".
 
-     -> default-originate
-        -> Configured per neighbor.
-        -> neighbor 192.0.2.1 default-originate
-        -> Advertise a default route to the neighbor, even if one is not currently in the RIB.
-
-     -> default-information originate
-        -> Configured per address family.
-        -> Add a default route to the BGP table and advertise to all neighbors, even if one is not currently in the RIB.
-
 
  3a.  Accumulated Interior Gateway Protocol (AIGP)
      -> Lowest is best.
