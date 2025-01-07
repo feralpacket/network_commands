@@ -13,7 +13,9 @@ Why Routers Ignore Paths:
      -> bgp soft-reconfig-backup
           -> Configure soft reconfiguration for peers that do not support the route refresh capability.
 
- - Routes will not be advertised if "as-set" is used with "aggregate-address" and one of the routes has the community "no-export" or no-advertise".
+ - Aggregate routes will not be advertised if "as-set" is used with "aggregate-address" and one of the routes has the community "no-export" 
+   or "no-advertise".
+ - Aggregate routes will be dropped if "as-set" is used with "aggregate-address" and a router sees its own local AS in the AS_SET.
  - Routes will be dropped if it is dampened.
  - Backdoor routes configured with the network backdoor command are not advertised in BGP updates.
  - Route Reflectors will not reflect routes when "no bgp client-to-client reflection" is configured.
