@@ -216,11 +216,14 @@ Best Path Algorithm:
      -> route-map PREPEND permit 10
      ->     set as-path prepend 100 100
      -> neighbor 192.0.2.1 route-map PREPEND out
+        -> Adds 100 100 to the AS_PATH.
      
      -> neighbor 192.0.2.1 local-as 99
         -> "local-as" is intended to help with BGP ASN or ISP migrations.
         -> "local-as" number must be different than the local AS and the peer AS.
         -> "local-as" will be added to the AS_PATH making it longer.
+        -> "local-as" with iBGP neighbors will cause the following attributes to be re-advertised without modification,
+           LOCAL_PREF, ORIGINATOR_ID, CLUSTER_ID, and CLUSTER_LIST>
 
      -> neighbor 192.0.2.1 local-as 99 no-prepend
         -> "local-as" will not be added to the AS_PATH.
@@ -243,7 +246,7 @@ Best Path Algorithm:
      -> Replaces any private AS in AS_PATH with router's local AS.
      -> neighbor 192.0.2.1 as-override
         -> Replaces the AS of the customer in AS_PATH with the AS of the provider.
-        -> Used in address-family ipv4 vrf VRF_NAME or address-family ipv6 vrf VRF_NAME.
+        -> Used in "address-family ipv4 vrf VRF_NAME" or "address-family ipv6 vrf VRF_NAME".
      
      -> neighbor 192.0.2.1 allowas-in
         -> Accept an AS_PATH that contains the local AS.
@@ -276,11 +279,9 @@ Best Path Algorithm:
         -> An AS_PATH of 123 234 345 456 567 becomes 100.
 
      -> aggregate-address 10.11.0.0 255.255.0.0 summary-only
-        -> "aggregate-address" "summary-only" command.
         -> Causes the loss of individual path attributes, such as AS_PATH, replaced only with the local AS.
 
      -> aggregate-address 10.11.0.0 255.255.0.0 summary-only as-set
-        -> "aggregate-address" "summary-only" command with "as-set".
         -> Causes the path information from the individual paths to be retained and summarized in a set, 300 {200,100}.
 
      -> aggregate-address 10.11.0.0 255.255.0.0 as-set summary-only advertise-map ADV_MAP
