@@ -94,7 +94,8 @@ Best Path Algorithm:
         assigned a weight of 0 and the IGP redistributed route is assigned a value of 32768, the IGP route is 
         installed in the RIB.  This is a common problem with architectures with backup paths.  The backup path is
         brought up and learned when the main path / circuits goes down.  But the backup path is still preferred when
-        the main path / circuit comes back up.  Set the weight to something higher for the BGP peer if this is a problem.
+        the main path / circuit comes back up.  Set the weight to something higher for the BGP peer if this is a 
+        problem.
 
      -> neighbor 192.0.2.1 weight 40000
      -> template peer-policy LOCAL_POLICY
@@ -108,8 +109,8 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 default-originate route-map WEIGHT in
 
      -> network 192.0.2.0 mask 255.255.255.0 route-map WEIGHT
-        -> This works.  As does applying the route-map to the redistribute and aggregate-address commands.  But why 
-           would you do this to locally originated routes since it’s only locally significant.
+     -> redistribute eigrp 1 route-map WEIGHT
+     -> aggregate-address 10.11.0.0 255.255.0.0 route-map WEIGHT
 
 
  2.  Local_preference
