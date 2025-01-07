@@ -135,18 +135,12 @@ Best Path Algorithm:
  3.  Locally originated path
      -> Locally generated routes are preferred over received routes.
 
-     -> default-originate
-        -> Configured per neighbor.
-        -> neighbor 192.0.2.1 default-originate
-        -> Advertise a default route to the neighbor, even if one is not currently in the RIB.
-
-     -> default-information originate
-        -> Configured per address family.
-        -> Add a default route to the BGP table and advertise to all neighbors, even if one is not currently in the RIB.
-
      -> "network" command.
         -> network 0.0.0.0
         -> If 0.0.0.0 is present in the RIB, add to BGP table and advertise to all neighbors.
+
+     -> "redistribute" command.
+        -> Redistributed routes are preferred to local aggregate routes.
 
      -> aggregate-address command
         -> Creates an aggregate route, but the more specific routes are still advertised.
@@ -163,7 +157,14 @@ Best Path Algorithm:
            -> If this may be a problem, such as in data centers or if the longer prefix can slip through policies or 
               filters on other routers, "bgp aggregate-timer 0".
 
-     -> "redistribute" command.
+     -> default-originate
+        -> Configured per neighbor.
+        -> neighbor 192.0.2.1 default-originate
+        -> Advertise a default route to the neighbor, even if one is not currently in the RIB.
+
+     -> default-information originate
+        -> Configured per address family.
+        -> Add a default route to the BGP table and advertise to all neighbors, even if one is not currently in the RIB.
 
 
  3a.  Accumulated Interior Gateway Protocol (AIGP)
@@ -407,7 +408,7 @@ Best Path Algorithm:
 
 
  7.  eBGP over iBGP
-     -> Paths that contain AS_CONFED_SEQUENCE and AS_CONFED_SET are considered internal.
+     -> Paths that contain AS_CONFED_SEQUENCE and AS_CONFED_SET are considered internal to the confederation.
      -> Locally significant to the router ( Loc-RIB ).
 
 
