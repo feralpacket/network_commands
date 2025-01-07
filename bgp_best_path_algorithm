@@ -14,6 +14,7 @@ Why Routers Ignore Paths:
           -> Configure soft reconfiguration for peers that do not support the route refresh capability.
 
  - Routes will not be advertised to peers if they are not installed in the RIB and "bgp suppress-inactive" is configured.
+ - Aggregate routes will not be generated or advertised if a more specific matching prefix is not installed in the RIB.
  - Aggregate routes will not be advertised to peers if "as-set" is used with "aggregate-address" and one of the specific routes has the 
    community "no-export" or "no-advertise".
  - Aggregate routes will be dropped if "as-set" is used with "aggregate-address" and a receving router sees its own local AS in the AS_SET.
@@ -90,13 +91,15 @@ Best Path Algorithm:
      ->     weight 40000
      -> address-family ipv4 unicast
      ->     neighbor 192.0.2.1 inherit peer-policy LOCAL_POLICY
+
      -> route-map WEIGHT permit 10
      ->     set weight 40000
      -> neighbor 192.0.2.1 route-map WEIGHT in
      -> neighbor 192.0.2.1 default-originate route-map WEIGHT in
+
      -> network 192.0.2.0 mask 255.255.255.0 route-map WEIGHT
-         -> This works.  As does applying the route-map to the redistribute and aggregate-address commands.  But why 
-            would you do this to locally originated routes since it’s only locally significant.
+        -> This works.  As does applying the route-map to the redistribute and aggregate-address commands.  But why 
+           would you do this to locally originated routes since it’s only locally significant.
 
 
  2.  Local_preference
@@ -126,25 +129,35 @@ Best Path Algorithm:
 
  3.  Locally originated path
      -> Locally generated routes are preferred over received routes.
+
      -> default-originate
-          -> Configured per neighbor.
-          -> neighbor 192.0.2.1 default-originate
-          -> Advertise a default route to the neighbor, even if one is not currently in the RIB.
+        -> Configured per neighbor.
+        -> neighbor 192.0.2.1 default-originate
+        -> Advertise a default route to the neighbor, even if one is not currently in the RIB.
+
      -> default-information originate
-          -> Configured per address family.
-          -> Add a default route to the BGP table and advertise to all neighbors, even if one is not currently in the RIB.
+        -> Configured per address family.
+        -> Add a default route to the BGP table and advertise to all neighbors, even if one is not currently in the RIB.
+
      -> "network" command.
-          -> network 0.0.0.0
-          -> If 0.0.0.0 is present in the RIB, add to BGP table and advertise to all neighbors.
+        -> network 0.0.0.0
+        -> If 0.0.0.0 is present in the RIB, add to BGP table and advertise to all neighbors.
+
      -> aggregate-address command
-          -> summary-only
+        -> Creates an aggregate route, but the more specific routes are still advertised.
+        -> A longer prefix that matches the aggregate route must exist in the RIB.
+        -> The ATOMIC_AGGREGATE attribute is set to indicate information might be missing, unless "as-set" is configured.
+  
+        -> summary-only
           -> Advertise only the aggregate address, suppress longer prefixes.
           -> aggregate-address 10.11.0.0 255.255.0.0 summary-only
-          -> The aggregate-timer is set to 30 seconds by default.  New, longer prefixes may be briefly advertised until 
-             the aggregate-timer runs.
-             -> The new, longer-prefix will then be withdrawn from the neighbors.
-             -> If this may be a problem, such as in data centers or if the longer prefix can slip through policies or 
-                filters on other routers, "bgp aggregate-timer 0".
+
+        -> The aggregate-timer is set to 30 seconds by default.  New, longer prefixes may be briefly advertised until 
+           the aggregate-timer runs.
+           -> The new, longer-prefix will then be withdrawn from the neighbors.
+           -> If this may be a problem, such as in data centers or if the longer prefix can slip through policies or 
+              filters on other routers, "bgp aggregate-timer 0".
+
      -> "redistribute" command.
 
 
@@ -175,9 +188,11 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 aigp send cost-community 100 poi igp-cost transitive
      -> neighbor 192.0.2.1 aigp send cost-community 100 poi pre-bestpath transitive
      -> neighbor 192.0.2.1 aigp send med
+
      -> neighbor 192.0.2.1 path-attribute treat-as-withdraw 26 in
          -> All prefixes in the UPDATE are removed from the BGP routing table.
          -> "path-attribute treat-as-withdraw" cannot be used with most attributes.
+     
      -> neighbor 192.0.2.1 path-attribute discard 26 in
          -> Drop the AIGP path attribute, then process the UPDATE as usual.
          -> Path-attribute discard cannot be used with most attributes.
