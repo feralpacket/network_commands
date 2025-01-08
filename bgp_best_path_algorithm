@@ -202,6 +202,9 @@ Best Path Algorithm:
  3a.  Accumulated Interior Gateway Protocol (AIGP)
      -> Lowest is best.
      -> Optional, non-transitive attribute AIGP.
+     -> The AIGP path attribute capability must be agreed upon between BGP peers.
+     -> AIGP metrics are only included in prefix advertisements between AIGP enabled peers.
+     -> AIGRP is configured on specific address families.
      -> Significant only in the local (internal) AS.
      -> Range 0 - 4294967295.
      -> AIGP path compared to AIGP path, the value of the AIGP metric is added to the metric towards the next-hop.
@@ -211,11 +214,16 @@ Best Path Algorithm:
             -> The cost community point of insertion (POI) is specified.
                 -> Pre-bestpath
                 -> IGP metric
-        -> AIGP can be translated to MED.
+     -> AIGP can be translated to MED.
+     -> AIGP attribute was developed to solve certain niche use cases.  It must be used cautiously.
         
      -> bgp bestpath aigp ignore
         -> Do not evaluate AIGP during best path selection.
-     
+
+     -> router bgp 100
+     ->     address-family ipv4 unicast
+     ->         aigp
+
      -> route-map AIGP permit 10
      ->    set aigp-metric igp-metric
      ->    set aigp-metric 100
