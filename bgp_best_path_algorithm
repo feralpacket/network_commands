@@ -123,9 +123,9 @@ Best Path Algorithm:
      -> Default is 32768 for locally generated routes.
      -> Could potentially be a problem with IGP routes that are redistributed into BGP.  If the BGP received route is 
         assigned a weight of 0 and the IGP redistributed route is assigned a value of 32768, the IGP route is 
-        installed in the RIB.  This is a common problem with architectures with backup paths.  The backup path is
-        brought up and learned when the main path / circuit goes down.  But the backup path is still preferred when
-        the main path / circuit comes back up.  Set the weight to something higher for the BGP peer if this is a 
+        installed in the RIB.  This is a common problem with architectures with on-demand backup paths.  The backup 
+        path is brought up and learned when the main path / circuit goes down.  But the backup path is still preferred 
+        when the main path / circuit comes back up.  Set the weight to something higher for the BGP peer if this is a 
         problem.
 
      -> neighbor 192.0.2.1 weight 40000
