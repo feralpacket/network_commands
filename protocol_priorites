@@ -105,6 +105,7 @@ Spanning-tree Protocol (STP):
  - Switch stacks
     -> Note to self:  Add switch stack STP weirdness
 
+
 Link Aggregation Control Protocol (LACP):
  - Master / Slave System Priority
      -> Lowest system priority selected
@@ -419,12 +420,14 @@ Multicast
  - IGMP Querier Election
      -> Lowest IP address selected
 
+
 MPLS LDP
  - LDP Session
      -> Initiates the TCP connection to establish the connection and session
      -> highest LDP ID selected
          -> Highest IP address on a loopback interface
          -> Highest IP address on a non-loopback interface (that is active)
+
 
 MPLS-TE
  - Setup Priority
