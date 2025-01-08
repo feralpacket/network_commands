@@ -25,7 +25,9 @@ Why Routers Ignore Paths:
  - Routes will be dropped if it is dampened.
  - Backdoor routes configured with the network backdoor command are not advertised in BGP updates.
  - Route Reflectors will not reflect routes when "no bgp client-to-client reflection" is configured.
- - Route Reflectores in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id any" is configured.
+ - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id any" is configured.
+ - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id <cluster-id>" is 
+   configured and the update contains the matching CLUSTER_ID.
  - Routes will be discarded if the AS_PATH exceeds the "bgp maxas-limit" when configured.
  - Routes will be discarded if the number of prefixes exceeds the "neighbor maximum-prefix" when configured.
  - Routes will be discarded if the number of communities exceeds the "bgp maxcommunity-limit" when configured.
