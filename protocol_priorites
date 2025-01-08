@@ -17,16 +17,17 @@ Generally, but not always:
 
  -The route selection process:
     -> Prefix length
-        -> Longer prefixes are preferred in the routing table
-        -> Used in the forwarding process
+        -> Longer prefixes are always preferred over shorter ones
     -> Administrative distance
-        -> Lowest preferred
-        -> Used to select the prefixes from different routing protocols to be installed into the routing table
-        -> If for some reason you changed the AD to match that of another active routing protocol,
-           the default AD for those two protocols is used
+       -> If prefix lengths are the same
+       -> Lowest preferred
+       -> Used to select the prefixes from different routing protocols to be installed into the routing table
+       -> If for some reason you changed the AD to match that of another active routing protocol,
+          the default AD for those two protocols is used
     -> Metrics / Attributes
-        -> Differ depending on the routing protocol
-        -> Used to select candidate prefixes that may be installed into the routing table
+       -> Each routing protocol uses metrics to determine most preferred to least preferred routes.
+       -> Differ depending on the routing protocol
+       -> Used to select candidate prefixes that may be installed into the routing table
 
     -> AD (Administrative Distance):
               0				- Connected
