@@ -106,6 +106,12 @@ Best Path Algorithm:
      -> bgp bestpath cost-community ignore
          -> This command was intended only to assist in troubleshooting path selection.
 
+     -> Do this instead.
+     -> neighbor 192.0.2.1 soo 64496:64511
+     -> route-map SOO permit 10
+     ->     set extcommunity soo 64496:645111
+     -> neighbor 192.0.2.1 route-map SOO in
+
 
  1.  Weight
      -> Highest is best.
@@ -474,14 +480,6 @@ Best Path Algorithm:
 
      -> bgp bestpath cost-community ignore
         -> This command was intended only to assist in troubleshooting path selection.
-
-     -> Note-to-self:  This is out of place.  Need to find a new home for this.
-        -> Was in the AS_PATH step, sort of fits better here because of EIGRP MPLS VPNs.
-     -> Configured a site-of-origin to prevent routing loops.
-     -> neighbor 192.0.2.1 soo 64496:64511
-     -> route-map SOO permit 10
-     ->     set extcommunity soo 64496:645111
-     -> neighbor 192.0.2.1 route-map SOO in
 
 
 9.  Multipath
