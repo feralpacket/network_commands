@@ -3,13 +3,13 @@ http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-2
 
 
 Why Routers Ignore Paths:
- - Paths are marked “not synchronized” in "sh ip bgp longer-prefixes" output and synchronization is enabled.
+ - Paths are marked “not synchronized” in "sh ip bgp longer-prefixes" or "sh ip bgp detail" output and "synchronization" is enabled.
  - Next hop is inaccessible or unreachable.
  - Path from eBGP neighbor has local AS in AS_PATH.
  - "bgp enforce-first-as" is set and the update doesn’t list the neighbor AS as the first AS.
  - Paths are marked “receive only” in "sh ip bgp longer-prefixes" output.
      -> sh ip bgp 192.0.2.0 255.255.255.0 longer-prefixes
-     -> Polocy rejected theses routes.  However, the router stores the paths unmodified if "soft-reconfiguration inbound" is configured.
+     -> Policy rejected theses routes.  However, the router stores the paths unmodified if "soft-reconfiguration inbound" is configured.
      -> neighbor 192.0.2.1 soft-reconfiguration inbound
      -> bgp soft-reconfig-backup
           -> Configure soft reconfiguration for peers that do not support the route refresh capability.
