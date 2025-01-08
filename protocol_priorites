@@ -14,18 +14,50 @@ Generally, but not always:
           -> Think "Router" -> "IGP"
      -> Otherwise, lower is better
 
+
  -The route selection process:
+    -> Prefix length
+        -> Longer prefixes are preferred in the routing table
+        -> Used in the forwarding process
+    -> Administrative distance
+        -> Lowest preferred
+        -> Used to select the prefixes from different routing protocols to be installed into the routing table
     -> Metrics / Attributes
         -> Differ depending on the routing protocol
         -> Used to select candidate prefixes that may be installed into the routing table
         -> If for some reason you changed the AD to match that of another active routing protocol,
            the default AD for those two protocols is used
-    -> Administrative distance
-        -> Lowest preferred
-        -> Used to select the prefixes from different routing protocols to be installed into the routing table
-    -> Prefix length
-        -> Longer prefixes are preferred in the routing table
-        -> Used in the forwarding process
+
+    -> AD (Administrative Distance):
+       0							  - Connected
+	      1							  - Static Route
+	      5							  - EIGRP Summary Route
+	      20							 - eBGP
+	      90							 - EIGRP
+	      100							- IGRP ( Historical )
+	      110							- OSPF
+	      115							- IS-IS
+	      120							- RIP
+	      160							- ODR ( Historical )
+	      170							- EIGRP External Route
+	      200							- iBGP
+	      250							- NHRP
+	      255							- Unknown / Unreachable
+
+    -> Metrics
+	      RIP							- Hop count
+	      EIGRP						- Metric, a composite of the minimum bandwidth of outgoing interfaces,
+								            and cumulative delay.  Can be configured to also use load, 
+								            reliability, and/or smallest MTU along the path.
+	      OSPF							- Path type: O > O*IA > E1 > E2 > N1 > N2, for older IOS versions.
+								            Referred to as RFC 1587 compatible.
+		 						           Path type: O > O*IA > N1 > N2 > E1 > E2, for newer IOS versions.
+								            Referred to as RFC 3101 compatible.
+								         - Cost
+       BGP							- BGP uses a best path algorithm to determine the best route
+	      IS-IS					- L1 routers preferred to L2 routes.
+								         - Internal routes preferred to external routes.
+								         - Path metric.
 
 
 Spanning-tree Protocol (STP):
