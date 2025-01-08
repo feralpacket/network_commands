@@ -308,9 +308,11 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 as-override
         -> Replaces the AS of the customer in AS_PATH with the AS of the provider.
         -> Used in "address-family ipv4 vrf VRF_NAME" or "address-family ipv6 vrf VRF_NAME".
+        -> In service provider networks, this is the PE side solution to the customer using the same AS at multiple sites.
      
      -> neighbor 192.0.2.1 allowas-in
         -> Accept an AS_PATH that contains the local AS.
+        -> In service provider networks, this is the CE side solution to the customer using the same AS at multiple sites.
 
      -> route-map TAG_SET_AS permit 10
      ->     set as-path tag
