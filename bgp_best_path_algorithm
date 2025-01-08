@@ -75,16 +75,36 @@ Best Path Algorithm:
 - The steps below include the IOS configuration commands that can modify the default behavior of each step.
 
 
- 0.  Note: If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
+ 0.  If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
      -> Lowest cost community ID number is best.
      -> Then lowest cost community number is best.
+     -> Locally significant to the router ( Loc-RIB ).
+     -> Cost community ID number 0 to 255.
+     -> Cost number range 0 to 4294967295.
+     -> Default is 2147483647.
+     -> Note:  Paths that do not have the extended community cost attribute are considered to have the default value by the best
+        path selection process.
+     -> Non-transitive extended community.
+     -> Only advertised to iBGP neighbors, not eBGP neighbors.
+     -> If used, must be configured in the entire AS or confederation to prevent routing loops.
      -> set extcommunity cost pre-bestpath <community-id> <cost>
-     -> bgp bestpath cost-community ignore
-         -> This command was intended only to assist in troubleshooting path selection.
      -> Introduced for use with EIGRP MPLS VPN PE-CE with backdoor links before EIGRP Site of Origin ( SoO ) was introduced.
      -> The pre-bestpath POI was meant to support mixed EIGRP VPN topologies with back door links.
      -> Back door links in EIGRP MPLS VPN topologies will be preferred to BGP.
      -> The BGP extended cost community carries the pre-bestpath POI, EIGRP route type, and route metric.
+
+     -> route-map EXTCOMMUMITYCOST permit 10
+     ->    set extcommunity cost pre-bestpath 1 1
+     -> neighbor 192.0.2.1 send-community
+     -> neighbor 192.0.2.1 route-map EXTCOMMUMITYCOST out
+     -> neighbor 192.0.2.1 default-originate route-map EXTCOMMUMITYCOST out
+     -> redistribute eigrp 1 route-map EXTCOMMUMITYCOST
+     -> redistribute ospf 1 route-map EXTCOMMUMITYCOST match internal external 1 external 2
+     -> network 192.0.2.0 mask 255.255.255.0 route-map EXTCOMMUMITYCOST
+     -> aggregate-address 192.0.2.0 255.255.255.252 attribute-map EXTCOMMUMITYCOST
+
+     -> bgp bestpath cost-community ignore
+         -> This command was intended only to assist in troubleshooting path selection.
 
 
  1.  Weight
@@ -175,8 +195,8 @@ Best Path Algorithm:
 
  3a.  Accumulated Interior Gateway Protocol (AIGP)
      -> Lowest is best.
+     -> Optional, non-transitive attribute AIGP.
      -> Significant only in the local (internal) AS.
-     -> AIGP is an optional, non-transitive attribute described in RFC 7311.
      -> Range 0 - 4294967295.
      -> AIGP path compared to AIGP path, the value of the AIGP metric is added to the metric towards the next-hop.
      -> AIGP path compared to non-AIGP path, path with AIGP attribute is preferred.
@@ -212,9 +232,9 @@ Best Path Algorithm:
 
  4.  AS_PATH
      -> Shortest is best.
+     -> Well-known, mandatory attribute AS_PATH.
      -> Significant external to AS.
      -> Range of 1 - 255 .
-     -> Well-known, mandatory attribute AS_PATH.
      -> Primary purpose is to provide loop prevention for inter-AS routing.
 
      -> AS_SEQUENCE is an AS_PATH attribute that is an ordered list of AS numbers.
@@ -320,8 +340,8 @@ Best Path Algorithm:
 
  5.  ORIGIN
      -> Lowest type is best.
-     -> Significant external to AS.
      -> Well-known, mandatory attribute ORIGIN.
+     -> Significant external to AS.
      -> IGP is lower (better) than EGP, EGP is lower (better) than INCOMPLETE.
 
      -> IGP
@@ -348,9 +368,9 @@ Best Path Algorithm:
 
  6.  multi-exit discriminator (MED)
      -> Metric
+     -> Optional, non-transitive attribute MULTI_EXIT_DISC.
      -> Significant external to AS.
      -> Lowest is best.
-     -> Optional, non-transitive attribute MULTI_EXIT_DISC.
      -> Range 0 to 4,294,967,295.
      -> Default is 0 for received routes.
         -> When MED is not assigned.
