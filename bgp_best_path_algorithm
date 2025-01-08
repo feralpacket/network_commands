@@ -9,7 +9,7 @@ Why Routers Ignore Paths:
  - "bgp enforce-first-as" is set and the update doesn’t list the neighbor AS as the first AS.
  - Paths are marked “receive only” in "sh ip bgp longer-prefixes" output.
      -> sh ip bgp 192.0.2.0 255.255.255.0 longer-prefixes
-     -> Policy rejected theses routes.  However, the router stores the paths unmodified if "soft-reconfiguration inbound" is configured.
+     -> Policy rejected these routes.  However, the router stores the paths unmodified if "soft-reconfiguration inbound" is configured.
      -> neighbor 192.0.2.1 soft-reconfiguration inbound
      -> bgp soft-reconfig-backup
           -> Configure soft reconfiguration for peers that do not support the route refresh capability.
