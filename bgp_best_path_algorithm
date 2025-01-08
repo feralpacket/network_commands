@@ -42,18 +42,6 @@ Why Routers Ignore Paths:
 
 
 Best Path Algorithm:
- Note: If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
-     -> Lowest cost community ID number is best.
-     -> Then lowest cost community number is best.
-     -> set extcommunity cost pre-bestpath <community-id> <cost>
-     -> bgp bestpath cost-community ignore
-         -> This command was intended only to assist in troubleshooting path selection.
-     -> Introduced for use with EIGRP MPLS VPN PE-CE with backdoor links before EIGRP Site of Origin ( SoO ) was introduced.
-     -> The pre-bestpath POI was meant to support mixed EIGRP VPN topologies with back door links.
-     -> Back door links in EIGRP MPLS VPN topologies will be preferred to BGP.
-     -> The BGP extended cost community carries the pre-bestpath POI, EIGRP route type, and route metric.
-
-
 - Important, next hop needs to be valid!
 
 - It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), highest is best.  
@@ -85,6 +73,18 @@ Best Path Algorithm:
 
 
 - The steps below include the IOS configuration commands that can modify the default behavior of each step.
+
+
+ 0.  Note: If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
+     -> Lowest cost community ID number is best.
+     -> Then lowest cost community number is best.
+     -> set extcommunity cost pre-bestpath <community-id> <cost>
+     -> bgp bestpath cost-community ignore
+         -> This command was intended only to assist in troubleshooting path selection.
+     -> Introduced for use with EIGRP MPLS VPN PE-CE with backdoor links before EIGRP Site of Origin ( SoO ) was introduced.
+     -> The pre-bestpath POI was meant to support mixed EIGRP VPN topologies with back door links.
+     -> Back door links in EIGRP MPLS VPN topologies will be preferred to BGP.
+     -> The BGP extended cost community carries the pre-bestpath POI, EIGRP route type, and route metric.
 
 
  1.  Weight
