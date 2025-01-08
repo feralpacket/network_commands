@@ -18,9 +18,9 @@ Generally, but not always:
  -The route selection process:
     -> Prefix length
         -> Longer prefixes are always preferred over shorter ones
-    -> Administrative distance
+    -> Administrative distance (AD)
        -> If prefix lengths are the same
-       -> Lowest preferred
+       -> Lowest AD preferred
        -> Used to select the prefixes from different routing protocols to be installed into the routing table
        -> If for some reason you changed the AD to match that of another active routing protocol,
           the default AD for those two protocols is used
@@ -54,7 +54,7 @@ Generally, but not always:
 					  Referred to as RFC 1587 compatible.
 		 			  Path type: O > O*IA > N1 > N2 > E1 > E2, for newer IOS versions.
 					  Referred to as RFC 3101 compatible.
-					- Cost
+					- If the path type is the same, use cost
        	      BGP			- BGP uses a best path algorithm to determine the best route
 	      IS-IS			- L1 routers preferred to L2 routes.
 					- Internal routes preferred to external routes.
