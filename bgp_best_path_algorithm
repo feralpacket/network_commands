@@ -95,10 +95,10 @@ Best Path Algorithm:
      -> Range 0 to 65,535.
      -> Default is 0 for received routes.
      -> Default is 32768 for locally generated routes.
-     -> Could potentially be a problem with IGP routes are redistributed into BGP.  If the BGP received route is 
+     -> Could potentially be a problem with IGP routes that are redistributed into BGP.  If the BGP received route is 
         assigned a weight of 0 and the IGP redistributed route is assigned a value of 32768, the IGP route is 
         installed in the RIB.  This is a common problem with architectures with backup paths.  The backup path is
-        brought up and learned when the main path / circuits goes down.  But the backup path is still preferred when
+        brought up and learned when the main path / circuit goes down.  But the backup path is still preferred when
         the main path / circuit comes back up.  Set the weight to something higher for the BGP peer if this is a 
         problem.
 
@@ -113,9 +113,13 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 route-map WEIGHT in
      -> neighbor 192.0.2.1 default-originate route-map WEIGHT in
 
+     -> route-map WEIGHT permit 10
+     ->     set weight 0
      -> network 192.0.2.0 mask 255.255.255.0 route-map WEIGHT
      -> redistribute eigrp 1 route-map WEIGHT
      -> aggregate-address 10.11.0.0 255.255.0.0 route-map WEIGHT
+        -> Using a route-map with the "network", "redistribute", or "aggregate-address" commands could set the
+           weight to 0 so it is not considered at all.
 
 
  2.  Local_preference
