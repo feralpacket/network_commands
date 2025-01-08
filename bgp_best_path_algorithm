@@ -14,6 +14,7 @@ Why Routers Ignore Paths:
      -> bgp soft-reconfig-backup
           -> Configure soft reconfiguration for peers that do not support the route refresh capability.
 
+ - Routers will discard updates that have their CLUSTER_ID in the CLUSTER_LIST.
  - Routes will not be advertised to peers if they are not installed in the RIB and "bgp suppress-inactive" is configured.
  - Aggregate routes will not be generated or advertised if a more specific matching prefix is not installed in the RIB.
  - Aggregate routes will not be advertised to peers if "as-set" is used with "aggregate-address" and one of the specific routes has the 
