@@ -133,13 +133,16 @@ Best Path Algorithm:
      -> Range 0 to 65,535.
      -> Default is 0 for received routes.
      -> Default is 32768 for locally generated routes via the "network", "redistribution", and "aggregate-address" commands.
+     -> The router will prefer its own route over one advertised by a neighbor.
+     -> Weight is used when you want to influence the BGP best path on a single router without causing that influence to 
+        affect any other router.
      -> If both "neighbor weight" and "neighbor route-map in" commands are configured, the route-map is preferred.
      -> Could potentially be a problem with IGP routes that are redistributed into BGP.  If the BGP received route is 
         assigned a weight of 0 and the IGP redistributed route is assigned a value of 32768, the IGP route is 
         installed in the RIB.  This can be a problem with architectures with on-demand backup paths.  The backup path is 
         brought up and learned when the main path / circuit goes down.  But the backup path is still preferred when the 
         main path / circuit comes back up.  Set the weight to something higher for the BGP peer if this is a problem.
-     -> Some problem occurs in some ACI fibric designs where EIGRP is extended across a WAN network as a backup path.  BGP
+     -> Same problem occurs in some ACI fibric designs where EIGRP is extended across a WAN network as a backup path.  BGP
         initially installs the route because of the lower administrative distance.  EIGRP installs the route when the BGP
         session goes down.  But the EIGRP route is the best path even after the BGP neighbor comes up because the weight 
         associated with the EIGRP route.  Alternate solution to changing the weight is to configure EIGRP to advertise the 
@@ -171,6 +174,9 @@ Best Path Algorithm:
      -> Significant only in the local (internal) AS.
      -> Range 0 to 4294967295.
      -> Default 100 for every route.
+     -> Used to set a policy to prefer one outgoing path for the entire AS.  The policy can be applied to routes
+        inbound from any BGP peer to influence the entire AS.  The policy can be applied outbound only to iBGP 
+        peers or any BGP confederation peers to have more control over which routers are affected.
      
      -> bgp default local-preference 200
         -> Change the default local-preference.
