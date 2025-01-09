@@ -120,7 +120,7 @@ Best Path Algorithm:
      -> Locally significant to the router.
      -> Range 0 to 65,535.
      -> Default is 0 for received routes.
-     -> Default is 32768 for locally generated routes.
+     -> Default is 32768 for locally generated routes via the "network", "redistribution", and "aggregate-address" commands.
      -> Could potentially be a problem with IGP routes that are redistributed into BGP.  If the BGP received route is 
         assigned a weight of 0 and the IGP redistributed route is assigned a value of 32768, the IGP route is 
         installed in the RIB.  This is a common problem with architectures with on-demand backup paths.  The backup 
