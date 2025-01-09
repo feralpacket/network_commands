@@ -174,9 +174,11 @@ Best Path Algorithm:
      -> Significant only in the local (internal) AS.
      -> Range 0 to 4294967295.
      -> Default 100 for every route.
-     -> Used to set a policy to prefer one outgoing path for the entire AS.  The policy can be applied to routes
-        inbound from any BGP peer to influence the entire AS.  The policy can be applied outbound only to iBGP 
-        peers or any BGP confederation peers to have more control over which routers are affected.
+     -> Used to set a policy to prefer one outgoing path for the entire AS.  
+     -> The policy can be applied to routes inbound from any BGP peer to influence the entire AS.  
+     -> The policy can be applied outbound only to iBGP peers or any BGP confederation peers to have more 
+        control over which routers are affected.  Use caution, as applying local_preference outbound can
+        result in suboptimal routing or reachability problems.
      
      -> bgp default local-preference 200
         -> Change the default local-preference.
