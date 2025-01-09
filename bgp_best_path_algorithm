@@ -197,6 +197,10 @@ Best Path Algorithm:
      ->     set local-preference 100
      -> neighbor 192.0.2.1 route-map CLEAR_LP in
 
+     -> It's common for service providers to allow their customers to set the LOCAL_PREF on the PE routers through
+        the use of BGP communities.  For example, a BGP community of 3356:90 would set the LOCAL_PREF to 90.
+     -> whois -r whois.radb.net as3356
+
 
  3.  Locally originated path
      -> Locally generated routes are preferred over received routes.
@@ -308,8 +312,25 @@ Best Path Algorithm:
      -> route-map PREPEND permit 10
      ->     set as-path prepend 100 100
      -> neighbor 192.0.2.1 route-map PREPEND out
-        -> Adds 100 100 to the AS_PATH.
-     
+        -> Adds 100 100 to the AS_PATH in additional to the normal prepend for eBGP peers.  The neighbor sees 100 100 100
+           in the AS_PATH.
+        -> Can prepend the AS_PATH with both inbound and outbound with eBGP peers.
+        -> Commonly used outbound to make a path less preferable in multi-homing scenarios when other methods, such as using
+           MED or LOCAL_PREF maniplutation through BGP communities, are not available.
+        -> If your problem cannot be solved by prepending less than 10 copies of the local AS, another method should be used.
+        -> Use the same AS as the local AS.  Otherwise, the eBGP peer will more than likely discard the update.  The last AS
+           in the AS_PATH would not be your AS.  By default, eBGP peers will not accept updates if your AS is not the last AS
+           in AS_PATH.  Unless they have "no bgp enforce-first-as" configured.
+        -> For older versions of IOS, a change to a route-map does not generate an output BGP update.  A BGP update might be
+           generated the next time BGP scanner runs (default every 60 seconds).  Use "clear ip bgp neighbor soft out" to 
+           force a BGP update to be sent.
+
+     -> route-map PREPEND permit 10
+     ->     set as-path prepend last-as
+     -> neighbor 192.0.2.1 route-map PREPEND in
+        -> Used on inbound updates to prepend your neighbor's AS, the first AS in the AS_PATH.
+        -> Do not use with outbound route-maps.
+
      -> neighbor 192.0.2.1 local-as 99
         -> "local-as" is intended to help with BGP ASN or ISP migrations.
         -> "local-as" number must be different than the local AS and the peer AS.
