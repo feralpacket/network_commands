@@ -72,7 +72,19 @@ Best Path Algorithm:
  13.  Neighbor address
 
 
-- The steps below include the IOS configuration commands that can modify the default behavior of each step.
+ - The steps below include the IOS configuration commands that can modify the default behavior of each step.
+
+ - Note:  Order of preference for inbound updates, if more than one of the below is configured:
+   -> 1.  route-map
+   -> 2.  filter-list
+   -> 3.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
+
+ - Note:  Order of preference for outbound updates, if more than one of the below is configured:
+   -> 1.  filter-list
+   -> 2.  route-map or unsuppress-map
+   -> 3.  advertise-map (conditional-advertisement)
+   -> 4.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
+   -> 5.  Outbound Route Filtering (ORF) prefix-list (a prefix-list a neighbor sends us)
 
 
  0.  If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
