@@ -448,6 +448,11 @@ Best Path Algorithm:
      -> Significant external to AS.
      -> Lowest is best.
      -> Range 0 to 4,294,967,295.
+     -> Used to indicate a preferred entry point into the local AS to a nighboring AS when there are multiple paths
+        between the two AS.
+     -> Compared only if the first AS in the AS_SEQUENCE is the same for multiple paths.
+     -> MED is only used to influence traffic between two directly connected AS.  To influence route preferences beyond the
+        neighboring AS, the AS_PATH must be manipulated.
      -> Default is 0 for received routes.
         -> When MED is not assigned.
      -> Set to the value of the IGP metric for routes injected into BGP.
@@ -457,7 +462,6 @@ Best Path Algorithm:
      -> If the route was injected by the aggregate-address command, set the MED to 0.
         -> Used to influence a neighboring AS with multiple entry points.
         -> Or a neighboring AS may be influencing the local AS with multiple entry points.
-     -> Compared only if the first AS in the AS_SEQUENCE is the same for multiple paths.
      -> Confederation sub-ASs are ignored unless configured.
      -> MED can introduce route oscillations in some environments.  BGP Additional Paths ( ADD-PATH ) can address this problem.
      
