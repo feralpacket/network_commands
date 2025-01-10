@@ -317,8 +317,9 @@ Best Path Algorithm:
         -> Can prepend the AS_PATH with both inbound and outbound with eBGP peers.
         -> Commonly used outbound to make a path less preferable in multi-homing scenarios when other methods are not 
            available, such as using MED or LOCAL_PREF maniplutation through BGP communities.
-        -> If your problem cannot be solved by prepending less than 10 copies of the local AS, another method should be used.
         -> Use the same AS as the local AS.
+        -> The normal eBGP AS prepend occurs after the "set as-path prepend" is applied.
+        -> If your problem cannot be solved by prepending less than 10 copies of the local AS, another method should be used.
         -> For older versions of IOS, a change to a route-map does not generate an output BGP update.  A BGP update might be
            generated the next time BGP scanner runs (default every 60 seconds).  Use "clear ip bgp neighbor soft out" to 
            force a BGP update to be sent.
