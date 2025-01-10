@@ -419,10 +419,10 @@ Best Path Algorithm:
            -> Only is all of the component paths have an ORIGIN code of IGP.
         -> "default-originate" command.
            -> Couldn't find this mentioned in any book or documentation, but a default route will show up in the BGP table
-              with an ORIGIN code of IGP.
+              and sent to peers with an ORIGIN code of IGP.
         -> "default-information originate" command.
            -> Couldn't find this mentioned in any book or documentation, but a default route will show up in the BGP table
-              with an ORIGIN code of IGP.
+              and sent to peers with an ORIGIN code of IGP.
      
      -> EGP
         -> Predecessor to BGP.
