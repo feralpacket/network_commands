@@ -303,6 +303,7 @@ Best Path Algorithm:
      
      -> bgp bestpath as-path ignore
         -> Do not evaluate AS_PATH during best path selection.
+        -> This does not disable the loop prevention check.
 
      -> no bgp enforce-first-as
         -> Disables requirement that an update received from an eBGP peer list its AS number at the beginning of the AS_PATH.
