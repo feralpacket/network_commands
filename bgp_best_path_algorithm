@@ -415,8 +415,14 @@ Best Path Algorithm:
      -> IGP
         -> "network" command.
         -> "aggregate-address" command.
+        -> "aggregate-address" with "as-set" commands.
+           -> Only is all of the component paths have an ORIGIN code of IGP.
         -> "default-originate" command.
+           -> Couldn't find this mentioned in any book or documentation, but a default route will show up in the BGP table
+              with an ORIGIN code of IGP.
         -> "default-information originate" command.
+           -> Couldn't find this mentioned in any book or documentation, but a default route will show up in the BGP table
+              with an ORIGIN code of IGP.
      
      -> EGP
         -> Predecessor to BGP.
@@ -426,6 +432,8 @@ Best Path Algorithm:
      
      -> INCOMPLETE
         -> "redistribute" command.
+        -> "aggregate-address" with "as-set" commands.
+           -> If any of the component paths have an ORIGIN code of imcomplete.
           
      -> route-map ORIGIN permit 10
      ->    set origin igp
