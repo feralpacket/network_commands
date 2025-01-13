@@ -458,7 +458,7 @@ Best Path Algorithm:
      -> Significant external to AS.
      -> Lowest is best.
      -> Range 0 to 4,294,967,295.
-     -> Used to indicate a preferred entry point into the local AS to a nighboring AS when there are multiple paths
+     -> Used to indicate a preferred entry point into the local AS to a neighboring AS when there are multiple paths
         between the two AS.
      -> Compared only if the first AS in the AS_SEQUENCE is the same for multiple paths.
      -> MED is only used to influence traffic between two directly connected AS.  To influence route preferences beyond the
