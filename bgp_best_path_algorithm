@@ -534,6 +534,7 @@ Best Path Algorithm:
  7.  eBGP over iBGP
      -> Paths that contain AS_CONFED_SEQUENCE and AS_CONFED_SET are considered internal to the confederation.
      -> Locally significant to the router ( Loc-RIB ).
+     -> Generally, the IGP is the source of all truth within an AS or iBGP network.  Your mileage may vary.
 
 
  8.  IGP metric to the BGP next hop
@@ -575,8 +576,11 @@ Best Path Algorithm:
 
 
 9.  Multipath
-     -Note:  Route reflectors will only advertise one best path.  To add the mutlipath capability back into a route reflector architecture, 
-             one of the BGP Diverse Path Distribution solutions would need to be implemented.
+     -Note:  Route reflectors will only advertise one best path.  Path hiding can prevent efficient use of BGP multipath, 
+             prevent hitless planned maintenance, and can lead to MED oscillations and suboptimal hot-potato routing. 
+             Upon nexthop failures, path hiding also inhibits fast and local recovery because the network has to wait for 
+             BGP control plane convergence to restore traffic.  To add the mutlipath capability back into a route 
+             reflector architecture, one of the BGP Diverse Path Distribution solutions would need to be implemented.
         -> VPN unique RD
         -> BGP Shadow Route Reflector
         -> BGP Shadow Session
