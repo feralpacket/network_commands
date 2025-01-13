@@ -477,14 +477,20 @@ Best Path Algorithm:
      -> MED can introduce route oscillations in some environments.  BGP Additional Paths ( ADD-PATH ) can address this problem.
      
      -> bgp deterministic-med
-        -> Compare routes advertised by different peers in the same AS.
+        -> Compare routes advertised by different peers in the same AS.  Paths are grouped by AS and then the MED value
+           is compared.  After a winning path for each AS is selected, those winning paths are then compared.
+        -> Compare routes when choosing paths to confederation-interior destinations.
      
      -> bgp always-compare-med
         -> Compare routes advertised by different ASs.
         -> If used, must be configured in the entire AS to prevent routing loops.
      
      -> bgp bestpath med confed
-        -> Compare all paths that consist only of AS_CONFED_SEQUENCE.
+        -> Compare all paths that consist only of AS_CONFED_SEQUENCE.  Any path with an external AS in the AS_PATH
+           is ignored.
+        -> Note:  If there are two routes, one route with a destination inside a confederation and a second route
+                  to the same destination but has an external AS in the AS_PATH, there is a good chance there is a
+                  misconfiguration somewhere or the network design is really bad.
      
      -> bgp bestpath med confed missing-as-worst
         -> Assigns the value of infinity to received routes that do not carry the MED attribute, making these routes the least desirable.
