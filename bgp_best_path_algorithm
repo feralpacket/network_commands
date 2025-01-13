@@ -212,6 +212,14 @@ Best Path Algorithm:
      -> "redistribute" command.
         -> Redistributed routes are preferred to local aggregate routes.
 
+        -> We can redistribute multiple paths now!  
+        -> Routes must be in the RIB and must have a unique next-hop.
+        -> Silly Cisco, no EIGRP for you.
+        -> bgp sourced-paths per-net isis all
+        -> bgp sourced-paths per-net ospf all
+        -> bgp sourced-paths per-net ospfv3 all
+        -> bgp sourced-paths per-net static all
+
      -> aggregate-address command
         -> Creates an aggregate route, but the more specific routes are still advertised.
         -> A longer prefix that matches the aggregate route must exist in the RIB.
