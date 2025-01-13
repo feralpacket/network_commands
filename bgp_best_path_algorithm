@@ -249,11 +249,11 @@ Best Path Algorithm:
      -> AIGP path compared to AIGP path, the value of the AIGP metric is added to the metric towards the next-hop.
      -> AIGP path compared to non-AIGP path, path with AIGP attribute is preferred.
      -> Using AIGP with non-AIGP capable neighbors.
+        -> AIGP can be translated to MED.
         -> AIGP can be translated to a cost community.
             -> The cost community point of insertion (POI) is specified.
                 -> Pre-bestpath
                 -> IGP metric
-     -> AIGP can be translated to MED.
      -> AIGP attribute was developed to solve certain niche use cases.  It must be used cautiously.
         
      -> bgp bestpath aigp ignore
@@ -287,7 +287,7 @@ Best Path Algorithm:
      -> Shortest is best.
      -> Well-known, mandatory attribute AS_PATH.
      -> Significant external to AS.
-     -> Range of 1 - 255 .
+     -> Range of 1 - 255.
      -> Primary purpose is to provide loop prevention for inter-AS routing.
      -> For eBGP peers, the router prepends its own AS to the AS_PATH in the update message.  
      -> For iBGP peers, this AS_PATH prepend is not performed because the iBGP peer would see its own AS 
