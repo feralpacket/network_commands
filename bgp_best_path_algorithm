@@ -219,6 +219,7 @@ Best Path Algorithm:
         -> bgp sourced-paths per-net ospf all
         -> bgp sourced-paths per-net ospfv3 all
         -> bgp sourced-paths per-net static all
+        -> maximum-paths 32
 
      -> aggregate-address command
         -> Creates an aggregate route, but the more specific routes are still advertised.
@@ -598,6 +599,7 @@ Best Path Algorithm:
      -> Multipath only if multiple paths match the above steps.
      -> Determine if multiple paths require installation into the routing table.
      -> Default, only one best path is installed into the routing table.
+     -> Range 1 - 32.
      -> Even with multipath, the router still designates one of the paths as the best path and advertises this best path to it's neighbors.
         -> Unless BGP Additional Paths ( ADD-PATH ) is configured.
 
