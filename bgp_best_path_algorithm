@@ -475,6 +475,7 @@ Best Path Algorithm:
         -> Or a neighboring AS may be influencing the local AS with multiple entry points.
      -> Confederation sub-ASs are ignored unless configured.
      -> MED can introduce route oscillations in some environments.  BGP Additional Paths ( ADD-PATH ) can address this problem.
+        Also consider changing the "bgp dynamic-med-interval" timer.
      
      -> bgp deterministic-med
         -> Compare routes advertised by different peers in the same AS.  Paths are grouped by AS and then the MED value
