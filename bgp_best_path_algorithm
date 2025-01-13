@@ -461,6 +461,7 @@ Best Path Algorithm:
      -> Used to indicate a preferred entry point into the local AS to a neighboring AS when there are multiple paths
         between the two AS.
      -> Compared only if the first AS in the AS_SEQUENCE is the same for multiple paths.
+     -> MED is not advertised to an eBGP peer if the value was received from a different AS.
      -> MED is only used to influence traffic between two directly connected AS.  To influence route preferences beyond the
         neighboring AS, the AS_PATH must be manipulated.
      -> Default is 0 for received routes.
