@@ -268,10 +268,6 @@ Best Path Algorithm:
      -> bgp bestpath aigp ignore
         -> Do not evaluate AIGP during best path selection.
 
-     -> router bgp 100
-     ->     address-family ipv4 unicast
-     ->         aigp
-
      -> route-map AIGP permit 10
      ->    set aigp-metric igp-metric
      ->    set aigp-metric 100
