@@ -3,55 +3,60 @@ http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-2
 
 
 Why Routers Ignore Paths:
- - Paths are marked “not synchronized” in "sh ip bgp longer-prefixes" or "sh ip bgp detail" output and "synchronization" is enabled.
+ - Paths are marked “not synchronized” in "sh ip bgp longer-prefixes" or "sh ip bgp detail" output and "synchronization" is 
+   enabled.
  - Next hop is inaccessible or unreachable.
  - Path from eBGP neighbor has local AS in AS_PATH.
  - "bgp enforce-first-as" is set and the update doesn’t list the neighbor AS as the first AS.
  - Paths are marked “receive only” in "sh ip bgp longer-prefixes" output.
      -> sh ip bgp 192.0.2.0 255.255.255.0 longer-prefixes
-     -> Policy rejected these routes.  However, the router stores the paths unmodified if "soft-reconfiguration inbound" is configured.
+     -> Policy rejected these routes.  However, the router stores the paths unmodified if "soft-reconfiguration inbound" is 
+        configured.
      -> neighbor 192.0.2.1 soft-reconfiguration inbound
      -> bgp soft-reconfig-backup
           -> Configure soft reconfiguration for peers that do not support the route refresh capability.
 
  - Routers will discard updates that have their CLUSTER_ID in the CLUSTER_LIST.
- - Routers will discard updates when configured for Multiple CLUSTER_IDs (MCID) and the CLUSTER_LIST contains either their global
-   CLUSTER_ID or any of the CLUSTER_IDs assigned to any of the iBGP neighbors.
+ - Routers will discard updates when configured for Multiple CLUSTER_IDs (MCID) and the CLUSTER_LIST contains either their 
+   global CLUSTER_ID or any of the CLUSTER_IDs assigned to any of the iBGP neighbors.
  - Routes will not be advertised to peers if they are not installed in the RIB and "bgp suppress-inactive" is configured.
  - Aggregate routes will not be generated or advertised if a more specific matching prefix is not installed in the RIB.
- - Aggregate routes will not be advertised to peers if "as-set" is used with "aggregate-address" and one of the specific routes has the 
-   community "no-export" or "no-advertise".
- - Aggregate routes will be dropped if "as-set" is used with "aggregate-address" and a receving router sees its own local AS in the AS_SET.
- - Routes will be dropped if it is dampened.
+ - Aggregate routes will not be advertised to peers if "as-set" is used with "aggregate-address" and one of the specific 
+   routes has the community "no-export" or "no-advertise".
+ - Aggregate routes will be dropped if "as-set" is used with "aggregate-address" and a receving router sees its own local AS 
+   in the AS_SET.
+ - If BGP dampening suppresses a route, it will not use used in the BGP best path selection and it will not be installed into 
+   the routing table.  BGP keeps the prefix in the BGP table as a history entry. 
  - Backdoor routes configured with the network backdoor command are not advertised in BGP updates.
  - Route Reflectors will not reflect routes when "no bgp client-to-client reflection" is configured.
- - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id any" is configured.
- - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id <cluster-id>" is 
-   configured and the update contains the matching CLUSTER_ID.
+ - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id any"
+   is configured.
+ - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id <cluster-id>"
+   is configured and the update contains the matching CLUSTER_ID.
  - Routes will be discarded if the AS_PATH exceeds the "bgp maxas-limit" when configured.
  - Routes will be discarded if the number of prefixes exceeds the "neighbor maximum-prefix" when configured.
  - Routes will be discarded if the number of communities exceeds the "bgp maxcommunity-limit" when configured.
  - Routes will be discarded if the number of extended communities exceeds the "bgp maxextcommunity-limit" when configured.
  - Routes will be discarded if the number of large communities exceeds the "bgp maxlargecommunity-limit" when configured.
- - BGP-Origin AS Validation is configured and a prefix is marked as invalid, it will not be advertised, will be withdrawn from the 
-   BGP routing table, will not be considered as a bestpath, and will not be considered as a candidate for multipath.
- - BGP-Origin AS Validation is configured and a prefix is marked as not found, it will only be considered for bestpath or a candidate
-   for multipath if there is no alternative prefix that is marked valid.
- - In EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath point 
-   of insertion.
+ - BGP-Origin AS Validation is configured and a prefix is marked as invalid, it will not be advertised, will be withdrawn from 
+   the BGP routing table, will not be considered as a bestpath, and will not be considered as a candidate for multipath.
+ - BGP-Origin AS Validation is configured and a prefix is marked as not found, it will only be considered for bestpath or a 
+   candidate for multipath if there is no alternative prefix that is marked valid.
+ - In EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath 
+   point of insertion.
 
 
 Best Path Algorithm:
 - Important, next hop needs to be valid!
 
-- It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), highest is best.  
-  Everything else, lowest, shortest, or oldest is best.
+- It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), 
+  highest is best.  Everything else, lowest, shortest, or oldest is best.
 
-- If the ADD-PATH capability is used to send and receive additional paths, the best path algorithm is still used to select the best path,
-  the 2nd "best" path, and the 3rd "best" path.
+- If the ADD-PATH capability is used to send and receive additional paths, the best path algorithm is still used to select the 
+  best path, the 2nd "best" path, and the 3rd "best" path.
 
-- If the Prefix Independent Convergence (PIC) feature is used to select a backup path, the best path algorithm is still used to select
-  the best and backup paths.
+- If the Prefix Independent Convergence (PIC) feature is used to select a backup path, the best path algorithm is still used to 
+  select the best and backup paths.
 
 
  0.  Extended cost community, pre-bestpath POI
@@ -503,10 +508,12 @@ Best Path Algorithm:
                   misconfiguration somewhere or the network design is really bad.
      
      -> bgp bestpath med confed missing-as-worst
-        -> Assigns the value of infinity to received routes that do not carry the MED attribute, making these routes the least desirable.
+        -> Assigns the value of infinity to received routes that do not carry the MED attribute, making these routes the least 
+           desirable.
      
      -> bgp bestpath med missing-as-worst
-        -> Assigns the value of infinity to received routes that do not carry the MED attribute, making these routes the least desirable.
+        -> Assigns the value of infinity to received routes that do not carry the MED attribute, making these routes the least 
+           desirable.
      
      -> route-map MED permit 10
      ->     set metric 100
@@ -564,8 +571,8 @@ Best Path Algorithm:
      -> Cost community ID number 0 to 255.
      -> Cost number range 0 to 4294967295.
      -> Default is 2147483647.
-     -> Note:  Paths that do not have the extended community cost attribute are considered to have the default value by the best
-        path selection process.
+     -> Note:  Paths that do not have the extended community cost attribute are considered to have the default value by the 
+        best path selection process.
      -> Non-transitive extended community.
      -> Only advertised to iBGP neighbors, not eBGP neighbors.
      -> If used, must be configured in the entire AS or confederation to prevent routing loops.
@@ -647,7 +654,8 @@ Best Path Algorithm:
         
      -> maximum-paths eibgp 2
         -> Install parallel iBGP and eBGP routes.
-        -> Will generate the following log message:  %BGP-4-MULTIPATH_LOOP: This may cause traffic loop if not used properly (command accepted).
+        -> Will generate the following log message:  %BGP-4-MULTIPATH_LOOP: This may cause traffic loop if not used properly 
+           (command accepted).
         -> If an iBGP path has inconsistent next-hops, routing loops may be formed.
         -> It is possible to configure both "maximum-paths" and "maximum-paths ibgp" at the same time.
         -> For MPLS VPN environments, this is configured under the IPv4 VRF address family.
@@ -707,8 +715,8 @@ Best Path Algorithm:
  10.  Oldest route
      -> When multiple paths are external, prefer the path that was received first.
      -> Oldest is best.
-     -> If there is already a current best path, continue using that same best path if all other attributes are equal.  It isn't
-        necessarily the literal oldest path that is always selected, but rather the oldest best path.
+     -> If there is already a current best path, continue using that same best path if all other attributes are equal.  It 
+        isn't necessarily the literal oldest path that is always selected, but rather the oldest best path.
      -> Locally significant to the router ( Loc-RIB ).
      -> For external paths, the BGP best path selection rarely goes beyond this step.
      -> This step is skipped if any of the following are true:
