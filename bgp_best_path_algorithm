@@ -443,7 +443,8 @@ Best Path Algorithm:
         -> Predecessor to BGP.
         -> Historically, used to to transition from EGP to BGP.
         -> The "set origin egp" command was removed in IOS 12.4(2)T.
-        -> You should never see it, take a screenshot and tell the world if you do.
+        -> Well, someone added it back at some point.  It works in IOS XE 17.15.1.
+        -> ~~You should never see it, take a screenshot and tell the world if you do.~~
      
      -> INCOMPLETE
         -> "redistribute" command.
@@ -452,7 +453,10 @@ Best Path Algorithm:
           
      -> route-map ORIGIN permit 10
      ->    set origin igp
-     
+
+     -> route-map ORIGIN permit 10
+     ->    set origin egp 100
+
      -> route-map ORIGIN permit 10
      ->    set origin incomplete
 
