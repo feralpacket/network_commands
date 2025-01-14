@@ -661,10 +661,7 @@ Best Path Algorithm:
         -> By default, a VRF will import only one best path per prefix from the source VRF table.
            -> Unless the prefix is exported with a different route-target.
         -> An import path is a redundant path and can have a next-hop that matches an installed multipath.
-        -> The import event runs every 15 seconds by default.  Configure BGP Event-Based VPN Import Processing to speed this up.
-           -> Some documentation says the import event runs every 15 seconds and can be configured to run every 5 to 15 seconds.
-           -> Other documentation says import is handled by the BGP scanner, which has a default of 60 seconds.
-           -> Either way, I've been unable to find a specific configuration for the import timer.
+        -> The import was replaced with BGP Event-Based VPN Import Processing in IOS 15.0(1)M and 12.2(33)SRE.
         -> Will generate the follow log messages:  
            -> %NOTE: Import option has been deprecated.
            -> %      Converting to 'import path selection all; import path limit 2'.
@@ -685,10 +682,7 @@ Best Path Algorithm:
         -> By default, a VRF will import only one best path per prefix from the source VRF table.
            -> Unless the prefix is exported with a different route-target.
         -> An import path is a redundant path and can have a next-hop that matches an installed multipath.
-        -> The import event runs every 15 seconds by default.  Configure BGP Event-Based VPN Import Processing to speed this up.
-           -> Some documentation says the import event runs every 15 seconds and can be configured to run every 5 to 15 seconds.
-           -> Other documentation says import is handled by the BGP scanner, which has a default of 60 seconds.
-           -> Either way, I've been unable to find a specific configuration for the import timer.
+        -> The import was replaced with BGP Event-Based VPN Import Processing in IOS 15.0(1)M and 12.2(33)SRE.
         -> Will generate the follow log messages:  
            -> %NOTE: Import option has been deprecated.
            -> %      Converting to 'import path selection all; import path limit 2'.
