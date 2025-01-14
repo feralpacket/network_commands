@@ -707,6 +707,8 @@ Best Path Algorithm:
  10.  Oldest route
      -> When multiple paths are external, prefer the path that was received first.
      -> Oldest is best.
+     -> If there is already a current best path, continue using that same best path if all other attributes are equal.  It isn't
+        necessarily the literal oldest path that is always selected, but rather the oldest best path.
      -> Locally significant to the router ( Loc-RIB ).
      -> This step is skipped if any of the following are true:
         -> Forcing BGP to compare router-ids.
