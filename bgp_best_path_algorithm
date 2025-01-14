@@ -710,7 +710,7 @@ Best Path Algorithm:
      -> If there is already a current best path, continue using that same best path if all other attributes are equal.  It isn't
         necessarily the literal oldest path that is always selected, but rather the oldest best path.
      -> Locally significant to the router ( Loc-RIB ).
-     -> For external paths, the BGP best path selection typically stops here.
+     -> For external paths, the BGP best path selection rarely goes beyond this step.
      -> This step is skipped if any of the following are true:
         -> Forcing BGP to compare router-ids.
         -> The router-id is the same for multiple paths.
