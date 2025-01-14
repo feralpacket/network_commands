@@ -652,7 +652,7 @@ Best Path Algorithm:
         -> It is possible to configure both "maximum-paths" and "maximum-paths ibgp" at the same time.
         -> For MPLS VPN environments, this is configured under the IPv4 VRF address family.
         -> Cisco IOS Release 12.0S based software: 8 paths
-        -> Cisco IOS Release 12.3T based software: 16 paths
+        -> Cisco IOS Release 12.3T, 12.4, 12.4T, and 15.0-based software: 16 paths
         -> Cisco IOS Release 12.2S based software: 32 paths
 
      -> maximum-paths eibgp 2 import 2
@@ -675,6 +675,7 @@ Best Path Algorithm:
         
      -> maximum-paths ibgp 2
          -> Install both equal-cost and unequal-cost iBGP routes.
+         -> Works with 6PE only in Cisco IOS Release 12.2(25)S and subsequent 12.2S releases.
          
      -> maximum-paths ibgp 2 import 2
         -> Specifies the number of redundant paths configured as back up multipaths for a VRF.
