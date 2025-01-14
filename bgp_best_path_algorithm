@@ -718,7 +718,7 @@ Best Path Algorithm:
      
      -> bgp bestpath compare-router-id
         -> Forcing BGP to compare router-ids can introduce instability if associated peers tend to flap.  Configure
-           route dampening if this is a problem.
+           BGP route dampening if this is a problem.
 
 
  11.  Router-id
