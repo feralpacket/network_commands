@@ -708,7 +708,10 @@ Best Path Algorithm:
      -> When multiple paths are external, prefer the path that was received first.
      -> Oldest is best.
      -> Locally significant to the router ( Loc-RIB ).
-     -> This step can be skipped by forcing BGP to compare router-ids.
+     -> This step is skipped if any of the following are true:
+        -> Forcing BGP to compare router-ids.
+        -> The router-id is the same for multiple paths.
+        -> There is no current best path.  This can happen when the current best path is lost.
      
      -> bgp bestpath compare-router-id
 
@@ -725,8 +728,8 @@ Best Path Algorithm:
      -> Lowest is best
      -> Locally significant to the router ( Loc-RIB ).
      -> CLUSTER_LIST is an optional, non-transitive attribute.
-     -> Lowest CLUSTER_LIST length.
-     -> Router reflectors only.
+     -> Lowest CLUSTER_LIST length, when the ORIGINATOR_ID is the same.
+     -> Router reflectors environments only.
 
 
  13.  Neighbor address
