@@ -660,7 +660,7 @@ Best Path Algorithm:
         -> Import range 1 - 32.
         -> By default, a VRF will import only one best path per prefix from the source VRF table.
            -> Unless the prefix is exported with a different route-target.
-        -> An import path is a redundant path and can have a next-hop that matches and installed multipath.
+        -> An import path is a redundant path and can have a next-hop that matches an installed multipath.
         -> The import event runs every 15 seconds by default.  Configure BGP Event-Based VPN Import Processing to speed this up.
            -> Some documentation says the import event runs every 15 seconds and can be configured to run every 5 to 15 seconds.
            -> Other documentation says import is handled by the BGP scanner, which has a default of 60 seconds.
@@ -684,7 +684,7 @@ Best Path Algorithm:
         -> Import range 1 - 32.
         -> By default, a VRF will import only one best path per prefix from the source VRF table.
            -> Unless the prefix is exported with a different route-target.
-        -> An import path is a redundant path and can have a next-hop that matches and installed multipath.
+        -> An import path is a redundant path and can have a next-hop that matches an installed multipath.
         -> The import event runs every 15 seconds by default.  Configure BGP Event-Based VPN Import Processing to speed this up.
            -> Some documentation says the import event runs every 15 seconds and can be configured to run every 5 to 15 seconds.
            -> Other documentation says import is handled by the BGP scanner, which has a default of 60 seconds.
