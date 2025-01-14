@@ -6,16 +6,17 @@
      - eBGP sessions in a VRF:  0 seconds
      - iBGP sessions:  0 seconds
    - router bgp 64500
-   - add ipv4
-   - nei 192.0.2.1 advertisement-interval 5
+   -   add ipv4
+   -     nei 192.0.2.1 advertisement-interval 5
 
 - keepalive
    - determines how quickly software failures are detected
    - default:  60 seconds
    - recommended:  3 seconds
    - router bgp 64500
-   - ! nei 192.0.2.1 timers 3 9
+   -   nei 192.0.2.1 timers 3 9
    - timers bgp 3 9 0
+   - timers configured for a specific neighbor or peer group override the "timers bgp" configuration
    - using BFD will cause session teardown and withdraws before the timers are exceeded
 
 - hold time
@@ -23,8 +24,9 @@
    - default:  180 secondes
    - recommended:  9 seconds
    - router bgp 64500
-   - ! nei 192.0.2.1 timers 3 9
+   -   nei 192.0.2.1 timers 3 9
    - timers bgp 3 9 0
+   - timers configured for a specific neighbor or peer group override the "timers bgp" configuration
    - using BFD will cause session teardown and withdraws before the timers are exceeded
 
 - retry time
@@ -52,10 +54,3 @@
    - bgp refresh stalepath-time 600
    - bgp refresh max-eor-time 600
 
-- minimum route advertisement interval
-   - determines when to send updates
-   - default iBGP:  0 seconds
-   - default eBGP:  30 seconds
-   - router bgp 64500
-   - add ipv4
-   - nei 192.0.2.1 advertisement-interval 0
