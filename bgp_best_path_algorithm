@@ -610,6 +610,7 @@ Best Path Algorithm:
         -> Accumulated interior gateway protocol, if configured.
            -> Or "bgp bestpath aigp ignore" is configured.
         -> AS-PATH length
+           -> Unless "bgp bestpath as-path ignore" is configured.
         -> AS-PATH
            -> Unless "bgp bestpath as-path multipath-relax" is configured.
            -> Or "bgp bestpath as-path ignore" is configured.
