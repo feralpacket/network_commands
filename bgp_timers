@@ -1,7 +1,10 @@
 ! BGP timers
  - advertisement
    - determines how quickly route updates propogate
-   - default:  30 seconds
+   - defaults
+     - eBGP sessions not in a VRF:  30 seconds
+     - eBGP sessions in a VRF:  0 seconds
+     - iBGP sessions:  0 seconds
    - router bgp 64500
    - add ipv4
    - nei 192.0.2.1 advertisement-interval 5
