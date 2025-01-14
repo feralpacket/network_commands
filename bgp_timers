@@ -43,6 +43,7 @@
    - performs conditional advertisement and route injection
    - imports new routes to the BGP table from the RIB with the network and redistribute commands
    - performs route dampening
+   - the scan time is set to the default if BGP Next Hop Tracking (NHT) is configured
    - bgp scan-time 5
 
 - update delay
