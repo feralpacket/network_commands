@@ -16,6 +16,8 @@ Why Routers Ignore Paths:
      -> bgp soft-reconfig-backup
           -> Configure soft reconfiguration for peers that do not support the route refresh capability.
 
+ - Prefixes are withdrawn from the BGP table and the RIB if an update is received that is malformed because the BGP 
+   Enhanced Attribute Error Handling feature is enabled by default with "bgp enhanced-error".
  - Prefixes are withdrawn from the BGP table and the RIB if a BGP Attribute Filter is configured with "path-attibute 
    treat-as-withdraw" and the specified BGP attribute is in the update.
  - Routers will discard updates that have their CLUSTER_ID in the CLUSTER_LIST.
