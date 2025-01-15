@@ -32,8 +32,8 @@ Why Routers Ignore Paths:
    in the AS_SET.
 
  - Routes will not be advertised to peers if they are not installed in the RIB and "bgp suppress-inactive" is configured.
- - If BGP dampening suppresses a route, it will not use used in the BGP best path selection and it will not be installed into 
-   the routing table.  BGP keeps the prefix in the BGP table as a history entry. 
+ - If BGP dampening suppresses a route, it will not use used in the BGP best path selection, it will not be advertised to
+   any peer, and it will not be installed into the routing table.  BGP keeps the prefix in the BGP table as a history entry. 
  - Backdoor routes configured with the network backdoor command are not advertised in BGP updates.
 
  - Route Reflectors will not reflect routes when "no bgp client-to-client reflection" is configured.
