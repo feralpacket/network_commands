@@ -20,32 +20,39 @@ Why Routers Ignore Paths:
    Enhanced Attribute Error Handling feature is enabled by default with "bgp enhanced-error".
  - Prefixes are withdrawn from the BGP table and the RIB if a BGP Attribute Filter is configured with "path-attibute 
    treat-as-withdraw" and the specified BGP attribute is in the update.
+
  - Routers will discard updates that have their CLUSTER_ID in the CLUSTER_LIST.
  - Routers will discard updates when configured for Multiple CLUSTER_IDs (MCID) and the CLUSTER_LIST contains either their 
    global CLUSTER_ID or any of the CLUSTER_IDs assigned to any of the iBGP neighbors.
- - Routes will not be advertised to peers if they are not installed in the RIB and "bgp suppress-inactive" is configured.
+
  - Aggregate routes will not be generated or advertised if a more specific matching prefix is not installed in the RIB.
  - Aggregate routes will not be advertised to peers if "as-set" is used with "aggregate-address" and one of the specific 
    routes has the community "no-export" or "no-advertise".
  - Aggregate routes will be dropped if "as-set" is used with "aggregate-address" and a receving router sees its own local AS 
    in the AS_SET.
+
+ - Routes will not be advertised to peers if they are not installed in the RIB and "bgp suppress-inactive" is configured.
  - If BGP dampening suppresses a route, it will not use used in the BGP best path selection and it will not be installed into 
    the routing table.  BGP keeps the prefix in the BGP table as a history entry. 
  - Backdoor routes configured with the network backdoor command are not advertised in BGP updates.
+
  - Route Reflectors will not reflect routes when "no bgp client-to-client reflection" is configured.
  - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id any"
    is configured.
  - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id <cluster-id>"
    is configured and the update contains the matching CLUSTER_ID.
+
  - Routes will be discarded if the AS_PATH exceeds the "bgp maxas-limit" when configured.
  - Routes will be discarded if the number of prefixes exceeds the "neighbor maximum-prefix" when configured.
  - Routes will be discarded if the number of communities exceeds the "bgp maxcommunity-limit" when configured.
  - Routes will be discarded if the number of extended communities exceeds the "bgp maxextcommunity-limit" when configured.
  - Routes will be discarded if the number of large communities exceeds the "bgp maxlargecommunity-limit" when configured.
+
  - BGP-Origin AS Validation is configured and a prefix is marked as invalid, it will not be advertised, will be withdrawn from 
    the BGP routing table, will not be considered as a bestpath, and will not be considered as a candidate for multipath.
  - BGP-Origin AS Validation is configured and a prefix is marked as not found, it will only be considered for bestpath or a 
    candidate for multipath if there is no alternative prefix that is marked valid.
+
  - In EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath 
    point of insertion.
 
