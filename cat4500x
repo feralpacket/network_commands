@@ -9,3 +9,9 @@ redundancy reload shelf
 
 ! environment variables
 sh platform environment variables
+
+
+! buffer fun
+sh buffer | in ^[A-Z]|[1-9] misses
+sh int | in ^[A-Z]|[1-9] no buffer
+buffer tune automatic
