@@ -636,7 +636,7 @@ Best Path Algorithm:
         -> AS-PATH length
            -> Unless "bgp bestpath as-path ignore" is configured.
         -> AS-PATH AS_SEQUENCE
-           -> For newere IOS versions that have the eiBGP Multipath feature.
+           -> For newer IOS versions that have the eiBGP Multipath feature.
            -> Unless "bgp bestpath as-path multipath-relax" is configured.
            -> Or "bgp bestpath as-path ignore" is configured.
         -> Neighboring AS or sub-AS
