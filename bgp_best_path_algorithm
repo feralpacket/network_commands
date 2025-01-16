@@ -16,7 +16,7 @@ Why Routers Ignore Paths:
      -> bgp soft-reconfig-backup
           -> Configure soft reconfiguration for peers that do not support the route refresh capability.
 
- - Prefixes are withdrawn from the BGP table and the RIB if an update is received that is malformed because the BGP 
+ - Prefixes are withdrawn from the BGP table and the RIB if an update is received that is malformed, because the BGP 
    Enhanced Attribute Error Handling feature is enabled by default with "bgp enhanced-error".
  - Prefixes are withdrawn from the BGP table and the RIB if a BGP Attribute Filter is configured with "path-attibute 
    treat-as-withdraw" and the specified BGP attribute is in the update.
@@ -34,7 +34,7 @@ Why Routers Ignore Paths:
  - Routes will not be advertised to peers if they are not installed in the RIB and "bgp suppress-inactive" is configured.
  - If BGP dampening suppresses a route, it will not use used in the BGP best path selection, it will not be advertised to
    any peer, and it will not be installed into the routing table.  BGP keeps the prefix in the BGP table as a history entry. 
- - Backdoor routes configured with the network backdoor command are not advertised in BGP updates.
+ - Backdoor routes configured with the "network backdoor" command are not advertised in BGP updates.
 
  - Route Reflectors will not reflect routes when "no bgp client-to-client reflection" is configured.
  - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id any"
@@ -42,7 +42,7 @@ Why Routers Ignore Paths:
  - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id <cluster-id>"
    is configured and the update contains the matching CLUSTER_ID.
 
- - Routes will be discarded if the AS_PATH exceeds the "bgp maxas-limit" when configured.
+ - Routes will be discarded if the AS_PATH length exceeds the "bgp maxas-limit" when configured.
  - Routes will be discarded if the number of prefixes exceeds the "neighbor maximum-prefix" when configured.
  - Routes will be discarded if the number of communities exceeds the "bgp maxcommunity-limit" when configured.
  - Routes will be discarded if the number of extended communities exceeds the "bgp maxextcommunity-limit" when configured.
