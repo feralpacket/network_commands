@@ -36,7 +36,7 @@ Why Routers Ignore Paths:
    any peer, and it will not be installed into the routing table.  BGP keeps the prefix in the BGP table as a history entry. 
  - Backdoor routes configured with the "network backdoor" command are not advertised in BGP updates.
 
- - Routers will discard updates if the ORIGINATOR-ID is the same as the router's ROUTER-ID.
+ - Routers will discard routes if the ORIGINATOR-ID is the same as the router's ROUTER-ID.
  - Route Reflectors will not reflect routes when "no bgp client-to-client reflection" is configured.
  - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id any"
    is configured.
