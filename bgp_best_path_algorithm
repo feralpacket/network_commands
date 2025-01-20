@@ -733,8 +733,8 @@ Best Path Algorithm:
          
      -> bgp bestpath as-path mutlipath-relax
         -> Hidden command in older IOS versions.
-        -> If multipath is configured and multiple routes have different AS in the path, but the AS_PATH lengths are the same (parallel paths),  
-           install the multiple paths into the routing table.
+        -> If multipath is configured and multiple routes have different AS in the path, but the AS_PATH lengths are the same 
+           (parallel paths), install the multiple paths into the routing table.
            -> Solves a problem with BGP in data center CLOS networks described in RFC 7938.
 
 
