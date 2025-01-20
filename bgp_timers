@@ -5,6 +5,7 @@
      - eBGP sessions not in a VRF:  30 seconds
      - eBGP sessions in a VRF:  0 seconds
      - iBGP sessions:  0 seconds
+   - range:  0 - 600 seconds
    - router bgp 64500
    -   add ipv4
    -     nei 192.0.2.1 advertisement-interval 5
@@ -13,6 +14,7 @@
    - determines how quickly software failures are detected
    - default:  60 seconds
    - recommended:  3 seconds
+   - range:  0 - 65535 seconds
    - router bgp 64500
    -   nei 192.0.2.1 timers 3 9
    - timers bgp 3 9 0
@@ -23,6 +25,8 @@
    - determines how quickly software failures are detected
    - default:  180 secondes
    - recommended:  9 seconds
+   - minimum holdtime (optional):  0 seconds
+   - range:  0 - 65535 seconds
    - router bgp 64500
    -   nei 192.0.2.1 timers 3 9
    - timers bgp 3 9 0
@@ -39,6 +43,9 @@
 - scan time
    - the BGP scanner
    - default:  60 seconds
+   - range:  5 - 60 seconds
+     - in IOS XE 17.12.1
+     - documentation says the range is 15 - 60 seconds
    - checks all validity and reachability of the NEXT_HOP attribute for a prefixes
    - performs conditional advertisement and route injection
    - imports new routes to the BGP table from the RIB with the network and redistribute commands
@@ -46,9 +53,24 @@
    - the scan time is set to the default if BGP Next Hop Tracking (NHT) is configured
    - bgp scan-time 5
 
+ - trigger delay
+   - BGP next-hop tracking
+   - default:  5 seconds
+   - range:  0 100 seconds
+   - checks on updated next-hop routes installed in the routing table
+   - improves BGP convergence time by reducing the response time to hext-hop changes for routes installed in the RIB
+   - when a best-path calculation is run in between BGP scanner cycles, only the changes are processed and tracked
+   - an unstable IGP can introduce instability to BGP
+   - when enabled, it's recommended to use the default of 5 seconds
+   - bgp nexthop trigger 1
+   - bgp nexthop trigger enable
+
 - update delay
    - time from when a neighbor is established until the best path algorithm is run and updates are sent
    - default:  120 seconds
+   - range:  0 - 3600 seconds
+   - bgp update-delay 5
+   - if set too low, can cause extra updates to be sent if a better path is received from another peer later
    - affected by End-of-RIB marker with Graceful Restart
      - an UPDATE message with no NLRI and empty withdrawn NLRI
 	 - RFC 8538 - Graceful Restart Mechanism for BGP
