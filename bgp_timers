@@ -20,6 +20,15 @@
    - timers bgp 3 9 0
    - timers configured for a specific neighbor or peer group override the "timers bgp" configuration
    - using BFD will cause session teardown and withdraws before the timers are exceeded
+   - bfd interval 250 min-rx 250 multiplier 3
+   - router bgp 64500
+   -   neighbor 192.0.2.1 fall-over bfd
+   - BGP fast external failover will cause the session to immediately reset if an interface goes down
+   - bgp fast-external-failover
+   - int gi0/0/0
+   -   ip bgp fast-external-failover permit
+   - int gi0/0/1
+   -   ip bgp fact-external-failover deny
 
 - hold time
    - determines how quickly software failures are detected
@@ -71,6 +80,8 @@
    - range:  0 - 3600 seconds
    - bgp update-delay 5
    - if set too low, can cause extra updates to be sent if a better path is received from another peer later
+   - can be configured with Nonstop Forwarding (NSF)
+   - bgp graceful-restart
    - affected by End-of-RIB marker with Graceful Restart
      - an UPDATE message with no NLRI and empty withdrawn NLRI
 	 - RFC 8538 - Graceful Restart Mechanism for BGP
