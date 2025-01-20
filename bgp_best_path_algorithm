@@ -624,7 +624,7 @@ Best Path Algorithm:
         -> The default is per-destination load sharing.
         -> Per-packet round robin load sharing can be configured, with older IOS versions.
            -> ip cef load-sharing per-packet
-        -> Per-packet round robin load sharing can be configured on newer IOS version on each interface.
+        -> Per-packet round robin load sharing can be configured on each interface, newer IOS versions.
            -> int gi0/0/0
            ->   ip load-sharing per-packet
         -> Load balancing algorithms available on newer IOS versions include, Original, Universal, Tunnel, Include-ports, 
