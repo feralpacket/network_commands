@@ -420,7 +420,8 @@ Best Path Algorithm:
         -> Note:  The AS_PATH length is not changed.
         -> An AS_PATH of 123 234 345 456 567 becomes 100 100 100 100 100.
 
-     -> To strip the AS_PATH and replace with only the local AS, configure a locally originated path.
+     -> To strip the AS_PATH and replace with only the local AS, configure a locally originated path.  It will match step 3
+        in the BGP best path selection.
      -> ip route 0.0.0.0 0.0.0.0 null0 name STRIP_AS_PATH_INFORMATION
         -> Note:  Static routes to inject prefixes into BGP should point to null0, incase the a route to destination is not 
                   present or flaps.
@@ -621,7 +622,21 @@ Best Path Algorithm:
      -> Range 1 - 32.
      -> Load balancing over multipaths is performed by CEF.
         -> The default is per-destination load sharing.
-        -> Per-packet round robin load sharing can be configured.
+        -> Per-packet round robin load sharing can be configured, with older IOS versions.
+           -> ip cef load-sharing per-packet
+        -> Per-packet round robin load sharing can be configured on newer IOS version on each interface.
+           -> int gi0/0/0
+           ->   ip load-sharing per-packet
+        -> Load balancing algorithms available on newer IOS versions include, Original, Universal, Tunnel, Include-ports, 
+           Src-only, Deep Packet Inspection (DPI).  DPI can load-balance based on GRE traffic, L2VPN-MAC, IP-in-IP, IPSec,
+           L2TP, and VXLAN traffic.
+           -> ip cef load-sharing alogorithm original
+           -> ip cef load-sharing alogorithm universal
+           -> ip cef load-sharing alogorithm include-ports desination
+           -> ip cef load-sharing alogorithm include-ports source [destination]
+           -> ip cef load-sharing alogorithm src-only
+           -> ip cef load-sharing alogorithm tunnel
+           -> ip cef load-sharing alogorithm dpi {l2vpn-mac|tunnel-gre|tunnel-ipsec|tunnel-l2tp|tunnel-vxlan}
      -> With multipath load sharing in MPLS VPN environments, it is possible to have traffic sent as IP traffic for one 
         path and traffic sent as MPLS traffic for a second path.
      -> Even with multipath, the router still designates one of the paths as the best path and advertises this best path 
