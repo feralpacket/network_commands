@@ -604,175 +604,178 @@ Best Path Algorithm:
 
 
 9.  Multipath
-     -Note:  Route reflectors will only advertise one best path.  Path hiding can prevent efficient use of BGP multipath, 
+    - Determine if multiple paths require installation in the routing table.
+    - Configure if best path is not selected yet.
+
+    - Note:  Route reflectors will only advertise one best path.  Path hiding can prevent efficient use of BGP multipath, 
              prevent hitless planned maintenance, and can lead to MED oscillations and suboptimal hot-potato routing. 
              Upon nexthop failures, path hiding also inhibits fast and local recovery because the network has to wait for 
              BGP control plane convergence to restore traffic.  To add the mutlipath capability back into a route 
              reflector architecture, one of the BGP Diverse Path Distribution solutions would need to be implemented.
-        -> VPN unique RD
-           -> Each VRF must be configured with a different RD.
-        -> BGP Shadow Route Reflector
-        -> BGP Shadow Session
-        -> BGP Best External
-        -> BGP Additional Paths ( ADD-PATH )
-        -> BGP Optimal Route Reflection ( ORR )
-     -> Multipath only if multiple paths match the above steps.
-     -> Determine if multiple paths require installation into the routing table.
-     -> Default, only one best path is installed into the routing table.
-     -> Range 1 - 32.
-     -> Load balancing over multipaths is performed by CEF.
-        -> The default is per-destination load sharing.
-        -> Per-packet round robin load sharing can be configured, with older IOS versions.
-           -> ip cef load-sharing per-packet
-        -> Per-packet round robin load sharing can be configured on each interface, with newer IOS versions.
-           -> int gi0/0/0
-           ->   ip load-sharing per-packet
-        -> Load balancing algorithms available on newer IOS versions include, Original, Universal, Tunnel, Include-ports, 
-           Src-only, Deep Packet Inspection (DPI).  DPI can load-balance based on GRE traffic, L2VPN-MAC, IP-in-IP, IPSec,
-           L2TP, and VXLAN traffic.
-           -> ip cef load-sharing alogorithm original
-           -> ip cef load-sharing alogorithm universal
-           -> ip cef load-sharing alogorithm include-ports desination
-           -> ip cef load-sharing alogorithm include-ports source [destination]
-           -> ip cef load-sharing alogorithm src-only
-           -> ip cef load-sharing alogorithm tunnel
-           -> ip cef load-sharing alogorithm dpi {l2vpn-mac|tunnel-gre|tunnel-ipsec|tunnel-l2tp|tunnel-vxlan}
-     -> With multipath load sharing in MPLS VPN environments, it is possible to have traffic sent as IP traffic for one 
-        path and traffic sent as MPLS traffic for a second path.
-     -> Even with multipath, the router still designates one of the paths as the best path and advertises this best path 
-        to it's neighbors.
-        -> Unless BGP Additional Paths ( ADD-PATH ) is configured.
+             -> VPN unique RD
+                -> Each VRF must be configured with a different RD.
+             -> BGP Shadow Route Reflector
+             -> BGP Shadow Session
+             -> BGP Best External
+             -> BGP Additional Paths ( ADD-PATH )
+             -> BGP Optimal Route Reflection ( ORR )
 
-     -> The following needs to be equal for each prefix to multipath.
-        -> Weight
-        -> Local preference
-        -> Received or locally originated route.
-        -> Accumulated interior gateway protocol, if configured.
-           -> Or "bgp bestpath aigp ignore" is configured.
-        -> AS-PATH length
-           -> Unless "bgp bestpath as-path ignore" is configured.
-        -> AS-PATH AS_SEQUENCE
-           -> For newer IOS versions that have the eiBGP Multipath feature.
-           -> Unless "bgp bestpath as-path multipath-relax" is configured.
-           -> Or "bgp bestpath as-path ignore" is configured.
-        -> Neighboring AS or sub-AS
-           -> For older IOS versions that do not have the eiBGP Multipath feature.
-        -> Origin
-        -> MED
-        -> IGP metric to the BGP next hop for eBGP multipath.
-           -> Learned from an external or confederation-external neighbor.
-           -> The IGP metric to the BGP next hop must be equal to the best-path IGP metric.
-           -> Or "bgp bestpath igp-metric ignore" is configured.
-        -> IGP metric to the BGP next hop for iBGP multipath.
-           -> Learned from an internal neighbor.
-           -> The IGP metric to the BGP next hop must be equal to the best-path IGP metric.
-              -> Unless unequal-cost iBGP multipath is configured.
-              -> For unequal-cost load balancing, BGP Link Bandwidth can be used.
-                 -> bgp dmzlink-bw
-                 -> neighbor 192.0.2.1 dmzlink-bw
-                 -> neighbor 192.0.2.1 send-community both
-           -> Or "bgp bestpath igp-metric ignore" is configured.
-        -> "extended cost community", if configured or in EIGRP MPLS VPN topologies.
+    -> Multipath only if multiple paths match the above steps.
+    -> Determine if multiple paths require installation into the routing table.
+    -> Default, only one best path is installed into the routing table.
+    -> Range 1 - 32.
+    -> Load balancing over multipaths is performed by CEF.
+       -> The default is per-destination load sharing.
+       -> Per-packet round robin load sharing can be configured, with older IOS versions.
+          -> ip cef load-sharing per-packet
+       -> Per-packet round robin load sharing can be configured on each interface, with newer IOS versions.
+          -> int gi0/0/0
+          ->   ip load-sharing per-packet
+       -> Load balancing algorithms available on newer IOS versions include, Original, Universal, Tunnel, Include-ports, 
+          Src-only, Deep Packet Inspection (DPI).  DPI can load-balance based on GRE traffic, L2VPN-MAC, IP-in-IP, IPSec,
+          L2TP, and VXLAN traffic.
+          -> ip cef load-sharing alogorithm original
+          -> ip cef load-sharing alogorithm universal
+          -> ip cef load-sharing alogorithm include-ports desination
+          -> ip cef load-sharing alogorithm include-ports source [destination]
+          -> ip cef load-sharing alogorithm src-only
+          -> ip cef load-sharing alogorithm tunnel
+          -> ip cef load-sharing alogorithm dpi {l2vpn-mac|tunnel-gre|tunnel-ipsec|tunnel-l2tp|tunnel-vxlan}
+    -> With multipath load sharing in MPLS VPN environments, it is possible to have traffic sent as IP traffic for one 
+       path and traffic sent as MPLS traffic for a second path.
+    -> Even with multipath, the router still designates one of the paths as the best path and advertises this best path 
+       to it's neighbors.
+       -> Unless BGP Additional Paths ( ADD-PATH ) is configured.
+    -> The following needs to be equal for each prefix to multipath.
+       -> Weight
+       -> Local preference
+       -> Received or locally originated route.
+       -> Accumulated interior gateway protocol, if configured.
+          -> Or "bgp bestpath aigp ignore" is configured.
+       -> AS-PATH length
+          -> Unless "bgp bestpath as-path ignore" is configured.
+       -> AS-PATH AS_SEQUENCE
+          -> For newer IOS versions that have the eiBGP Multipath feature.
+          -> Unless "bgp bestpath as-path multipath-relax" is configured.
+          -> Or "bgp bestpath as-path ignore" is configured.
+       -> Neighboring AS or sub-AS
+          -> For older IOS versions that do not have the eiBGP Multipath feature.
+       -> Origin
+       -> MED
+       -> IGP metric to the BGP next hop for eBGP multipath.
+          -> Learned from an external or confederation-external neighbor.
+          -> The IGP metric to the BGP next hop must be equal to the best-path IGP metric.
+          -> Or "bgp bestpath igp-metric ignore" is configured.
+       -> IGP metric to the BGP next hop for iBGP multipath.
+         -> Learned from an internal neighbor.
+            -> The IGP metric to the BGP next hop must be equal to the best-path IGP metric.
+               -> Unless unequal-cost iBGP multipath is configured.
+               -> For unequal-cost load balancing, BGP Link Bandwidth can be used.
+                  -> bgp dmzlink-bw
+                  -> neighbor 192.0.2.1 dmzlink-bw
+                  -> neighbor 192.0.2.1 send-community both
+            -> Or "bgp bestpath igp-metric ignore" is configured.
+       -> "extended cost community", if configured or in EIGRP MPLS VPN topologies.
 
-     -> maximum-paths 2
-        -> Protocol independent command for equal-costs paths.
-        -> Only external paths are considered for multipath.
+    -> maximum-paths 2
+       -> Protocol independent command for equal-costs paths.
+       -> Only external paths are considered for multipath.
         
-     -> maximum-paths eibgp 2
-        -> Install parallel iBGP and eBGP routes.
-        -> Will generate the following log message:  %BGP-4-MULTIPATH_LOOP: This may cause traffic loop if not used properly 
-           (command accepted).
-        -> If an iBGP path has inconsistent next-hops, routing loops may be formed.
-        -> It is possible to configure both "maximum-paths" and "maximum-paths ibgp" at the same time.
-        -> For MPLS VPN environments, this is configured under the IPv4 VRF address family.
-        -> Cisco IOS Release 12.0S based software: 8 paths
-        -> Cisco IOS Release 12.3T, 12.4, 12.4T, and 15.0-based software: 16 paths
-        -> Cisco IOS Release 12.2S based software: 32 paths
+    -> maximum-paths eibgp 2
+       -> Install parallel iBGP and eBGP routes.
+       -> Will generate the following log message:  %BGP-4-MULTIPATH_LOOP: This may cause traffic loop if not used properly 
+          (command accepted).
+       -> If an iBGP path has inconsistent next-hops, routing loops may be formed.
+       -> It is possible to configure both "maximum-paths" and "maximum-paths ibgp" at the same time.
+       -> For MPLS VPN environments, this is configured under the IPv4 VRF address family.
+       -> Cisco IOS Release 12.0S based software: 8 paths
+       -> Cisco IOS Release 12.3T, 12.4, 12.4T, and 15.0-based software: 16 paths
+       -> Cisco IOS Release 12.2S based software: 32 paths
 
-     -> maximum-paths eibgp 2 import 2
-        -> Specifies the number of redundant paths configured as back up multipaths for a VRF.
-        -> Import range 1 - 32.
-        -> By default, a VRF will import only one best path per prefix from the source VRF table.
-           -> Unless the prefix is exported with a different route-target.
-        -> An import path is a redundant path and can have a next-hop that matches an installed multipath.
-        -> The import was replaced with BGP Event-Based VPN Import Processing in IOS 15.0(1)M and 12.2(33)SRE.
-        -> Will generate the follow log messages:  
-           -> %NOTE: Import option has been deprecated.
-           -> %      Converting to 'import path selection all; import path limit 2'.
-           -> %PARSER-5-HIDDEN: Warning!!! ' maximum-paths eibgp 2 import 2 ' is a hidden command. Use of this command is not 
-              recommended/supported and will be removed in future.
-        -> BGP Event-Based VPN Import Processing
-           -> address-family ipv4 vrf TEST
-           ->   import path selection all
-           ->   import path limit 2
+    -> maximum-paths eibgp 2 import 2
+       -> Specifies the number of redundant paths configured as back up multipaths for a VRF.
+       -> Import range 1 - 32.
+       -> By default, a VRF will import only one best path per prefix from the source VRF table.
+          -> Unless the prefix is exported with a different route-target.
+       -> An import path is a redundant path and can have a next-hop that matches an installed multipath.
+       -> The import was replaced with BGP Event-Based VPN Import Processing in IOS 15.0(1)M and 12.2(33)SRE.
+       -> Will generate the follow log messages:  
+          -> %NOTE: Import option has been deprecated.
+          -> %      Converting to 'import path selection all; import path limit 2'.
+          -> %PARSER-5-HIDDEN: Warning!!! ' maximum-paths eibgp 2 import 2 ' is a hidden command. Use of this command is not 
+             recommended/supported and will be removed in future.
+       -> BGP Event-Based VPN Import Processing
+          -> address-family ipv4 vrf TEST
+          ->   import path selection all
+          ->   import path limit 2
         
-     -> maximum-paths ibgp 2
-         -> Install both equal-cost and unequal-cost iBGP routes.
-         -> Works with 6PE only in Cisco IOS Release 12.2(25)S and subsequent 12.2S releases.
+    -> maximum-paths ibgp 2
+       -> Install both equal-cost and unequal-cost iBGP routes.
+       -> Works with 6PE only in Cisco IOS Release 12.2(25)S and subsequent 12.2S releases.
          
-     -> maximum-paths ibgp 2 import 2
-        -> Specifies the number of redundant paths configured as back up multipaths for a VRF.
-        -> Import range 1 - 32.
-        -> By default, a VRF will import only one best path per prefix from the source VRF table.
-           -> Unless the prefix is exported with a different route-target.
-        -> An import path is a redundant path and can have a next-hop that matches an installed multipath.
-        -> The import was replaced with BGP Event-Based VPN Import Processing in IOS 15.0(1)M and 12.2(33)SRE.
-        -> Will generate the follow log messages:  
-           -> %NOTE: Import option has been deprecated.
-           -> %      Converting to 'import path selection all; import path limit 2'.
-           -> %PARSER-5-HIDDEN: Warning!!! ' maximum-paths ibgp 2 import 2 ' is a hidden command. Use of this command is not 
-              recommended/supported and will be removed in future.
-        -> BGP Event-Based VPN Import Processing
-           -> address-family ipv4 vrf TEST
-           ->   import path selection all
-           ->   import path limit 2
+    -> maximum-paths ibgp 2 import 2
+       -> Specifies the number of redundant paths configured as back up multipaths for a VRF.
+       -> Import range 1 - 32.
+       -> By default, a VRF will import only one best path per prefix from the source VRF table.
+          -> Unless the prefix is exported with a different route-target.
+       -> An import path is a redundant path and can have a next-hop that matches an installed multipath.
+       -> The import was replaced with BGP Event-Based VPN Import Processing in IOS 15.0(1)M and 12.2(33)SRE.
+       -> Will generate the follow log messages:  
+          -> %NOTE: Import option has been deprecated.
+          -> %      Converting to 'import path selection all; import path limit 2'.
+          -> %PARSER-5-HIDDEN: Warning!!! ' maximum-paths ibgp 2 import 2 ' is a hidden command. Use of this command is not 
+             recommended/supported and will be removed in future.
+       -> BGP Event-Based VPN Import Processing
+          -> address-family ipv4 vrf TEST
+          ->   import path selection all
+          ->   import path limit 2
 
-     -> maximum-paths ibgp unequal-cost 2
-         -> Install iBGP unequal-cost routes for a VRF.
-         -> Only in "address-family ipv4 vrf VRF_NAME" and "address-family ipv6 vrf VRF_NAME".
+    -> maximum-paths ibgp unequal-cost 2
+       -> Install iBGP unequal-cost routes for a VRF.
+       -> Only in "address-family ipv4 vrf VRF_NAME" and "address-family ipv6 vrf VRF_NAME".
          
-     -> bgp bestpath as-path mutlipath-relax
-        -> Hidden command in older IOS versions.
-        -> If multipath is configured and multiple routes have different AS in the path, but the AS_PATH lengths are the same 
-           (parallel paths), install the multiple paths into the routing table.
-           -> Solves a problem with BGP in data center CLOS networks described in RFC 7938.
+    -> bgp bestpath as-path mutlipath-relax
+       -> Hidden command in older IOS versions.
+       -> If multipath is configured and multiple routes have different AS in the path, but the AS_PATH lengths are the same 
+          (parallel paths), install the multiple paths into the routing table.
+          -> Solves a problem with BGP in data center CLOS networks described in RFC 7938.
 
 
  10.  Oldest route
-     -> When multiple paths are external, prefer the path that was received first.
-     -> Oldest is best.
-     -> If there is already a current best path, continue using that same best path if all other attributes are equal.  It 
-        isn't necessarily the literal oldest path that is always selected, but rather the oldest best path.
-     -> Locally significant to the router ( Loc-RIB ).
-     -> For external paths, the BGP best path selection rarely goes beyond this step.
-     -> This step is skipped if any of the following are true:
-        -> Forcing BGP to compare router-ids.
-        -> The router-id is the same for multiple paths.
-        -> There is no current best path.  This can happen when the current best path is lost.
+      -> When multiple paths are external, prefer the path that was received first.
+      -> Oldest is best.
+      -> If there is already a current best path, continue using that same best path if all other attributes are equal.  It 
+         isn't necessarily the literal oldest path that is always selected, but rather the oldest best path.
+      -> Locally significant to the router ( Loc-RIB ).
+      -> For external paths, the BGP best path selection rarely goes beyond this step.
+      -> This step is skipped if any of the following are true:
+         -> Forcing BGP to compare router-ids.
+         -> The router-id is the same for multiple paths.
+         -> There is no current best path.  This can happen when the current best path is lost.
      
-     -> bgp bestpath compare-router-id
-        -> Forcing BGP to compare router-ids can introduce instability if associated peers tend to flap.  Configure
-           BGP route dampening if this is a problem.
+      -> bgp bestpath compare-router-id
+         -> Forcing BGP to compare router-ids can introduce instability if associated peers tend to flap.  Configure
+            BGP route dampening if this is a problem.
 
 
  11.  Router-id
-     -> Lowest is best.
-     -> Locally significant to the router ( Loc-RIB ).
-     -> Not the same thing as the ORIGINATOR_ID attribute, which is used by route reflectors.
-     -> ORIGINATOR_ID is an optional, non-transitive attribute.
-     -> ORIGINATOR_ID is compared instead of the router-id when route reflector attributes are present.
+      -> Lowest is best.
+      -> Locally significant to the router ( Loc-RIB ).
+      -> Not the same thing as the ORIGINATOR_ID attribute, which is used by route reflectors.
+      -> ORIGINATOR_ID is an optional, non-transitive attribute.
+      -> ORIGINATOR_ID is compared instead of the router-id when route reflector attributes are present.
 
 
  12.  Cluster length
-     -> Lowest is best
-     -> Locally significant to the router ( Loc-RIB ).
-     -> CLUSTER_LIST is an optional, non-transitive attribute.
-     -> Lowest CLUSTER_LIST length, when the ORIGINATOR_ID is the same.
-     -> The CLUSTER_LIST length is zero if the CLUSTER_LIST attribute is missing.
-     -> Router reflectors environments only.
+      -> Lowest is best
+      -> Locally significant to the router ( Loc-RIB ).
+      -> CLUSTER_LIST is an optional, non-transitive attribute.
+      -> Lowest CLUSTER_LIST length, when the ORIGINATOR_ID is the same.
+      -> The CLUSTER_LIST length is zero if the CLUSTER_LIST attribute is missing.
+      -> Router reflectors environments only.
 
 
  13.  Neighbor address
-     -> Lowest is best.
-     -> Locally significant to the router ( Loc-RIB ).
-     -> Remote peer used in the TCP connection.
+      -> Lowest is best.
+      -> Locally significant to the router ( Loc-RIB ).
+      -> Remote peer used in the TCP connection.
