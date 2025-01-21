@@ -151,6 +151,7 @@ Best Path Algorithm:
      -> Default is 0 for received routes.
      -> Default is 32768 for locally generated routes via the "network", "redistribution", and "aggregate-address" commands.
      -> The router will prefer its own route over one advertised by a neighbor.
+
      -> Weight is used when you want to influence the BGP best path on a single router without causing that influence to 
         affect any other router.
      -> If both "neighbor weight" and "neighbor route-map in" commands are configured, the route-map is preferred.
@@ -191,6 +192,7 @@ Best Path Algorithm:
      -> Significant only in the local (internal) AS.
      -> Range 0 to 4294967295.
      -> Default 100 for every route.
+
      -> Used to set a policy to prefer one outgoing path for the entire AS.  
      -> The policy can be applied to routes inbound from any BGP peer to influence the entire AS.  
      -> The policy can be applied outbound only to iBGP peers or any BGP confederation peers to have more 
@@ -264,6 +266,7 @@ Best Path Algorithm:
      -> AIGP is configured on specific address families.
      -> Significant only in the local (internal) AS.
      -> Range 0 - 4294967295.
+
      -> AIGP can be used in large, multi-ASN network under the same administrative domain.  It allows BGP to make 
         decisions based on IGP metric so BGP chooses the shortest end-to-end path between two nodes, even if those
         nodes are in different AS.
@@ -274,6 +277,7 @@ Best Path Algorithm:
         configured to prevent BGP route churn.
      -> Since AIGP is before AS_PATH in the BGP best path selection, any existing AS_PATH prepending might need to
         be reconsidered.
+
      -> AIGP path compared to AIGP path, the value of the AIGP metric is added to the metric towards the next-hop.
      -> AIGP path compared to non-AIGP path, path with AIGP attribute is preferred.
      -> Using AIGP with non-AIGP capable neighbors.
@@ -282,6 +286,7 @@ Best Path Algorithm:
             -> The cost community point of insertion (POI) is specified.
                 -> Pre-bestpath
                 -> IGP metric
+
      -> AIGP attribute was developed to solve certain niche use cases.  It must be used cautiously.
         
      -> bgp bestpath aigp ignore
@@ -484,12 +489,14 @@ Best Path Algorithm:
      -> Significant external to AS.
      -> Lowest is best.
      -> Range 0 to 4,294,967,295.
+
      -> Used to indicate a preferred entry point into the local AS to a neighboring AS when there are multiple paths
         between the two AS.
      -> Compared only if the first AS in the AS_SEQUENCE is the same for multiple paths.
      -> MED is not advertised to an eBGP peer if the value was received from a different AS.
      -> MED is only used to influence traffic between two directly connected AS.  To influence route preferences beyond the
         neighboring AS, the AS_PATH must be manipulated.
+
      -> Default is 0 for received routes.
         -> When MED is not assigned.
      -> Set to the value of the IGP metric for routes injected into BGP.
@@ -500,6 +507,7 @@ Best Path Algorithm:
         -> Used to influence a neighboring AS with multiple entry points.
         -> Or a neighboring AS may be influencing the local AS with multiple entry points.
      -> Confederation sub-ASs are ignored unless configured.
+
      -> MED can introduce route oscillations in some environments.  BGP Additional Paths ( ADD-PATH ) can address this problem.
         Also consider changing the "bgp dynamic-med-interval" timer.
      
@@ -624,6 +632,7 @@ Best Path Algorithm:
     -> Determine if multiple paths require installation into the routing table.
     -> Default, only one best path is installed into the routing table.
     -> Range 1 - 32.
+
     -> Load balancing over multipaths is performed by CEF.
        -> The default is per-destination load sharing.
        -> Per-packet round robin load sharing can be configured, with older IOS versions.
@@ -641,11 +650,14 @@ Best Path Algorithm:
           -> ip cef load-sharing alogorithm src-only
           -> ip cef load-sharing alogorithm tunnel
           -> ip cef load-sharing alogorithm dpi {l2vpn-mac|tunnel-gre|tunnel-ipsec|tunnel-l2tp|tunnel-vxlan}
+
     -> With multipath load sharing in MPLS VPN environments, it is possible to have traffic sent as IP traffic for one 
        path and traffic sent as MPLS traffic for a second path.
+
     -> Even with multipath, the router still designates one of the paths as the best path and advertises this best path 
        to it's neighbors.
        -> Unless BGP Additional Paths ( ADD-PATH ) is configured.
+
     -> The following needs to be equal for each prefix to multipath.
        -> Weight
        -> Local preference
@@ -747,7 +759,9 @@ Best Path Algorithm:
       -> If there is already a current best path, continue using that same best path if all other attributes are equal.  It 
          isn't necessarily the literal oldest path that is always selected, but rather the oldest best path.
       -> Locally significant to the router ( Loc-RIB ).
+
       -> For external paths, the BGP best path selection rarely goes beyond this step.
+
       -> This step is skipped if any of the following are true:
          -> Forcing BGP to compare router-ids.
          -> The router-id is the same for multiple paths.
