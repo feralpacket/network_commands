@@ -366,6 +366,8 @@
  - Multi-Collisions Errors
  - Excess Collision Errors
  - Jabber Errors
+   - Frame that is too large or abnormally formatted.  This count is the same as "giants" in the output of "sh interface".
+
  - Short Frame Errors
  - Input Discard Errors
  - Bad Encapsulation Errors
