@@ -42,6 +42,8 @@ Generally, but not always:
 	      160			- ODR ( Historical )
 	      170			- EIGRP External Route
 	      200			- iBGP
+              200			- local BGP ( locally BGP originated routes with the network, redistribution, 
+                                          or aggregate-address commands )
 	      250			- NHRP
 	      255			- Unknown / Unreachable
 
