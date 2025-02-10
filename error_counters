@@ -753,4 +753,28 @@
    - https://www.cisco.com/c/en/us/td/docs/security/asa/asa98/asdm78/firewall/asdm-78-firewall-config/conns-connlimits.html
 
 
+! "sh ip dhcp global statistics" NX-OS DHCP couters
+ - Packets processed
+ - Packets received through cfsoe
+ - Packets forwarded
+ - Packets forwarded on cfsoe
+ - Total packets dropped
+ - Packets dropped from untrusted ports
+ - Packets dropped due to MAC address check failure
+ - Packets dropped due to Option 82 insertion failure
+ - Packets dropped due to o/p intf unknown
+ - Packets dropped which were unknown
+ - Packets dropped due to no trusted ports
+ - Packets dropped due to dhcp relay not enabled
+ - Packets dropped due to no binding entry
+ - Packets dropped due to interface error/no interface
+   - The counter will increase every time a DHCP request is received on an interface, Vlan interfaces in particular, and "ip dhcp relay" is not configured.
+   - Per some Cisco internal documatation.
+
+ - Packets dropped due to max hops exceeded
+ - Packets dropped due to Queue full
+
+
+
+
 
