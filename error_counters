@@ -777,4 +777,18 @@
 
 
 
+! "sh ip dhcp relay statistics" NX-OS DHCP counters
+ - DHCP Relay not enabled
+ - Invalid DHCP message type
+ - Interface error
+   - The counter will increase every time a DHCP request is received on an interface, Vlan interfaces in particular, and "ip dhcp relay" is not configured.
+   - Per some Cisco internal documatation.
 
+ - Tx failure towards server
+ - Tx failure towards client
+ - Unknown output interface
+ - Unknown vrf or interface for server
+ - Max hops exceeded
+ - Option 82 validation failed
+ - Packet Malformed
+ - Relay Trusted port not configured
