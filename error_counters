@@ -769,7 +769,7 @@
  - Packets dropped due to no binding entry
  - Packets dropped due to interface error/no interface
    - The counter will increase every time a DHCP request is received on an interface, Vlan interfaces in particular, and "ip dhcp relay" is not configured.
-   - Per some Cisco internal documatation.
+   - Per some internal Cisco documatation.
 
  - Packets dropped due to max hops exceeded
  - Packets dropped due to Queue full
@@ -782,7 +782,7 @@
  - Invalid DHCP message type
  - Interface error
    - The counter will increase every time a DHCP request is received on an interface, Vlan interfaces in particular, and "ip dhcp relay" is not configured.
-   - Per some Cisco internal documatation.
+   - Per some internal Cisco documatation.
 
  - Tx failure towards server
  - Tx failure towards client
