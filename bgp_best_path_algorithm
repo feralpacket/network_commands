@@ -278,8 +278,8 @@ Best Path Algorithm:
      -> Since AIGP is before AS_PATH in the BGP best path selection, any existing AS_PATH prepending might need to
         be reconsidered.
 
-     -> AIGP path compared to AIGP path, the value of the AIGP metric is added to the metric towards the next-hop.
-     -> AIGP path compared to non-AIGP path, path with AIGP attribute is preferred.
+     -> AIGP path compared to an AIGP path, the value of the AIGP metric is added to the metric towards the next-hop.
+     -> AIGP path compared to a non-AIGP path, path with AIGP attribute is preferred.
      -> Using AIGP with non-AIGP capable neighbors.
         -> AIGP can be translated to MED.
         -> AIGP can be translated to a cost community.
