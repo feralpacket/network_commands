@@ -5,10 +5,12 @@ $env:COMPUTERNAME
 get-ciminstance -classname Win32_ComputerSystem
  - computer model number
 
+
 ! date / time
 date /t
 time /t
 get-date
+
 
 ! interfaces and IP addresses
 netsh interface show interface
@@ -22,6 +24,7 @@ get-netadapteradvancedproperty
 netsh interface ipv4 show addresses
 ipconfig
 get-netipconfiguration
+
 
 ! DNS servers
 netsh interface ipv4 show dnsservers
@@ -42,16 +45,24 @@ get-dnsclientcache -name *feralpacket* | format-table -autosize
 net stop dnscache
 net start dnscache
 
+
 ! routing table
 netsh interface ipv4 show route
 netstat -r
 route PRINT
 get-netroute
 
+route add 198.51.100.0 mask 255.255.255.0 192.0.2.1
+netsh interface ipv4 show interfaces
+route add 192.51.100.0 mask 255.255.255.0 192.0.2.1 interface 11
+route delete 192.51.100.0
+
+
 ! ARP table
 arp -a
 get-netneighbor
 get-netneighbor -addressfamily ipv4
+
 
 ! DHCP
 netsh dhcp show server
@@ -60,17 +71,21 @@ ipconfig /renew
 ipconfig /displaydns
 ipconfig /registerdns
 
+
 ! MTU
 netsh interface ipv4 show subinterfaces
 netsh interface ipv4 show interfaces level=verbose
 get-netipinterface
 ping -f -l 1400 192.0.2.1
 
+
 ! path MTU
 netsh interface ipv4 show destinationcache
 
+
 ! discards, header errors, fragments, mtu
 netsh interface ipv4 show subinterfaces level=verbose
+
 
 ! windows firewall
 netsh advfirewall show currentprofile
@@ -79,11 +94,13 @@ get-netfirewallprofile -name public | get-netfirewallrule
 get-netfirewallportfilter
 get-netfirewalladdressfilter
 
+
 ! connections and listening ports
 netsh interface ipv4 show tcpconnections
 netstat -a
 netstat -an
 get-nettcpconnection
+
 
 ! tcp / udp / ip / icmp statistics
 netsh interface ipv4 show tcpstats
@@ -93,6 +110,7 @@ netsh interface ipv4 show icmpstats
 netsh interface ipv4 show icmpstats | findstr /v " 0$"
  - do not display entries with a zero count
 
+
 ! wireless
 netsh wlan show wlanreport
  - save report as an .html file
@@ -100,9 +118,11 @@ netsh wlan show wlanreport
 
 netsh wlan show all
 
+
 ! ECN capability
 netsh interface tcp show global
 get-nettcpsetting
+
 
 ! IPSec
 netsh ipsec dynamic show all
@@ -123,8 +143,10 @@ tracert -d 192.0.2.1
 test-netconnection 192.0.2.1 -traceroute
 pathping 192.0.2.1
 
+
 ! run command
 invoke-command -scriptblock {ipconfig /all}
+
 
 ! active directory
 get-addomain
@@ -154,6 +176,7 @@ query process
 qprocess
 
 gpresult /r
+
 
 ! uptime
 wmic path Win32_OperatingSystem get LastBootUpTime
@@ -200,18 +223,23 @@ pktmon pcapng log.etl -o log.pcapng
 ! Capture in real-time
 pktmon start -etw -p 0 -l real-time
 
+
 ! search a file
 Select-String *.txt -Pattern "WS"
 Select-String *.txt -Pattern "WS-C2960X-48LPS-L"  | Measure-Object -line
 
+
 ! uninstall the updated RSAT 
 wusa.exe /uninstall /kb:2693643 /quiet /norestart
+
 
 ! find executables
 dir /s /b .exe | find /i /v ".exe."
 
+
 ! SHA1 hash of a file
 certutil -hashfile cat9k_iosxe.17.03.06.SPA.bin
+
 
 ! MD5 hash of a file
 certutil -hashfile cat9k_iosxe.17.03.06.SPA.bin MD5
