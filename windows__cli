@@ -131,6 +131,13 @@ netsh ipsec dynamic show all
 nslookup cnn.com
 ping 192.0.2.1
 ping 192.0.2.1 -t
+ - -t:  send pings until stopped with a Ctrl-C
+ping 192.0.2.1 -s 198.51.100.1
+ - -s:  source address
+ping 192.0.2.1 -f -l 1500
+ping 192.0.2.1 -f -l 1460
+ - l:  size of packet to send, useful to troubleshoot MTU issues with IPsec tunnels
+ - f:  do not fragment
 test-netconnection 192.0.2.1
 1..10 | % { test-netconnection 192.0.2.$_ } | ft -AutoSize
  - ping sweep
