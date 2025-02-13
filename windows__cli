@@ -4,6 +4,8 @@ hostname
 $env:COMPUTERNAME
 get-ciminstance -classname Win32_ComputerSystem
  - computer model number
+systeminfo
+systeminfo | findstr "System"
 
 
 ! date / time
@@ -147,6 +149,7 @@ get-nettcpsetting
 ! IPSec
 netsh ipsec dynamic show all
 
+
 ! test reachability
 nslookup cnn.com
 ping 192.0.2.1
@@ -170,6 +173,15 @@ tracert 192.0.2.1
 tracert -d 192.0.2.1
 test-netconnection 192.0.2.1 -traceroute
 pathping 192.0.2.1
+
+
+! ping set of IP addresses
+for %x in (
+192.0.2.1
+192.0.2.23
+192.0.2.123
+192.0.2.234
+) do ping -n 2 %x | findstr /C:"Reply" /C:"Received"
 
 
 ! run command
@@ -210,15 +222,6 @@ gpresult /r
 wmic path Win32_OperatingSystem get LastBootUpTime
 get-wmiobject win32_operatingsystem | select-object LastBootUpTime
 get-ciminstance -classname win32_operatingsystem | select LastBootUpTime
-
-
-! ping set of IP addresses
-for %x in (
-192.0.2.1
-192.0.2.23
-192.0.2.123
-192.0.2.234
-) do ping -n 2 %x | findstr /C:"Reply" /C:"Received"
 
 
 ! Windows 10 builtin packet capture tool
