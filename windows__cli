@@ -6,6 +6,7 @@ get-ciminstance -classname Win32_ComputerSystem
  - computer model number
 systeminfo
 systeminfo | findstr "System"
+ - manufacturer and computer model number
 
 
 ! date / time
