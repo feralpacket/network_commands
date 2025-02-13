@@ -24,6 +24,8 @@ systeminfo | findstr "System"
 date /t
 time /t
 get-date
+w32tm /query /status
+w32tm /tz
 
 
 ! copy output to the clipboard
