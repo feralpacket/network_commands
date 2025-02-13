@@ -121,6 +121,7 @@ get-nettcpconnection
 
 
 ! tcp / udp / ip / icmp statistics
+netstat -e -s
 netsh interface ipv4 show tcpstats
 netsh interface ipv4 show udpstats
 netsh interface ipv4 show ipstats
