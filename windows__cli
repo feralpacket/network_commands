@@ -99,6 +99,7 @@ ping -f -l 1400 192.0.2.1
 
 ! path MTU
 netsh interface ipv4 show destinationcache
+netsh interface ipv4 show destinationcache address=192.0.2.1
 
 
 ! discards, header errors, fragments, mtu
