@@ -23,6 +23,7 @@ systeminfo | findstr "System"
 ! date / time
 date /t
 time /t
+net time
 get-date
 w32tm /query /status
 w32tm /tz
