@@ -17,9 +17,14 @@ netsh interface show interface
 get-netadapter
  - link speed
 
+get-netipaddress
 get-netadapter | ft Name, Status, LinkSpeed, VlanID
 get-netadapteradvancedproperty
  - VLAN ID, wake on magic packet
+
+enable-netadapter
+disable-netadapter
+ - bounce an interface
 
 netsh interface ipv4 show addresses
 ipconfig
@@ -37,10 +42,13 @@ ipconfig /displaydns
 ipconfig /flushdns
 nslookup cnn.com
 resolve-dnsname -name cnn.com
+get-dnsclient
 get-dnsclientcache
 get-dnsclientcache | select entry,data | where {$_.entry -like "*feralpacket*"}
 get-dnsclientcache -name *feralpacket*
 get-dnsclientcache -name *feralpacket* | format-table -autosize
+clear-dnsclientcache
+get-dnsclientserveraddress
 
 net stop dnscache
 net start dnscache
@@ -143,6 +151,7 @@ test-netconnection 192.0.2.1
  - ping sweep
 
 telnet 192.0.2.1 53
+test-connection 192.0.2.1
 test-netconnection 192.0.2.1 -port 53
 test-netconnection -computername 'FERALSQL' -port 1433
 tracert 192.0.2.1
