@@ -1,6 +1,7 @@
 ! user name
 whoami
 whoami /user
+echo %username%
 $env:username
 [environment]::username
 [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
@@ -9,6 +10,7 @@ $(Get-CimInstance Win32_ComputerSystem | select username).username
 
 ! computer name
 hostname
+echo %computername%
 [System.NET.DNS]::GetHostByName('')
 $env:COMPUTERNAME
 get-ciminstance -classname Win32_ComputerSystem
@@ -198,7 +200,24 @@ for %x in (
 invoke-command -scriptblock {ipconfig /all}
 
 
+! environment variables
+set
+get-childitem env:
+
+
+! path
+echo %path%
+$env:path
+$env:path -split ';'
+$env:path -replace ';', "`n"
+get-childitem env:path | format-list *
+get-childitem env:path | select-object *
+(get-childitem env:path).value
+[System.Environment]::GetEnvironmentVariable('PATH')
+
+
 ! active directory
+echo %logonserver%
 get-addomain
 get-addomaincontroller
 get-aduser -identity feralpacket
