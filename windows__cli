@@ -1,3 +1,12 @@
+! user name
+whoami
+whoami /user
+$env:username
+[environment]::username
+[System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+$(Get-CimInstance Win32_ComputerSystem | select username).username
+
+
 ! computer name
 hostname
 [System.NET.DNS]::GetHostByName('')
@@ -202,6 +211,8 @@ get-adcomputer -identity heimdallr
  - Enabled
 get-adprincipalgroupmembership feralpacket | select name | where-object {$_.name -like "*fs*"}
 get-adgroupmember feralpacket_group_ro | select name
+
+whoami /groups
 
 get-adcomputer -identity heimdallr -properties *
 
