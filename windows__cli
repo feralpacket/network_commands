@@ -12,6 +12,12 @@ time /t
 get-date
 
 
+! copy output to the clipboard
+ipconfig | clip
+notepad
+Ctrl-V
+
+
 ! interfaces and IP addresses
 netsh interface show interface
 get-netadapter
@@ -29,6 +35,10 @@ disable-netadapter
 netsh interface ipv4 show addresses
 ipconfig
 get-netipconfiguration
+
+
+! MAC addresses
+getmac /v
 
 
 ! DNS servers
