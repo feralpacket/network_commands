@@ -164,6 +164,7 @@ netsh ipsec dynamic show all
 
 ! test reachability
 nslookup cnn.com
+resolve-dnsname cnn.com
 ping 192.0.2.1
 ping 192.0.2.1 -t
  - -t:  send pings until stopped with a Ctrl-C
@@ -194,6 +195,10 @@ for %x in (
 192.0.2.123
 192.0.2.234
 ) do ping -n 2 %x | findstr /C:"Reply" /C:"Received"
+
+
+! QoS
+get-netqospolicy
 
 
 ! run command
