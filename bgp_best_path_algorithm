@@ -382,6 +382,7 @@ Best Path Algorithm:
 
      -> neighbor 192.0.2.1 local-as 99 no-prepend replace-as
         -> Replace real AS with local AS in the eBGP updates.
+        -> Used by some SPs to swap your peer AS from the AS_PATH with a regional AS.
 
      -> neighbor 192.0.2.1 local-as 99 no-prepend replace-as dual-as
         -> Accept either real AS or local AS from the eBGP peer.
