@@ -236,5 +236,6 @@ sh buffers
 sh access-lists
 sh ip prefix-list detail
 sh route-map
+sh redundancy counters
 
 
