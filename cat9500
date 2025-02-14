@@ -200,3 +200,41 @@ sh platform software fed switch active fss bum-opt summary
 ! packet punt rates
 sh platform software fed switch active punt rates interfaces
 sh platform software fed switch active punt cpuq rates
+
+
+! counters and error counters
+sh ip traffic
+sh ip traffic interface twe1/0/1
+sh tcp statistics
+sh tcp statistics ingress
+sh tcp bri
+sh tcp tcb OU812
+sh user
+sh tcp vty 0
+sh tcp ha statistics
+sh ip dhcp server statistics
+sh ip dns statistics
+sh int twe1/0/1 counters errors
+sh int twe1/0/1 controller
+sh int po1 counters etherchannel
+sh stackwise-virtual link detail
+sh bfd drops
+sh spanning-tree detail
+sh vtp counters
+sh ntp packets
+sh aaa counters
+sh radius statistics
+sh tacacs
+sh standby
+sh vrrp statistics
+sh snmp
+sh snmp stats hosts
+sh snmp stats oid
+sh ip http server statistics
+sh ip http client statistics
+sh buffers
+sh access-lists
+sh ip prefix-list detail
+sh route-map
+
+
