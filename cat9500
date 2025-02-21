@@ -217,6 +217,8 @@ sh ip dns statistics
 sh int twe1/0/1 counters errors
 sh int twe1/0/1 controller
 sh int po1 counters etherchannel
+sh lacp counters
+sh pagp counters
 sh stackwise-virtual link detail
 sh bfd drops
 sh spanning-tree detail
