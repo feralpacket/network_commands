@@ -1,0 +1,17 @@
+! drops
+sh platform hardware qfp active statistics drop
+
+
+! fragments
+sh ip virtual-reassembly
+sh ip traffic interface gi0/0/0
+sh platform software sdwan r0 next-hop overlay all
+sh platform software sdwan r0 next-hop overlay all | in frag
+sh platform software sdwan f0 next-hop overlay all
+sh platform software sdwan f0 next-hop overlay all | in frag
+sh platform software interface rp active name tu0
+sh platform software interface rp active name tu0 | in dont
+
+
+! PMTU!!!
+sh platform hardware qfp active feature sdwan datapath session summary
