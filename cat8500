@@ -36,6 +36,7 @@ int te0/0/1
 
 
 ! what's my ip address
+! - ip.cow.com is light on HTML and ads
 telnet ifconfig.me 80 /ipv4 /source te0/0/0
 GET / HTTP/1.1
 Host: ifconfig.me
