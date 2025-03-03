@@ -110,3 +110,23 @@ sh sockets statistics
 sh sockets connection tcp detail
 sh sockets connection udp detail
 sh queuing summary
+
+
+! don't turn off the laser when the interface goes down
+! helps with failover on DWDM circuits
+! equivalent to the ALS feature on DWDM equipment
+! Automatic Link Suspension or Automatic Laser Shutdown, depending on the vendor
+system default link-fail laser-on
+
+
+! don't reset the interface when it comes up
+! helps with failover on DWDM circuits
+int e1/1
+  link-transmit reset-skip
+
+
+! debounce timer
+! needed to make sure the SP equipment has time to failover, at both ends of the circuit
+! need to test to determine the lowest possible setting that keeps the interface UP during failovers
+link debounce time 500
+
