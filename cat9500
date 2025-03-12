@@ -241,3 +241,8 @@ sh route-map
 sh redundancy counters
 
 
+! because "sh bgp vrf * summary" and "sh bgp vrf * all summary" is considered obsolete now and no longer work
+! noticed with 17.9.x
+! but "sh bgp vrf *" and "sh bgp vrf * all" will still display the BGP table
+! thanks cisco
+sh ip bgp all summary
