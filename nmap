@@ -33,3 +33,6 @@ nmap -n -sT -F -Pn --packet-trace 192.0.2.1
 for /L %i in (100,1,110) do (
   nmap -n -sn -PE 10.0.%i.15 | findstr /C:"host"
 )
+
+! path MTU
+nmap --script scripts\path-mtu 192.0.2.1
