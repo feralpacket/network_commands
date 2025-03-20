@@ -120,6 +120,11 @@ get-netipinterface
 ping -f -l 1400 192.0.2.1
 
 
+! MTU ping sweep
+! (minimum, increase size, maximum)
+for /l %i in (1300, 10, 1500)do @ping -n 1 -w 192.2.0.1 -l %i -f.
+
+
 ! path MTU
 netsh interface ipv4 show destinationcache
 netsh interface ipv4 show destinationcache address=192.0.2.1
