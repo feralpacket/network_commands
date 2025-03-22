@@ -445,6 +445,21 @@ Best Path Algorithm:
         -> Can be used to ensure routing attributes are not included in the aggregate route that would cause it to be dropped.
            Such as omitting an AS from the AS_SET that would be dropped by a receiving router.
 
+     -> ip as-path access-list 1 permit ^$
+     -> neighbor 192.0.2.1 filter-list 1 out
+        -> Only advertise locally originated routes.
+        -> Also prevents the local AS from becoming a transit AS.
+
+     -> ip as-path access-list 1 permit ^(\([0-9]+\))?$
+     -> neighbor 192.0.2.1 filter-list 1 out
+        -> Only advertise locally originated routes and routes from local sub-ASes.
+        -> Also prevents the local AS from becoming a transit AS.
+
+     -> ip as-path access-list 1 deny *([0-9]+)(_\1)+$
+     -> ip as-path access-list 1 permit .*
+     -> neighbor 192.0.2.1 filter-list 1 in
+        -> Filter ASes that have been prepended multiple times.
+
 
 
  5.  ORIGIN
