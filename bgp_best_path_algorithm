@@ -464,12 +464,18 @@ Best Path Algorithm:
      -> ip as-path access-list 1 deny *([0-9]+)(_\1)+$
      -> ip as-path access-list 1 permit .*
      -> neighbor 192.0.2.1 filter-list 1 in
+     -> route-map PREPENDED_AS permit 10
+     ->   match as-path 1
+     -> neighbor 192.0.2.1 route-map PREPENDED_AS out
         -> Filter ASes that have been prepended multiple times.
 
      -> bgp asnotation dot
      -> ip as-path access-list 1 deny .*[0-9]+\.[0-9]+.*
      -> ip as-path access-list 1 permit .*
      -> neighbor 192.0.2.1 filter-list 1 out
+     -> route-map 4BYTE_AS permit 10
+     ->   match as-path 1
+     -> neighbor 192.0.2.1 route-map 4BYTE_AS out
         -> Filter 4-byte AS numbers using the AS notation dot.
 
      -> ip as-path access-list 1 deny _6553[6-9]_
@@ -480,6 +486,9 @@ Best Path Algorithm:
      -> ip as-path access-list 1 deny _[1-9][0-9][0-9][0-9][0-9][0-9]+_
      -> ip as-path access-list 1 permit .*
      -> neighbor 192.0.2.1 filter-list 1 out
+     -> route-map 4BYTE_AS permit 10
+     ->   match as-path 1
+     -> neighbor 192.0.2.1 route-map 4BYTE_AS out
         -> Filter 4-byte AS numbers using ASplain.
 
 
