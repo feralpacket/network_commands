@@ -460,6 +460,21 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 filter-list 1 in
         -> Filter ASes that have been prepended multiple times.
 
+     -> bgp asnotation dot
+     -> ip as-path access-list 1 deny .*[0-9]+\.[0-9]+.*
+     -> ip as-path access-list 1 permit .*
+     -> neighbor 192.0.2.1 filter-list 1 out
+        -> Filter 4-byte AS numbers using the AS notation dot.
+
+     -> ip as-path access-list 1 deny _6553[6-9]_
+     -> ip as-path access-list 1 deny _655[4-9][0-9]_
+     -> ip as-path access-list 1 deny _65[6-9][0-9][0-9]_
+     -> ip as-path access-list 1 deny _[6][6-9][0-9][0-9][0-9]_
+     -> ip as-path access-list 1 deny _[7-9][0-9][0-9][0-9][0-9]_
+     -> ip as-path access-list 1 deny _[1-9][0-9][0-9][0-9][0-9][0-9]+_
+     -> ip as-path access-list 1 permit .*
+     -> neighbor 192.0.2.1 filter-list 1 out
+        -> Filter 4-byte AS numbers using ASplain.
 
 
  5.  ORIGIN
