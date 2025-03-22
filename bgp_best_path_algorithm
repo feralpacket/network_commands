@@ -458,7 +458,7 @@ Best Path Algorithm:
      -> route-map LOCAL_ORIGINATED permit 10
      ->   match as-path 1
      -> neighbor 192.0.2.1 route-map LOCAL_ORIGINATED out
-     -> Only advertise locally originated routes and routes from local sub-ASes.
+        -> Only advertise locally originated routes and routes from local sub-ASes.
         -> Also prevents the local AS from becoming a transit AS.
 
      -> ip as-path access-list 1 deny *([0-9]+)(_\1)+$
