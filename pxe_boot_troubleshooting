@@ -83,3 +83,12 @@ monitor capture CAP start
 monitor capture CAP stop
 show monitor capture CAP buffer brief
 show monitor capture CAP buffer detailed 
+
+! Check - Device Tracking counters
+! Will count DHCP discover and DHCP request messages
+sh device-tracker counters gi1/0/10
+
+! Check - Device Sensor
+! Will display DHCP options
+sh device-sensor cache int gi1/0/10
+
