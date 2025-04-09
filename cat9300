@@ -499,3 +499,9 @@ device-tracking policy IPDT_UPLINK
 !
 int po1
  device-tracking attach-policy IPDT_UPLINK
+
+
+! scp mysteriously stop working?  thank OpenSSH for changing how the scp command works.
+! use the -O option to force using the scp protocol instead of the sftp protocol
+scp -O feralpacket@192.0.2.1:packet_capture.pcap .
+
