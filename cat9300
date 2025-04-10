@@ -505,3 +505,20 @@ int po1
 ! use the -O option to force using the scp protocol instead of the sftp protocol
 scp -O feralpacket@192.0.2.1:packet_capture.pcap .
 
+
+! so, we had a smartsafe with IPv6 enabled that decided to send NDP RA messages and identify itself as a recursive DNS server
+! yeah
+! problem, some of the devices in the broadcast domain with IPv6 enabled started to prefer IPv6 and would only send DNS queries to the new IPv6 "DNS" server
+! yeah
+! to configure IPv6 Router Advertisement Guard on your IPv4 network.
+device-tracking policy IPDT_MAX_10
+ protocol ndp
+!
+ipv6 nd raguard policy RA_GUARD_HOST
+ device-role host
+!
+int range gi1/0/1 - 48
+ ipv6 nd raguard attach-policy RA_GUARD_HOST
+
+! to verify
+debug ipv6 snooping raguard
