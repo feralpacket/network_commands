@@ -116,6 +116,8 @@ ipconfig /registerdns
 ! MTU
 netsh interface ipv4 show subinterfaces
 netsh interface ipv4 show interfaces level=verbose
+netsh interface ipv6 show subinterfaces
+netsh interface ipv6 show interfaces level=verbose
 get-netipinterface
 ping -f -l 1400 192.0.2.1
 
