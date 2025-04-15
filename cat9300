@@ -523,3 +523,16 @@ int range gi1/0/1 - 48
 
 ! to verify
 debug ipv6 snooping raguard
+
+
+! to fix some dot1x problems with the new SISF feature
+! don't int range gi1/0/1 - 48 all the things like we did
+! non-dot1x interfaces may stop working properly
+no access-session inherit disable interface-template-sticky
+access-session interface-template sticky timer 60
+
+! if you made the mistake of configuring the above on a non-dot1x interface
+! and removing the config is not helping
+no access-session interface-template sticky timer 60
+access-session port-control force-authorized
+
