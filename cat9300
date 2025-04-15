@@ -533,6 +533,7 @@ access-session interface-template sticky timer 60
 
 ! if you made the mistake of configuring the above on a non-dot1x interface
 ! and removing the config is not helping
+! actually, just default the interface and copy / paste the config you actually need
 no access-session interface-template sticky timer 60
 access-session port-control force-authorized
 
