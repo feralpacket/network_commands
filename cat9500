@@ -239,6 +239,9 @@ sh access-lists
 sh ip prefix-list detail
 sh route-map
 sh redundancy counters
+sh platform hardware fed switch active qos queue stats internal cpu policer
+sh platform software fed switch active punt cpuq all
+sh platform software fed switch active punt cause summary
 
 
 ! because "sh bgp vrf * summary" and "sh bgp vrf * all summary" is considered obsolete now and no longer work
