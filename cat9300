@@ -121,6 +121,10 @@ sh int gi1/0/7 link
 sh logging | count 2/0/40.*(up|down)
 
 
+! this command is better
+sh platform pm interface-flaps gi1/0/1
+
+
 ! stack cables have serial numbers
 show logging onboard switch active environment detail | in STACK
 
