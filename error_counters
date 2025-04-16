@@ -263,8 +263,14 @@
  - OamDropped frames
  - Late collision frames
  - SymbolErr frames
+   - "Usually indicates Layer 1 issues. Large amounts of symbol errors can indicate a bad device, cable, or hardware. "
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-9500-series-switches/218397-troubleshoot-port-flaps-on-catalyst-9000.html
+
  - Excess Defer frames
  - Collision fragments
+   - "If this counter increments, this is an indication that the ports are configured at half-duplex."
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-9500-series-switches/218397-troubleshoot-port-flaps-on-catalyst-9000.html
+
  - Deferred frames
  - ValidUnderSize frames
  - 1 collision frames
@@ -319,6 +325,9 @@
  - MTU exceeded frames
  - Alignment errors
  - FCS errors
+   - "Are the result of collisions at half-duplex, a duplex mismatch, bad hardware (NIC, cable, or port)"
+   - https://www.cisco.com/c/en/us/support/docs/switches/catalyst-9500-series-switches/218397-troubleshoot-port-flaps-on-catalyst-9000.html
+
  - Gold frames dropped
  - Gold frames truncated
  - Gold frames successful
