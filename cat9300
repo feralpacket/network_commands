@@ -541,3 +541,17 @@ access-session interface-template sticky timer 60
 no access-session interface-template sticky timer 60
 access-session port-control force-authorized
 
+
+
+! SISF broke some endpoints that had secondary IPs
+! The ARP traffic on the interface gets blocked, so the endpoint cannot communicate on the network.
+! No logs, no show commands available to point out what's going on.
+! Have to look at debugs to find and confirm the issue.
+debug device-tracking int gi1/0/1
+
+! Then bounce the interface.
+! The fix.
+device-tracking policy IPDT_MAX_10
+ security-level glean
+
+
