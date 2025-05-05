@@ -252,7 +252,7 @@ sh platform software fed switch active punt cause summary
 sh ip bgp all summary
 
 
-! 17.10.x changed the default SSH algorithms, this prevents being able to SSH to or from older IOS version
+! 17.10.x changed the default SSH algorithms, this prevents being able to SSH to or from older IOS versions
 ! the fix, configure less secure algorithms
 ip ssh server algorithm mac hmac-sha2-512 hmac-sha2-256-etm@openssh.com hmac-sha2-512-etm@openssh.com
 ip ssh client algorithm mac hmac-sha2-512 hmac-sha2-256-etm@openssh.com hmac-sha2-512-etm@openssh.com
