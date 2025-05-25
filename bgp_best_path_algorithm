@@ -331,7 +331,7 @@ Best Path Algorithm:
 
      -> AS_SET is an AS_PATH attribute that is an unordered list of AS numbers added to an aggregate route.
      -> AS_SET restores the loop avoidance that can be lost with aggregation.
-     -> RFC 6472 recocmmends that AS_SET not be used except where a few "corner cases" might justify it.
+     -> RFC 6472 recommends that AS_SET not be used except where a few "corner cases" might justify it.
      -> AS_SET should not be used with a single AS.
      -> AS_SET should not be used with reserved ( private ) AS numbers.
      -> AS_SET must always contain less specific prefixes and must never aggregate an exact match.
