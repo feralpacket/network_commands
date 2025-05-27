@@ -294,6 +294,10 @@ Best Path Algorithm:
      -> bgp bestpath aigp ignore
         -> Do not evaluate AIGP during best path selection.
 
+     -> bgp aigp-rib-metric
+        -> "Install RIB metric as NH metric + metric on AIGP attribute"
+        -> Couldn't find this command mentioned anywhere in documentation.
+
      -> route-map AIGP permit 10
      ->    set aigp-metric igp-metric
      ->    set aigp-metric 100
