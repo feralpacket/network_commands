@@ -143,6 +143,8 @@ order by parentobjectname
 
 ! Cisco inventory with serial numbers
 ! This works with 2023.4.2 for switch stacks and virtual stackwise pairs.
+! The stack port need to be selected as a resource.
+! Switch stack poller needs to be enabled for the node.
 select displayname, switchnumber, roledescription, macaddress, model, serialnumber, swpriority
 from orion.npm.switchstackmember
 order by displayname, switchnumber
