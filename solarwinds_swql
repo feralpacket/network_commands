@@ -388,3 +388,65 @@ SELECT I.InterfaceCaption AS [Local Interface]
 , DevicePort AS [Remote Interface]
 , 'NPM' AS [Source]
 , (SELECT TOP 1 N2.DetailsURL from Orion.Nodes N2 JOIN Orion.NodeIPAddresses NIP ON (N2.NodeID = NIP.NodeID) WHERE NIP.IPAddress = CDP.IPAddress AND NIP.InterfaceIndex IS NOT NULL) AS [_LinkFor_Device]
+
+
+
+! default route change
+SELECT
+  Nodes.NodeID
+  ,Nodes.Caption AS [NODE]
+  ,Nodes.IP_Address AS [NODE_IP]
+  ,rtf.RouteDestination AS [DEST]
+  ,rtf.CIDR AS [CIDR]
+  ,rtf.routenexthop as [NEXT_HOP]
+  ,COUNT(*) AS [FLAPS]
+  ,tolocal(MAX(rtf.DateTime)) AS [LAST_FLAP]
+
+FROM Orion.Nodes
+
+INNER JOIN Orion.routing.RoutingTableFlap rtf ON rtf.NodeId = Nodes.NodeID
+
+WHERE
+  ( rtf.DateTime > ADDDATE('HOUR',-168,GETUTCDATE()) ) and rtf.routedestination = '0.0.0.0' --OVER WHAT TIME 
+
+GROUP BY Nodes.NodeID, Nodes.Caption, Nodes.IP_Address, rtf.RouteDestination, rtf.CIDR, rtf.routenexthop
+  HAVING
+    COUNT(*) >= 10 --HOW MANY FLAPS
+
+ORDER BY [LAST_FLAP] desc, Nodes.NodeID, COUNT(*) DESC
+
+
+
+! route change
+SELECT
+  Nodes.NodeID
+  ,Nodes.Caption AS [NODE]
+  ,Nodes.IP_Address AS [NODE_IP]
+  ,rtf.RouteDestination AS [DEST]
+  ,rtf.CIDR AS [CIDR]
+  ,rtf.routenexthop as [NEXT_HOP]
+  ,COUNT(*) AS [FLAPS]
+  ,tolocal(MAX(rtf.DateTime)) AS [LAST_FLAP]
+
+FROM Orion.Nodes
+
+INNER JOIN Orion.routing.RoutingTableFlap rtf ON rtf.NodeId = Nodes.NodeID
+
+WHERE
+  ( rtf.DateTime > ADDDATE('HOUR',-168,GETUTCDATE()) ) and nodes.caption not like 'feralpacket%'
+  -- and rtf.routedestination = '0.0.0.0' --OVER WHAT TIME 
+
+GROUP BY Nodes.NodeID, Nodes.Caption, Nodes.IP_Address, rtf.RouteDestination, rtf.CIDR, rtf.routenexthop
+  HAVING
+    COUNT(*) >= 10 --HOW MANY FLAPS
+
+ORDER BY [LAST_FLAP] desc, Nodes.NodeID, COUNT(*) DESC
+
+
+
+! interface down
+SELECT NodeID, InterfaceID, AdminStatus, OperStatus, StatusIcon, InterfaceName, InterfaceAlias, tolocal(InterfaceLastChange) as [Last Change], I.Node.Caption
+FROM Orion.NPM.Interfaces I
+
+where I.AdminStatus = '1' and I.OperStatus = '2' and I.FullName not like '%9800%' and I.FullName not like '%UCS%' and I.FullName not like 'feralpacket%' and I.FullName not like '%LAB%'
+
