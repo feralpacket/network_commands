@@ -47,7 +47,8 @@ Generally, but not always:
 	      250			- NHRP
 	      255			- Unknown / Unreachable
 
-    -> Metrics
+    -> Routing Metrics
+       -> Generally, lower is better
 	      RIP			- Hop count
 	      EIGRP			- Metric, a composite of the minimum bandwidth of outgoing interfaces,
 					  and cumulative delay.  Can be configured to also use load, 
