@@ -48,7 +48,7 @@ Generally, but not always:
 	      250			- NHRP
 	      255			- Unknown / Unreachable
 
-    -> Routing Metrics
+    -> Routing Metrics / Route Types
        -> Generally, lower is better
 	      RIP			- Hop count
 	      EIGRP                     - Summary routes > Internal routes > External routes ( via AD values )
