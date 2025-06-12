@@ -325,7 +325,8 @@ Enhanced Interior Gateway Routing Protocol (EIGRP):
          -> NX-OS uses the first interface in the configuration file as the router-id
          -> If a loopback interface is later configured, NX-OS will change the router-id to the IP address of the loopback interface
              -> And cause the neighbor relationships to reset
-         -> If a router-id is using the IP address of a loopback interface that is not loopback0 and loopback0 is later configured, NS-OX will change the router-id to the IP address of loopback0
+         -> If a router-id is using the IP address of a loopback interface that is not loopback0 and loopback0 is later configured, 
+            NS-OX will change the router-id to the IP address of loopback0
              -> And cause the neighbor relationships to reset
  - Variance
      -> Unequal cost path load-balancing
