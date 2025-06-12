@@ -51,7 +51,8 @@ Generally, but not always:
     -> Routing Metrics
        -> Generally, lower is better
 	      RIP			- Hop count
-	      EIGRP			- Metric, a composite of the minimum bandwidth of outgoing interfaces,
+	      EIGRP                     - Summary routes > Internal routes > External routes ( via AD values )
+                                        - Metric, a composite of the minimum bandwidth of outgoing interfaces,
 					  and cumulative delay.  Can be configured to also use load, 
 					  reliability, and/or smallest MTU along the path.
 	      OSPF			- Path type: O > O*IA > E1 > E2 > N1 > N2, for older IOS versions.
