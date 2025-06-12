@@ -30,6 +30,7 @@ Generally, but not always:
        -> Used to select candidate prefixes that may be installed into the routing table
 
     -> AD (Administrative Distance):
+       -> Lower is better
               0				- Connected
 	      1				- Static Route
 	      5				- EIGRP Summary Route
