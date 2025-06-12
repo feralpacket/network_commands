@@ -35,7 +35,7 @@ Generally, but not always:
 	      1				- Static Route
 	      5				- EIGRP Summary Route
 	      20			- eBGP
-	      90			- EIGRP
+	      90			- EIGRP Internal Route
 	      100			- IGRP ( Historical )
 	      110			- OSPF
 	      115			- IS-IS
