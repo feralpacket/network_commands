@@ -328,11 +328,11 @@ Best Path Algorithm:
      -> Significant external to AS.
      -> Range of 1 - 255.
      -> Primary purpose is to provide loop prevention for inter-AS routing.
-     -> For eBGP peers, the router prepends its own AS to the AS_PATH in the update message.  
+     -> For eBGP peers, the router prepends its own AS to the AS_PATH in the outbound update message.  
      -> For iBGP peers, this AS_PATH prepend is not performed because the iBGP peer would see its own AS 
         in the AS_PATH and reject the route.  The side effect is there is no way for an iBGP peer to verify 
         the path is not looped.  To prevent a loop from forming, routes learned from iBGP peers are never
-        advertised to other iBGP peers.  Also known as the iBGP split-horizon rule.  The only way to 
+        advertised to other iBGP peers.  This is known as the iBGP split-horizon rule.  The only way to 
         mitigate this is for iBGP peers to be fully meshed, use route reflection, or use confederations.
 
      -> AS_SEQUENCE is an AS_PATH attribute that is an ordered list of AS numbers.
