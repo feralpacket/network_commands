@@ -300,7 +300,7 @@ Best Path Algorithm:
 
      -> bgp aigp-rib-metric
         -> "Install RIB metric as NH metric + metric on AIGP attribute"
-        -> Couldn't find this command mentioned anywhere in documentation.
+        -> While the commands is available in the cli, I couldn't find this command mentioned anywhere in documentation.
 
      -> route-map AIGP permit 10
      ->    set aigp-metric igp-metric
