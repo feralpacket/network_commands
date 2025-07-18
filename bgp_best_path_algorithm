@@ -257,7 +257,8 @@ Best Path Algorithm:
            the aggregate-timer runs.
            -> The new, longer-prefix will then be withdrawn from the neighbors.
            -> If this may be a problem, such as in data centers or if the longer prefix can slip through policies or 
-              filters on other routers, "bgp aggregate-timer 0".
+              filters on other routers, set the aggregate-timer to 0.
+              -> bgp aggregate-timer 0
 
 
  3a.  Accumulated Interior Gateway Protocol (AIGP)
