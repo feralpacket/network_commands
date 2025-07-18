@@ -276,8 +276,11 @@ Best Path Algorithm:
      -> AIGP can be used for seamless MPLS networks with BGP Labeled Unicast that have asymmetric or suboptimal 
         paths.  AIGP is used to determine an end-to-end optimal path between the Service Aggregation Router (SAR) 
         and Cell-Site Router (CSR).  TLDR;, AIGP can help with north-south routing in certain scenarios.
+
      -> If the underlying IGP is unstable or subject to frequent routing changes, BGP Next Hop Trigger delay can be
-        configured to prevent BGP route churn.
+        configured to prevent BGP route churn.  However, Cisco documentation also recommends aggressively dampening
+        IGP peering sessions to reduce instability caused by IGP peers.
+
      -> Since AIGP is before AS_PATH in the BGP best path selection, any existing AS_PATH prepending might need to
         be reconsidered.
 
