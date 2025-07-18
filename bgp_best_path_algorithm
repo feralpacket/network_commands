@@ -245,7 +245,7 @@ Best Path Algorithm:
      -> aggregate-address command
         -> Creates an aggregate route, but the more specific routes are still advertised.
         -> A longer prefix that matches the aggregate route must exist in the RIB.
-        -> It's not uncommon to configured a static route to prevent the aggregate route from being withdrawn.
+        -> It's not uncommon to configure a static route to prevent the aggregate route from being withdrawn.
            -> ip route 192.0.2.0 255.255.255.0 null0 name static_route_for_the_aggregate_route
         -> The ATOMIC_AGGREGATE attribute is set to indicate information might be missing, unless "as-set" is configured.
   
