@@ -140,7 +140,7 @@ Best Path Algorithm:
      -> Do this instead.
      -> neighbor 192.0.2.1 soo 64496:64511
      -> route-map SOO permit 10
-     ->     set extcommunity soo 64496:645111
+     ->     set extcommunity soo 64496:64511
      -> neighbor 192.0.2.1 route-map SOO in
 
 
