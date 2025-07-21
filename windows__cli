@@ -27,6 +27,7 @@ net time
 get-date
 w32tm /query /status
 w32tm /tz
+w32tm /stripchart /computer:192.0.2.1
 
 net stop w32time
 w32tm /config /syncfromflags:manual /manualpeerlist:"0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org"
