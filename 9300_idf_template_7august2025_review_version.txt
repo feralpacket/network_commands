@@ -1,0 +1,816 @@
+!
+switch 1 priority 13
+
+
+!
+switch 2 priority 12
+
+
+!
+switch 3 priority 11
+
+
+
+
+
+
+
+
+!
+config t
+
+ip domain name feralpacket.net
+
+crypto key generate rsa modulus 4096
+
+
+
+
+
+authentication convert-to new-style
+yes
+
+
+
+!
+hostname feralpacket_idf1_a1
+
+
+!
+interface Vlan5 
+ description Network_MGMT
+ ip address 192.0.2.1 255.255.255.0
+ no ip route-cache
+ no ip redirects
+ no ip proxy-arp
+ no shut
+
+!
+spanning-tree mode rapid-pvst
+system mtu 9198
+
+
+
+!
+interface range gigabitEthernet 1/0/1 -48
+switchport access vlan 101
+switchport voice vlan 201
+exit
+
+
+!
+interface range gigabitEthernet 2/0/1 -48
+switchport access vlan 101
+switchport voice vlan 201
+exit
+
+
+!
+interface range gigabitEthernet 3/0/1 -48
+switchport access vlan 101
+switchport voice vlan 200
+exit
+
+
+!
+service-template DEFAULT_CRITICAL_DATA_TEMPLATE
+ vlan 101
+
+
+
+
+
+
+!
+no service pad
+service tcp-keepalives-in
+service tcp-keepalives-out
+service timestamps debug datetime msec localtime show-timezone
+service timestamps log datetime msec localtime show-timezone
+service password-encryption
+service internal
+!
+
+key config-key password-encrypt *****REMOVED*****
+password encryption aes
+!
+vtp domain *****REMOVED******
+vtp password *****REMOVED***** hidden
+vtp version 3
+vtp mode client
+vtp pruning
+
+
+!
+interface Port-channel1
+ description **UPLINK-MDF**
+spanning-tree bpduguard disable 
+ switchport mode trunk
+ switchport nonegotiate
+ ip dhcp snooping trust
+ logging event trunk-status
+ logging event bundle-status
+ logging event spanning-tree
+ logging event status
+ no shut
+!
+interface Ten1/1/1
+ description **UPLINK-MDF-SW1**
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode active
+ ip dhcp snooping trust
+ spanning-tree bpduguard disable 
+ logging event trunk-status
+ logging event bundle-status
+ logging event spanning-tree
+ logging event status
+ no shut
+!
+interface Ten3/1/5
+ description **UPLINK-MDF-SW2**
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode active
+ ip dhcp snooping trust
+ spanning-tree bpduguard disable 
+ logging event trunk-status
+ logging event bundle-status
+ logging event spanning-tree
+ logging event status
+ no shut
+!
+
+
+
+
+
+
+
+!
+username ***REMOVED*** privilege 15 algorithm-type scrypt secret ******REMOVED*****
+!
+aaa new-model
+!
+tacacs server location1_ise_psn_tacacs_AAA_f5_vip_192.0.2.1
+ address ipv4 192.0.2.1
+ timeout 15
+ key ******REMOVED******
+!
+tacacs server location2_ise_psn_tacacs_AAA_f5_vip_192.0.2.1
+ address ipv4 192.0.2.1
+ timeout 15
+ key ******REMOVED******
+!
+radius server location1_ise_psn_radius_AAA_f5_vip_192.0.2.1
+ address ipv4 192.0.2.1 auth-port 1812 acct-port 1813
+ timeout 4
+ retransmit 3
+ key ******REMOVED******
+!
+radius server location2_ise_psn_radius_AAA_f5_vip_192.0.2.1
+ address ipv4 192.0.2.1 auth-port 1812 acct-port 1813
+ timeout 4
+ retransmit 3
+ key ******REMOVED******
+!
+exit
+
+
+
+
+
+!
+aaa group server radius ISE-radius-group
+ server name location1_ise_psn_radius_AAA_f5_vip_192.0.2.1
+ server name location2_ise_psn_radius_AAA_f5_vip_192.0.2.1
+ ip radius source-interface Vlan5
+ load-balance method least-outstanding batch-size 5
+!
+aaa group server tacacs+ ISE-tacacs-group
+ server name location1_ise_psn_tacacs_AAA_f5_vip_192.0.2.1
+ server name location2_ise_psn_tacacs_AAA_f5_vip_192.0.2.1
+ ip tacacs source-interface Vlan5
+ timeout 15
+!
+aaa authentication banner ^C
+
+Contact:  Feral Packet Network Infrastructure (200) 867-5309
+
+^C
+no aaa accounting system guarantee-first
+aaa authentication login default group ISE-tacacs-group local
+aaa authentication login VTY_authen group ISE-tacacs-group local
+aaa authentication enable default group ISE-tacacs-group
+aaa authentication dot1x default group ISE-radius-group
+aaa authorization exec default group ISE-tacacs-group local 
+aaa authorization exec VTY_author group ISE-tacacs-group local 
+aaa authorization exec ISE-tacacs-group local 
+aaa authorization network default group ISE-radius-group 
+aaa authorization auth-proxy default group ISE-radius-group 
+aaa accounting update newinfo periodic 2880
+aaa accounting identity default start-stop group ISE-radius-group
+aaa accounting exec default start-stop group ISE-tacacs-group
+aaa accounting commands 1 default start-stop group ISE-tacacs-group
+aaa accounting commands 15 default start-stop group ISE-tacacs-group
+aaa accounting system default start-stop group ISE-radius-group
+!
+!
+aaa login display last-success
+aaa login display last-failure
+aaa login display number-failures
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!
+aaa server radius dynamic-author
+ client 192.0.2.1 server-key ******REMOVED******
+ client 192.0.2.1 server-key ******REMOVED******
+!
+aaa session-id common
+clock timezone CST -6 0
+clock summer-time CST recurring
+!
+
+
+
+
+device-sensor filter-list cdp list iseCDP
+ tlv name device-name
+ tlv name capabilities-type
+ tlv name version-type
+ tlv name platform-type
+!
+device-sensor filter-list dhcp list iseDHCP
+ option name host-name
+ option number 15
+ option name requested-address
+ option name parameter-request-list
+ option name class-identifier
+ option name client-identifier
+!
+device-sensor filter-list lldp list iseLLDP
+ tlv name system-name
+ tlv name system-description
+ tlv name system-capabilities
+ tlv name management-address
+device-sensor filter-spec dhcp include list iseDHCP
+device-sensor filter-spec lldp include list iseLLDP
+device-sensor filter-spec cdp include list iseCDP
+device-sensor notify all-changes
+
+
+
+
+!
+no ip source-route
+no ip gratuitous-arps
+
+
+
+
+!
+ip dhcp snooping vlan 1-1000
+no ip dhcp snooping information option
+ip dhcp snooping
+ip dhcp snooping database flash:dhcpsnoopingdb
+ip dhcp snooping database write-delay 60
+
+
+!
+ipv6 dhcp guard policy DHCPv6_GUARD
+ device-role client
+
+
+!
+!ip domain name feralpacket.net
+ip name-server 192.0.2.1 192.0.2.1
+ip domain lookup
+
+
+
+!
+device-tracking policy IPDT_MAX_10
+ limit address-count 10
+ tracking enable
+ security-level glean
+ protocol ndp
+ protocol dhcp6
+
+!
+device-tracking policy IPDT_UPLINK
+ device-role switch
+ trusted-port
+
+!
+!
+int po1
+ device-tracking attach-policy IPDT_UPLINK
+!
+!
+
+
+
+!
+device-tracking logging theft
+
+
+!
+ipv6 nd raguard policy RA_GUARD_HOST
+ device-role host
+
+
+
+
+
+!
+crypto pki trustpoint SLA-TrustPoint
+revocation-check none
+!
+
+
+
+!
+login on-failure log
+login on-success log
+login block-for 90 attempts 5 within 30
+login delay 10
+
+
+
+!
+access-session attributes filter-list list Def_Acct_List
+ vlan-id
+ cdp
+ lldp
+ dhcp
+ dhcpv6
+ http
+access-session accounting attributes filter-spec include list Def_Acct_List
+access-session mac-move deny
+access-session acl default passthrough
+access-session interface-template sticky
+mab request format attribute 32 vlan access-vlan
+
+
+
+dot1x system-auth-control
+dot1x critical eapol
+service-template DEFAULT_CRITICAL_VOICE_TEMPLATE
+ voice vlan
+service-template webauth-global-inactive
+ inactivity-timer 3600 
+service-template webauth-global-absolute
+service-template DEFAULT_LINKSEC_POLICY_MUST_SECURE
+service-template DEFAULT_LINKSEC_POLICY_SHOULD_SECURE
+!service-template DEFAULT_CRITICAL_DATA_TEMPLATE
+! vlan 101
+!
+exit
+!
+spanning-tree mode rapid-pvst
+spanning-tree loopguard default
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+spanning-tree extend system-id
+
+
+
+
+!
+errdisable recovery cause all
+errdisable recovery interval 120
+errdisable detect cause security-violation shutdown vlan
+
+
+
+!
+udld aggressive
+udld recovery interval 120
+
+
+
+
+!
+device classifier
+!
+parameter-map type webauth AI_NRH_PMAP
+ type authbypass
+!
+parameter-map type webauth AI_WEBAUTH_PMAP
+ type webauth
+!
+!
+class-map type control subscriber match-all AAA_SVR_DOWN_AUTHD_HOST
+ match authorization-status authorized
+ match result-type aaa-timeout
+!
+class-map type control subscriber match-all AAA_SVR_DOWN_UNAUTHD_HOST
+ match authorization-status unauthorized
+ match result-type aaa-timeout
+!
+class-map type control subscriber match-all AUTHC_SUCCESS-AUTHZ_FAIL
+ match authorization-status unauthorized
+ match result-type success
+!
+class-map type control subscriber match-all DOT1X
+ match method dot1x
+!
+class-map type control subscriber match-all DOT1X_FAILED
+ match method dot1x
+ match result-type method dot1x authoritative
+!
+class-map type control subscriber match-all DOT1X_MEDIUM_PRIO
+ match authorizing-method-priority gt 20
+!
+class-map type control subscriber match-all DOT1X_NO_RESP
+ match method dot1x
+ match result-type method dot1x agent-not-found
+!
+class-map type control subscriber match-all DOT1X_TIMEOUT
+ match method dot1x
+ match result-type method dot1x method-timeout
+!
+class-map type control subscriber match-any IN_CRITICAL_AUTH
+ match activated-service-template DEFAULT_CRITICAL_DATA_TEMPLATE
+ match activated-service-template DEFAULT_CRITICAL_VOICE_TEMPLATE
+!
+class-map type control subscriber match-all MAB
+ match method mab
+!
+class-map type control subscriber match-all MAB_FAILED
+ match method mab
+ match result-type method mab authoritative
+!
+class-map type control subscriber match-none NOT_IN_CRITICAL_AUTH
+ match activated-service-template DEFAULT_CRITICAL_DATA_TEMPLATE
+ match activated-service-template DEFAULT_CRITICAL_VOICE_TEMPLATE
+!
+policy-map type control subscriber PMAP_DefaultWiredDot1xOpenAuth_MAB_1X
+ event session-started match-all
+  10 class always do-until-failure
+   10 authenticate using dot1x priority 10
+   20 authenticate using mab priority 20
+ event authentication-failure match-first
+  5 class DOT1X_FAILED do-until-failure
+   10 terminate dot1x
+   20 authentication-restart 60
+  10 class AAA_SVR_DOWN_UNAUTHD_HOST do-until-failure
+   10 activate service-template DEFAULT_CRITICAL_DATA_TEMPLATE
+   20 activate service-template DEFAULT_CRITICAL_VOICE_TEMPLATE
+   30 authorize
+   40 pause reauthentication
+  20 class AAA_SVR_DOWN_AUTHD_HOST do-until-failure
+   10 pause reauthentication
+   20 authorize
+  30 class MAB_FAILED do-until-failure
+   10 terminate mab
+   20 authentication-restart 60
+  40 class DOT1X_NO_RESP do-until-failure
+   10 terminate dot1x
+   20 authentication-restart 60
+  60 class always do-until-failure
+   10 terminate mab
+   20 terminate dot1x
+   30 authentication-restart 60
+ event aaa-available match-all
+  10 class IN_CRITICAL_AUTH do-until-failure
+   10 clear-session
+  20 class NOT_IN_CRITICAL_AUTH do-until-failure
+   10 resume reauthentication
+ event agent-found match-all
+  10 class always do-until-failure
+   10 terminate mab
+   20 authenticate using dot1x retries 2 retry-time 0 priority 10
+ event inactivity-timeout match-all
+  10 class always do-until-failure
+   10 clear-session
+ event authentication-success match-all
+ event violation match-all
+  10 class always do-until-failure
+   10 restrict
+ event authorization-failure match-all
+  10 class AUTHC_SUCCESS-AUTHZ_FAIL do-until-failure
+   10 authentication-restart 60
+!
+template DefaultWiredDot1xOpenAuth
+ dot1x pae authenticator
+ switchport mode access
+ mab
+ access-session host-mode multi-domain
+ access-session port-control auto
+ authentication periodic
+ authentication timer reauthenticate server
+ service-policy type control subscriber PMAP_DefaultWiredDot1xOpenAuth_MAB_1X
+!
+template ISE_Dynamic_Trunk
+ switchport mode trunk
+ description **Dynamic AccessPoint Template From ISE**
+!
+template MultiAuthWiredDot1xOpenAuth
+ description **Unmanaged Switch - See Unmanaged Switch Page on Doku**
+ dot1x pae authenticator
+ switchport mode access
+ mab
+ access-session host-mode multi-auth
+ access-session port-control auto
+ authentication periodic
+ authentication timer reauthenticate server
+ service-policy type control subscriber PMAP_DefaultWiredDot1xOpenAuth_MAB_1X
+!
+exit
+!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+interface GigabitEthernet0/0 
+ no ip address
+ shutdown
+!
+interface range gigabitEthernet 1/0/1 - 48
+ switchport mode access
+ switchport nonegotiate
+ device-tracking attach-policy IPDT_MAX_10
+ ipv6 nd raguard attach-policy RA_GUARD_HOST
+ ipv6 dhcp guard attach-policy DHCPv6_GUARD
+ load-interval 30
+ authentication timer unauthorized 10
+ access-session interface-template sticky timer 60
+ access-session inherit disable autoconf
+ access-session control-direction in
+ no macro auto processing
+ dot1x timeout tx-period 7
+ dot1x max-reauth-req 3
+ source template DefaultWiredDot1xOpenAuth
+! power inline port perpetual-poe-ha
+! power inline port 2-event
+! power inline port poe-ha
+ no shut
+ exit
+!
+
+
+
+
+
+interface range gigabitEthernet 2/0/1 - 48
+ switchport mode access
+ switchport nonegotiate
+ device-tracking attach-policy IPDT_MAX_10
+ ipv6 nd raguard attach-policy RA_GUARD_HOST
+ ipv6 dhcp guard policy DHCPv6_GUARD
+ load-interval 30
+ authentication timer unauthorized 10
+ access-session interface-template sticky timer 60
+ access-session inherit disable autoconf
+ access-session control-direction in
+ no macro auto processing
+ dot1x timeout tx-period 7
+ dot1x max-reauth-req 3
+ source template DefaultWiredDot1xOpenAuth
+! power inline port perpetual-poe-ha
+! power inline port 2-event
+! power inline port poe-ha
+ no shut
+ exit
+!
+
+
+
+
+
+interface range gigabitEthernet 3/0/1 - 48
+ switchport mode access
+ switchport nonegotiate
+ device-tracking attach-policy IPDT_MAX_10
+ ipv6 nd raguard attach-policy RA_GUARD_HOST
+ ipv6 dhcp guard policy DHCPv6_GUARD
+ load-interval 30
+ authentication timer unauthorized 10
+ access-session inherit disable interface-template-sticky
+ access-session inherit disable autoconf
+ access-session control-direction in
+ no macro auto processing
+ dot1x timeout tx-period 7
+ dot1x max-reauth-req 3
+ source template DefaultWiredDot1xOpenAuth
+! power inline port perpetual-poe-ha
+! power inline port 2-event
+! power inline port poe-ha
+ no shut
+ exit
+!
+
+
+
+
+
+
+
+
+
+
+
+
+!
+lldp run
+!
+
+
+!
+ip default-gateway 192.0.2.1
+!
+no ip http server
+no ip http secure-server
+ip ssh time-out 60
+ip ssh source-interface Vlan5
+ip ssh version 2
+ip ssh maxstartups 5
+ip scp server enable
+ip tacacs source-interface Vlan5
+!
+ip access-list extended AI_PORT_ACL
+ permit ip any any
+ip access-list extended IPV4_CRITICAL_AUTH_ACL
+ permit ip any any
+ip access-list extended IPV4_PRE_AUTH_ACL
+ permit udp any any eq bootpc
+ permit udp any any eq domain
+ permit ip any any
+ip radius source-interface Vlan5
+!
+
+
+!
+! 128MB total / 1MB filesize to crashinfo:/syslog
+logging persistent size 134217728 filesize 1049576
+! 2MB to memory / informational
+logging buffered 2097152 6
+! disable logging to the console port 
+no logging console
+!
+logging host 192.0.2.1
+!
+logging source-interface vlan5
+
+
+!
+ip access-list standard SNMP_FILTER
+10 remark *** SNMP FILTER ***
+20 remark ISE nodes
+20 permit 192.0.2.1
+30 permit 192.0.2.1
+40 permit 192.0.2.1
+50 permit 192.0.2.1
+60 remark Network Monitoring Servers
+60 permit 192.0.2.1
+70 permit 192.0.2.1
+80 remark ISE PSN F5 RADIUS load-balancing
+80 permit 192.0.2.1
+90 permit 192.0.2.1
+100 permit 192.0.2.1
+110 permit 192.0.2.1
+120 remark 911 / CER
+120 permit 192.0.2.1
+130 permit 192.0.2.1
+! Solarwinds
+140 remark Other Network Monitoring Servers
+140 permit 192.0.2.1
+150 permit 192.0.2.1
+160 permit 192.0.2.1
+170 deny   any log
+!
+snmp-server community ******REMOVED****** RO SNMP_FILTER
+snmp-server location Feral Packet Tornado Shelter
+snmp-server contact Feral Packet Network Infrastructure (200) 867-5309
+snmp ifmib ifindex persist
+snmp mib flash cache
+!
+
+!
+radius-server attribute 6 on-for-login-auth
+radius-server attribute 6 support-multiple
+radius-server attribute 6 voice 1
+radius-server attribute 8 include-in-access-req
+radius-server attribute 25 access-request include
+radius-server attribute 31 mac format ietf upper-case
+radius-server attribute 31 send nas-port-detail mac-only
+radius-server dead-criteria time 5 tries 3
+radius-server deadtime 3
+radius-server vsa send cisco-nas-port
+radius-server load-balance method least-outstanding batch-size 5 
+!
+!
+banner login ^C
++-----------------------------------------------------------------------------+
+|                                WARNING!!!!                                  |
++-----------------------------------------------------------------------------+
+|                                                                             |
+| THIS IS A WARNING BANNER!  There is usually some legalese here.             |
+|                                                                             | 
++-------------------Feralpacket Switch Config Version 1.0-9300----------------+
+^C
+!
+
+
+
+
+line con 0
+ exec-timeout 10 1
+ privilege level 15
+ logging synchronous
+ stopbits 1
+ transport preferred none
+line vty 0 4
+ exec-timeout 10 1
+ authorization exec VTY_author
+ logging synchronous
+ login authentication VTY_authen
+ transport input ssh
+ transport preferred none
+line vty 5 15
+ exec-timeout 10 1
+ authorization exec VTY_author
+ logging synchronous
+ login authentication VTY_authen
+ transport input ssh
+ transport preferred none
+!
+ntp authentication-key 42 sha1 ******REMOVED******
+ntp authenticate
+ntp trusted-key 42
+ntp source Vlan5
+ntp server 192.0.2.1 key 42
+ntp server 192.0.2.1 key 42
+no ntp allow mode control
+!
+clock timezone CST -6 0
+clock summer-time CST recurring
+!
+!
+
+
+
+! licensing
+service call-home
+!ip name-server 192.2.0.1 192.2.0.1
+!
+license smart url https://smartreceiver.cisco.com/licservice/license
+license smart url smart https://smartreceiver.cisco.com/licservice/license
+license smart transport smart
+!
+ip http client source-interface Vlan5
+ip http client secure-trustpoint SLA-TrustPoint
+!
+! need the idtoken
+! license smart trust idtoken 1234.... all force
+!
+
+!
+archive
+ path bootflash:feralpacket_idf1_a1
+ maximum 10
+ write-memory
+ time-period 1440
+ log config
+  logging enable
+  logging size 500
+  notify syslog contenttype plaintext
+  hidekeys
+!
+
+!
+end
+
+copy run start
+
+!
