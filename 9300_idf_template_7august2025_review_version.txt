@@ -702,7 +702,6 @@ ip access-list standard SNMP_FILTER
 120 remark 911 / CER
 120 permit 192.0.2.1
 130 permit 192.0.2.1
-! Solarwinds
 140 remark Other Network Monitoring Servers
 140 permit 192.0.2.1
 150 permit 192.0.2.1
@@ -814,3 +813,4 @@ end
 copy run start
 
 !
+
