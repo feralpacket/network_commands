@@ -820,6 +820,9 @@ exe s:h . "no_shutdown" . s:bold . s:fggreen
 synt match Console_Error /^%.*/
 exe s:h . "Console_Error" . s:emphasis
 
+synt match DONE /- DONE/
+exe s:h . "DONE" . s:bold . s:fggreen
+
 
 "}}}
 
