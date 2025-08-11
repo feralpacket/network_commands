@@ -823,6 +823,9 @@ exe s:h . "Console_Error" . s:emphasis
 synt match DONE /- DONE/
 exe s:h . "DONE" . s:bold . s:fggreen
 
+synt match TODO /TODO/
+exe s:h . "TODO" . s:bold . s:fgyellow
+
 
 "}}}
 
