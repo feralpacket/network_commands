@@ -450,3 +450,10 @@ FROM Orion.NPM.Interfaces I
 
 where I.AdminStatus = '1' and I.OperStatus = '2' and I.FullName not like '%9800%' and I.FullName not like '%UCS%' and I.FullName not like 'feralpacket%' and I.FullName not like '%LAB%'
 
+
+
+! BGP neighbor down
+select nodeid, caption, r.neighbors.protocolname, r.neighbors.protocolstatusdescription, r.neighbors.neighborip, r.neighbors.lastchange
+from orion.routing.router as r
+
+where r.neighbors.protocolname like 'BGP' and r.neighbors.protocolstatusdescription not like 'Established'
