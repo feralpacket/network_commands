@@ -42,6 +42,9 @@ order by caption
 
 
 ! nexus device reload reason
+! need to create a custom poller for
+! 1.3.6.1.4.1.9.9.117.1.2.1.1.6
+! CISCO-ENTITY-FRU-CONTROL-MIB:cefcModuleResetReasonDescription
 select n.caption as [Device]
 ,n.lastboot as [Last Boot]
 ,n.custompollerassignmentonnode.custompollerstatus.status as [Reset Reason]
