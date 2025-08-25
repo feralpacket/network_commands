@@ -130,3 +130,13 @@ int e1/1
 ! need to test to determine the lowest possible setting that keeps the interface UP during failovers
 link debounce time 500
 
+
+
+! erspan
+monitor erspan origin ip-address 192.0.2.1
+!
+monitor session 1 type erspan-source
+  source interface e1/1 both
+  filter vlan 1
+  destination ip 192.0.2.1
+  no shut
