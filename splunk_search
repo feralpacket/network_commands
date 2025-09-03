@@ -57,6 +57,7 @@ eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="UPDOWN" | stats coun
 
 ! dot1x authentication failures
 eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="FAIL" | stats count by host, src_interface, message_text | sort -count
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="FAIL" | stats count by host, src_interface, message_text | rex field=message_text mode=sed "s/AuditSessionID\s+.*//g" | sort -count
 
 ! poe disconnects
 eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="IEEE_DISCONNECT" | stats count by host, message_text | sort -count
