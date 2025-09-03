@@ -67,3 +67,8 @@ eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="IEEE_DISCONNECT" | s
 
 ! insufficient PoE power
 inline power denied. Reason: insufficient power | stats count by host, message_text
+
+! security violation new MAC address
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="SECURITY_VIOLATION" | stats count by host, src_interface, message_text | eval message_text=substr(message_text, 1, 91) | sort -count
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="SECURITY_VIOLATION" | stats count by host, src_interface, message_text | eval message_text=replace (message_text, "is seen.AuditSessionID\s+.*", "") | sort -count
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="SECURITY_VIOLATION" | stats count by host, src_interface, message_text | rex field=message_text mode=sed "s/is seen.AuditSessionID\s+.*//g" | sort -count
