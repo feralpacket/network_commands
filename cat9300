@@ -570,3 +570,6 @@ debug ilpower powerman
 
 May  5 14:51:25.366 UTC: Interface(GigabitEthernet1/0/4) has no inline power
 
+
+!
+qos share-buffer
