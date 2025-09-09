@@ -31,6 +31,11 @@ show ip eigrp route-map statistics redistribute bgp 64496
 ! LIST ALL THE COMMANDS
 sh cli list
 which
+sh cli list arp
+conf t
+sh cli list arp
+int vlan 1
+sh cli list arp
 
 ! reset reason
 sh system reset-reason
