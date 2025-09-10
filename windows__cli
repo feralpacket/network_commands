@@ -61,6 +61,11 @@ ipconfig
 get-netipconfiguration
 
 
+! Public IP address
+curl icanhazip.com
+curl -4 icanhazip.com
+
+
 ! MAC addresses
 getmac /v
 
