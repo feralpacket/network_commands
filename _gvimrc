@@ -1,0 +1,23 @@
+"set guifont=Lucida_Console:h10
+set guifont=Consolas:h12:cANSI:qDRAFT
+color evening
+"
+syntax on
+"
+set syntax=cisco
+set filetype=cisco
+"
+set lines=40 columns=90
+set number
+set nowrap
+set ruler
+set backup
+set autoindent
+set autoread
+set laststatus=2
+"
+set undodir=~/.vim/.undo//
+set backupdir=~/.vim/.backup//
+set directory=~/.vim/.swp//
+"
+au BufNewFile,BufRead,BufReadPost *.txt set syntax=cisco
