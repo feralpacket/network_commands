@@ -16,6 +16,9 @@ Why Routers Ignore Paths:
      -> bgp soft-reconfig-backup
           -> Configure soft reconfiguration for peers that do not support the route refresh capability.
 
+ - Routes that matches a prefix-list that is received from a peer with the Outbound Route Filtering (ORF) capability will 
+   not be advertised to that peer.
+
  - Route-targets (RT) act as a pre-filter before the best path selection process begins for a particular VRF.  If the
    RT extended community attached to the prefix does not matches the import RT configuration for the VRF, the prefix is 
    not imported into the VRF's BGP table and is not considered as a best path.
