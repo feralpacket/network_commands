@@ -60,7 +60,7 @@ Why Routers Ignore Paths:
  - BGP-Origin AS Validation is configured and a prefix is marked as not found, it will only be considered for best path or a 
    candidate for multipath if there is no alternative prefix that is marked valid.
 
- - In EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-best path 
+ - In EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath 
    point of insertion.
 
 
