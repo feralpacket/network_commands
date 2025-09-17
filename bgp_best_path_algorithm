@@ -16,6 +16,10 @@ Why Routers Ignore Paths:
      -> bgp soft-reconfig-backup
           -> Configure soft reconfiguration for peers that do not support the route refresh capability.
 
+ - Route-targets (RT) act as a pre-filter before the best path selection process begins for a particular VRF.  If the
+   RT extended community attached to the prefix does not matches the import RT configuration for the VRF, the prefix is 
+   not imported into the VRF's BGP table and is not considered as a best path.
+
  - Prefixes are withdrawn from the BGP table and the RIB if an update is received that is malformed, because the BGP 
    Enhanced Attribute Error Handling feature is enabled by default with "bgp enhanced-error".
  - Prefixes are withdrawn from the BGP table and the RIB if a BGP Attribute Filter is configured with "path-attibute 
@@ -52,11 +56,11 @@ Why Routers Ignore Paths:
  - Routes will be discarded if the number of large communities exceeds the "bgp maxlargecommunity-limit" when configured.
 
  - BGP-Origin AS Validation is configured and a prefix is marked as invalid, it will not be advertised, will be withdrawn from 
-   the BGP routing table, will not be considered as a bestpath, and will not be considered as a candidate for multipath.
- - BGP-Origin AS Validation is configured and a prefix is marked as not found, it will only be considered for bestpath or a 
+   the BGP routing table, will not be considered as a best path, and will not be considered as a candidate for multipath.
+ - BGP-Origin AS Validation is configured and a prefix is marked as not found, it will only be considered for best path or a 
    candidate for multipath if there is no alternative prefix that is marked valid.
 
- - In EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath 
+ - In EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-best path 
    point of insertion.
 
 
@@ -73,7 +77,7 @@ Best Path Algorithm:
   select the best and backup paths.
 
 
- 0.  Extended cost community, pre-bestpath POI
+ 0.  Extended cost community, pre-best path POI
  1.  Weight
  2.  Local_preference
  3.  Locally originated path
