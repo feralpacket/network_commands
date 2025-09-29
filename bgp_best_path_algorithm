@@ -116,7 +116,8 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
    -> 4.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
    -> 5.  Outbound Route Filtering (ORF) prefix-list (a prefix-list a neighbor sends us)
 
-From other Cisco documentation ( https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3e/irg-iproute-bgp-xe-3e-book/irg-prefix-filter.html):
+From other Cisco documentation ( https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3e/irg-iproute-bgp-xe-3e-book/irg-prefix-filter.html)
+ and the book Edgeworth, Foss, Rios, IP Routing on Cisco IOS, IOS XE, and IOS XR, 548:
  - Inbound processing order:
    -> Route map
    -> Filter list, AS-path access-list, or IP Policy
