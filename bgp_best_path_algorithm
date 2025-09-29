@@ -100,17 +100,36 @@ Best Path Algorithm:
 
  - The steps below include the IOS configuration commands that can modify the default behavior of each step.
 
- - Note:  Order of preference for inbound updates, if more than one of the below is configured:
+
+
+
+From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/5816-bgpfaq-5816.htm ):
+ - Order of preference for inbound updates, if more than one of the below is configured:
    -> 1.  route-map
    -> 2.  filter-list
    -> 3.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
 
- - Note:  Order of preference for outbound updates, if more than one of the below is configured:
+ - Order of preference for outbound updates, if more than one of the below is configured:
    -> 1.  filter-list
    -> 2.  route-map or unsuppress-map
    -> 3.  advertise-map (conditional-advertisement)
    -> 4.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
    -> 5.  Outbound Route Filtering (ORF) prefix-list (a prefix-list a neighbor sends us)
+
+From other Cisco documentation ( https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3e/irg-iproute-bgp-xe-3e-book/irg-prefix-filter.html):
+ - Inbound processing order:
+   -> Route map
+   -> Filter list, AS-path access-list, or IP Policy
+   -> IP prefix list
+   -> Distribute list
+
+ - Outbound processing order:
+   -> Distribute list
+   -> IP prefix list
+   -> Filter list, AS-path access list, or IP policy
+   -> Route map
+
+
 
 
  0.  If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
