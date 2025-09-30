@@ -1,5 +1,6 @@
 "set guifont=Lucida_Console:h10
-set guifont=Consolas:h12:cANSI:qDRAFT
+"set guifont=Consolas:h12:cANSI:qDRAFT
+set guifont=Fira_Code:h12:cANSI:qDRAFT
 color evening
 "
 syntax on
