@@ -66,6 +66,10 @@ curl icanhazip.com
 curl -4 icanhazip.com
 
 
+! Some IP address
+curl ipinfo.io/192.0.2.0
+
+
 ! MAC addresses
 getmac /v
 
