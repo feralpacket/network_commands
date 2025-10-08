@@ -62,6 +62,15 @@ Generally, but not always:
 		 			      Path type: O > O*IA > N1 > N2 > E1 > E2, for newer IOS versions.
 					      Referred to as RFC 3101 compatible.
 					    - If the path type is the same, use cost
+          OSPF Multi-process
+                        - Same path selection is used seperately in each OSPF process.
+                        - Administrative Distance is used to determine which path from which
+                          process is selected for insertion into the RIB.
+                        - If the Administrative Distance is the same ( the default ), the
+                          OSPF process that was the fastest wins.
+                        - The result is non-deterministice ( random ).
+                        - Always manually configure an Administrative Distance for each process
+                          when multi-process OSPF is used.
        	  BGP	        - BGP uses a best path algorithm to determine the best route
 	      IS-IS		    - L1 routers preferred to L2 routes.
 					    - Internal routes preferred to external routes.
