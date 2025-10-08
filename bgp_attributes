@@ -1,0 +1,27 @@
+BGP Path Attributes
+ 
+
+| Value | Attribute                      | Class                    | RFC  | Application                     |
+|-------|--------------------------------|--------------------------|------|---------------------------------|
+| 1     | ORIGIN                         | Well-known mandatory     | 4271 | Policy                          |
+| 2     | AS_PATH                        | Well-known mandatory     | 4271 | Policy, loop detection          |
+| 3     | NEXT_HOP                       | Well-known mandatory     | 4271 | Policy                          |
+| 4     | MULTI_EXIT_DISC (MED)          | Optional nontransitive   | 4271 | Policy                          |
+| 5     | LOCAL_PREF                     | Well-known discretionary | 4271 | Policy                          |
+| 6     | ATOMIC_AGGREGATE               | Well-known discretionary | 4271 | Address aggregation             |
+| 7     | AGGREGATOR                     | Optional transitive      | 4271 | Address aggregation             |
+| 8     | COMMUNITIES                    | Optional transitive      | 1997 | Scaling                         |
+| 9     | ORIGINATOR_ID                  | Optional nontransitive   | 4456 | Scaling, loop detection, policy |
+| 10    | CLUSTER_LIST                   | Optional nontransitive   | 4456 | Scaling, loop detection, policy |
+| 14    | MP_REACH_NLRI                  | Optional nontransitive   | 4760 | Multiprotocol BGP               |
+| 15    | MP_UNREACH_NLRI                | Optional nontransitive   | 4760 | Multiprotocol BGP               |
+| 16    | EXTENDED COMMUNITIES           | Optional transitive      | 4360 | Scaling                         |
+| 17    | AS4_PATH                       | Optional transitive      | 6793 | Scaling, policy                 |
+| 18    | AS4_AGGREGATOR                 | Optional transitive      | 6793 | Scaling, address aggregation    |
+| 26    | AIGP                           |                          | 7311 |                                 |
+| 32    | LARGE_COMMUNITY                |                          | 8092 | Scaling                         |
+|       |                                |                          |      |                                 |
+|       |                                |                          |      |                                 |
+|       |                                |                          |      |                                 |
+
+
