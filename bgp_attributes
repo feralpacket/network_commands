@@ -20,10 +20,9 @@ https://www.iana.org/assignments/bgp-parameters/bgp-parameters.xhtml#bgp-paramet
 | 16    | EXTENDED COMMUNITIES           | Optional transitive      | 4360 | Scaling                         |
 | 17    | AS4_PATH                       | Optional transitive      | 6793 | Scaling, policy                 |
 | 18    | AS4_AGGREGATOR                 | Optional transitive      | 6793 | Scaling, address aggregation    |
-| 26    | AIGP                           |                          | 7311 |                                 |
-| 32    | LARGE_COMMUNITY                |                          | 8092 | Scaling                         |
+| 26    | AIGP                           | Optional nontransitive   | 7311 | Policy                          |
+| 32    | LARGE_COMMUNITY                | Optional transitive      | 8092 | Scaling                         |
 |       |                                |                          |      |                                 |
-|       |                                |                          |      |                                 |
-|       |                                |                          |      |                                 |
+
 
 
