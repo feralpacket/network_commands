@@ -431,14 +431,16 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      -> neighbor 192.0.2.1 remove-private-as
         -> Removes private AS numbers from AS_PATH.
         -> Can only be used with eBGP neighbors.
-        -> If the AS_PATH includes both private and public AS numbers, BGP doesn't remove the private AS numbers.
-        -> If the AS_PATH contains the AS number of the eBGP neighbor, BGP does not remove the private AS number.
-        -> If the AS_PATH contains confederations, BGP removes the private AS numbers only if they come after the
-           confederation portion of the AS_PATH.
+        -> Restrictions that only apply to IOS versions prior to IOS XE 3.1S.
+           -> If the AS_PATH includes both private and public AS numbers, BGP doesn't remove the private AS numbers.
+           -> If the AS_PATH contains the AS number of the eBGP neighbor, BGP does not remove the private AS number.
+           -> If the AS_PATH contains confederations, BGP removes the private AS numbers only if they come after the
+              confederation portion of the AS_PATH.
         -> Will cause the AS_PATH length to decrease.
 
      -> neighbor 192.0.2.1 remove-private-as all replace-as
         -> Replaces private AS numbers with router's local AS number.
+        -> For IOS XE 3.1S and later.
         -> Will retain the AS_PATH length.
      
      -> Replaces any private AS in AS_PATH with router's local AS.
