@@ -745,6 +745,8 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
           -> ip cef load-sharing alogorithm dpi {l2vpn-mac|tunnel-gre|tunnel-ipsec|tunnel-l2tp|tunnel-vxlan}
 
     -> Load balancing can be performed by disabling CEF and enabling fast switching or process switching.
+       -> Fast switching to perform per-destination load balancing.
+       -> Process switching to perform per-packet load balancing.
        -> Just... don't.
        -> Understand how Load Balancing Works
        -> https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/5212-46.html
