@@ -586,6 +586,10 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      -> MULTI_EXIT_DISC is only comparable between routes learned from the same neighboring AS (the neighboring AS is 
         determined from the AS_PATH attribute).
      -> Routes that do not have the MULTI_EXIT_DISC attribute are considered to have the lowest possible MULTI_EXIT_DISC value.
+     -> When MED was first introduced in RFC 1771, the RFC did not indicate what value to use when MED was missing.  Cisco
+        decided that routes without MED would be considered to have a value of 0.  Other vendors decided that routes without 
+        MED would be considered to have a value of infinity, 4294967295.  This ambiguity was later fixed in RFC 4271.  Routes
+        without MED are considered to have the lowest possible value, 0.
      -> Used to indicate a preferred entry point into the local AS to a neighboring AS when there are multiple paths
         between the two AS.  
      -> Compared only if the first AS in the AS_SEQUENCE is the same for multiple paths.
