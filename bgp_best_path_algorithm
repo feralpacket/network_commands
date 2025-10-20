@@ -621,12 +621,12 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
                   misconfiguration somewhere or the network design is really bad.
      
      -> bgp bestpath med confed missing-as-worst
-        -> Assigns the value of infinity to received routes that do not carry the MED attribute, making these routes the least 
-           desirable.
+        -> Assigns the value of infinity, 4294967295, to received routes that do not carry the MED attribute, making these
+           routes the least desirable.
      
      -> bgp bestpath med missing-as-worst
-        -> Assigns the value of infinity to received routes that do not carry the MED attribute, making these routes the least 
-           desirable.
+        -> Assigns the value of infinity, 4294967295, to received routes that do not carry the MED attribute, making these
+           routes the least desirable.
      
      -> route-map MED permit 10
      ->     set metric 100
