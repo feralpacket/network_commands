@@ -593,7 +593,8 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      -> Used to indicate a preferred entry point into the local AS to a neighboring AS when there are multiple paths
         between the two AS.  
      -> Compared only if the first AS in the AS_SEQUENCE is the same for multiple paths.
-     -> MED is not advertised to an eBGP peer if the value was received from a different AS.
+     -> MED advertised by an AS is seen only by their directly connected neighboring AS and are not passed on to other AS,
+        because the attribute is non-transitive.
      -> MED is only used to influence traffic between two directly connected AS.  To influence route preferences beyond the
         neighboring AS, the AS_PATH must be manipulated.
 
@@ -612,9 +613,20 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         Also consider changing the "bgp dynamic-med-interval" timer.
      
      -> bgp deterministic-med
-        -> Compare routes advertised by different peers in the same AS.  Paths are grouped by AS and then the MED value
-           is compared.  After a winning path for each AS is selected, those winning paths are then compared.
+        -> Compare routes advertised by different peers in different AS.  Paths are first grouped by AS and then the MED value
+           is compared.  After a winning path for each AS is selected, those winning paths in different AS are then compared.
         -> Compare routes when choosing paths to confederation-interior destinations.
+        -> Cisco recommends enabling bgp deterministic-med.
+        -> Other vendors have deterministic MED selection enabled by default.  It is recommended that deterministic-med always
+           be enabled in multi-vendor environments.
+        -> Commonly used when prefixes are learned from multiple AS and a later step in the best path selection algorithm routinely
+           selects a best path that is not desirable.  Such as when the oldest path routinely gets selected in certain scenarioes.
+        -> On the border routers with a neighboring AS, there will be at least 2 entries for a prefix from the neighboring AS in 
+           the BGP table.  One prefix entry is external from the directly connected neighboring AS.  There will be 2 or more entries 
+           from the iBGP neighbors within our AS that are connected to the neighboring AS.  If bgp deterministic-med is not enabled, 
+           the prefix from the external peer is selected as the best path.  This will result in one or more routers in our AS 
+           ignoring the MED value that is advertised by the neighboring AS and some of the traffic entering the neighboring AS will 
+           not use their preferred entry point.
      
      -> bgp always-compare-med
         -> Compare routes advertised by different ASs.
