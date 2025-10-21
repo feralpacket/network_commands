@@ -619,14 +619,18 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         -> Cisco recommends enabling bgp deterministic-med.
         -> Other vendors have deterministic MED selection enabled by default.  It is recommended that deterministic-med always
            be enabled in multi-vendor environments.
-        -> Commonly used when prefixes are learned from multiple AS and a later step in the best path selection algorithm routinely
-           selects a best path that is not desirable.  Such as when the oldest path routinely gets selected in certain scenarioes.
-        -> On the border routers with a neighboring AS, there will be at least 2 entries for a prefix from the neighboring AS in 
-           the BGP table.  One prefix entry is external from the directly connected neighboring AS.  There will be 2 or more entries 
-           from the iBGP neighbors within our AS that are connected to the neighboring AS.  If bgp deterministic-med is not enabled, 
-           the prefix from the external peer is selected as the best path.  This will result in one or more routers in our AS 
-           ignoring the MED value that is advertised by the neighboring AS and some of the traffic entering the neighboring AS will 
-           not use their preferred entry point.
+        -> Commonly used when prefixes are learned from multiple AS and a later step in the best path selection algorithm 
+           routinely selects a best path that is not desirable.  Such as when the oldest path routinely gets selected in 
+           certain scenarioes.
+        -> If bgp deterministic-med is not enabled, our AS can potentially ignore or partially ignore any MED values advertized 
+           by the neighboring AS.  This can result in traffic sent from our AS to the neighboring AS not using their preferred 
+           entry point.
+        -> On the border routers with a neighboring AS, there will be at least 2 entries for a prefix from the neighboring AS 
+           in the BGP table.  One prefix entry is external from the directly connected neighboring AS.  There will be 2 or more 
+           prefix entries from the iBGP neighbors within our AS that are connected to the same neighboring AS.  If bgp 
+           deterministic-med is not enabled, the prefix from the directly connected external peer is selected as the best path.  
+           This will result in one or more routers in our AS ignoring the MED value that is advertised by the neighboring AS 
+           and some of the traffic entering the neighboring AS will not use their preferred entry point.
      
      -> bgp always-compare-med
         -> Compare routes advertised by different ASs.
