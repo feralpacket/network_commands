@@ -613,8 +613,9 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         Also consider changing the "bgp dynamic-med-interval" timer.
      
      -> bgp deterministic-med
-        -> Compare routes advertised by different peers in different AS.  Paths are first grouped by AS and then the MED value
-           is compared.  After a winning path for each AS is selected, those winning paths in different AS are then compared.
+        -> Compare routes advertised by different peers from the same AS as well as compare routes from different AS.  Paths are 
+           first grouped by AS and then the MED value is compared.  After a winning path for each AS is selected, those winning 
+           paths in different AS are then compared.
         -> Compare routes when choosing paths to confederation-interior destinations.
         -> Cisco recommends enabling bgp deterministic-med.
         -> Other vendors have deterministic MED selection enabled by default.  It is recommended that deterministic-med always
