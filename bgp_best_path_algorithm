@@ -614,14 +614,14 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      
      -> bgp deterministic-med
         -> Compare routes advertised by different peers from the same AS.  Paths are first grouped by AS and then the MED value 
-           is compared.
+           is compared.  If there is a second group because of a different AS, then the winner of the first group is compared 
+           with the winner of the second group using the best path algorithm.  Since the winner of the first group is in a 
+           different AS than the winner from the second group, MED will not be compared.
+        -> To compare MED between two different groups, two different AS, then bgp always-compare-med must also be configured.
         -> Compare routes when choosing paths to confederation-interior destinations.
         -> Cisco recommends enabling bgp deterministic-med.
         -> Other vendors have deterministic MED selection enabled by default.  It is recommended that deterministic-med always
            be enabled in multi-vendor environments.
-        -> Commonly used when prefixes are learned from multiple AS and a later step in the best path selection algorithm 
-           routinely selects a best path that is not desirable.  Such as when the oldest path routinely gets selected in 
-           certain scenarioes.
         -> If bgp deterministic-med is not enabled, our AS can potentially ignore or partially ignore any MED values advertized 
            by the neighboring AS.  This can result in traffic sent from our AS to the neighboring AS not using their preferred 
            entry point.
