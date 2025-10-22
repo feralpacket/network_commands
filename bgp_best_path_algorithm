@@ -613,6 +613,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         because the attribute is non-transitive.
      -> MED is only used to influence traffic between two directly connected AS.  To influence route preferences beyond the
         neighboring AS, the AS_PATH must be manipulated.
+     -> MED is sent to iBGP peers by default.
 
      -> Default is 0 for received routes.
         -> When MED is not assigned.
@@ -625,9 +626,25 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         -> Or a neighboring AS may be influencing the local AS with multiple entry points.
      -> Confederation sub-ASs are ignored unless configured.
 
-     -> MED can introduce route oscillations in some environments.  BGP Additional Paths ( ADD-PATH ) can address this problem.
-        Also consider changing the "bgp dynamic-med-interval" timer.
-     
+     -> MED can introduce route oscillations in some environments.
+        -> The problem is seen mostly with route reflectors or confederations, where not all the BGP speakers in the AS have 
+           complete visibility of the available exit points into a neighboring AS.  RFC 3345 goes into more detail on the causes
+           of the route oscillations and the workarounds that can be implemented to resolve the problem.
+        -> When MED is derived dynamically from IGP metrics, unstable IGP environments can spread and cause widespread BGP 
+           instability or BGP route advertisement churn.  
+        -> Employment of MEDs may compound the adverse effects of BGP flap-dampening behavior because it may cause routes to be 
+           re-advertised solely to reflect an IGP metric change.
+        -> BGP Additional Paths ( ADD-PATH ) can address this problem.
+        -> Also consider changing the "bgp dynamic-med-interval" timer.
+
+     -> MED and potatoes
+        -> Hot potato routing is accomplished by not passing the eBGP-learned MED into iBGP.  This minimizes transit traffic 
+           for the provider routing the traffic.  Traffic is sent to the closest exit.
+        -> Cold potato routing is accomplished by passing the eBGP-learned MED into iBGP.  The transit provider uses its own 
+           transit capacity to get the traffic to the point that adjacent transit provider advertised as being closest to the
+           destination.  Traffic is sent to the best exit.
+        -> Sub-optimal routing results in mashed potatoes.
+
      -> bgp deterministic-med
         -> Compare routes advertised by different peers from the same AS.  Paths are first grouped by AS and then the MED value 
            is compared.  If there is a second group because of a different AS.  Then the winner of the first group is compared 
@@ -636,14 +653,14 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         -> MED is only compared against the currently existing best path, not against all alternative paths stored in the 
            Loc-RIB. Since paths are stored in the order they are received in the BGP table, this order can cause variations in 
            the outcome of the MED comparison, leading to non-deterministic best path selection.
-        -> To compare MED between two different groups, two different AS, then bgp always-compare-med must also be configured.
+        -> To compare MED between two different groups, two different AS, bgp always-compare-med must also be configured.
         -> Compare routes when choosing paths to confederation-interior destinations.
         -> Cisco recommends enabling bgp deterministic-med.
         -> Other vendors have deterministic MED selection enabled by default.  It is recommended that deterministic-med always
            be enabled in multi-vendor environments.
-        -> If bgp deterministic-med is not enabled, our AS can potentially ignore or partially ignore any MED values advertized 
-           by the neighboring AS.  This can result in traffic sent from our AS to the neighboring AS not using their preferred 
-           entry point.
+        -> If bgp deterministic-med is not enabled, the local AS can potentially ignore or partially ignore any MED values 
+           advertized by the neighboring AS.  This can result in traffic sent from our AS to the neighboring AS not using 
+           their preferred entry point.
         -> If used, must be configured in the entire AS to prevent unpredictable and potentially conflicting route selection.
      
      -> bgp always-compare-med
@@ -654,7 +671,8 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         -> RFC 4451 urges caution with comparing MED from different AS.  The issue is different AS may use different 
            mechanisms to derive IGP metrics or BGP MED.  For example, using OSPF metrics versus using IS-IS metrics.  The
            results can be "weighted", where one AS is always preferred because their MED value will always be lower than a
-           different AS.
+           different AS.  
+        -> Comparing MED from different AS can potential introduce route oscillation conditions into the network.
         -> If used, must be configured in the entire AS to prevent routing loops.
      
      -> bgp bestpath med confed
@@ -673,7 +691,12 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
            routes the least desirable.
         -> By default, paths without MED are preferred to paths with MED.  This could lead to some unintended routing 
            behavior.
-     
+
+     -> default-metric
+        -> TODO
+        -> There are some differences in what the documentation and command reference says it does and what I actually 
+           see in labs. 
+
      -> route-map MED permit 10
      ->     set metric 100
      
