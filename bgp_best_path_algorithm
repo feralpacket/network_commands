@@ -651,6 +651,10 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         -> This feature inherently enforces deterministic behavior in path selection.
         -> Commonly used with bgp deterministic-med to ensure the route with the lowest MED is always selected, even if the
            compared routes were advertised by different AS.
+        -> RFC 4451 urges caution with comparing MED from different AS.  The issue is different AS may use different 
+           mechanisms to derive IGP metrics or BGP MED.  For example, using OSPF metrics versus using IS-IS metrics.  The
+           results can be "weighted", where one AS is always preferred because their MED value will always be lower than a
+           different AS.
         -> If used, must be configured in the entire AS to prevent routing loops.
      
      -> bgp bestpath med confed
