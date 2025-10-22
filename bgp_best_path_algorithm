@@ -672,7 +672,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
            mechanisms to derive IGP metrics or BGP MED.  For example, using OSPF metrics versus using IS-IS metrics.  The
            results can be "weighted", where one AS is always preferred because their MED value will always be lower than a
            different AS.  
-        -> Comparing MED from different AS can potential introduce route oscillation conditions into the network.  However,
+        -> Comparing MED from different AS can potentially introduce route oscillation conditions into the network.  However,
            always-compare-med is also used to prevent route oscillation conditions.  Your mileage may vary.
         -> If used, must be configured in the entire AS to prevent routing loops.
      
