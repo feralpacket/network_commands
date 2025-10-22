@@ -645,6 +645,8 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      -> bgp always-compare-med
         -> Compare routes advertised by different ASs.
         -> This feature inherently enforces deterministic behavior in path selection.
+        -> Commonly used with bgp deterministic-med to ensure the route with the lowest MED is always selected, even if the
+           compared routes were advertised by different AS.
         -> If used, must be configured in the entire AS to prevent routing loops.
      
      -> bgp bestpath med confed
