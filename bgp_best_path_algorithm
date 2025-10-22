@@ -1,6 +1,18 @@
 BGP Best Path Selection Algorithm
 http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-25.html
 
+ - BGP assigns the first valid path as the current best path. BGP then compares the best path with the next path in the list, 
+   until BGP reaches the end of the list of valid paths.  BGP compares routes in pairs, starting with the newset entry and 
+   moving toward the oldest entry.
+ - In the BGP table, newer entries are placed on top of older entries.  Entry3 is the oldest entry in this example.
+    - entry1: ASPATH 1, MED 100, internal, IGP metric to NEXT_HOP 10
+    - entry2: ASPATH 2, MED 150, internal, IGP metric to NEXT_HOP 5
+    - entry3: ASPATH 1, MED 200, external
+ - If there is no current best path, entry2 is compared with and selected over entry1 due to the lower IGP metric to reach 
+   the NEXT_HOP.
+ - Entry3 is then compared and selected as the best path over entry2 because it is external.
+ - The order in which routes are received can impact best path decisions and have non-deterministic results.  The attribute 
+   MULTI_EXIT_DISC ( MED ) is the most susceptible to this problem.
 
 Why Routers Ignore Paths:
  - Paths are marked “not synchronized” in "sh ip bgp longer-prefixes" or "sh ip bgp detail" output and "synchronization" is 
@@ -614,13 +626,13 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      
      -> bgp deterministic-med
         -> Compare routes advertised by different peers from the same AS.  Paths are first grouped by AS and then the MED value 
-           is compared.  If there is a second group because of a different AS, then the winner of the first group is compared 
+           is compared.  If there is a second group because of a different AS.  Then the winner of the first group is compared 
            with the winner of the second group using the best path algorithm.  Since the winner of the first group is in a 
            different AS than the winner from the second group, MED will not be compared.
-      -> MED is only compared against the currently existing best path, not against all alternative paths stored in the 
-         Loc-RIB. Since paths are stored in the order they are received in the BGP table, this order can cause variations in 
-         the outcome of the MED comparison, leading to non-deterministic best path selection.
-      -> To compare MED between two different groups, two different AS, then bgp always-compare-med must also be configured.
+        -> MED is only compared against the currently existing best path, not against all alternative paths stored in the 
+           Loc-RIB. Since paths are stored in the order they are received in the BGP table, this order can cause variations in 
+           the outcome of the MED comparison, leading to non-deterministic best path selection.
+        -> To compare MED between two different groups, two different AS, then bgp always-compare-med must also be configured.
         -> Compare routes when choosing paths to confederation-interior destinations.
         -> Cisco recommends enabling bgp deterministic-med.
         -> Other vendors have deterministic MED selection enabled by default.  It is recommended that deterministic-med always
