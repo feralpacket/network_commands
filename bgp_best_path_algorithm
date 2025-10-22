@@ -647,9 +647,9 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
 
      -> bgp deterministic-med
         -> Compare routes advertised by different peers from the same AS.  Paths are first grouped by AS and then the MED value 
-           is compared.  If there is a second group because of a different AS.  Then the winner of the first group is compared 
-           with the winner of the second group using the best path algorithm.  Since the winner of the first group is in a 
-           different AS than the winner from the second group, MED will not be compared.
+           is compared.  A second group from a different AS is compared seperately.  Then the winner of the first group is 
+           compared with the winner of the second group using the best path algorithm.  Since the winner of the first group has 
+           a different AS than the winner from the second group, MED will not be compared.
         -> MED is only compared against the currently existing best path, not against all alternative paths stored in the 
            Loc-RIB. Since paths are stored in the order they are received in the BGP table, this order can cause variations in 
            the outcome of the MED comparison, leading to non-deterministic best path selection.
