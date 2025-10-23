@@ -320,8 +320,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         nodes are in different AS.
      -> AIGP can be used for seamless MPLS networks with BGP Labeled Unicast that have asymmetric or suboptimal 
         paths.  AIGP is used to determine an end-to-end optimal path between the Service Aggregation Router (SAR) 
-        and Cell-Site Router (CSR).  
-     -> TLDR;, AIGP can help with north-south routing in certain scenarios.
+        and Cell-Site Router (CSR).  TLDR;, AIGP can help with north-south routing in certain scenarios.
 
      -> If the underlying IGP is unstable or subject to frequent routing changes, BGP Next Hop Trigger delay can be
         configured to prevent BGP route churn.  However, Cisco documentation also recommends aggressively dampening
@@ -342,7 +341,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      -> AIGP attribute was developed to solve certain niche use cases.  It must be used cautiously.
         
      -> bgp bestpath aigp ignore
-        -> Do not evaluate AIGP during best path selection.
+        -> Do not evaluate AIGP during best path selection.  This command was intended to help with troubleshooting.
 
      -> bgp aigp-rib-metric
         -> "Install RIB metric as NH metric + metric on AIGP attribute"
