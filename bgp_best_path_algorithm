@@ -17,6 +17,11 @@ http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-2
  - The order in which routes are received can impact best path decisions and can have non-deterministic results.  The attribute 
    MULTI_EXIT_DISC ( MED ) is the most susceptible to this problem, mostly because by default, routes without MED are preferred
    to routes with MED and MED is not compared when the same route is received from different AS.
+ - The configurations options available to modify the best path algoritm have results that are situational and can change
+   depending on the environment and failure scenarios.  They are used to change non-deterministic results, especially during
+   failure scenarios, so that deterministic decisions are returned.  Some of the configurations options can have opposite results,
+   depending on the network architecture.  The configiration bgp always-compare-med can introduce route oscillations conditions 
+   into the network.  But bgp always-compare-med can also be used to prevent route oscillations.  Your mileage may very.
 
 Why Routers Ignore Paths:
  - Paths are marked “not synchronized” in "sh ip bgp longer-prefixes" or "sh ip bgp detail" output and "synchronization" is 
