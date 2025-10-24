@@ -28,3 +28,30 @@ Commands that Modify Route Attributes During Redistribution into the Target Prot
 | set origin                             | —   | —     | —    | —     | Yes |
 | set tag                                | Yes | Yes   | Yes  | —     | —   |
 | set weight                             | —   | —     | —    | —     | Yes |
+
+
+Other set options not mentioned in the above Cisco documentation:
+
+R1(config-route-map)#route-map TEST permit 10
+R1(config-route-map)#set ?                   
+  aigp-metric       accumulated metric value
+  attribute-set     Set attribute
+  automatic-tag     Automatically compute TAG value
+  clns              OSI summary address
+  comm-list         set BGP community list (for deletion)
+  dampening         Set BGP route flap dampening parameters
+  default           Set default information
+  evpn              BGP EVPN policies
+  extcomm-list      Set BGP/VPN extended community list (for deletion)
+  extcommunity      BGP extended community attribute
+  global            Set to global routing table
+  interface         Output interface
+  large-community   BGP large community attribute
+  largecomm-list    set BGP large community list (for deletion)
+  level             Where to import route
+  lisp              Locator ID Separation Protocol specific information
+  mpls-label        Set MPLS label for prefix
+  omp-tag           OMP Tag value for destination routing protocol
+  overlay-summary   Set overlay summary
+  traffic-index     BGP traffic classification number for accounting
+  vrf               Define VRF name
