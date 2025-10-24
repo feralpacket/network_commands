@@ -37,12 +37,12 @@ Updates                                                                         
                                                                     | Unicast IP      |
                                                                     | Route Selection |
                                                                     | Process         |
-												                                                        +-----------------+
+                                                                    +-----------------+
                                                                              |         
                                                                     +-----------------+
                                                                     | Routing Table   |
                                                                     | RIB             |
-												                                                        +-----------------+
+                                                                    +-----------------+
 
 
 Why Routers Ignore Paths:
