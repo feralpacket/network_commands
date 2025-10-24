@@ -351,7 +351,11 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
 
      -> bgp aigp-rib-metric
         -> "Install RIB metric as NH metric + metric on AIGP attribute"
-        -> While the commands is available in the cli, I couldn't find this command mentioned anywhere in documentation.
+        -> While the command is available in the cli, I couldn't find this command mentioned anywhere in any documentation.
+        -> However, in Lacoste and Edgeworth, CCNP Enterprise Advanced Routing, Second Edition, 540, if the next-hop 
+           address requires a recursive lookup, the AIGP path needs to calculate a derived metric to include the distance 
+           to the next-hop address.  This ensures that the cost to the BGP edge router is included.
+           -> Derived AIGP Metric = Original AIGP Metric + Next-Hop AIGP Metric
 
      -> route-map AIGP permit 10
      ->    set aigp-metric igp-metric
