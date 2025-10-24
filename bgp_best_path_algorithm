@@ -15,8 +15,8 @@ http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-2
    the NEXT_HOP.
  - Entry3 is then compared and selected as the best path over entry2 because it is external.
  - The order in which routes are received can impact best path decisions and can have non-deterministic results.  The attribute 
-   MULTI_EXIT_DISC ( MED ) is the most susceptible to this problem, mostly because by default, MED is not compared when the same
-   route is received from different AS.
+   MULTI_EXIT_DISC ( MED ) is the most susceptible to this problem, mostly because by default, routes without MED are preferred
+   to routes with MED and MED is not compared when the same route is received from different AS.
 
 Why Routers Ignore Paths:
  - Paths are marked “not synchronized” in "sh ip bgp longer-prefixes" or "sh ip bgp detail" output and "synchronization" is 
