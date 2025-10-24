@@ -590,6 +590,10 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      -> Lowest type is best.
      -> Well-known, mandatory attribute ORIGIN.
      -> Significant external to AS.
+     -> ORIGIN Type Code ( Value, Meaning )
+        -> 0 - IGP
+        -> 1 - EGP
+        -> 2 - INCOMPLETE
      -> IGP is lower (better) than EGP, EGP is lower (better) than INCOMPLETE.
 
      -> IGP
