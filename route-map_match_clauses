@@ -29,3 +29,28 @@ Route-map Commands to Match Routes Installed into Routing Tables by Protocols
 | match route-type nssa-external         | —         | —      | —   | —     | Yes  | —     | —   |
 | match route-type {level-1|level-2}     | —         | —      | —   | —     | —    | Yes   | —   |
 | match tag                              | —         | Yes    | Yes | Yes   | Yes  | Yes   | Yes |
+
+
+
+Other match options not mentioned in the above Cisco documentation:
+
+R1(config)#route-map TEST permit 10
+R1(config-route-map)#match ?
+  additional-paths  BGP Add-Path match policies
+  address           Match address of route or match packet
+  as-path           Match BGP AS path list
+  community         Match BGP community list
+  evpn              EVPN specific information
+  extcommunity      Match BGP/VPN extended community list
+  large-community   Match BGP large-community list
+  length            Packet length
+  local-preference  Local preference for route
+  mdt-group         Match routes corresponding to MDT group
+  mpls-label        Match routes which have MPLS labels
+  next-hop          Match next-hop address of route
+  omp-tag           Match OMP tag of route
+  route-source      Match advertising source address of route
+  rpki              Match RPKI state of route
+  security-group    Security Group
+  source-protocol   Match source-protocol of route
+  track             tracking object
