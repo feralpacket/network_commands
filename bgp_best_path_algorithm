@@ -778,6 +778,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
  8.  IGP metric to the BGP next hop
      -> Lowest is best.
      -> Locally significant to the router ( Loc-RIB ).
+     -> Prefer the route with the shortest IGP path to the BGP NEXT_HOP.
 
      -> bgp bestpath igp-metric ignore
         -> "address-family" command.
