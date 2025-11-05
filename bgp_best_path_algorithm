@@ -597,6 +597,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      -> IGP is lower (better) than EGP, EGP is lower (better) than INCOMPLETE.
 
      -> IGP
+        -> The Network Layer Reachability Information (NLRI) was learned from a protocol internal to the originating AS.
         -> "network" command.
         -> "aggregate-address" command.
         -> "aggregate-address" with "as-set" commands.
@@ -609,9 +610,9 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         -> Predecessor to BGP.
         -> Historically, used to transition from EGP to BGP.
         -> The "set origin egp" command was removed in IOS 12.4(2)T.
-        -> Well, someone added it back at some point.  It works in IOS XE 17.15.1.
         -> ~~You should never see it, take a screenshot and tell the world if you do.~~
-     
+        -> Well, someone added it back at some point.  It works in IOS XE 17.15.1.
+
      -> INCOMPLETE
         -> "redistribute" command.
         -> "aggregate-address" with "as-set" commands.
