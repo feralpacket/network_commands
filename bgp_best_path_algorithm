@@ -983,6 +983,10 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
       -> Not the same thing as the ORIGINATOR_ID attribute, which is used by route reflectors.
       -> ORIGINATOR_ID is an optional, non-transitive attribute.
       -> ORIGINATOR_ID is compared instead of the router-id when route reflector attributes are present.
+         -> ORIGINATOR_ID
+            -> Optional, non-transitive attribute
+         -> CLUSTER_LIST
+            -> Optional, non-transitive attribute
 
 
  12.  Cluster length
