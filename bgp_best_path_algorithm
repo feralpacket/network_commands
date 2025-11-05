@@ -462,7 +462,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         -> "local-as" number must be different than the local AS and the peer AS.
         -> "local-as" will be added to the AS_PATH making it longer.
         -> "local-as" with iBGP neighbors will cause the following attributes to be re-advertised without modification,
-           LOCAL_PREF, ORIGINATOR_ID, CLUSTER_ID, and CLUSTER_LIST>
+           LOCAL_PREF, ORIGINATOR_ID, CLUSTER_ID, and CLUSTER_LIST.
 
      -> neighbor 192.0.2.1 local-as 99 no-prepend
         -> "local-as" will not be added to the AS_PATH.
