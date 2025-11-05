@@ -619,7 +619,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      -> INCOMPLETE
         -> "redistribute" command.
         -> "aggregate-address" with "as-set" commands.
-           -> If any of the component paths have an ORIGIN code of imcomplete.
+           -> If any of the component paths have an ORIGIN code of incomplete.
           
      -> route-map ORIGIN permit 10
      ->    set origin igp
