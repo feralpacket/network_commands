@@ -600,7 +600,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         -> "network" command.
         -> "aggregate-address" command.
         -> "aggregate-address" with "as-set" commands.
-           -> Only is all of the component paths have an ORIGIN code of IGP.
+           -> Only if all of the component paths have an ORIGIN code of IGP.
         -> "default-originate" command.
            -> Couldn't find this mentioned in any book or documentation, if a 0.0.0.0 prefix isn't in the RIB, a default 
               route will show up in the BGP table and will be advertised to peers with an ORIGIN code of IGP.
