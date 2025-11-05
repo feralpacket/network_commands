@@ -423,9 +423,12 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      -> AS_SET counts as 1 hop, no matter how many AS are in the set.
      -> aggregate-address 192.0.2.0 255.255.255.0 as-set
 
-     -> AS_CONFED_SEQUENCE is similar to AS_SEQUENCE, but only holds confederation member AS numbers.
-     -> AS_CONFED_SET is similar to AS_SET, but only holds confederation member AS numbers.
-     -> AS_CONFED_SEQUENCE and AS_CONFED_SET are not included in the AS_PATH length.
+     -> AS_CONFED_SEQUENCE is an AS_PATH attribute similar to AS_SEQUENCE, but only holds confederation member AS numbers.
+     -> AS_CONFED_SET is an AS_PATH attribute similar to AS_SET, but only holds confederation member AS numbers.
+        -> When "aggregate-address" and "as-set" is used within the confederation.
+     -> AS_CONFED_SEQUENCE and AS_CONFED_SET are not included in the AS_PATH length and are not considered when choosing
+        a shortest AS_PATH within the confederation.
+     -> The confederation AS numbers in AS_PATH, AS_CONFED_SEQUENCE, or AS_CONFED_SET are used for loop avoidance.
      
      -> bgp bestpath as-path ignore
         -> Do not evaluate AS_PATH during best path selection.
