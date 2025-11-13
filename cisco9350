@@ -1,0 +1,37 @@
+! seems like everything else is being called catalyst, APs, routers, etc.
+! but switches are dropping catalyst for cisco
+
+! get rid of this annoying log messsage
+%CLOUD_MGMT_MGRD-5-CURL_FETCH_ERR: Switch 1 R0/0: cloud_mgmt_mgrd: Curl Fetch ERR: Could not resolve host config-1337.mera
+
+(config)#no service cloud-mgmt connect
+
+
+! dns client
+dns-lookup vrf Mgmt-vrf hostname feralpacket.org 192.0.2.1 query A 
+show dns-lookup hostname feralpacket.org
+
+
+! test-throughput
+test-throughput tcp-client 192.0.2.1 ?
+  dscp         Specify DSCP value in ASCII/Numeric
+  mode         Mode of measurement
+  num-windows  Number of windows for the various modes of operation
+  port         Server transport port
+  receive      Operate in receive mode
+  timeout      Measurement time in seconds
+  vrf          VPN Routing/Forwarding parameters
+  window-span  Duration of measurement window(s) in seconds
+  <cr>         <cr>
+
+
+! shut / no shut an interface
+bounce interface gi0/0
+
+
+
+
+
+
+
+
