@@ -57,6 +57,18 @@ Generally, but not always:
                         - Metric, a composite of the minimum bandwidth of outgoing interfaces,
 					      and cumulative delay.  Can be configured to also use load, 
 					      reliability, and/or smallest MTU along the path.
+                          K1 - Bandwidth
+                          K2 - Delay
+                          K3 - Load
+                          K4 - MTU
+                          K5 - Reliability
+                          K6 - Future Use ( Wide Metrics )
+                        - 32 bit metric in classic mode
+                          EIGRP composite cost metric = 256 * ((K1 * Scaled Bw) + (K2 * Scaled Bw)
+                          / (256 – Load) + (K3*Scaled Delay)*(K5 / (Reliability + K4)))
+                        - 64 bit metric ( Wide Metrics ) in named mode
+                          Metric = [(K1 * Minimum Throughput + {K2 * Minimum Throughput} / 256 - Load) 
+                          + (K3 * Total Latency) + (K6 * Extended Attributes)]* [K5 / (K4 + Reliability)]
 	      OSPF		    - Path type: O > O*IA > E1 > E2 > N1 > N2, for older IOS versions.
 					      Referred to as RFC 1587 compatible.
 		 			      Path type: O > O*IA > N1 > N2 > E1 > E2, for newer IOS versions.
@@ -259,7 +271,7 @@ Open Shortest Path First (OSPF):
      -> Range 0 - 65535
      -> Cumulative on outgoing interfaces
      -> auto-cost reference-bandwidth
-         -> 10^8/BW
+         -> 10^8 / BW
          -> IOS default - 100 Mbps
          -> NX-OS default - 40 Gbps
      -> R1(config)# router ospf 1
