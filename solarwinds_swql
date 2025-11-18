@@ -205,6 +205,17 @@ order by eventtime desc
 
 
 
+! switch stack lost or gained member
+select eventid, eventtime, netobjectid, eventtype, message
+from orion.events
+
+where eventtype like '609'
+order by eventtime desc
+
+1466512	2025-11-18 21:03:12.47	1337 609	Switch Stack on cat9300.feralpacket.org gained 1 member.
+1466495	2025-11-18 20:57:22.75	1337 609	Switch Stack on cat9300.feralpacket.org lost 1 member.
+
+
 
 ! list route flaps
 select
