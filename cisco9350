@@ -29,6 +29,8 @@ test-throughput tcp-client 192.0.2.1 ?
 bounce interface gi0/0
 
 
+!
+service log-hidden
 
 
 
