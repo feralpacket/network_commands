@@ -836,6 +836,9 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
     -> Default, only one best path is installed into the routing table.
     -> Range 1 - 32.
 
+    -> The maximum number of multiple paths may be limited by software features or hardware.
+       -> For Catalyst 9500s and 9300s, the maximum number of paths for MPLS VPNs is 2.
+
     -> Load balancing over multipaths is performed by CEF.
        -> The default is per-destination load sharing.
        -> Per-packet round robin load sharing can be configured, with older IOS versions.
