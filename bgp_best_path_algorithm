@@ -313,6 +313,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         -> bgp sourced-paths per-net ospfv3 all
         -> bgp sourced-paths per-net static all
         -> maximum-paths 32
+        -> The maximum number of multiple paths may be limited by software features or hardware.
 
      -> aggregate-address command
         -> Creates an aggregate route, but the more specific routes are still advertised.
@@ -837,7 +838,15 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
     -> Range 1 - 32.
 
     -> The maximum number of multiple paths may be limited by software features or hardware.
-       -> For Catalyst 9500s and 9300s, the maximum number of paths for MPLS VPNs is 2.
+       -> For Catalyst 9300s and 9500s, the maximum number of paths for MPLS VPNs is 2.
+       -> On the Cisco Catalyst 9200 Series Switches, the hardware-supported maximum-path is 8.
+       -> On the Cisco Catalyst 9300 Series Switches, the hardware-supported maximum-path is 8.
+       -> On the Cisco Catalyst 9500 Series Switches, the hardware-supported maximum-path is 8.
+       -> On the Cisco Catalyst 9500X Series Switches, the hardware-supported maximum-path is 16.
+       -> Cisco IOS Release 12.0S-based software: 8 paths
+       -> Cisco IOS Release 12.3T, 12.4, 12.4T, and 15.0-based software: 16 paths
+       -> Cisco IOS Release 12.2S-based software: 32 paths
+       -> The maximum number of import paths that can be configured in Cisco IOS Release 12.2SY-based software is 16.
 
     -> Load balancing over multipaths is performed by CEF.
        -> The default is per-destination load sharing.
@@ -913,9 +922,6 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
        -> If an iBGP path has inconsistent next-hops, routing loops may be formed.
        -> It is possible to configure both "maximum-paths" and "maximum-paths ibgp" at the same time.
        -> For MPLS VPN environments, this is configured under the IPv4 VRF address family.
-       -> Cisco IOS Release 12.0S based software: 8 paths
-       -> Cisco IOS Release 12.3T, 12.4, 12.4T, and 15.0-based software: 16 paths
-       -> Cisco IOS Release 12.2S based software: 32 paths
 
     -> maximum-paths eibgp 2 import 2
        -> Specifies the number of redundant paths configured as back up multipaths for a VRF.
@@ -924,6 +930,8 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
           -> Unless the prefix is exported with a different route-target.
        -> An import path is a redundant path and can have a next-hop that matches an installed multipath.
        -> The import was replaced with BGP Event-Based VPN Import Processing in IOS 15.0(1)M and 12.2(33)SRE.
+       -> In Cisco IOS Releases 15.0(1)M and 12.2(33)SRE, and in later releases, the import keyword was replaced by the 
+          import path selection and import path limit commands.
        -> Will generate the follow log messages:  
           -> %NOTE: Import option has been deprecated.
           -> %      Converting to 'import path selection all; import path limit 2'.
