@@ -21,8 +21,8 @@ http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-2
  - The configurations options available to modify the best path algoritm have results that are situational and can change
    depending on the environment and failure scenarios.  They are used to change non-deterministic results, especially during
    failure scenarios, so that deterministic decisions are returned.  Some of the configurations options can have opposite results,
-   depending on the network architecture.  The configiration bgp always-compare-med can introduce route oscillations conditions 
-   into the network.  But bgp always-compare-med can also be used to prevent route oscillations.  Your mileage may very.
+   depending on the network architecture.  The configiration "bgp always-compare-med" can introduce route oscillations conditions 
+   into the network.  But "bgp always-compare-med" can also be used to prevent route oscillations.  Your mileage may very.
 
 
 Incoming                                                                                                                        Outgoing
@@ -96,10 +96,22 @@ Why Routers Ignore Paths:
    is configured and the update contains the matching CLUSTER_ID.
 
  - Routes will be discarded if the AS_PATH length exceeds the "bgp maxas-limit" when configured.
+   - Range 1 to 254.
+   - bgp maxas-limit 42
  - Routes will be discarded if the number of prefixes exceeds the "neighbor maximum-prefix" when configured.
+   - Limitations on the number of prefixes that can be configured are determined by the amount of available system resources.
+   - neighbor 192.0.2.1 maximum-prefix 42
+   - neighbor 192.0.2.1 maximum-prefix 42 90 ! Change default warning level from 75.
+   - neighbor 192.0.2.1 maximum-prefix 42 90 warning-only
+   - neighbor 192.0.2.1 maximum-prefix 42 90 discard-extra
  - Routes will be discarded if the number of communities exceeds the "bgp maxcommunity-limit" when configured.
+   - Range 1 to 1018.
+   - bgp maxcommunity-limit 42
  - Routes will be discarded if the number of extended communities exceeds the "bgp maxextcommunity-limit" when configured.
+   - Range 1 to 509.
+   - bgp-maxextcommunity-limit 42
  - Routes will be discarded if the number of large communities exceeds the "bgp maxlargecommunity-limit" when configured.
+   - bgp-largecommunity-limit 42
 
  - BGP-Origin AS Validation is configured and a prefix is marked as invalid, it will not be advertised, will be withdrawn from 
    the BGP routing table, will not be considered as a best path, and will not be considered as a candidate for multipath.
