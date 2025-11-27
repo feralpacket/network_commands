@@ -111,7 +111,7 @@ Why Routers Ignore Paths:
    - Range 1 to 509.
    - bgp-maxextcommunity-limit 42
  - Routes will be discarded if the number of large communities exceeds the "bgp maxlargecommunity-limit" when configured.
-   - bgp-largecommunity-limit 42
+   - bgp-maxlargecommunity-limit 42
 
  - BGP-Origin AS Validation is configured and a prefix is marked as invalid, it will not be advertised, will be withdrawn from 
    the BGP routing table, will not be considered as a best path, and will not be considered as a candidate for multipath.
