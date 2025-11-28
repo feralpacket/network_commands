@@ -124,6 +124,10 @@ Why Routers Ignore Paths:
 
 Best Path Algorithm:
 - Important, next hop needs to be valid!
+  - Prefer prefixes in the following order:
+    - Those with a validation state of valid.
+    - Those with a validation state of not found.
+    - Those with a validation state of invalid (which will never be installed in the routing table).
   - bgp bestpath prefix-validate disable
     - Disables the checking of prefixes to see if they are valid and disables the storage of validation information.
     - Intended for configuration testing.
