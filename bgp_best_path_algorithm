@@ -130,6 +130,7 @@ Why Routers Ignore Paths:
    - bgp bestpath prefix-validate allow-invalid
      - Allows invalid prefixes to be used as the bestpath, even if valid prefixes are available.
      - Intended for configuration testing.
+     - Can be used with a route-map to match valid, not found, or invalid states and set other attributes.
 
  - In EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath 
    point of insertion.
