@@ -122,6 +122,8 @@ Why Routers Ignore Paths:
      - Those with a validation state of valid.
      - Those with a validation state of not found.
      - Those with a validation state of invalid (which will never be installed in the routing table).
+   - These preferences override metric, local preference, and other choices made during the bestpath computation.
+   - The standard bestpath decision tree applies only if the validation state of the two paths is the same.
    - bgp bestpath prefix-validate disable
      - Disables the validation of prefixes by the RPKI server and the storage of that validation information.
      - Intended for configuration testing.
