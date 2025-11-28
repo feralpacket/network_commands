@@ -51,6 +51,9 @@ R1(config-route-map)#match ?
   omp-tag           Match OMP tag of route
   route-source      Match advertising source address of route
   rpki              Match RPKI state of route
+                    - match rpki invalid
+                    - match rpki not-found
+                    - match rpki valid
   security-group    Security Group
   source-protocol   Match source-protocol of route
   track             tracking object
