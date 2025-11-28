@@ -124,6 +124,12 @@ Why Routers Ignore Paths:
 
 Best Path Algorithm:
 - Important, next hop needs to be valid!
+  - bgp bestpath prefix-validate disable
+    - Disables the checking of prefixes to see if they are valid and disables the storage of validation information.
+    - Intended for configuration testing.
+  - bgp bestpath prefix-validate allow-invalid
+    - Allows invalid prefixes to be used as the bestpath, even if valid prefixes are available.
+    - Intended for configuration testing.
 
 - It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), 
   highest is best.  Everything else, lowest, shortest, or oldest is best.
