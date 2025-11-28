@@ -100,6 +100,7 @@ Why Routers Ignore Paths:
    - bgp maxas-limit 42
  - Routes will be discarded if the number of prefixes exceeds the "neighbor maximum-prefix" when configured.
    - Limitations on the number of prefixes that can be configured are determined by the amount of available system resources.
+   - Range 1 to 2147483647.  ( With IOS XE 17.12.x. The Internet BGP4 Table had 1038108 in November 2025. )
    - neighbor 192.0.2.1 maximum-prefix 42
    - neighbor 192.0.2.1 maximum-prefix 42 90 ! Change default warning level from 75.
    - neighbor 192.0.2.1 maximum-prefix 42 90 warning-only
