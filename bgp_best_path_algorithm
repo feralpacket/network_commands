@@ -247,6 +247,11 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      -> neighbor 192.0.2.1 route-map SOO in
 
 
+ 0a. BGP-Origin AS Validation
+     -> TODO
+     -> See above for now.
+
+
  1.  Weight
      -> Highest is best.
      -> Cisco proprietary.
