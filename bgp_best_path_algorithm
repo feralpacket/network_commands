@@ -111,12 +111,23 @@ Why Routers Ignore Paths:
    - Range 1 to 509.
    - bgp-maxextcommunity-limit 42
  - Routes will be discarded if the number of large communities exceeds the "bgp maxlargecommunity-limit" when configured.
+   - Range 1 to 339.
    - bgp-maxlargecommunity-limit 42
 
  - BGP-Origin AS Validation is configured and a prefix is marked as invalid, it will not be advertised, will be withdrawn from 
    the BGP routing table, will not be considered as a best path, and will not be considered as a candidate for multipath.
  - BGP-Origin AS Validation is configured and a prefix is marked as not found, it will only be considered for best path or a 
    candidate for multipath if there is no alternative prefix that is marked valid.
+   - With BGP-Origin AS Validation, prefer prefixes in the following order:
+     - Those with a validation state of valid.
+     - Those with a validation state of not found.
+     - Those with a validation state of invalid (which will never be installed in the routing table).
+   - bgp bestpath prefix-validate disable
+     - Disables the validation of prefixes by the RPKI server and the storage of that validation information.
+     - Intended for configuration testing.
+   - bgp bestpath prefix-validate allow-invalid
+     - Allows invalid prefixes to be used as the bestpath, even if valid prefixes are available.
+     - Intended for configuration testing.
 
  - In EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath 
    point of insertion.
@@ -124,16 +135,6 @@ Why Routers Ignore Paths:
 
 Best Path Algorithm:
 - Important, next hop needs to be valid!
-  - Prefer prefixes in the following order:
-    - Those with a validation state of valid.
-    - Those with a validation state of not found.
-    - Those with a validation state of invalid (which will never be installed in the routing table).
-  - bgp bestpath prefix-validate disable
-    - Disables the checking of prefixes to see if they are valid and disables the storage of validation information.
-    - Intended for configuration testing.
-  - bgp bestpath prefix-validate allow-invalid
-    - Allows invalid prefixes to be used as the bestpath, even if valid prefixes are available.
-    - Intended for configuration testing.
 
 - It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), 
   highest is best.  Everything else, lowest, shortest, or oldest is best.
@@ -146,6 +147,7 @@ Best Path Algorithm:
 
 
  0.  Extended cost community, pre-best path POI
+ 0a. BGP-Origin AS Validation
  1.  Weight
  2.  Local_preference
  3.  Locally originated path
