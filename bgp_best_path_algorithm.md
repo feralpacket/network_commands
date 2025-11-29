@@ -195,7 +195,7 @@ The steps below include the IOS configuration commands that can modify the defau
      - Route map
 
  - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/command/irg-cr-book/bgp-m1.html#wp2056491650  
-Do not apply neighbor distribute-list and neighbor prefix-list commands at the same time to a neighbor, in any given direction 
+> Do not apply neighbor distribute-list and neighbor prefix-list commands at the same time to a neighbor, in any given direction 
 (inbound or outbound). These two commands are mutually exclusive, and only one command (neighbor prefix-list or neighbor distribute-list ) 
 can be applied to the inbound or outbound direction.
 
