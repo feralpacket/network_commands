@@ -58,7 +58,7 @@ Updates                                                                         
  - `bgp enforce-first-as` is set and the update doesn’t list the neighbor AS as the first AS.
  - Paths are marked “receive only” in `sh ip bgp longer-prefixes` output.
    - `sh ip bgp 192.0.2.0 255.255.255.0 longer-prefixes`
-   - Policy rejected these routes.  However, the router stores the paths unmodified if "soft-reconfiguration inbound" is 
+   - Policy rejected these routes.  However, the router stores the paths unmodified if `soft-reconfiguration inbound` is 
         configured.
    - `neighbor 192.0.2.1 soft-reconfiguration inbound`
    - `bgp soft-reconfig-backup`
@@ -72,7 +72,7 @@ Updates                                                                         
    not imported into the VRF's BGP table and is not considered as a best path.
 
  - Prefixes are withdrawn from the BGP table and the RIB if an update is received that is malformed, because the BGP 
-   Enhanced Attribute Error Handling feature is enabled by default with "bgp enhanced-error".
+   Enhanced Attribute Error Handling feature is enabled by default with `bgp enhanced-error`.
  - Prefixes are withdrawn from the BGP table and the RIB if a BGP Attribute Filter is configured with "path-attibute 
    treat-as-withdraw" and the specified BGP attribute is in the update.
 
@@ -81,44 +81,44 @@ Updates                                                                         
    global CLUSTER_ID or any of the CLUSTER_IDs assigned to any of the iBGP neighbors.
 
  - Aggregate routes will not be generated or advertised if a more specific matching prefix is not installed in the RIB.
- - Aggregate routes will not be advertised to peers if "as-set" is used with "aggregate-address" and one of the specific 
-   routes has the community "no-export" or "no-advertise".
- - Aggregate routes will be dropped if "as-set" is used with "aggregate-address" and a receving router sees its own local AS 
+ - Aggregate routes will not be advertised to peers if `as-set` is used with `aggregate-address` and one of the specific 
+   routes has the community `no-export` or `no-advertise`.
+ - Aggregate routes will be dropped if `as-set` is used with `aggregate-address` and a receving router sees its own local AS 
    in the AS_SET.
 
- - Routes will not be advertised to peers if they are not installed in the RIB and "bgp suppress-inactive" is configured.
+ - Routes will not be advertised to peers if they are not installed in the RIB and `bgp suppress-inactive` is configured.
  - Routes will not be advertised to peers if the prefix is a RIB-failure, the BGP and IGP next hop do not match, and  
-   "bgp suppress-inactive" is configured.
+   `bgp suppress-inactive` is configured.
  - If BGP dampening suppresses a route, it will not use used in the BGP best path selection, it will not be advertised to
    any peer, and it will not be installed into the routing table.  BGP keeps the prefix in the BGP table as a history entry. 
- - Backdoor routes configured with the "network backdoor" command are not advertised in BGP updates.
+ - Backdoor routes configured with the `network backdoor` command are not advertised in BGP updates.
 
  - Routers will discard routes if the ORIGINATOR-ID is the same as their ROUTER-ID.
- - Route Reflectors will not reflect routes when "no bgp client-to-client reflection" is configured.
- - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id any"
+ - Route Reflectors will not reflect routes when `no bgp client-to-client reflection` is configured.
+ - Route Reflectors in clusters will not reflect routes when `no bgp client-to-client reflection intra-cluster cluster-id any`
    is configured.
- - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id <cluster-id>"
+ - Route Reflectors in clusters will not reflect routes when `no bgp client-to-client reflection intra-cluster cluster-id <cluster-id>`
    is configured and the update contains the matching CLUSTER_ID.
 
- - Routes will be discarded if the AS_PATH length exceeds the "bgp maxas-limit" when configured.
+ - Routes will be discarded if the AS_PATH length exceeds the `bgp maxas-limit` when configured.
    - Range 1 to 254.
-   - bgp maxas-limit 42
- - Routes will be discarded if the number of prefixes exceeds the "neighbor maximum-prefix" when configured.
+   - `bgp maxas-limit 42`
+ - Routes will be discarded if the number of prefixes exceeds the `neighbor maximum-prefix` when configured.
    - Limitations on the number of prefixes that can be configured are determined by the amount of available system resources.
    - Range 1 to 2147483647.  ( With IOS XE 17.12.x. The Internet BGP4 Table had 1038108 in November 2025. )
-   - neighbor 192.0.2.1 maximum-prefix 42
-   - neighbor 192.0.2.1 maximum-prefix 42 90 ! Change default warning level from 75.
-   - neighbor 192.0.2.1 maximum-prefix 42 90 warning-only
-   - neighbor 192.0.2.1 maximum-prefix 42 90 discard-extra
- - Routes will be discarded if the number of communities exceeds the "bgp maxcommunity-limit" when configured.
+   - `neighbor 192.0.2.1 maximum-prefix 42`
+   - `neighbor 192.0.2.1 maximum-prefix 42 90` ! Change default warning level from 75.
+   - `neighbor 192.0.2.1 maximum-prefix 42 90 warning-only`
+   - `neighbor 192.0.2.1 maximum-prefix 42 90 discard-extra`
+ - Routes will be discarded if the number of communities exceeds the `bgp maxcommunity-limit` when configured.
    - Range 1 to 1018.
-   - bgp maxcommunity-limit 42
- - Routes will be discarded if the number of extended communities exceeds the "bgp maxextcommunity-limit" when configured.
+   - `bgp maxcommunity-limit 42`
+ - Routes will be discarded if the number of extended communities exceeds the `bgp maxextcommunity-limit` when configured.
    - Range 1 to 509.
-   - bgp-maxextcommunity-limit 42
- - Routes will be discarded if the number of large communities exceeds the "bgp maxlargecommunity-limit" when configured.
+   - `bgp-maxextcommunity-limit 42`
+ - Routes will be discarded if the number of large communities exceeds the `bgp maxlargecommunity-limit` when configured.
    - Range 1 to 339.
-   - bgp-maxlargecommunity-limit 42
+   - `bgp-maxlargecommunity-limit 42`
 
  - BGP-Origin AS Validation is configured and a prefix is marked as invalid, it will not be advertised, will be withdrawn from 
    the BGP routing table, will not be considered as a best path, and will not be considered as a candidate for multipath.
@@ -130,10 +130,10 @@ Updates                                                                         
      - Those with a validation state of invalid (which will never be installed in the routing table).
    - These preferences override metric, local preference, and other choices made during the bestpath computation.
    - The standard bestpath decision tree applies only if the validation state of the two paths is the same.
-   - bgp bestpath prefix-validate disable
+   - `bgp bestpath prefix-validate disable`
      - Disables the validation of prefixes by the RPKI server and the storage of that validation information.
      - Intended for configuration testing.
-   - bgp bestpath prefix-validate allow-invalid
+   - `bgp bestpath prefix-validate allow-invalid`
      - Allows invalid prefixes to be used as the bestpath, even if valid prefixes are available.
      - Intended for configuration testing.
      - Can be used with a route-map to match valid, not found, or invalid states and set other attributes.
