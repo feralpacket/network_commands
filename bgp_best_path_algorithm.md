@@ -4,6 +4,8 @@ http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-2
 `show ip bgp <prefix> best-path-reason`
  - `best-path-reason` was added to IOS XE 16.10.1.
 
+### BGP Table
+
 BGP assigns the first valid path as the current best path. BGP then compares the best path with the next path in the list, 
    until BGP reaches the end of the list of valid paths.  BGP compares routes in pairs, starting with the newset entry and 
    moving toward the oldest entry.
