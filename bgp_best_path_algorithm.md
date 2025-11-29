@@ -25,8 +25,8 @@ The order in which routes are received can impact best path decisions and can ha
 The configurations options available to modify the best path algoritm have results that are situational and can change
    depending on the environment and failure scenarios.  They are used to change non-deterministic results, especially during
    failure scenarios, so that deterministic decisions are returned.  Some of the configurations options can have opposite results,
-   depending on the network architecture.  The configiration "bgp always-compare-med" can introduce route oscillations conditions 
-   into the network.  But "bgp always-compare-med" can also be used to prevent route oscillations.  Your mileage may very.  
+   depending on the network architecture.  The configiration `bgp always-compare-med` can introduce route oscillations conditions 
+   into the network.  But `bgp always-compare-med` can also be used to prevent route oscillations.  Your mileage may very.  
 
   
 ```
@@ -51,18 +51,18 @@ Updates                                                                         
 ```
 
 ## Why Routers Ignore Paths:
- - Paths are marked “not synchronized” in "sh ip bgp longer-prefixes" or "sh ip bgp detail" output and "synchronization" is 
+ - Paths are marked “not synchronized” in `sh ip bgp longer-prefixes` or `sh ip bgp detail` output and "synchronization" is 
    enabled.
  - Next hop is inaccessible or unreachable.
  - Path from eBGP neighbor has local AS in AS_PATH.
- - "bgp enforce-first-as" is set and the update doesn’t list the neighbor AS as the first AS.
- - Paths are marked “receive only” in "sh ip bgp longer-prefixes" output.
-     -> sh ip bgp 192.0.2.0 255.255.255.0 longer-prefixes
-     -> Policy rejected these routes.  However, the router stores the paths unmodified if "soft-reconfiguration inbound" is 
+ - `bgp enforce-first-as` is set and the update doesn’t list the neighbor AS as the first AS.
+ - Paths are marked “receive only” in `sh ip bgp longer-prefixes` output.
+   - `sh ip bgp 192.0.2.0 255.255.255.0 longer-prefixes`
+   - Policy rejected these routes.  However, the router stores the paths unmodified if "soft-reconfiguration inbound" is 
         configured.
-     -> neighbor 192.0.2.1 soft-reconfiguration inbound
-     -> bgp soft-reconfig-backup
-          -> Configure soft reconfiguration for peers that do not support the route refresh capability.  
+   - `neighbor 192.0.2.1 soft-reconfiguration inbound`
+   - `bgp soft-reconfig-backup`
+     - Configure soft reconfiguration for peers that do not support the route refresh capability.  
 
  - Routes that match a prefix-list that is received from a peer with the Outbound Route Filtering (ORF) capability will 
    not be advertised to that peer.
