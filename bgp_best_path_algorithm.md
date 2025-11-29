@@ -13,14 +13,14 @@ In the BGP table, newer entries are placed on top of older entries.  Entry3 is t
  - entry2: ASPATH 2, MED 150, internal, IGP metric to NEXT_HOP 5
  - entry3: ASPATH 1, MED 200, external
 
- - If there is no current best path, entry2 is compared with and selected over entry1 due to the lower IGP metric to reach 
-   the NEXT_HOP.
- - Entry3 is then compared and selected as the best path over entry2 because it is external.
+If there is no current best path, entry2 is compared with and selected over entry1 due to the lower IGP metric to reach 
+   the NEXT_HOP.  Entry3 is then compared and selected as the best path over entry2 because it is external.
 
- - The order in which routes are received can impact best path decisions and can have non-deterministic results.  The attribute 
+The order in which routes are received can impact best path decisions and can have non-deterministic results.  The attribute 
    MULTI_EXIT_DISC ( MED ) is the most susceptible to this problem, mostly because by default, routes without MED are preferred
    to routes with MED and MED is not compared when the same route is received from different AS.
- - The configurations options available to modify the best path algoritm have results that are situational and can change
+
+The configurations options available to modify the best path algoritm have results that are situational and can change
    depending on the environment and failure scenarios.  They are used to change non-deterministic results, especially during
    failure scenarios, so that deterministic decisions are returned.  Some of the configurations options can have opposite results,
    depending on the network architecture.  The configiration "bgp always-compare-med" can introduce route oscillations conditions 
