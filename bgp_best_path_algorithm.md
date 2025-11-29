@@ -212,7 +212,8 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
 
 
 
-### 0.  If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
+### 0.  Extended cost community, pre-best path POI
+     -> If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
      -> Lowest cost community ID number is best.
      -> Then lowest cost community number is best.
      -> Locally significant to the router ( Loc-RIB ).
