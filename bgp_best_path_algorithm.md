@@ -24,7 +24,7 @@ http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-2
    depending on the network architecture.  The configiration "bgp always-compare-med" can introduce route oscillations conditions 
    into the network.  But "bgp always-compare-med" can also be used to prevent route oscillations.  Your mileage may very.
 
-
+```
 Incoming                                                                                                                        Outgoing
 BGP                                                                                                                             BGP
 Updates                                                                                                                         Updates
@@ -43,9 +43,9 @@ Updates                                                                         
                                                                     | Routing Table   |
                                                                     | RIB             |
                                                                     +-----------------+
+```
 
-
-Why Routers Ignore Paths:
+# Why Routers Ignore Paths:
  - Paths are marked “not synchronized” in "sh ip bgp longer-prefixes" or "sh ip bgp detail" output and "synchronization" is 
    enabled.
  - Next hop is inaccessible or unreachable.
