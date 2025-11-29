@@ -9,9 +9,10 @@ BGP assigns the first valid path as the current best path. BGP then compares the
    moving toward the oldest entry.
    
 In the BGP table, newer entries are placed on top of older entries.  Entry3 is the oldest entry in this example.
-    - entry1: ASPATH 1, MED 100, internal, IGP metric to NEXT_HOP 10
-    - entry2: ASPATH 2, MED 150, internal, IGP metric to NEXT_HOP 5
-    - entry3: ASPATH 1, MED 200, external
+ - entry1: ASPATH 1, MED 100, internal, IGP metric to NEXT_HOP 10
+ - entry2: ASPATH 2, MED 150, internal, IGP metric to NEXT_HOP 5
+ - entry3: ASPATH 1, MED 200, external
+
  - If there is no current best path, entry2 is compared with and selected over entry1 due to the lower IGP metric to reach 
    the NEXT_HOP.
  - Entry3 is then compared and selected as the best path over entry2 because it is external.
