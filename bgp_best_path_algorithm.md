@@ -174,11 +174,11 @@ Updates                                                                         
  13.  Neighbor address
 
 
- - The steps below include the IOS configuration commands that can modify the default behavior of each step.
+The steps below include the IOS configuration commands that can modify the default behavior of each step.
 
 
 
-Processing order of BGP policy filters, if more than one of the below is configured:
+### Processing order of BGP policy filters, if more than one of the below is configured:
  - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3e/irg-iproute-bgp-xe-3e-book/irg-prefix-filter.html
  - https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_irg-external-sp-0.html?bookSearch=true#GUID-10A68F6C-F04F-4F18-AA1F-7B93112B23E2
  - Edgeworth, Foss, Rios, IP Routing on Cisco IOS, IOS XE, and IOS XR, 548
