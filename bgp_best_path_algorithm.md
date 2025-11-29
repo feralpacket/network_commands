@@ -183,16 +183,16 @@ The steps below include the IOS configuration commands that can modify the defau
  - https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_irg-external-sp-0.html?bookSearch=true#GUID-10A68F6C-F04F-4F18-AA1F-7B93112B23E2
  - Edgeworth, Foss, Rios, IP Routing on Cisco IOS, IOS XE, and IOS XR, 548
    - Inbound processing order:
-     -> Route map
-     -> Filter list, AS-path access-list, or IP Policy
-     -> IP prefix list
-     -> Distribute list
+     - Route map
+     - Filter list, AS-path access-list, or IP Policy
+     - IP prefix list
+     - Distribute list
 
    - Outbound processing order:
-     -> Distribute list
-     -> IP prefix list
-     -> Filter list, AS-path access list, or IP policy
-     -> Route map
+     - Distribute list
+     - IP prefix list
+     - Filter list, AS-path access list, or IP policy
+     - Route map
 
  - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/command/irg-cr-book/bgp-m1.html#wp2056491650
  - Do not apply neighbor distribute-list and neighbor prefix-list commands at the same time to a neighbor, in any given direction 
@@ -202,17 +202,17 @@ The steps below include the IOS configuration commands that can modify the defau
 
 From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/5816-bgpfaq-5816.htm ):
  - Order of preference for inbound updates, if more than one of the below is configured:
-   -> 1.  route-map
-   -> 2.  filter-list
-   -> 3.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
+   1.  route-map
+   2.  filter-list
+   3.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
 
  - Order of preference for outbound updates, if more than one of the below is configured:
-   -> THESE ARE DIFFERENT FROM OTHER CISCO DOCUMENTATION!
-   -> 1.  filter-list
-   -> 2.  route-map or unsuppress-map
-   -> 3.  advertise-map (conditional-advertisement)
-   -> 4.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
-   -> 5.  Outbound Route Filtering (ORF) prefix-list (a prefix-list a neighbor sends us)
+   - THESE ARE DIFFERENT FROM OTHER CISCO DOCUMENTATION!
+   1.  filter-list
+   2.  route-map or unsuppress-map
+   3.  advertise-map (conditional-advertisement)
+   4.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
+   5.  Outbound Route Filtering (ORF) prefix-list (a prefix-list a neighbor sends us)
 
 
 
