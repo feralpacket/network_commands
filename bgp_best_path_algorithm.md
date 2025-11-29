@@ -211,7 +211,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
 
 
 
-## 0.  If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
+### 0.  If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
      -> Lowest cost community ID number is best.
      -> Then lowest cost community number is best.
      -> Locally significant to the router ( Loc-RIB ).
@@ -254,7 +254,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      -> See above for now.
 
 
- 1.  Weight
+### 1.  Weight
      -> Highest is best.
      -> Cisco proprietary.
      -> Not actually a BGP attribute.
@@ -298,7 +298,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
            weight to 0 so it is not considered at all.
 
 
- 2.  Local_preference
+### 2.  Local_preference
      -> Highest is best.
      -> Well-known, discretionary attribute LOCAL_PREF.
      -> Significant only in the local (internal) AS.
@@ -333,7 +333,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      -> whois -r whois.radb.net as3356
 
 
- 3.  Locally originated path
+### 3.  Locally originated path
      -> Locally generated routes are preferred over received routes.
 
      -> "network" command.
@@ -372,7 +372,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
               -> bgp aggregate-timer 0
 
 
- 3a.  Accumulated Interior Gateway Protocol (AIGP)
+### 3a.  Accumulated Interior Gateway Protocol (AIGP)
      -> Lowest is best.
      -> Optional, non-transitive attribute AIGP.
      -> The AIGP path attribute capability must be agreed upon between BGP peers.
@@ -437,7 +437,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
          -> "path-attribute discard" cannot be used with most attributes.
 
 
- 4.  AS_PATH
+### 4.  AS_PATH
      -> Shortest is best.
      -> Well-known, mandatory attribute AS_PATH.
      -> Significant external to AS.
@@ -628,7 +628,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         -> Filter 4-byte AS numbers using ASplain.
 
 
- 5.  ORIGIN
+### 5.  ORIGIN
      -> Lowest type is best.
      -> Well-known, mandatory attribute ORIGIN.
      -> Significant external to AS.
@@ -670,7 +670,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      ->    set origin incomplete
 
 
- 6.  multi-exit discriminator (MED)
+### 6.  multi-exit discriminator (MED)
      -> Metric
      -> Optional, non-transitive attribute MULTI_EXIT_DISC.
      -> Significant external to AS.
@@ -808,13 +808,13 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
        -> Interval range from 60 seconds to 136 years ( 4,294,967,295 seconds ).  In other words, never update if set to max.
 
 
- 7.  eBGP over iBGP
+### 7.  eBGP over iBGP
      -> Paths that contain AS_CONFED_SEQUENCE and AS_CONFED_SET are considered internal to the confederation.
      -> Locally significant to the router ( Loc-RIB ).
      -> Generally, the IGP is the source of all truth within an AS or iBGP network.  Your mileage may vary.
 
 
- 8.  IGP metric to the BGP next hop
+### 8.  IGP metric to the BGP next hop
      -> Lowest is best.
      -> Locally significant to the router ( Loc-RIB ).
      -> Prefer the route with the shortest IGP path to the BGP NEXT_HOP.
@@ -825,7 +825,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         -> In this case, configured on the RR, shadow RR, and PE routers.
 
 
-8a.  extended cost community
+### 8a.  extended cost community
      -> IGP point of insertion (POI).
      -> Lowest cost community ID number is best.
      -> Then lowest cost community number is best.
@@ -853,7 +853,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
         -> This command was intended only to assist in troubleshooting path selection.
 
 
-9.  Multipath
+### 9.  Multipath
     - Determine if multiple paths require installation in the routing table.
     - Configure if best path is not selected yet.
 
@@ -1012,7 +1012,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
           -> Solves a problem with BGP in data center CLOS networks described in RFC 7938.
 
 
- 10.  Oldest route
+### 10.  Oldest route
       -> When multiple paths are external, prefer the path that was received first.
       -> Oldest is best.
       -> If there is already a current best path, continue using that same best path if all other attributes are equal.  It 
@@ -1031,7 +1031,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
             BGP route dampening if this is a problem.
 
 
- 11.  Router-id
+### 11.  Router-id
       -> Lowest is best.
       -> Locally significant to the router ( Loc-RIB ).
       -> Not the same thing as the ORIGINATOR_ID attribute, which is used by route reflectors.
@@ -1041,7 +1041,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
          -> CLUSTER_LIST
 
 
- 12.  Cluster length
+### 12.  Cluster length
       -> Lowest is best
       -> Locally significant to the router ( Loc-RIB ).
       -> CLUSTER_LIST is an optional, non-transitive attribute.
@@ -1050,7 +1050,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
       -> Router reflectors environments only.
 
 
- 13.  Neighbor address
+### 13.  Neighbor address
       -> Lowest is best.
       -> Locally significant to the router ( Loc-RIB ).
       -> Remote peer used in the TCP connection.
