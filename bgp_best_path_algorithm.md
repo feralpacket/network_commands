@@ -137,7 +137,7 @@ Updates                                                                         
    point of insertion.
 
 
-Best Path Algorithm:
+## Best Path Algorithm:
 - Important, next hop needs to be valid!
 
 - It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), 
@@ -211,7 +211,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
 
 
 
- 0.  If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
+## 0.  If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
      -> Lowest cost community ID number is best.
      -> Then lowest cost community number is best.
      -> Locally significant to the router ( Loc-RIB ).
@@ -249,7 +249,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
      -> neighbor 192.0.2.1 route-map SOO in
 
 
- 0a. BGP-Origin AS Validation
+### 0a. BGP-Origin AS Validation
      -> TODO
      -> See above for now.
 
