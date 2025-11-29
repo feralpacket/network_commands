@@ -24,6 +24,8 @@ http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-2
    depending on the network architecture.  The configiration "bgp always-compare-med" can introduce route oscillations conditions 
    into the network.  But "bgp always-compare-med" can also be used to prevent route oscillations.  Your mileage may very.
 
+\
+\
 ```
 Incoming                                                                                                                        Outgoing
 BGP                                                                                                                             BGP
