@@ -58,7 +58,7 @@ Updates                                                                         
         configured.
      -> neighbor 192.0.2.1 soft-reconfiguration inbound
      -> bgp soft-reconfig-backup
-          -> Configure soft reconfiguration for peers that do not support the route refresh capability.
+          -> Configure soft reconfiguration for peers that do not support the route refresh capability.  
 
  - Routes that match a prefix-list that is received from a peer with the Outbound Route Filtering (ORF) capability will 
    not be advertised to that peer.
