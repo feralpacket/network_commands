@@ -45,7 +45,7 @@ Updates                                                                         
                                                                     +-----------------+
 ```
 
-# Why Routers Ignore Paths:
+## Why Routers Ignore Paths:
  - Paths are marked “not synchronized” in "sh ip bgp longer-prefixes" or "sh ip bgp detail" output and "synchronization" is 
    enabled.
  - Next hop is inaccessible or unreachable.
