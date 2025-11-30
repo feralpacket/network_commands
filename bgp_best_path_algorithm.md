@@ -156,22 +156,22 @@ Updates                                                                         
 
 
 > 0.  Extended cost community, pre-best path POI
- 0a. BGP-Origin AS Validation
- 1.  Weight
- 2.  Local_preference
- 3.  Locally originated path
- 3a. Accumulated Interior Gateway Protocol (AIGP)
- 4.  AS_PATH
- 5.  ORIGIN
- 6.  multi-exit discriminator (MED)
- 7.  eBGP over iBGP
- 8.  IGP metric to the BGP next hop
- 8a. Extended cost community, IGP POI
- 9.  Multipath
- 10.  Oldest route
- 11.  Router-id
- 12.  Cluster length
- 13.  Neighbor address
+> 0a. BGP-Origin AS Validation
+> 1.  Weight
+> 2.  Local_preference
+> 3.  Locally originated path
+> 3a. Accumulated Interior Gateway Protocol (AIGP)
+> 4.  AS_PATH
+> 5.  ORIGIN
+> 6.  multi-exit discriminator (MED)
+> 7.  eBGP over iBGP
+> 8.  IGP metric to the BGP next hop
+> 8a. Extended cost community, IGP POI
+> 9.  Multipath
+> 10.  Oldest route
+> 11.  Router-id
+> 12.  Cluster length
+> 13.  Neighbor address
 
 
 The steps below include the IOS configuration commands that can modify the default behavior of each step.
