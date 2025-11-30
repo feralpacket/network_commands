@@ -155,7 +155,7 @@ Updates                                                                         
   select the best and backup paths.
 
 
- 0.  Extended cost community, pre-best path POI
+> 0.  Extended cost community, pre-best path POI
  0a. BGP-Origin AS Validation
  1.  Weight
  2.  Local_preference
