@@ -1,2 +1,7 @@
 ! uptime
 bash -c uptime
+
+! the F5s responds to the Cisco and Linux uptime SNMP OIDs.  the linux counter will reset if snmpd is restarted.  to see if that happend.
+! SNMPv2-MIB::sysUpTime  .1.3.6.1.2.1.1.3 
+! HOST-RESOURCES-MIB::hrSystemUptime .1.3.6.1.2.1.25.1.1
+show sys service
