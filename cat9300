@@ -579,3 +579,21 @@ May  5 14:51:25.366 UTC: Interface(GigabitEthernet1/0/4) has no inline power
 
 !
 qos share-buffer
+
+
+! CTS log messages that appear after upgrading to 17.15.04
+%CTS-3-AAA_NO_RADIUS_SERVER: No RADIUS servers available for CTS AAA request for Unknown-FFFF
+%CTS-3-AUTHZ_ENTRY_RADIUS_FAILED: Policy Acquisition failed to transmit RADIUS request for peer(Unknown-FFFF)
+
+!
+clear cts credentials
+
+!
+conf t
+!
+no aaa authentication login ISE-cts-list group ISE-radius-group local
+no aaa authorization network ISE-cts-list group ISE-radius-group 
+no aaa accounting network ISE-cts-list start-stop group ISE-radius-group
+no cts authorization list ISE-cts-list
+no cts role-based enforcement
+!
