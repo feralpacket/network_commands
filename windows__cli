@@ -42,6 +42,11 @@ notepad
 Ctrl-V
 
 
+! create a bunch of text files
+rem (minimum, increase size, maximum)
+for /l %i in (1, 1, 50)do @echo. > Bldg1-IDF%i_Interface_Counters.txt
+
+
 ! interfaces and IP addresses
 netsh interface show interface
 get-netadapter
