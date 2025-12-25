@@ -1,0 +1,151 @@
+Spanning Tree
+ - BPDU Timer
+   - max-age:  20 sec
+   - hello:  2 sec
+
+ - BPDU Type 2 Timer ( RSTP )
+   - hello:  2 sec
+   - TC-While timer:  2 x hello timer ( 4 sec )
+
+ - BPDU Type 3 Timer ( MST )
+   - hello:  2 sec
+
+ - STP Port States
+   - Blocking:  20 sec
+   - Listening:  15 sec
+   - Learning:  15 sec
+   - When a port first comes up:
+     - 50 sec ( 20 + 15 + 15 )
+
+
+CAM Table
+ - aging:  300 sec
+ - BPDU with TC bit set:  forwarding time ( 15 sec )
+
+
+GRE Tunnel
+ - keepalive:  10 sec
+
+
+RIP
+ - update timer:  30 sec
+ - invalid timer:  180 sec
+ - holddown timer:  180 sec
+ - flush timer:  240 sec
+
+
+EIGRP
+ - hello:
+   - T1 ( or slower ):  60 sec
+   - all other network types:  5 sec
+ - hold-time:
+   - low-speed NBMA networks:  180 sec
+   - all other network types:  15 sec
+
+
+OSPF
+ - Hello Interval
+   - Broadcast networks:  10 sec
+   - Non-broadcast networks:  30 sec
+   - Point-to-point networks:  10 sec
+ - Dead Timer
+   - 4 x the hello interval
+ - Wait Timer
+   - Wait period to select a DR
+   - 4 x the hello interval
+ - Fast Hello Packets
+   - Intervals less than 1 sec
+   - ip ospf dead-interval min hello-multiplier 5
+   - ip ospf hello-interval 1
+
+
+OSPF Network Types
+ - Broadcast
+   - hello:  10 sec
+   - dead-interval:  40 sec
+ - Non-broadcast
+   - hello:  30 sec
+   - dead-interval:  120 sec
+ - Point-to-point
+   - hello:  10 sec
+   - dead-interval:  40 sec
+ - Point-to-multipoint
+   - hello:  30 sec
+   - dead-interval:  120 sec
+ - Point-to-multipoint non-broadcast
+   - hello:  30 sec
+   - dead-interval:  120 sec
+
+
+OSPF LSA Timers
+ - lsa-group
+   - allows more LSAs to be grouped before being forwarded
+   - 240 sec
+ - pacing flood
+   - rate for LSA updates
+   - 33 msec
+ - throttle LSA
+   - start interval:  0 msec
+   - hold interval:  5000 msec
+   - max interval:  5000 msec
+ - max LSA
+   - ignore time:  5 min
+   - reset time:  10 min
+ - max-metric router-lsa on-startup
+   - no default
+ - max-metric router-lsa on-startup wait-for-bgp
+   - 600 sec
+
+
+LDP
+ - hello interval:  5 sec
+ - hold interval:  15 sec
+
+
+IGMPv2
+ - query interval:  60 sec
+   - there are lots of references to 125 sec per the RFC
+ - query response interval:
+ - group membership interval:  260 sec
+ - other querier present:  260 sec
+ - last member query interval:  1000 msec
+ - IGMP querier timeout:  120 sec
+
+
+PIM
+ - hello message:  30 sec
+ - hold time:  90 sec
+
+
+Auto-RP
+ - 
+
+
+BSR
+ - BS_Period:  60 sec
+ - BS_Timeout:  130 sec
+ - BS_Min_Interval:  10 sec
+ - SZ_Timeout:  1300 sec
+ - C-RP Mapping Timeout:
+ - RP Mapping Timeout:
+ - C_RP_Adv_Period:  60 sec
+ - C_RP_Adv_Backoff:  
+
+
+HSRP
+ - hello:  3 sec
+ - hold time:  10 sec
+
+
+VRRP
+ - advertisement interval:  1 sec
+ - master down interval:  3 X advertisement interval + skew time
+ - skew time
+   - ( 256 - Priority / 256 )
+   - Default Priority = 100
+   - 0.60 sec ( with default priority )
+
+
+GLBP
+ - hello:  3 sec
+ - hold time:  10 sec
