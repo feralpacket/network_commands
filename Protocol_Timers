@@ -149,3 +149,12 @@ VRRP
 GLBP
  - hello:  3 sec
  - hold time:  10 sec
+
+
+CDP
+ - "CDP Timer":  60 sec
+ - hold time:  180 sec
+
+
+Error Disable Recovery
+ - default:  300 sec
