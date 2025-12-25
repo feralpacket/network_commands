@@ -1,0 +1,13 @@
+https://www.iana.org/assignments/ieee-802-numbers/ieee-802-numbers.xhtml
+
+0x0800 - IPv4
+0x0806 - ARP
+0x8100 - 
+0x86DD - IPv6
+0x8847 - MPLS Unicast
+0x8848 - MPLS Multicast
+0x8863 - PPPoE Discovery Stage
+0x8864 - PPPoE Session Stage
+0x88CC - LLDP
+0x88E5 - MACsec
+0xAAAA - Cisco proprietary ( STP, PAgP, VTP, PVST+, CDP, DTP, and UDLD )
