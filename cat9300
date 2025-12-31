@@ -122,6 +122,8 @@ sh logging | count 2/0/40.*(up|down)
 
 
 ! this command is better
+! The time in this entry is UTC and doesn't follow the "clock timezone" configuration
+! Time Stamp Last Link Flapped(U) : Dec 30 13:37:13.377
 sh platform pm interface-flaps gi1/0/1
 
 
