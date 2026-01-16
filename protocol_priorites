@@ -89,10 +89,6 @@ Generally, but not always:
 					    - Path metric.
 
 
-Virtual Port Channel (vPC):
- - Lowest MAC address to select primary device.
-
-
 Spanning-tree Protocol (STP):
  - All tie-breaking decisions:
      1.  Lowest root bridge ID
@@ -169,6 +165,20 @@ Spanning-tree Protocol (STP):
          -> Lowest received port-priority
  - Switch stacks
     -> Note to self:  Add switch stack STP weirdness
+
+
+Virtual Port Channel (vPC):
+ - Primary / Secondary Priority
+   -> Lowest priority selected
+   -> Default 32667
+   -> Range is 1 - 65636
+       -> N9K(config)#vpc domain 1
+       -> N9K(config-vpc-domain)#role priority 32666
+   -> Lowest MAC address
+   -> Note:  The role is non-preemptive.  If the primary goes down, the secondary becomes the primary.  When the original primary
+             comes back up, it will take the secondary role.
+   -> Primary and secondary device roles can be manuually restored
+        -> N9K#vpc role preempt
 
 
 Link Aggregation Control Protocol (LACP):
