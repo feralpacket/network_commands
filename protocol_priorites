@@ -178,7 +178,7 @@ Virtual Port Channel (vPC):
    -> Note:  The role is non-preemptive.  If the primary goes down, the secondary becomes the primary.  When the original primary
              comes back up, it will take the secondary role.
    -> Primary and secondary device roles can be manuually restored
-        -> N9K#vpc role preempt
+       -> N9K#vpc role preempt
 
 
 Link Aggregation Control Protocol (LACP):
