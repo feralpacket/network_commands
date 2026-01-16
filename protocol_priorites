@@ -89,6 +89,10 @@ Generally, but not always:
 					    - Path metric.
 
 
+Virtual Port Channel (vPC):
+ - Lowest MAC address to select primary device.
+
+
 Spanning-tree Protocol (STP):
  - All tie-breaking decisions:
      1.  Lowest root bridge ID
