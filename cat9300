@@ -402,6 +402,10 @@ sh cable-diagnostics tdr int gi1/0/1
 ! cisco finally got around to adding the old nonstop forwarding ( NSF ) or graceful restart feature, and gave it a new name / acronym
 ! as usualy with current implmentations of anything they do now, there is a long list of restrictions, limitations, and requirements
 ! your mileage may vary
+! 
+! Ran into a "not customer facing" bug where Vlans go into spanning-tree blocking state due to Inconsistent peer vlan
+! Had to the uplink interface to recover
+! Test thoroughly
 install add file flash:image.bin activate xfsu commit
 
 
