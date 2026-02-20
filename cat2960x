@@ -13,3 +13,9 @@ int gi1/0/1
 sh controllers cpu-interface
 sh platform port-asic stats drop
 sh platform ip unicast counts 
+
+! multiethernet feature
+! but 2960x switches let you configure it on regular interfaces
+int gi1/0/1
+  downshift disable
+
