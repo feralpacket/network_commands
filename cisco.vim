@@ -1,7 +1,7 @@
 " Notes {{{
 " Vim syntax file
 " Language: cisco configuration files
-" Version: .628
+" Version: .629
 " 
 " Inception: 29-jan-2006
 " Inspiration:  Harry Schroeder's original cisco vim syntax file, and a discussion
@@ -105,6 +105,9 @@
 "               Additions: helper-address, logging onboard, route-cache
 "               TwentyFiveGigE, FortyGigE, HundredGigE interfaces, fixed 
 "               err-disabled, App interfaces
+"
+"           .629
+"               Additions: synt match ciscointerface /^interface range /
 "
 " }}}
 " Setup {{{
@@ -532,8 +535,14 @@ exe s:h . "ciscointerfacenumber" . s:ul_bold . s:fgyellow
 synt match interfacenumberafterslash excludenl /\/\d\{1,2}\/\{0,1}\d\{0,2}/ contained nextgroup=ciscosubinterface skipwhite 
 exe s:h . "interfacenumberafterslash"  . s:ul_bold . s:fgyellow
 
-synt match ciscosubinterface excludenl /[:.]\{0,1}\d\{0,4}/ contained 
+" original
+"synt match ciscosubinterface excludenl /[:.]\{0,1}\d\{0,4}/ contained 
+"exe s:h . "ciscosubinterface" . s:ul_bold . s:fgorange
+
+" feralpacket - also matches - 48 in interface range twe1/0/1 - 48
+synt match ciscosubinterface excludenl /[:.\- ]\{0,3}\d\{0,4}/ contained 
 exe s:h . "ciscosubinterface" . s:ul_bold . s:fgorange
+
 " this section is where the interface name region is detected.  Above is where
 " it is highlighted
 synt region ciscointregion excludenl start="\v[vV][eE]th {0,1}\d{-1,4}[^0-9a-zA-Z]"          end=/$/ end="[,-: ]\|\s"re=e-1 transparent contains=ciscointerfacetype
@@ -583,6 +592,7 @@ synt match dont_highlight excludenl /\v[a-zA-Z0-9][Gg]i {0,1}\d{-1,2}/me=e-3    
 
 synt match ciscointerface /^int / contained nextgroup=ciscointerfacetype skipwhite 
 synt match ciscointerface /^interface / contained nextgroup=ciscointerfacetype skipwhite 
+synt match ciscointerface /^interface range / contained nextgroup=ciscointerfacetype skipwhite 
 synt match ciscointerface /^Interface:/ contained nextgroup=ciscointerfacetype skipwhite 
 exe s:h . "ciscointerface" . s:ul_bold . s:keyword1
 
