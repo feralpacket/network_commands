@@ -4,6 +4,14 @@ Random Network Commands - Notes To Self
 Need a place to keep notes about random network commands.  I have been posting commands to Twitter for a while.  Some of the commands have brief explanations.  Some of the commands are undocumented.
 
 ## VIM
+Cisco.vim is now version .629.
+
+Added syntax highlighting for the "interface range" command.
+
+![VIM Cisco Syntax Highlighting](resources/vim_interface_range.png)
+
+
+## VIM
 Been using VIM when creating and editing device configurations to point out typos and mistakes.  The syntax highlighting has more features and options when compared to regex available in SecureCRT.  Mostly because of the ability to create groups and call nextgroup.  This allows things such as interface names be given one color, interface numbers be given a second color, and subinterfaces be given a third color.  Also, the ability to set both a forground color and a backgroup color is really nice.
 
 ![VIM Cisco Syntax Highlighting](resources/vim_cisco_syntax.png)
