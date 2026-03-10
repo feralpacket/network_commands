@@ -603,3 +603,8 @@ no aaa accounting network ISE-cts-list start-stop group ISE-radius-group
 no cts authorization list ISE-cts-list
 no cts role-based enforcement
 !
+
+
+! we can send wake on lan packets now
+! noticed after upgrading to 17.15.5
+wakeonlan mac 0000.5e00.5300 vlan 123 count 5 interval 30
