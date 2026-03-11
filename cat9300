@@ -404,7 +404,7 @@ sh cable-diagnostics tdr int gi1/0/1
 ! your mileage may vary
 ! 
 ! Ran into a "not customer facing" bug where Vlans go into spanning-tree blocking state due to Inconsistent peer vlan
-! Had to the uplink interface to recover
+! Had to bounce the uplink interface to recover
 ! Test thoroughly
 install add file flash:image.bin activate xfsu commit
 
