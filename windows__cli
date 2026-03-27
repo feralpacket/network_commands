@@ -127,6 +127,11 @@ ipconfig /renew
 ipconfig /displaydns
 ipconfig /registerdns
 
+! Are all of the DCHP scopes configured for failover?  Lists those that are not.
+$DHCP01 = Get-DhcpServerv4Scope -ComputerName FeralDHCP01
+$DHCP02 = Get-DhcpServerv4Scope -ComputerName FeralDHCP02
+$Dhcp01 | Where {$_.Name -notin $DHCP02.Name}
+
 
 ! MTU
 netsh interface ipv4 show subinterfaces
