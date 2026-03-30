@@ -377,6 +377,7 @@ wmic /node:"%COMPUTERNAME%" LogicalDisk Where DriveType="3" Get DeviceID,FreeSpa
 wmic logicaldisk get size,freespace,caption
 
 get-psdrive
+get-psdrive | format-table -autosize
 get-psdrive C
 get-psdrive -name "C"
 get-psdrive -psprovider filesystem
