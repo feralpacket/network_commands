@@ -65,6 +65,8 @@ netsh interface ipv4 show addresses
 ipconfig
 get-netipconfiguration
 
+get-ciminstance -class win32_networkadapterconfiguration -filter ipenabled=$true | select-Object -expandproperty ipaddress
+
 
 ! Public IP address
 curl icanhazip.com
