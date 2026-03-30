@@ -225,6 +225,9 @@ tracert -d 192.0.2.1
 test-netconnection 192.0.2.1 -traceroute
 pathping 192.0.2.1
 
+Get-CimInstance -Class Win32_PingStatus -Filter "Address='192.0.2.1'" |
+    Format-Table -Property Address,ResponseTime,StatusCode -AutoSize
+
 
 ! ping set of IP addresses
 for %x in (
@@ -233,6 +236,14 @@ for %x in (
 192.0.2.123
 192.0.2.234
 ) do ping -n 2 %x | findstr /C:"Reply" /C:"Received"
+
+1..254| ForEach-Object -Process {
+  Get-CimInstance -Class Win32_PingStatus -Filter ("Address='192.0.2.$_'") } |
+    Select-Object -Property Address,ResponseTime,StatusCode | Format-table -autosize
+
+1..254| ForEach-Object -Process {
+  Get-CimInstance -Class Win32_PingStatus -Filter ("Address='192.0.2.$_'") } |
+    Select-Object -Property Address,ResponseTime,StatusCode | Format-table @{e='*'; width = 20}
 
 
 ! QoS
