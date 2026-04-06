@@ -14,3 +14,13 @@ Show blocks all dump | redirect disk0:/April_1_blocks-all-dump.txt
 show asp event dp-cp
 show asp event cp-dp
 show tech-support | redirect disk0:/April_1_tech-support.txt
+
+
+!
+show blocks queue history detail
+
+
+!
+clear blocks
+show blocks
+
