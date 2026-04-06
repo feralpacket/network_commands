@@ -1,0 +1,4 @@
+!
+! %IPSEC-3-HMAC_ERROR: IPSec SA receives HMAC error
+sh platform hardware qfp active feature ipsec datapath drops
+sh platform hardware qfp active feature ipsec datapath drops all
