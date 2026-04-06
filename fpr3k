@@ -2,15 +2,15 @@
 show blocks
 show asp drop
 show blocks core
-show blocks old | redirect disk0:/Monday_April_1_blocks-old.txt
-show blocks pool 9344 dump | redirect disk0:/Monday_April_1_blocks-pool-1550-dump.txt
-show blocks assigned core-local dump | redirect disk0:/Monday_April_1_blocks-assigned-core-local-dump.txt
-show blocks exhaustion snapshot | redirect disk0:/Monday_April_1_blocks-exhaustion-snapshot.txt
-show blocks old core-local | redirect disk0:/Monday_April_1_blocks-old-core-local.txt
-show blocks old dump | redirect disk0:/Monday_April_1_blocks-old-dump.txt
-show blocks old dump | b size 9344 | redirect disk0:/Monday_April_1_blocks-old-dump-begin-9344.txt
-Show blocks all | redirect disk0:/Monday_April_1_blocks-all.txt
-Show blocks all dump | redirect disk0:/Monday_April_1_blocks-all-dump.txt
+show blocks old | redirect disk0:/April_1_blocks-old.txt
+show blocks pool 9344 dump | redirect disk0:/April_1_blocks-pool-1550-dump.txt
+show blocks assigned core-local dump | redirect disk0:/April_1_blocks-assigned-core-local-dump.txt
+show blocks exhaustion snapshot | redirect disk0:/April_1_blocks-exhaustion-snapshot.txt
+show blocks old core-local | redirect disk0:/April_1_blocks-old-core-local.txt
+show blocks old dump | redirect disk0:/April_1_blocks-old-dump.txt
+show blocks old dump | b size 9344 | redirect disk0:/April_1_blocks-old-dump-begin-9344.txt
+Show blocks all | redirect disk0:/April_1_blocks-all.txt
+Show blocks all dump | redirect disk0:/April_1_blocks-all-dump.txt
 show asp event dp-cp
 show asp event cp-dp
-show tech-support | redirect disk0:/Monday_April_1_tech-support.txt
+show tech-support | redirect disk0:/April_1_tech-support.txt
