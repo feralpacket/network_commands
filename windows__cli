@@ -427,3 +427,7 @@ Get-Counter '\Processor(*)\% Processor Time' | Select -Expand Countersamples | S
 Get-WmiObject Win32_PerfFormattedData_PerfOS_Processor | Select Name, PercentProcessorTime
 [string][int](Get-Counter '\Processor(*)\% Processor Time').Countersamples[0].CookedValue + '%'
 gwmi Win32_PerfFormattedData_PerfOS_Processor | Select -First 1 | %{'{0}%' -f $_.PercentProcessorTime}
+
+
+! services running
+Get-Service | Where-Object {$_.Status -eq "Running"} | Sort-Object DisplayName
