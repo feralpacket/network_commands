@@ -89,6 +89,15 @@ group by model
 order by number desc
 
 
+! machine type at each customproperty site
+select count(n.model) as [number], n.model, ncp.site
+from orion.npm.switchstackmember n
+left join orion.nodescustomproperties ncp on n.nodeid=ncp.nodeid
+--where ncp.site='SITE 1'
+group by model, site
+order by site
+
+
 ! IOS version counts
 select count (n.iosversion) as [version], n.iosversion
 from orion.nodes as n
