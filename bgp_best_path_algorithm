@@ -238,12 +238,12 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
 
 
   0a. BGP-Origin AS Validation
-	     -> Lowest state is best.
-	     -> Significant only in the local (internal) AS.
-	     -> Origin Validation State values
-	        -> 0 - Valid
-            -> 1 - Not Found
-            -> 2 - Invalid
+      -> Lowest state is best.
+      -> Significant only in the local (internal) AS.
+      -> Origin Validation State values
+         -> 0 - Valid
+         -> 1 - Not Found
+         -> 2 - Invalid
       -> Valid is lower (better) than Not Found, Not Found is lower (better) than Invalid
 
       -> With BGP-Origin AS Validation, prefer prefixes in the following order:
@@ -251,31 +251,30 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
          -> Those with a validation state of not found.
          -> Those with a validation state of invalid (which will never be installed in the routing table).
       -> These preferences override metric, local preference, and other choices made during the bestpath
-          computation.
+         computation.
       -> The standard bestpath decision tree applies only if the validation state of the two paths is the same.
 
       -> The validation state can be announced to iBGP neighbors using extended communities.
 	     -> Extended community:  0x4300 0x0000
-		    -> BGP Non-Transitive Extended Community:  0x43
-			      -> Non-Transitive Opaque Extended Community
-			   -> Non-Transitive Opaque Extended Community Sub-Type:  0x00
-			      -> BGP Origin Validation State Extended Community
+         -> BGP Non-Transitive Extended Community:  0x43
+            -> Non-Transitive Opaque Extended Community
+         -> Non-Transitive Opaque Extended Community Sub-Type:  0x00
+            -> BGP Origin Validation State Extended Community
 
       -> neighbor announce rpki state
-		       -> If the receiving iBGP neighbor is configured with neighbor annouce rpki state, the corresponding
-			         validation state is assign to the prefix.
-			      -> If the receiving iBGP neighbor is not configured with neighbor announce rpki state, all received
-			         prefixes will be marked as Valid, including prefixes that were marked Not Found.
+         -> If the receiving iBGP neighbor is configured with neighbor annouce rpki state, the corresponding
+            validation state is assign to the prefix.
+         -> If the receiving iBGP neighbor is not configured with neighbor announce rpki state, all received
+            prefixes will be marked as Valid, including prefixes that were marked Not Found.
 
       -> route-map AS_ORIGIN permit 10
-	        -> match rpki valid
-		       -> match rpki not-found
-		       -> match rpki invalid
-	     -> neighbor 192.2.0.1 route-map AS_ORIGIN in
+         -> match rpki valid
+         -> match rpki not-found
+         -> match rpki invalid
+      -> neighbor 192.2.0.1 route-map AS_ORIGIN in
 
       -> bgp bestpath prefix-validate disable
-         -> Disables the validation of prefixes by the RPKI server and the storage of that validation
-		          information.
+         -> Disables the validation of prefixes by the RPKI server and the storage of that validation information.
          -> Intended for configuration testing.
 
       -> bgp bestpath prefix-validate allow-invalid
