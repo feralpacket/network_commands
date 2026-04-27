@@ -268,9 +268,9 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
             prefixes will be marked as Valid, including prefixes that were marked Not Found.
 
       -> route-map AS_ORIGIN permit 10
-         -> match rpki valid
-         -> match rpki not-found
-         -> match rpki invalid
+      ->     match rpki valid
+      ->     match rpki not-found
+      ->     match rpki invalid
       -> neighbor 192.2.0.1 route-map AS_ORIGIN in
 
       -> bgp bestpath prefix-validate disable
