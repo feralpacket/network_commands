@@ -240,6 +240,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
   0a. BGP-Origin AS Validation
       -> Lowest state is best.
       -> Significant only in the local (internal) AS.
+      -> RFCs 6811, 8097, and 9324
       -> Origin Validation State values
          -> 0 - Valid
          -> 1 - Not Found
