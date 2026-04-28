@@ -491,6 +491,7 @@ sh license status
 
 
 ! why is ISE sending all of this IPv6 data into firepower via PXGrid?  we are not using IPv6.
+! NOTE:  If you've had to configure RAguard because you have IPv6 endpoints sending RA messages, don't do this.
 device-tracking policy IPDT_MAX_10
  no protocol ndp
  no protocol dhcp6
