@@ -135,6 +135,9 @@ Additional reasons why routers ignore paths:
    treat-as-withdraw" and the specified BGP attribute is in the update.
 
  - Routers will discard updates that have their CLUSTER_ID in the CLUSTER_LIST.
+   - In redundant route reflector designs, configuring the same CLUSTER_ID on the router reflectors is sometimes used to
+     prevent forwarding loops.  This has the benefit of reducing the amount of BGP updates being sent.  However, this can 
+     reduce the resilience of the design in certain failure scenarios.
  - Routers will discard updates when configured for Multiple CLUSTER_IDs (MCID) and the CLUSTER_LIST contains either their 
    global CLUSTER_ID or any of the CLUSTER_IDs assigned to any of the iBGP neighbors.
 
