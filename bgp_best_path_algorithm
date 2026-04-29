@@ -102,7 +102,7 @@ Why Routers Ignore Paths:
       -> Configure soft reconfiguration for peers that do not support the route refresh capability.
 
 
-Additional reasons why routes ignore paths:
+Additional reasons why routers ignore paths:
  - Routes that match a prefix-list that is received from a peer with the Outbound Route Filtering (ORF) capability will 
    not be advertised to that peer.
 
