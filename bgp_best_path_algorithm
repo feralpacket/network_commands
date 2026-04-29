@@ -890,6 +890,9 @@ Best Path Algorithm:
         -> Must be used when the Diverse Path feature is used and the route-reflector and shadow route-reflector are not co-located.
         -> In this case, configured on the RR, shadow RR, and PE routers.
 
+     -> bgp bestpath igp-metric sr-policy
+        -> Use the Segment Routing policy path metric instead of the IGP metric for the BGP best path selection at step 8.
+
 
 8a.  extended cost community
      -> IGP point of insertion (POI).
