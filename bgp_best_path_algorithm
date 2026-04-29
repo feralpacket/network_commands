@@ -4,6 +4,7 @@ http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-2
  - show ip bgp <prefix> best-path-reason
    - best-path-reason was added to IOS XE 16.10.1.
 
+
  - BGP assigns the first valid path as the current best path. BGP then compares the best path with the next path in the list, 
    until BGP reaches the end of the list of valid paths.  BGP compares routes in pairs, starting with the newset entry and 
    moving toward the oldest entry.
@@ -45,6 +46,47 @@ Updates                                                                         
                                                                     +-----------------+
 
 
+
+Processing order of BGP policy filters, if more than one of the below is configured:
+ - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3e/irg-iproute-bgp-xe-3e-book/irg-prefix-filter.html
+ - https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_irg-external-sp-0.html?bookSearch=true#GUID-10A68F6C-F04F-4F18-AA1F-7B93112B23E2
+ - Edgeworth, Foss, Rios, IP Routing on Cisco IOS, IOS XE, and IOS XR, 548
+   - Inbound processing order:
+     -> Route map
+     -> Filter list, AS-path access-list, or IP Policy
+     -> IP prefix list
+     -> Distribute list
+
+   - Outbound processing order:
+     -> Distribute list
+     -> IP prefix list
+     -> Filter list, AS-path access list, or IP policy
+     -> Route map
+
+ - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/command/irg-cr-book/bgp-m1.html#wp2056491650
+ - Do not apply neighbor distribute-list and neighbor prefix-list commands at the same time to a neighbor, in any given direction 
+   (inbound or outbound). These two commands are mutually exclusive, and only one command (neighbor prefix-list or neighbor distribute-list ) 
+   can be applied to the inbound or outbound direction.
+
+
+From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/5816-bgpfaq-5816.htm ):
+ - Order of preference for inbound updates, if more than one of the below is configured:
+   -> 1.  route-map
+   -> 2.  filter-list
+   -> 3.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
+
+ - Order of preference for outbound updates, if more than one of the below is configured:
+   -> !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   -> THESE ARE DIFFERENT FROM OTHER CISCO DOCUMENTATION!
+   -> !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   -> 1.  filter-list
+   -> 2.  route-map or unsuppress-map
+   -> 3.  advertise-map (conditional-advertisement)
+   -> 4.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
+   -> 5.  Outbound Route Filtering (ORF) prefix-list (a prefix-list a neighbor sends us)
+
+
+
 Why Routers Ignore Paths:
  - Paths are marked “not synchronized” in "sh ip bgp longer-prefixes" or "sh ip bgp detail" output and "synchronization" is 
    enabled.
@@ -59,6 +101,8 @@ Why Routers Ignore Paths:
      -> bgp soft-reconfig-backup
           -> Configure soft reconfiguration for peers that do not support the route refresh capability.
 
+
+Additional reasons why routes ignore paths:
  - Routes that match a prefix-list that is received from a peer with the Outbound Route Filtering (ORF) capability will 
    not be advertised to that peer.
 
@@ -124,6 +168,7 @@ Why Routers Ignore Paths:
    point of insertion.
 
 
+
 Best Path Algorithm:
 - Important, next hop needs to be valid!
 
@@ -158,45 +203,6 @@ Best Path Algorithm:
 
 
  - The steps below include the IOS configuration commands that can modify the default behavior of each step.
-
-
-
-Processing order of BGP policy filters, if more than one of the below is configured:
- - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3e/irg-iproute-bgp-xe-3e-book/irg-prefix-filter.html
- - https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_irg-external-sp-0.html?bookSearch=true#GUID-10A68F6C-F04F-4F18-AA1F-7B93112B23E2
- - Edgeworth, Foss, Rios, IP Routing on Cisco IOS, IOS XE, and IOS XR, 548
-   - Inbound processing order:
-     -> Route map
-     -> Filter list, AS-path access-list, or IP Policy
-     -> IP prefix list
-     -> Distribute list
-
-   - Outbound processing order:
-     -> Distribute list
-     -> IP prefix list
-     -> Filter list, AS-path access list, or IP policy
-     -> Route map
-
- - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/command/irg-cr-book/bgp-m1.html#wp2056491650
- - Do not apply neighbor distribute-list and neighbor prefix-list commands at the same time to a neighbor, in any given direction 
-   (inbound or outbound). These two commands are mutually exclusive, and only one command (neighbor prefix-list or neighbor distribute-list ) 
-   can be applied to the inbound or outbound direction.
-
-
-From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/5816-bgpfaq-5816.htm ):
- - Order of preference for inbound updates, if more than one of the below is configured:
-   -> 1.  route-map
-   -> 2.  filter-list
-   -> 3.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
-
- - Order of preference for outbound updates, if more than one of the below is configured:
-   -> THESE ARE DIFFERENT FROM OTHER CISCO DOCUMENTATION!
-   -> 1.  filter-list
-   -> 2.  route-map or unsuppress-map
-   -> 3.  advertise-map (conditional-advertisement)
-   -> 4.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
-   -> 5.  Outbound Route Filtering (ORF) prefix-list (a prefix-list a neighbor sends us)
-
 
 
  0.  If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
