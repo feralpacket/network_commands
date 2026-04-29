@@ -190,6 +190,10 @@ Additional reasons why routers ignore paths:
 
  - In EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath 
    point of insertion.
+ - Routes with the site-of-origin (SoO) extended community will not be advertised back to the source site.
+
+ - Routes that are not Segment Routing policy color marked are not considered for best path if "bgp bestpath sr-policy force"
+   is configured.
 
 
 
@@ -197,8 +201,8 @@ Best Path Algorithm:
 - Important, next hop needs to be valid!
   -> However, with On-Demand Next-hop (ODN) in Segment Routing (SR), there is a BGP Soft Next-Hop feature.  The soft validation 
      of the next-hop means that there is no check for RIB reachability, but the check is performed on the SR policy information.
-     -> nexthop validation color-extcomm sr-policy
-     -> nexthop validation color-extcomm disable
+  -> nexthop validation color-extcomm sr-policy
+  -> nexthop validation color-extcomm disable
 
 - It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), 
   highest is best.  Everything else, lowest, shortest, or oldest is best.  
@@ -248,7 +252,7 @@ Best Path Algorithm:
      -> Only advertised to iBGP neighbors, not eBGP neighbors.
      -> If used, must be configured in the entire AS or confederation to prevent routing loops.
      -> set extcommunity cost pre-bestpath <community-id> <cost>
-     -> Introduced for use with EIGRP MPLS VPN PE-CE with backdoor links before EIGRP Site of Origin ( SoO ) was introduced.
+     -> Introduced for use with EIGRP MPLS VPN PE-CE with backdoor links before EIGRP Site of Origin (SoO) was introduced.
      -> The pre-bestpath POI was meant to support mixed EIGRP VPN topologies with back door links.
      -> Back door links in EIGRP MPLS VPN topologies will be preferred to BGP.
      -> The BGP extended cost community carries the pre-bestpath POI, EIGRP route type, and route metric.
@@ -266,7 +270,7 @@ Best Path Algorithm:
      -> bgp bestpath cost-community ignore
          -> This command was intended only to assist in troubleshooting path selection.
 
-     -> Do this instead.
+     -> Use site-of-origin instead.
      -> neighbor 192.0.2.1 soo 64496:64511
      -> route-map SOO permit 10
      ->     set extcommunity soo 64496:64511
