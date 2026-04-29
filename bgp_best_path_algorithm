@@ -195,6 +195,10 @@ Additional reasons why routers ignore paths:
 
 Best Path Algorithm:
 - Important, next hop needs to be valid!
+  -> However, with On-Demand Next-hop (ODN) in Segment Routing (SR), there is a BGP Soft Next-Hop feature.  The soft validation 
+     of the next-hop means that there is no check for RIB reachability, but the check is performed on the SR policy information.
+     -> nexthop validation color-extcomm sr-policy
+     -> nexthop validation color-extcomm disable
 
 - It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), 
   highest is best.  Everything else, lowest, shortest, or oldest is best.  
@@ -210,6 +214,7 @@ Best Path Algorithm:
 
  0.  Extended cost community, pre-best path POI
  0a. BGP-Origin AS Validation
+ 0b. Segment Routing Policy
  1.  Weight
  2.  Local_preference
  3.  Locally originated path
@@ -313,6 +318,12 @@ Best Path Algorithm:
          -> Allows invalid prefixes to be used as the bestpath, even if valid prefixes are available.
          -> Intended for configuration testing.
          -> Can be used with a route-map to match valid, not found, or invalid states and set other attributes.
+
+
+ 0b. Segment Routing Policy
+     -> TODO
+     -> bgp bestpath sr-policy prefer
+     -> bgp bestpath sr-policy force
 
 
  1.  Weight
@@ -466,9 +477,9 @@ Best Path Algorithm:
      -> Using AIGP with non-AIGP capable neighbors.
         -> AIGP can be translated to MED.
         -> AIGP can be translated to a cost community.
-            -> The cost community point of insertion (POI) is specified.
-                -> Pre-bestpath
-                -> IGP metric
+           -> The cost community point of insertion (POI) is specified.
+              -> Pre-bestpath
+              -> IGP metric
 
      -> AIGP attribute was developed to solve certain niche use cases.  It must be used cautiously.
         
@@ -495,12 +506,12 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 aigp send med
 
      -> neighbor 192.0.2.1 path-attribute treat-as-withdraw 26 in
-         -> All prefixes in the UPDATE are removed from the BGP routing table.
-         -> "path-attribute treat-as-withdraw" cannot be used with most attributes.
+        -> All prefixes in the UPDATE are removed from the BGP routing table.
+        -> "path-attribute treat-as-withdraw" cannot be used with most attributes.
      
      -> neighbor 192.0.2.1 path-attribute discard 26 in
-         -> Drop the AIGP path attribute, then process the UPDATE as usual.
-         -> "path-attribute discard" cannot be used with most attributes.
+        -> Drop the AIGP path attribute, then process the UPDATE as usual.
+        -> "path-attribute discard" cannot be used with most attributes.
 
 
  4.  AS_PATH
@@ -891,7 +902,8 @@ Best Path Algorithm:
         -> In this case, configured on the RR, shadow RR, and PE routers.
 
      -> bgp bestpath igp-metric sr-policy
-        -> Use the Segment Routing policy path metric instead of the IGP metric for the BGP best path selection at step 8.
+        -> Use the Segment Routing policy path admin and metric values instead of the IGP metric for the BGP best path selection at 
+           step 8.
 
 
 8a.  extended cost community
