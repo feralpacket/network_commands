@@ -86,6 +86,25 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
    -> 5.  Outbound Route Filtering (ORF) prefix-list (a prefix-list a neighbor sends us)
 
 
+ - clear ip bgp *
+   - Use in the following situations:
+     - BGP timer specification changes
+     - BGP administrative distance changes
+ - clear ip bgp 192.0.2.1 soft out
+   - Use in the following situations:
+     - Additions or changes were made to the BGP related access lists.
+     - BGP related weight changes
+     - BGP related distribution list changes
+     - BGP related route-map changes
+ - clear ip bgp 192.0.2.1 soft in
+   - neighbor soft-reconfiguration inbound
+   - Use in the following situations:
+     - BGP related access list changes or additions
+     - BGP related weight changes
+     - BGP related distribution list changes
+     - BGP related route-map changes
+
+
 
 Why Routers Ignore Paths:
  - Paths are marked “not synchronized” in "sh ip bgp longer-prefixes" or "sh ip bgp detail" output and "synchronization" is 
@@ -306,7 +325,7 @@ Best Path Algorithm:
 
      -> Weight is used when you want to influence the BGP best path on a single router without causing that influence to 
         affect any other router.
-     -> If both "neighbor weight" and "neighbor route-map in" commands are configured, the route-map is preferred.
+     -> If both "neighbor weight" and a "set weight" route-map are configured, the route-map is preferred.
      -> Could potentially be a problem with IGP routes that are redistributed into BGP.  If the BGP received route is 
         assigned a weight of 0 and the IGP redistributed route is assigned a value of 32768, the IGP route is 
         installed in the RIB.  This can be a problem with architectures with on-demand backup paths.  The backup path is 
@@ -899,7 +918,7 @@ Best Path Algorithm:
 
 9.  Multipath
     - Determine if multiple paths require installation in the routing table.
-    - Configure if best path is not selected yet.
+    - Consider if best path is not selected yet.
 
     - Note:  Route reflectors will only advertise one best path.  Path hiding can prevent efficient use of BGP multipath, 
              prevent hitless planned maintenance, and can lead to MED oscillations and suboptimal hot-potato routing. 
@@ -962,7 +981,7 @@ Best Path Algorithm:
        to it's neighbors.
        -> Unless BGP Additional Paths ( ADD-PATH ) is configured.
 
-    -> The following needs to be equal for each prefix to multipath.
+    -> The following path attributes need to be equal for each prefix to be selected for multipath.
        -> Weight
        -> Local preference
        -> Received or locally originated route.
@@ -991,7 +1010,7 @@ Best Path Algorithm:
                   -> neighbor 192.0.2.1 dmzlink-bw
                   -> neighbor 192.0.2.1 send-community both
             -> Or "bgp bestpath igp-metric ignore" is configured.
-       -> "extended cost community", if configured or in EIGRP MPLS VPN topologies.
+       -> "extended cost community", if configured for EIGRP MPLS VPN topologies.
 
     -> maximum-paths 2
        -> Protocol independent command for equal-costs paths.
