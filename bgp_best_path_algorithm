@@ -203,6 +203,7 @@ Best Path Algorithm:
      of the next-hop means that there is no check for RIB reachability, but the check is performed on the SR policy information.
   -> nexthop validation color-extcomm sr-policy
   -> nexthop validation color-extcomm disable
+  -> NOTE:  This is currently only an IOS XR feature.
 
 - It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), 
   highest is best.  Everything else, lowest, shortest, or oldest is best.  
@@ -326,8 +327,19 @@ Best Path Algorithm:
 
  0b. Segment Routing Policy
      -> TODO
+     -> Currently, this feature was introduced with IOS XR 7.3.2 and 7.4.1.  It shouldn't be here and should
+        be on my BGP Bext Path Algorithm IOS XR notes.  Which I'll write up some day.
      -> bgp bestpath sr-policy prefer
      -> bgp bestpath sr-policy force
+     -> Lowest SR policy admin value is best.
+     -> Then lowest SR policy metric value is best.
+     -> SR policy admin values (metric types):
+        -> Latency - 10
+        -> TE - 20
+        -> IGP (default) - 30
+        -> Hopcount - 40
+        -> NONE/UNKNOWN metric type (for explicit segment list policies) - 100
+     -> If metric type is none, then the metric value is 1.
 
 
  1.  Weight
@@ -908,6 +920,7 @@ Best Path Algorithm:
      -> bgp bestpath igp-metric sr-policy
         -> Use the Segment Routing policy path admin and metric values instead of the IGP metric for the BGP best path selection at 
            step 8.
+        -> NOTE:  This is currently only an IOS XR feature.
 
 
 8a.  extended cost community
