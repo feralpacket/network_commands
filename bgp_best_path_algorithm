@@ -302,6 +302,7 @@ Best Path Algorithm:
      -> Default is 0 for received routes.
      -> Default is 32768 for locally generated routes via the "network", "redistribution", and "aggregate-address" commands.
      -> The router will prefer its own route over one advertised by a neighbor.
+     -> Weight tends to prevent step 3 from ever being considered in the best path selection process.
 
      -> Weight is used when you want to influence the BGP best path on a single router without causing that influence to 
         affect any other router.
@@ -335,6 +336,9 @@ Best Path Algorithm:
      -> aggregate-address 10.11.0.0 255.255.0.0 route-map WEIGHT
         -> Using a route-map with the "network", "redistribute", or "aggregate-address" commands could set the
            weight to 0 so it is not considered at all.
+        -> Or set the weight for received routes to 32768.
+        -> Useful if want to consider how the locally generated route is selected with step 3.
+
 
 
  2.  Local_preference
@@ -374,6 +378,7 @@ Best Path Algorithm:
 
  3.  Locally originated path
      -> Locally generated routes are preferred over received routes.
+     -> Routes tend to get selected with step 1 unless weight is set so step 1 is not used.
 
      -> "network" command.
         -> network 0.0.0.0
