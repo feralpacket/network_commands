@@ -175,8 +175,9 @@ Best Path Algorithm:
 - Important, next hop needs to be valid!
 
 - It’s not that difficult to remember whether higher or lower is best.  With the first two (weight and local_preference), 
-  highest is best.  Everything else, lowest, shortest, or oldest is best.  However, Origin AS Validation and Extended cost
-  community, pre-best path POI are both lowest is best, which are both checked before the best path alogrithm is even used.
+  highest is best.  Everything else, lowest, shortest, or oldest is best.  
+  - However, Origin AS Validation and Extended cost community pre-best path POI are both lowest is best, which are both checked 
+    before the best path alogrithm is even used.
 
 - If the ADD-PATH capability is used to send and receive additional paths, the best path algorithm is still used to select the 
   best path, the 2nd "best" path, and the 3rd "best" path.
