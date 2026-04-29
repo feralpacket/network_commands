@@ -193,7 +193,7 @@ Additional reasons why routers ignore paths:
  - Routes with the site-of-origin (SoO) extended community will not be advertised back to the source site.
 
  - Routes that are not Segment Routing policy color marked are not considered for best path if "bgp bestpath sr-policy force"
-   is configured.
+   is configured.  NOTE:  This is currently only an IOS XR feature.
 
 
 
