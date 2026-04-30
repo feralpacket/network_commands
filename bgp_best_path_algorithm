@@ -327,8 +327,8 @@ Best Path Algorithm:
 
  0b. Segment Routing Policy
      -> TODO
-     -> Currently, this feature was introduced with IOS XR 7.3.2 and 7.4.1.  It shouldn't be here and should
-        be on my BGP Bext Path Algorithm IOS XR notes.  Which I'll write up some day.
+     -> This feature was introduced with IOS XR 7.3.2 and 7.4.1.  It shouldn't be here and should be on my 
+        BGP Bext Path Algorithm IOS XR notes, which I'll write up some day.
      -> bgp bestpath sr-policy prefer
      -> bgp bestpath sr-policy force
      -> Lowest SR policy admin value is best.
