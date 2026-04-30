@@ -431,7 +431,7 @@ Best Path Algorithm:
 
      -> CE side BGP community configuration:
      -> ip bgp-community new-format
-     -> access-list 101 permit ip 198.51.100.0 0.255.255.255 any
+     -> access-list 101 permit ip 198.51.100.0 0.0.0.255 any
      -> route-map ISP1_LP_90 permit 10
      ->     match ip add 101
      ->     set community 3356:90
