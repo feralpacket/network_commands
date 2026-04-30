@@ -429,6 +429,23 @@ Best Path Algorithm:
         the use of BGP communities.  For example, a BGP community of 3356:90 would set the LOCAL_PREF to 90.
      -> whois -r whois.radb.net as3356
 
+     -> CE side BGP community configuration:
+     -> ip bgp-community new-format
+     -> access-list 101 permit ip 198.51.100.0 0.255.255.255 any
+     -> route-map ISP1 permit 10
+     ->     match ip add 101
+     ->     set community 3356:90
+     -> neighbor 192.0.2.1 send-community
+     -> neighbor 192.0.2.1 route-map ISP1 out
+
+     -> PE side BGP community configuration:
+     -> ip bgp-community new-format
+     -> ip community-list 1 permit 3356:90
+     -> route-map LP_90 permit 10
+     ->     match community 1
+     ->     set local-preference 90
+     -> neighbor 192.0.2.2 route-map LP_90 in
+
 
  3.  Locally originated path
      -> Locally generated routes are preferred over received routes.
