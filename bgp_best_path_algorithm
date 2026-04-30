@@ -69,7 +69,7 @@ Processing order of BGP policy filters, if more than one of the below is configu
    can be applied to the inbound or outbound direction.
 
 
-From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/5816-bgpfaq-5816.htm ):
+From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/5816-bgpfaq-5816.html):
  - Order of preference for inbound updates, if more than one of the below is configured:
    -> 1.  route-map
    -> 2.  filter-list
