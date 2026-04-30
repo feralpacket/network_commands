@@ -902,6 +902,7 @@ Best Path Algorithm:
 
 
  7.  eBGP over iBGP
+     -> Prefer external received routes over internal received routes.
      -> Paths that contain AS_CONFED_SEQUENCE and AS_CONFED_SET are considered internal to the confederation.
      -> Locally significant to the router ( Loc-RIB ).
      -> Generally, the IGP is the source of all truth within an AS or iBGP network.  Your mileage may vary.
