@@ -655,8 +655,8 @@ Best Path Algorithm:
         -> Note:  The AS_PATH length is not changed.
         -> An AS_PATH of 123 234 345 456 567 becomes 100 100 100 100 100.
 
-     -> To strip the AS_PATH and replace with only the local AS, configure a locally originated path.  It will match step 3
-        in the BGP best path selection.
+     -> To strip the AS_PATH and replace with only the local AS, configure a locally originated path.  It will match step 1
+        or step 3 in the BGP best path selection.
      -> ip route 0.0.0.0 0.0.0.0 null0 name STRIP_AS_PATH_INFORMATION
         -> Note:  Static routes to inject prefixes into BGP should point to null0, incase the a route to destination is not 
                   present or flaps.
