@@ -133,6 +133,8 @@ Additional reasons why routers ignore paths:
  - Route-targets (RT) act as a filter before the best path selection process begins for a particular VRF.  If the RT
    extended community attached to the prefix does not match the import RT configuration for the VRF, the prefix is 
    not imported into the VRF's BGP table and is not considered as a best path.
+ - Route Target Constraint (RTC) sends the import RT information to the BGP peer as an RT filter.  The BGP peer will 
+   only advertise the routes that match the RT filter.
 
  - Prefixes are withdrawn from the BGP table and the RIB if an update is received that is malformed, because the BGP 
    Enhanced Attribute Error Handling feature is enabled by default with "bgp enhanced-error".
