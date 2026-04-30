@@ -195,6 +195,9 @@ Additional reasons why routers ignore paths:
  - Routes that are not Segment Routing policy color marked are not considered for best path if "bgp bestpath sr-policy force"
    is configured.  NOTE:  This is currently only an IOS XR feature.
 
+ - If a route is received from the labeled unicast (LU) path and the unlabled unicast (U) path and all attributes are the same,
+   the route received last (newest) will be selected as the best path.
+
 
 
 Best Path Algorithm:
@@ -209,6 +212,7 @@ Best Path Algorithm:
   highest is best.  Everything else, lowest, shortest, or oldest is best.  
   - However, Origin AS Validation and Extended cost community pre-best path POI are both lowest is best, which are both checked 
     before the best path alogrithm is even used.
+  - Of course, labeled unicast (LU) has to be different.
 
 - If the ADD-PATH capability is used to send and receive additional paths, the best path algorithm is still used to select the 
   best path, the 2nd "best" path, and the 3rd "best" path.
