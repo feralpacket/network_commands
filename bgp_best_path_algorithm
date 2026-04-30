@@ -257,6 +257,11 @@ Best Path Algorithm:
      -> The pre-bestpath POI was meant to support mixed EIGRP VPN topologies with back door links.
      -> Back door links in EIGRP MPLS VPN topologies will be preferred to BGP.
      -> The BGP extended cost community carries the pre-bestpath POI, EIGRP route type, and route metric.
+     -> Extended community:  0x0300 0x0100
+        -> BGP Transitive Extended Community:  0x03
+           -> Transitive Opaque Extended Community
+        -> Transitive Opaque Extended Community Sub-Type:  0x01
+           -> Cost Community
 
      -> route-map EXTCOMMUMITYCOST permit 10
      ->    set extcommunity cost pre-bestpath 1 1
