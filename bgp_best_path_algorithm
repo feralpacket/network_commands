@@ -842,6 +842,8 @@ Best Path Algorithm:
      -> MED and potatoes
         -> Hot potato routing is accomplished by not passing the eBGP-learned MED into iBGP.  This minimizes transit traffic 
            for the provider routing the traffic.  Traffic is sent to the closest exit.
+           -> Hot potato routing can also be accomplished by using the BGP Add Path feature, the BGP Optimal Route Reflection
+              (ORR) feature, or by using an in-line placement of route reflectors (RR).
         -> Cold potato routing is accomplished by passing the eBGP-learned MED into iBGP.  The transit provider uses its own 
            transit capacity to get the traffic to the point that adjacent transit provider advertised as being closest to the
            destination.  Traffic is sent to the best exit.
