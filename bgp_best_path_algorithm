@@ -221,7 +221,7 @@ Best Path Algorithm:
   highest is best.  Everything else, lowest, shortest, or oldest is best.  
   - However, Origin AS Validation and Extended cost community pre-best path POI are both lowest is best, which are both checked 
     before the best path alogrithm is even used.
-  - Of course, labeled unicast (LU) has to be different.
+  - Of course, BGP Labeled Unicast (LU) has to be different.
 
 - If the ADD-PATH capability is used to send and receive additional paths, the best path algorithm is still used to select the 
   best path, the 2nd "best" path, and the 3rd "best" path.
