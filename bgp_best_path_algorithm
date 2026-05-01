@@ -347,8 +347,6 @@ Best Path Algorithm:
      -> TODO
      -> This feature was introduced with IOS XR 7.3.2 and 7.4.1.  It shouldn't be here and should be on my 
         BGP Bext Path Algorithm IOS XR notes, which I'll write up some day.
-     -> bgp bestpath sr-policy prefer
-     -> bgp bestpath sr-policy force
      -> Lowest SR policy admin value is best.
      -> Then lowest SR policy metric value is best.
      -> SR policy admin values (metric types):
@@ -358,6 +356,14 @@ Best Path Algorithm:
         -> Hopcount - 40
         -> NONE/UNKNOWN metric type (for explicit segment list policies) - 100
      -> If metric type is none, then the metric value is 1.
+
+     -> bgp bestpath sr-policy prefer
+        -> External routes with SR policy color markings are preferred to routes without the color markings.
+           Routes without the color markings are eligable for best path selection if there is no matching
+           route with color markings.
+
+     -> bgp bestpath sr-policy force
+        -> External routes without SR policy color markings are not eligable for best path selection.
 
 
  1.  Weight
