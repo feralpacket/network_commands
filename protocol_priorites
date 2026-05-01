@@ -8,7 +8,10 @@ Generally, but not always:
      -> Of course, LISP has to be different
  - BGP
      -> There is a high / low cutoff
-     -> Unless extcommunity cost pre-bestpath is configure
+     -> Unless Extcommunity Cost Pre-bestpath is configure
+     -> or BGP-Origin AS Validation is configured
+     -> or BGP Bestpath Segement Routing Policy is configured
+     -> or BGP Label Unicast is configured and both labeled unicast and unlabeled unicast routes are received from the same neighbor
  - Multicast
      -> If the protocol has "Router" in the name, then higher is better
           -> Think "Router" -> "IGP"
