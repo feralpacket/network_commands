@@ -17,8 +17,8 @@ http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-2
  - Entry3 is then compared and selected as the best path over entry2 because it is external.
 
  - The order in which routes are received can impact best path decisions and can have non-deterministic results.  The attribute 
-   MULTI_EXIT_DISC ( MED ) is the most susceptible to this problem, mostly because by default, routes without MED are preferred
-   to routes with MED and MED is not compared when the same route is received from different AS.
+   MULTI_EXIT_DISC (MED) is the most susceptible to this problem, mostly because by default, routes without MED are preferred to
+   routes with MED and MED is not compared when the same route is received from different AS.
  - The configurations options available to modify the best path algoritm have results that are situational and can change
    depending on the environment and failure scenarios.  They are used to change non-deterministic results, especially during
    failure scenarios, so that deterministic decisions are returned.  Some of the configurations options can have opposite results,
@@ -65,7 +65,7 @@ Processing order of BGP policy filters, if more than one of the below is configu
 
  - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/command/irg-cr-book/bgp-m1.html#wp2056491650
  - Do not apply neighbor distribute-list and neighbor prefix-list commands at the same time to a neighbor, in any given direction 
-   (inbound or outbound). These two commands are mutually exclusive, and only one command (neighbor prefix-list or neighbor distribute-list ) 
+   (inbound or outbound). These two commands are mutually exclusive, and only one command (neighbor prefix-list or neighbor distribute-list) 
    can be applied to the inbound or outbound direction.
 
 
@@ -177,7 +177,7 @@ Additional reasons why routers ignore paths:
    - bgp maxas-limit 42
  - Routes will be discarded if the number of prefixes exceeds the "neighbor maximum-prefix" when configured.
    - Limitations on the number of prefixes that can be configured are determined by the amount of available system resources.
-   - Range 1 to 2147483647.  ( With IOS XE 17.12.x. The Internet BGP4 Table had 1038108 in November 2025. )
+   - Range 1 to 2147483647.  (With IOS XE 17.12.x. The Internet BGP4 Table had 1038108 in November 2025.)
    - neighbor 192.0.2.1 maximum-prefix 42
    - neighbor 192.0.2.1 maximum-prefix 42 90 ! Change default warning level from 75.
    - neighbor 192.0.2.1 maximum-prefix 42 90 warning-only
@@ -256,7 +256,7 @@ Best Path Algorithm:
  0.  If extended cost community is configured for pre-bestpath point of insertion ( POI ), compare before anything else.
      -> Lowest cost community ID number is best.
      -> Then lowest cost community number is best.
-     -> Locally significant to the router ( Loc-RIB ).
+     -> Locally significant to the router (Loc-RIB).
      -> Cost community ID number 0 to 255.
      -> Cost number range 0 to 4294967295.
      -> Default is 2147483647.
@@ -766,7 +766,7 @@ Best Path Algorithm:
      -> Lowest type is best.
      -> Well-known, mandatory attribute ORIGIN.
      -> Significant external to AS.
-     -> ORIGIN Type Code ( Value, Meaning )
+     -> ORIGIN Type Code (Value, Meaning)
         -> 0 - IGP
         -> 1 - EGP
         -> 2 - INCOMPLETE
@@ -851,7 +851,7 @@ Best Path Algorithm:
            instability or BGP route advertisement churn.  
         -> Employment of MEDs may compound the adverse effects of BGP flap-dampening behavior because it may cause routes to be 
            re-advertised solely to reflect an IGP metric change.
-        -> BGP Additional Paths ( ADD-PATH ) can address this problem.
+        -> BGP Additional Paths (ADD-PATH) can address this problem.
         -> Also consider changing the "bgp dynamic-med-interval" timer.
 
      -> MED and potatoes
@@ -946,19 +946,19 @@ Best Path Algorithm:
 
      -> bgp dynamic-med-interval 60
        -> By default, BGP will change the MED value associated with a prefix and re-advertise if necessary every 600 seconds.
-       -> Interval range from 60 seconds to 136 years ( 4,294,967,295 seconds ).  In other words, never update if set to max.
+       -> Interval range from 60 seconds to 136 years (4,294,967,295 seconds).  In other words, never update if set to max.
 
 
  7.  eBGP over iBGP
      -> Prefer external received routes over internal received routes.
      -> Paths that contain AS_CONFED_SEQUENCE and AS_CONFED_SET are considered internal to the confederation.
-     -> Locally significant to the router ( Loc-RIB ).
+     -> Locally significant to the router (Loc-RIB).
      -> Generally, the IGP is the source of all truth within an AS or iBGP network.  Your mileage may vary.
 
 
  8.  IGP metric to the BGP next hop
      -> Lowest is best.
-     -> Locally significant to the router ( Loc-RIB ).
+     -> Locally significant to the router (Loc-RIB).
      -> Prefer the route with the shortest IGP path to the BGP NEXT_HOP.
 
      -> bgp bestpath igp-metric ignore
@@ -976,7 +976,7 @@ Best Path Algorithm:
      -> IGP point of insertion (POI).
      -> Lowest cost community ID number is best.
      -> Then lowest cost community number is best.
-     -> Locally significant to the router ( Loc-RIB ).
+     -> Locally significant to the router (Loc-RIB).
      -> Cost community ID number 0 to 255.
      -> Cost number range 0 to 4294967295.
      -> Default is 2147483647.
@@ -1014,8 +1014,8 @@ Best Path Algorithm:
              -> BGP Shadow Route Reflector
              -> BGP Shadow Session
              -> BGP Best External
-             -> BGP Additional Paths ( ADD-PATH )
-             -> BGP Optimal Route Reflection ( ORR )
+             -> BGP Additional Paths (ADD-PATH)
+             -> BGP Optimal Route Reflection (ORR)
 
     -> Multipath only if multiple paths match the above steps.
     -> Determine if multiple paths require installation into the routing table.
@@ -1063,7 +1063,7 @@ Best Path Algorithm:
 
     -> Even with multipath, the router still designates one of the paths as the best path and advertises this best path 
        to it's neighbors.
-       -> Unless BGP Additional Paths ( ADD-PATH ) is configured.
+       -> Unless BGP Additional Paths (ADD-PATH) is configured.
 
     -> The following path attributes need to be equal for each prefix to be selected for multipath.
        -> Weight
@@ -1164,7 +1164,7 @@ Best Path Algorithm:
       -> Oldest is best.
       -> If there is already a current best path, continue using that same best path if all other attributes are equal.  It 
          isn't necessarily the literal oldest path that is always selected, but rather the oldest best path.
-      -> Locally significant to the router ( Loc-RIB ).
+      -> Locally significant to the router (Loc-RIB).
 
       -> For external paths, the BGP best path selection rarely goes beyond this step.
 
@@ -1180,7 +1180,7 @@ Best Path Algorithm:
 
  11.  Router-id
       -> Lowest is best.
-      -> Locally significant to the router ( Loc-RIB ).
+      -> Locally significant to the router (Loc-RIB).
       -> Not the same thing as the ORIGINATOR_ID attribute, which is used by route reflectors.
       -> ORIGINATOR_ID is an optional, non-transitive attribute.
       -> ORIGINATOR_ID is compared instead of the router-id when route reflector attributes are present.
@@ -1190,7 +1190,7 @@ Best Path Algorithm:
 
  12.  Cluster length
       -> Lowest is best
-      -> Locally significant to the router ( Loc-RIB ).
+      -> Locally significant to the router (Loc-RIB).
       -> CLUSTER_LIST is an optional, non-transitive attribute.
       -> Lowest CLUSTER_LIST length, when the ORIGINATOR_ID is the same.
       -> The CLUSTER_LIST length is zero if the CLUSTER_LIST attribute is missing.
@@ -1199,5 +1199,5 @@ Best Path Algorithm:
 
  13.  Neighbor address
       -> Lowest is best.
-      -> Locally significant to the router ( Loc-RIB ).
+      -> Locally significant to the router (Loc-RIB).
       -> Remote peer used in the TCP connection.
