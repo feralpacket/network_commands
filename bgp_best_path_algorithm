@@ -200,7 +200,7 @@ Additional reasons why routers ignore paths:
 
  - In EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath 
    point of insertion.
- - Routes with the site-of-origin (SoO) extended community will not be advertised back to the source site.
+ - Routes with the Site-of-Origin (SoO) extended community will not be advertised back to the source site.
 
  - Routes that are not Segment Routing policy color marked are not considered for best path if "bgp bestpath sr-policy force"
    is configured.  NOTE:  This is currently only an IOS XR feature.
@@ -267,7 +267,7 @@ Best Path Algorithm:
      -> Only advertised to iBGP neighbors, not eBGP neighbors.
      -> If used, must be configured in the entire AS or confederation to prevent routing loops.
      -> set extcommunity cost pre-bestpath <community-id> <cost>
-     -> Introduced for use with EIGRP MPLS VPN PE-CE with backdoor links before EIGRP Site of Origin (SoO) was introduced.
+     -> Introduced for use with EIGRP MPLS VPN PE-CE with backdoor links before EIGRP Site-of-Origin (SoO) was introduced.
      -> The pre-bestpath POI was meant to support mixed EIGRP VPN topologies with back door links.
      -> Back door links in EIGRP MPLS VPN topologies will be preferred to BGP.
      -> The BGP extended cost community carries the pre-bestpath POI, EIGRP route type, and route metric.
@@ -290,11 +290,14 @@ Best Path Algorithm:
      -> bgp bestpath cost-community ignore
          -> This command was intended only to assist in troubleshooting path selection.
 
-     -> Use site-of-origin instead.
+     -> Use EIGRP MPLS VPN PE-CE Site-of-Origin feature instead.
      -> neighbor 192.0.2.1 soo 64496:64511
      -> route-map SOO permit 10
      ->     set extcommunity soo 64496:64511
      -> neighbor 192.0.2.1 route-map SOO in
+     -> int gi0/0/0
+     ->     vrf forwarding BACKDOOR 
+     ->     ip vrf sitemap SOO
 
 
   0a. BGP-Origin AS Validation
