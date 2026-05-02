@@ -290,7 +290,7 @@ Best Path Algorithm:
      -> bgp bestpath cost-community ignore
          -> This command was intended only to assist in troubleshooting path selection.
 
-     -> Use EIGRP MPLS VPN PE-CE Site-of-Origin feature instead.
+     -> Use the EIGRP MPLS VPN PE-CE Site-of-Origin feature instead.
      -> neighbor 192.0.2.1 soo 64496:64511
      -> route-map SOO permit 10
      ->     set extcommunity soo 64496:64511
