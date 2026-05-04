@@ -203,6 +203,7 @@ Additional reasons why routers ignore paths:
  - Routes with the Site-of-Origin (SoO) extended community will not be advertised back to the source site.
 
  - With the BGP Selective Route Download feature, routes not matched by the table-map filter will not be installed in the RIB.
+ - For MPLS Layer 3 VPN route reflectors, routes in the VPNv4 address-family are not downloaded into the RIB.  
 
  - Routes that are not Segment Routing policy color marked are not considered for best path if "bgp bestpath sr-policy force"
    is configured.  NOTE:  This is currently only an IOS XR feature.
