@@ -99,6 +99,10 @@ sh platform hardware fed switch 1 fwd-asic resource tcam utilization
 sh logging onboard switch 1 uptime detail
 
 
+! added with 17.11.1
+sh reload history
+
+
 ! IOS 17
 show tech-support confidential
 
