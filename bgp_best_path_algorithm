@@ -151,6 +151,11 @@ Additional reasons why routers ignore paths:
  - Routers will discard updates when configured for Multiple CLUSTER_IDs (MCID) and the CLUSTER_LIST contains either their 
    global CLUSTER_ID or any of the CLUSTER_IDs assigned to any of the iBGP neighbors.
 
+ - Routes with the well-known community no-advertise (0xffffff02) will not be advertised to any BGP peer.
+ - Routes with the well-known community no-expert (0xffffff01) will not be advertised to any eBGP peer.
+ - Routes with the well-known community local-as or no-export-subconfed (0xffffff03) will not be advertised outside the
+   local AS or confederation sub-AS.
+
  - Aggregate routes will not be generated or advertised if a more specific matching prefix is not installed in the RIB.
  - Aggregate routes will not be advertised to peers if "as-set" is used with "aggregate-address" and one of the specific 
    routes has the community "no-export" or "no-advertise".
