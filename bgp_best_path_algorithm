@@ -444,6 +444,9 @@ Best Path Algorithm:
      -> redistribute ospf 1 route-map LP match internal external 1 external 2
      -> network 192.0.2.0 mask 255.255.255.0 route-map LP
      -> aggregate-address 192.0.2.0 255.255.255.252 attribute-map LP
+     -> neighbor 192.0.2.1 shutdown graceful 120 local-preference 4294967295
+        -> Gracefully shutdown a neighbor in 120 seconds and advertise the routes with the well-known GSHUT community
+           (0xffff0000) and a local-preference of 4294967295.
      
      -> To clear or reset the LOCAL_PREF sent by a peer, set to the default value.
      -> route-map CLEAR_LP permit 10
