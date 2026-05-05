@@ -634,9 +634,10 @@ Best Path Algorithm:
            force a BGP update to be sent.
 
      -> route-map PREPEND permit 10
-     ->     set as-path prepend last-as
+     ->     set as-path prepend last-as 1
      -> neighbor 192.0.2.1 route-map PREPEND in
         -> Used on inbound updates to prepend your neighbor's AS, the first AS in the AS_PATH.
+        -> Prepend the last-as 1 to 10 times.
         -> Do not use with outbound route-maps.
 
      -> neighbor 192.0.2.1 local-as 99
