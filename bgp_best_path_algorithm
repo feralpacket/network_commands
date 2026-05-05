@@ -1,7 +1,7 @@
 BGP Best Path Selection Algorithm
 http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-25.html
 
- - show ip bgp <prefix> best-path-reason
+ - show ip bgp 192.0.2.0 255.255.255.0 best-path-reason
    - best-path-reason was added to IOS XE 16.10.1.
 
 
