@@ -215,6 +215,7 @@ Additional reasons why routers ignore paths:
  - If a prefix is in the RIB that we have a manually configured static route with a tag and a route without a tag is inserted 
    through Reverse Route Injection (RRI), the route selection may be inconsistent, and either the manually configured route or 
    the RRI route may be chosen.
+   - Restriction listed for the BGP support for mulitple sourced paths per redistribute route feature.
 
  - Routes that are not Segment Routing policy color marked are not considered for best path if "bgp bestpath sr-policy force"
    is configured.  NOTE:  This is currently only an IOS XR feature.
