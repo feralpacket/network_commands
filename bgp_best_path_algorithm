@@ -212,6 +212,10 @@ Additional reasons why routers ignore paths:
      of transit traffic. That means the route reflector does not need to have all BGP routes downloaded into its RIB.
  - For MPLS Layer 3 VPN route reflectors, routes in the VPNv4 address-family are not downloaded into the RIB.  
 
+ - If a prefix is in the RIB that we have a manually configured static route with a tag and a route without a tag is inserted 
+   through Reverse Route Injection (RRI), the route selection may be inconsistent, and either the manually configured route or 
+   the RRI route may be chosen.
+
  - Routes that are not Segment Routing policy color marked are not considered for best path if "bgp bestpath sr-policy force"
    is configured.  NOTE:  This is currently only an IOS XR feature.
 
@@ -490,7 +494,8 @@ Best Path Algorithm:
      -> "redistribute" command.
         -> Redistributed routes are preferred to local aggregate routes.
 
-        -> We can redistribute multiple paths now!  
+        -> We can redistribute multiple paths.
+        -> Feature added with IOS XE 3.15S.
         -> Routes must be in the RIB and must have a unique next-hop.
         -> Silly Cisco, no EIGRP for you.
         -> bgp sourced-paths per-net isis all
