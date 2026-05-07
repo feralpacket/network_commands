@@ -706,6 +706,10 @@ Best Path Algorithm:
      ->     set as-path replace 100
      -> neighbor 192.0.2.1 route-map REPLACE_AS in
         -> Replace the AS 100 in AS_PATH with the local AS.
+        -> BGP Replace ASNs is only supported for eBGP neighbors.
+        -> Does not work with the AS_SET and AS_CONFED_SET attributes.
+        -> If both "set as-path replace" and "set as-path prepend" are configured, the as-path replace is processed first
+           and then the as-path prepend.
         -> Feature added in IOS XE 17.1.1.
         -> Note:  The AS_PATH length is not changed.
      
