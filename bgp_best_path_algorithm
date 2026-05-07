@@ -482,7 +482,6 @@ Best Path Algorithm:
 
  3.  Locally originated path
      -> Locally generated routes are preferred over received routes.
-     -> Locally generated routes tend to get selected with step 1 unless weight is set so step 1 is not used.
 
      -> "network" command.
         -> network 0.0.0.0
