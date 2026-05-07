@@ -3,6 +3,8 @@ https://www.cisco.com/c/en/us/td/docs/iosxr/cisco8000/bgp/79x/b-bgp-cg-8k-79x/im
 
 https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/217097-bgp-path-selection-in-ios-xr.html
 
+https://www.cisco.com/c/en/us/td/docs/iosxr/cisco8000/bgp/bgp-config-cisco8000/r-wrapper-bgp-path-selection-and-route-preference/pr-how-bgp-path-selection-works.html
+
 Note-to-self:  TODO
 
 - The steps below include the IOS-XR configuration commands that can modify the default behavior of each step.
