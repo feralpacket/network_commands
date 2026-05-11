@@ -98,7 +98,7 @@ BGP Session Reset
      - BGP related distribution list changes
      - BGP related route-map changes
  - clear ip bgp 192.0.2.1 soft in
-   - neighbor soft-reconfiguration inbound
+   - "neighbor soft-reconfiguration inbound" must be configured.
    - Use in the following situations:
      - BGP related access list changes or additions
      - BGP related weight changes
