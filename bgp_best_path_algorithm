@@ -1075,7 +1075,7 @@ Best Path Algorithm:
              -> BGP Additional Paths (ADD-PATH)
              -> BGP Optimal Route Reflection (ORR)
 
-    -> Multipath only if multiple paths match the above steps.
+    -> Multipath only if multiple paths match the above BGP best path algorithm steps.
     -> Determine if multiple paths require installation into the routing table.
     -> Default, only one best path is installed into the routing table.
     -> Range 1 - 32.
