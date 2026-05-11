@@ -1215,6 +1215,8 @@ Best Path Algorithm:
        -> If multipath is configured and multiple routes have different AS in the path, but the AS_PATH lengths are the same 
           (parallel paths), install the multiple paths into the routing table.
           -> Solves a problem with BGP in data center CLOS networks described in RFC 7938.
+          -> CLOS is not an acronym.  They are named after Charles Clos because of the paper he wrote in 1952. 
+             "A Study of Non-Blocking Switching Networks" https://archive.org/details/bstj32-2-406
 
 
  10.  Oldest route
