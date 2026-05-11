@@ -852,8 +852,10 @@ Best Path Algorithm:
      -> MED is sent to iBGP peers by default.
 
      -> Not everything in an RFC gets implemented.
-        -> RFC 4271, Section 9.2.2.2:  Routes that have different MULTI_EXIT_DISC attribute SHALL NOT be aggregated.
-        -> RFC 4276, Section 3.46.228:  Cisco did not implement.
+        -> RFC 4271, A Border Gateway Protocol 4 (BGP-4), Section 9.2.2.2, Aggregating Routing Information:  Routes that 
+           have different MULTI_EXIT_DISC attribute SHALL NOT be aggregated.
+        -> RFC 4276, BGP-4 Implementation Report, Section 3.46.228, Aggregating Routing Information / Section 9.2.2.2:  
+           Cisco did not implement.
         -> TLDR;, routes with different MED values can be aggregated.
 
      -> Default is 0 for received routes.
