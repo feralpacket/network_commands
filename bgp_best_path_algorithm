@@ -76,9 +76,9 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
    -> 3.  prefix-list or distribute-list (only one command can be applied to each inbound or outbound neighbor)
 
  - Order of preference for outbound updates, if more than one of the below is configured:
-   -> !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   -> !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    -> !THIS ORDER IS DIFFERENT THAN OTHER CISCO DOCUMENTATION!
-   -> !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   -> !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    -> 1.  filter-list
    -> 2.  route-map or unsuppress-map
    -> 3.  advertise-map (conditional-advertisement)
