@@ -937,7 +937,7 @@ Best Path Algorithm:
            behavior.
 
      -> default-metric 100
-        -> Assings the MED value of 100 to . . ., ummm, some routes . . ., maybe . . .
+        -> Assings the MED value of 100 to . . ., ummm, some routes . . ., maybe . . ., sometimes . . .
         -> Read the Cisco documentation for yourself.
         -> The Cisco documentation goes into great detail and cleary explains the "default-metric" command, as usual.
         -> "Sets a MED metric to set preferred paths to external neighbors.  All routes without a MED will also be set to
