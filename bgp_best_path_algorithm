@@ -936,10 +936,39 @@ Best Path Algorithm:
         -> By default, paths without MED are preferred to paths with MED.  This could lead to some unintended routing 
            behavior.
 
-     -> default-metric
+     -> default-metric 100
+        -> The Cisco documentation goes into great detail and cleary explains the "default-metric" command, as usual.
+        -> "Sets a MED metric to set preferred paths to external neighbors.  All routes without a MED will also be set to
+           this value."
+        -> https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/bgp/bgp-configuration-guide/routing-bgp.html#t-configuring-bgp-decision-attributes
+        -> Regarding the "redistribute" command, "You cannot use the default-metric command to affect the metric used to
+           advertise connected routes."
+        -> However, in the "Note" on the very next line, "The metric value specified in the redistribute command supersedes 
+           the metric value specified in the default-metric command."
+        -> https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/command/irg-cr-book/bgp-n1.html#wp4119362624
+        -> Regarding the "default-metric" command itself, "To set the a default metric for routes redistributed into Border 
+           Gateway Protocol (BGP), use the default-metric command in address-family or router configuration mode."
+        -> The "Command Default" section is as clear as ever.  "The following is default behavior if this command is not
+           configured or if the no form of this command is entered:"
+           -> "The metric of the redistributed interior gateway protocol (IGP) routes is set to a value that is equal to
+              the interior BGP (iBPG) metric."
+           -> "The metric of redistributed connected and static routes is set to 0."
+           -> "When this command is enabled, the metric for connected routes is set to 0."
+        -> The "Usage Guidelines" section says, "The default-metric command is used to set the metric value for routes
+           redistributed into BGP and can be applied to any external BGP (eBGP) routes received and subsequently advertised
+           internally to iBGP peers."
+        -> "This value is the Multi Exit Discriminator (MED) that is evaluated by BGP during the best path selection 
+           process. The MED is a non-transitive value that is processed only within the local autonomous system and adjacent 
+           autonomous systems."
+        -> "The default metric is not set if the received route has a MED value."
+        -> The "Note" on the very next line says, "When enabled, the default-metric command applies a metric value of 0 to 
+           redistributed connected routes.  The default-metric command does not override metric values that are applied
+           with the redistribut command."
+        -> https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/command/irg-cr-book/bgp-c1.html#wp3933325045
+        -> Clear as mud?
         -> TODO
-        -> There are some differences in what the documentation and command reference says it does and what I actually 
-           see in labs. 
+        -> If it wasn't confusing enough, there are some differences in what the documentation and command reference says 
+           it does and what I actually see in labs. 
 
      -> route-map MED permit 10
      ->     set metric 100
