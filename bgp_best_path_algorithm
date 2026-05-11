@@ -99,6 +99,7 @@ BGP Session Reset
      - BGP related route-map changes
  - clear ip bgp 192.0.2.1 soft in
    - "neighbor soft-reconfiguration inbound" must be configured.
+   - Or "bgp soft-reconfig-backup" must be configured for BGP peers that do not support the route refresh capability.
    - Use in the following situations:
      - BGP related access list changes or additions
      - BGP related weight changes
