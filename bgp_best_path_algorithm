@@ -970,7 +970,8 @@ Best Path Algorithm:
         -> Clear as mud?
         -> TODO
         -> If it wasn't confusing enough, there are some differences in what the documentation and command reference says 
-           it does and what I actually see in labs. 
+           it does and what I actually see in labs. I don't know if what I see is a CML IOL image weirdness or if it 
+           applies to all IOS images.  Needs more labbing and testing.
 
      -> route-map MED permit 10
      ->     set metric 100
