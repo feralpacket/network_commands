@@ -203,8 +203,8 @@ Additional reasons why routers ignore paths:
  - BGP-Origin AS Validation is configured and a prefix is marked as not found, it will only be considered for best path or a 
    candidate for multipath if there is no alternative prefix that is marked valid.
 
- - In EIGRP MPLS VPN topologies, back door routes will be preferred to BGP routes via the extended cost community pre-bestpath 
-   point of insertion.
+ - In EIGRP MPLS VPN topologies, back door EIGRP routes will be preferred to BGP routes if both the extended cost community 
+   feature is not configured and the EIGRP MPLS VPN PE-CE Site-of-Origin feature is not configured.
  - Routes with the Site-of-Origin (SoO) extended community will not be advertised back to the source site.
 
  - With the BGP Selective Route Download feature, routes not matched by the table-map filter will not be installed in the RIB.
