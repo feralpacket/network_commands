@@ -162,6 +162,7 @@ Additional reasons why routers ignore paths:
    routes has the community "no-export" or "no-advertise".
  - Aggregate routes will be dropped if "as-set" is used with "aggregate-address" and a receving router sees its own local AS 
    in the AS_SET.
+ - More specific routes will not be advertised with the aggregate route if the more specific routes match the suppress-map.
 
  - Routes will not be advertised to peers if they are not installed in the RIB and "bgp suppress-inactive" is configured.
  - Routes will not be advertised to peers if the prefix is a RIB-failure, the BGP and IGP next hop do not match, and  
