@@ -164,6 +164,8 @@ Additional reasons why routers ignore paths:
    in the AS_SET.
  - More specific routes will not be advertised with the aggregate route if the more specific routes match the suppress-map.
 
+ - A default route generated with "default-information originate" will not be advertised unless it is redistributed into BGP.
+
  - Routes will not be advertised to peers if they are not installed in the RIB and "bgp suppress-inactive" is configured.
  - Routes will not be advertised to peers if the prefix is a RIB-failure, the BGP and IGP next hop do not match, and  
    "bgp suppress-inactive" is configured.
