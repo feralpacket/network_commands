@@ -199,6 +199,9 @@ Additional reasons why routers ignore paths:
    - Range 1 to 339.
    - bgp-maxlargecommunity-limit 42
 
+ - If both "bgp safe-ebgp-policy" and "soft-reconfiguration inbound" is configured, and if at least one inbound and outbound 
+   policy is not configured, received routes are marked as ‘received-only’ and are not considered for best path selection.
+
  - BGP-Origin AS Validation is configured and a prefix is marked as invalid, it will not be advertised, will be withdrawn from 
    the BGP routing table, will not be considered as a best path, and will not be considered as a candidate for multipath.
  - BGP-Origin AS Validation is configured and a prefix is marked as not found, it will only be considered for best path or a 
