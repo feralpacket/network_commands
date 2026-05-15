@@ -523,9 +523,19 @@ Best Path Algorithm:
            -> ip route 192.0.2.0 255.255.255.0 null0 name static_route_for_the_aggregate_route
         -> The ATOMIC_AGGREGATE attribute is set to indicate information might be missing, unless "as-set" is configured.
   
-        -> summary-only
-          -> Advertise only the aggregate address, suppress longer prefixes.
-          -> aggregate-address 10.11.0.0 255.255.0.0 summary-only
+        -> "summary-only"
+           -> Advertise only the aggregate address, suppress longer prefixes.
+           -> aggregate-address 10.11.0.0 255.255.0.0 summary-only
+
+        -> "suppress-map"
+           -> Advertise the aggregate route but suppress advertisement of more specific routes matched in the suppress-map.
+           -> aggregate-address 10.11.0.0 255.255.0.0 suppress-map SUPPRESS
+
+        -> "attribute-map"
+           -> Allows the attributes of the aggregate route to be changed.
+           -> Useful if used with "as-set" and one of the more specific routes has the community the "no-export" or 
+              "no-advertise"
+           -> aggregate-address 10.11.0.0 255.255.0.0 attribute-map ATTRIBUTES
 
         -> The aggregate-timer is set to 30 seconds by default.  New, longer prefixes may be briefly advertised until 
            the aggregate-timer runs.
