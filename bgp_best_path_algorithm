@@ -498,6 +498,13 @@ Best Path Algorithm:
      -> "redistribute" command.
         -> Redistributed routes are preferred to local aggregate routes.
 
+        -> "default-information originate"
+        -> Originates a default route, 0.0.0.0.  However, this route requires redistribution before it is advertised.
+        -> The command "default-information originate" and "neighbor 192.0.2.1 default-originate" should not be configured 
+           on the same router.
+        -> Note:  The command "neighbor 192.0.2.1 default-originate" sends a default route to a BGP neighbor.  The default 
+                  route does not need to be in the RIB and does not go through the best path selection.
+
         -> We can redistribute multiple paths.
         -> Feature added with IOS XE 3.15S.
         -> Routes must be in the RIB and must have a unique next-hop.
@@ -509,7 +516,7 @@ Best Path Algorithm:
         -> maximum-paths 32
         -> The maximum number of multiple paths may be limited by software features or hardware.
 
-     -> aggregate-address command
+     -> "aggregate-address" command
         -> Creates an aggregate route, but the more specific routes are still advertised.
         -> A longer prefix that matches the aggregate route must exist in the RIB.
         -> It's not uncommon to configure a static route to prevent the aggregate route from being withdrawn.
@@ -805,7 +812,7 @@ Best Path Algorithm:
         -> "aggregate-address" command.
         -> "aggregate-address" with "as-set" commands.
            -> Only if all of the component paths have an ORIGIN code of IGP.
-        -> "default-originate" command.
+        -> "neighbor 192.0.2.1 default-originate" command.
            -> Couldn't find this mentioned in any book or documentation, if a 0.0.0.0 prefix isn't in the RIB, a default 
               route will show up in the BGP table and will be advertised to peers with an ORIGIN code of IGP.
      
