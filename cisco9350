@@ -32,7 +32,9 @@ bounce interface gi0/0
 !
 service log-hidden
 
-
+! this doesn't show error counters on the stack ports
+! TODO - find the show platform command that does
+sh switch stack-ports detail
 
 
 
