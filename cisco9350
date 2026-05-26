@@ -39,7 +39,9 @@ sh switch stack-ports detail
 
 ! if ZTP is allowed to run, the switch will configure itself for IPv6.
 ! if ZTP is interrupted as soon as boot up is complete, the switch will not have any IPv6 configuration.
-! to remove IPv6
+! this has caused problems when trying to license 9300s.  the dns query would return both A and AAAA records.
+!   the switch would then only try to connect to the licensing server via IPv6.
+! to remove IPv6:
 !
 int vlan 1
  no ipv6 enable
