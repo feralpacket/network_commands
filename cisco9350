@@ -37,5 +37,26 @@ service log-hidden
 sh switch stack-ports detail
 
 
-
+! if ZTP is allowed to run, the switch will configure itself for IPv6.
+! if ZTP is interrupted as soon as boot up is complete, the switch will not have any IPv6 configuration.
+! to remove IPv6
+!
+int vlan 1
+ no ipv6 enable
+ no ipv6 dhcp client request vendor
+ no ipv6 address dhcp
+ no ipv6 address autoconfig
+!
+int gi0/0
+ no ipv6 enable
+ no ipv6 dhcp client request vendor
+ no ipv6 address dhcp
+ no ipv6 address autoconfig
+! no negotiation auto
+!
+no ipv6 nd cache expire refresh
+no ipv6 unicast-routing
+!
+! this thing is still enabled by default
+no ip forward-protocol nd
 
