@@ -63,3 +63,8 @@ no ipv6 unicast-routing
 ! this thing is still enabled by default
 no ip forward-protocol nd
 
+
+! the switch will configure "product-analytics" after being online for 7 days.
+! this happens to any switch that is running 17.18.1
+! thanks cisco
+no product-analyticss
