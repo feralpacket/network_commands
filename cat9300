@@ -483,7 +483,8 @@ license smart save usage all file flash:feralpacket_all_rum.txt
 scp feralpacket@feralpacketswitch:ferlapacket_all_rum.txt .
 !
 ! upload to the appropriate report page on software.cisco.com
-! wait for it to be processed, download the result
+! wait for it to be processed
+! download the result
 !
 ! copy acknowledgement to switch ( from a windows box )
 scp ACK_feralpacket_all_rum.txt feralpacket@feralpacketswitch:ACK_feralpacket_all_rum.txt
@@ -491,6 +492,8 @@ scp ACK_feralpacket_all_rum.txt feralpacket@feralpacketswitch:ACK_feralpacket_al
 license smart import flash:ACK_feralpacket_all_rum.txt
 !
 sh license status
+!
+TA DA!
 
 
 
