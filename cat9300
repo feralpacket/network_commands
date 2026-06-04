@@ -616,3 +616,7 @@ no cts role-based enforcement
 ! we can send wake on lan packets now
 ! noticed after upgrading to 17.15.5
 wakeonlan mac 0000.5e00.5300 vlan 123 count 5 interval 30
+
+! mac address-table
+sh platform software fed active matm mactable 
+sh platform software fed active matm mactable vlan 2
