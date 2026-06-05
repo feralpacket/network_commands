@@ -134,6 +134,25 @@ $DHCP01 = Get-DhcpServerv4Scope -ComputerName FeralDHCP01
 $DHCP02 = Get-DhcpServerv4Scope -ComputerName FeralDHCP02
 $DHCP01 | Where {$_.Name -notin $DHCP02.Name}
 
+! dhcp server information
+get-dhcpserverv4scopestatistics -computername feralhdcp01
+get-dhcpserverv4lease -computername feraldhcp01
+
+! find a lease associated to a MAC address
+$dhcpServers = @("feraldhcp01","feraldhcp02") # Define your servers here
+$results = @()
+$clientId = Read-Host -Prompt "Input the MAC address you want to search for"
+
+foreach ($dhcpServer in $dhcpServers) {
+    Write-Host "Searching $dhcpServer..."
+    Get-DhcpServerv4Scope -ComputerName $dhcpServer | ForEach-Object {
+        $results += Get-DhcpServerv4Reservation -ComputerName $dhcpServer -ScopeId $_.ScopeId -ClientId $clientId -ErrorAction SilentlyContinue
+    }
+    $results | ForEach-Object {$_ | Add-Member -membertype noteproperty -Name Server -Value $dhcpServer -ErrorAction SilentlyContinue}
+}
+
+Write-Output $results | select Server, IPAddress, ScopeId, ClientId, Name, Description | ft
+
 
 ! MTU
 netsh interface ipv4 show subinterfaces
