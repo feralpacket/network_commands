@@ -174,6 +174,7 @@ sh plat software fed swi act punt cause summary
 sh plat software fed swi act punt rates interfaces 
 sh plat software fed swi act punt packet-capture status
 sh plat software fed swi act cpu-interface
+sh plat software fed swi act punt cpuq rates
 
 
 ! cts
