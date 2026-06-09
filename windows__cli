@@ -153,7 +153,7 @@ foreach ($dhcpServer in $dhcpServers) {
 
 Write-Output $results | select Server, IPAddress, ScopeId, ClientId, Name, Description | ft
 
-! dhcp information for an IP address
+! dhcp server information for an IP address
 get-dhcpserverv4reservation -computername feraldhcp01 -ipaddress 192.0.2.1
 
 
