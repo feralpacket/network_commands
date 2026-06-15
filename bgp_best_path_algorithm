@@ -1109,10 +1109,10 @@ Best Path Algorithm:
           hardware-supported paths is 8.  A different section says the maximum number is 16.
           -> https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/17-18/configuration_guide/rtng/b_1718_rtng_9300_cg/protocol_independent_features.html#number-of-equal-cost-routing-paths
           -> https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/17-18/configuration_guide/rtng/b_1718_rtng_9300_cg/configuring_bgp.html#configure-bgp-decision-attributes
-          -> On the Cisco Catalyst 9200 Series Switches, the hardware-supported maximum-path is either 8 or 16.
-          -> On the Cisco Catalyst 9300 Series Switches, the hardware-supported maximum-path is either 8 or 16.
-          -> On the Cisco Catalyst 9500 Series Switches, the hardware-supported maximum-path is either 8 or 16.
-       -> On the Cisco Catalyst 9500X Series Switches, the hardware-supported maximum-path is 16.
+          -> On the Cisco Catalyst 9200 Series Switches, the hardware-supported maximum-paths is either 8 or 16.
+          -> On the Cisco Catalyst 9300 Series Switches, the hardware-supported maximum-paths is either 8 or 16.
+          -> On the Cisco Catalyst 9500 Series Switches, the hardware-supported maximum-paths is either 8 or 16.
+       -> On the Cisco Catalyst 9500X Series Switches, the hardware-supported maximum-paths is 16.
        -> On the Cisco ASR 1000 series routers, before IOS XE 2.1, the maximum number of paths is 6.
        -> On the Cisco ASR 1000 series routers, after IOX XE 2.1, the maximum number of paths is 16.
        -> Cisco IOS Release 12.0S-based software: 8 paths
