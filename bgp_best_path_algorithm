@@ -1104,8 +1104,10 @@ Best Path Algorithm:
     -> Range 1 - 32.
 
     -> The maximum number of multiple paths may be limited by software features or hardware.
-       -> For Catalyst 9300s and 9500s, the maximum number of paths for MPLS VPNs is 2.
-          -> The number of paths supported can either be 2 iBGP multipaths or 1 iBGP mutlipath and 1 eBGP multipath.
+       -> For Catalyst 9300s and 9500s, the maximum number of paths for MPLS VPNs is 2.  The number of paths 
+          supported can either be 2 iBGP multipaths or 1 iBGP mutlipath and 1 eBGP multipath.
+          -> "If pairing of equal cost routing is more than 64 unique paths, the routes are not learnt and traffic is dropped."
+          -> https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/26-x/configuration_guide/mpls/b_26x_mpls_9500_cg/configuring_eibgp___multipath.html
        -> With the 9200, 9300, and 9500 documentation, one section says the maximum number of hardware-supported 
           paths is 8.  A different section says the maximum number of hardware-supported paths is 16.  Thanks Cisco.
           -> https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/17-18/configuration_guide/rtng/b_1718_rtng_9300_cg/protocol_independent_features.html#number-of-equal-cost-routing-paths
