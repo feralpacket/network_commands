@@ -1,0 +1,5 @@
+! Using CUBE in an Active / Standby HA scenario in a layer 2 environment
+! The ARP entries for the VIPs are not updated when the role changes
+! Issue described with Cisco Bug CSCvj66014
+! Fix, configure on the interfaces with the VIPs
+redundancy gratuitous-arp group x interval sec x
