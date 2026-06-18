@@ -130,17 +130,17 @@ ipconfig /displaydns
 ipconfig /registerdns
 
 ! Are all of the DCHP scopes configured for failover?  Lists those that are not.
-$DHCP01 = Get-DhcpServerv4Scope -ComputerName FeralDHCP01
-$DHCP02 = Get-DhcpServerv4Scope -ComputerName FeralDHCP02
+$DHCP01 = Get-DhcpServerv4Scope -ComputerName feraldhcp01
+$DHCP02 = Get-DhcpServerv4Scope -ComputerName feraldhcp02
 $DHCP01 | Where {$_.Name -notin $DHCP02.Name}
 
 ! dhcp server information
-get-dhcpserverv4scopestatistics -computername feralhdcp01
+get-dhcpserverv4scopestatistics -computername feraldhcp01
 Get-DhcpServerv4ScopeStatistics -ComputerName feraldhcp01 | Format-Table ScopeId, SubnetMask, PercentageInUse, Free, InUse
 get-dhcpserverv4lease -computername feraldhcp01
 
 ! dhcp scopes over 90% usage
-Get-DhcpServerv4ScopeStatistics -ComputerName feralhdcp01 | Where-Object { $_.PercentageInUse -gt 90 }
+Get-DhcpServerv4ScopeStatistics -ComputerName feraldhcp01 | Where-Object { $_.PercentageInUse -gt 90 }
 
 ! dhcp scopes with 0% usage
 Get-DhcpServerv4ScopeStatistics -ComputerName feraldhcp01 | Where-Object { $_.PercentageInUse -eq 0 }
