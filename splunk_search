@@ -4,7 +4,7 @@ eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“UPDOWN” | stats 
 eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“UPDOWN” host=“192.0.2.1”
 eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“UPDOWN” host=“192.0.2.1” “GigabitEthernet1/0/21”
 
-! Hubs:
+! Hubs and dumb switches
 ! This displays log messages from port-security violations, where the maximum number of allowed MAC addresses has been exceeded.
 eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“SECURITY_VIOLATION”
 eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“SECURITY_VIOLATION” | stats count by host
