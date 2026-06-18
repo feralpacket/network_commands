@@ -68,3 +68,13 @@ no ip forward-protocol nd
 ! this happens to any switch that is running 17.18.1
 ! thanks cisco
 no product-analyticss
+
+
+! Linux shell
+! Not sure how different this from the Consent Token TAC uses to access a Linux shell
+! https://www.cisco.com/c/en/us/support/docs/field-notices/641/fn64190.html
+install one day platform shell license
+conf t
+platform shell
+end
+request platform software system shell rp active
