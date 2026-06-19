@@ -209,7 +209,7 @@ Additional reasons why routers ignore paths:
      - Distribute-list inbound
      - Filter-list inbound
      - route-map inbound
-   - Outbound policies consiste of at least one of the following:
+   - Outbound policies consist of at least one of the following:
      - Prefix-list outbound
      - Distribute-list outbound
      - Filter-list outbound
