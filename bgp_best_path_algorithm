@@ -202,7 +202,7 @@ Additional reasons why routers ignore paths:
    - Range 1 to 339.
    - bgp-maxlargecommunity-limit 42
 
- - If "bgp safe-ebgp-policy" is configured and if both inbound and outbound policies are not configured, routes are not 
+ - If "bgp safe-ebgp-policy" is configured and if at least one inbound and outbound policy is not configured, routes are not 
    propagated to and from eBGP peers.
    - Inbound policies consist of at least one of the following:
      - Prefix-list inbound
