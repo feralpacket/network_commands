@@ -303,6 +303,7 @@ Best Path Algorithm:
      -> Note:  Paths that do not have the extended community cost attribute are considered to have the default value by the best
         path selection process.
      -> Non-transitive extended community.
+
      -> Only advertised to iBGP neighbors, not eBGP neighbors.
      -> If used, must be configured in the entire AS or confederation to prevent routing loops.
      -> set extcommunity cost pre-bestpath <community-id> <cost>
@@ -388,6 +389,11 @@ Best Path Algorithm:
  0b. BGP Persistence
      -> Also known as Long Lived Graceful Restart.
      -> Retain routes that are learned from BGP neighbors even when the neighbor session is down.
+     -> When a BGP neighbor goes down, paths are marked as stale.  In the output of "show ip bgp vpnv4 all", paths
+        have the status of "L - long-lived-stale-path".  Or in the output of "show ip bgp vpnv4 all 192.0.2.0/24",
+        paths include the status "long-lived-stale".
+     -> Non-stale paths are preferred over stale paths.
+
      -> In some scenarios, keeping the routes for longer during control plane failure helps the services that
         are less sensitive to continued interruption.
      -> Only supported with the address families VPNv4, VPNv6, and Flow Spec (IPv4, IPv6, VPNv4, and VPNv6).
@@ -397,10 +403,6 @@ Best Path Algorithm:
         -> When the purpose of the route advertisement is to push configuration filters, such as flow-spec and
            route-target contraint.
         -> When route advertisement is used for auto-discovery, such as with VPLS.
-     -> When a BGP neighbor goes down, paths are marked as stale.  In the output of "show ip bgp vpnv4 all", paths
-        have the status of "L - long-lived-stale-path".  Or in the output of "show ip bgp vpnv4 all 192.0.2.0/24",
-        paths include the status "long-lived-stale".
-     -> Non-stale paths are preferred over stale paths.
 
      -> bgp long-lived-graceful-restart
 
