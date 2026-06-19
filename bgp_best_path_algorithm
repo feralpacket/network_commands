@@ -398,7 +398,7 @@ Best Path Algorithm:
         are less sensitive to continued interruption.
      -> Only supported with the address families VPNv4, VPNv6, and Flow Spec (IPv4, IPv6, VPNv4, and VPNv6).
      -> The traffic flow does not get affected during the following scenarios, even during BGP neighbor failures:
-        -> When route advertisement is different than the fowarding path.  For exmple, VPN routes through MPLS
+        -> When route advertisement is different than the fowarding path.  For example, VPN routes through MPLS
            tunnels.
         -> When the purpose of the route advertisement is to push configuration filters, such as flow-spec and
            route-target contraint.
