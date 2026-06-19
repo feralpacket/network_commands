@@ -226,6 +226,7 @@ Additional reasons why routers ignore paths:
  - In EIGRP MPLS VPN topologies, back door EIGRP routes will be preferred to BGP routes if either the extended cost community 
    feature is not configured or the EIGRP MPLS VPN PE-CE Site-of-Origin feature is not configured.
  - Routes with the Site-of-Origin (SoO) extended community will not be advertised back to the source site.
+   - The SoO extended community should not be configured for stub sites or sites that are not multihomed.
 
  - With the BGP Selective Route Download feature, routes not matched by the table-map filter will not be installed in the RIB.
    - The role of a dedicated route reflector is to propagate BGP updates without participating in the actual forwarding 
