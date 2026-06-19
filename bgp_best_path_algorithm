@@ -1086,6 +1086,9 @@ Best Path Algorithm:
      -> Locally significant to the router (Loc-RIB).
      -> Prefer the route with the shortest IGP path to the BGP NEXT_HOP.
 
+     -> With BGP route reflectors, this steps tends to determine the best path.  If the IGP costs of the paths are the same, the 
+        lowest ROUTER_ID tends to determine the best path for the route reflector.
+
      -> bgp bestpath igp-metric ignore
         -> "address-family" command.
         -> Must be used when the Diverse Path feature is used and the route-reflector and shadow route-reflector are not co-located.
@@ -1323,6 +1326,8 @@ Best Path Algorithm:
       -> ORIGINATOR_ID is compared instead of the router-id when route reflector attributes are present.
          -> ORIGINATOR_ID
          -> CLUSTER_LIST
+      -> With BGP route reflectors, if the IGP cost is the same for all of the paths, this step tends to determine
+         the best path.
 
 
  12.  Cluster length
