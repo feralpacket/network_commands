@@ -238,6 +238,8 @@ Additional reasons why routers ignore paths:
    the RRI route may be chosen.
    - This is a restriction listed for the BGP support for mulitple sourced paths per the redistribute route feature.
 
+ - With BGP Persistence, non-stale paths are preferred over stale paths.
+
  - Routes that are not Segment Routing policy color marked are not considered for best path if "bgp bestpath sr-policy force"
    is configured.  NOTE:  This is currently only an IOS XR feature.
 
@@ -269,7 +271,8 @@ Best Path Algorithm:
 
  0.  Extended cost community, pre-best path POI
  0a. BGP-Origin AS Validation
- 0b. Segment Routing Policy
+ 0b. BGP Persistence, aka Long Lived Graceful Restart (LLGR)
+ 0c. Segment Routing Policy
  1.  Weight
  2.  Local_preference
  3.  Locally originated path
@@ -382,7 +385,27 @@ Best Path Algorithm:
          -> Can be used with a route-map to match valid, not found, or invalid states and set other attributes.
 
 
- 0b. Segment Routing Policy
+ 0b. BGP Persistence
+     -> Also known as Long Lived Graceful Restart.
+     -> Retain routes that are learned from BGP neighbors even when the neighbor session is down.
+     -> In some scenarios, keeping the routes for longer during control plane failure helps the services that
+        are less sensitive to continued interruption.
+     -> Only supported with the address families VPNv4, VPNv6, and Flow Spec (IPv4, IPv6, VPNv4, and VPNv6).
+     -> The traffic flow does not get affected during the following scenarios, even during BGP neighbor failures:
+        -> When route advertisement is different than the fowarding path.  For exmple, VPN routes through MPLS
+           tunnels.
+        -> When the purpose of the route advertisement is to push configuration filters, such as flow-spec and
+           route-target contraint.
+        -> When route advertisement is used for auto-discovery, such as with VPLS.
+     -> When a BGP neighbor goes down, paths are marked as stale.  In the output of "show ip bgp vpnv4 all", paths
+        have the status of "L - long-lived-stale-path".  Or in the output of "show ip bgp vpnv4 all 192.0.2.0/24",
+        paths include the status "long-lived-stale".
+     -> Non-stale paths are preferred over stale paths.
+
+     -> bgp long-lived-graceful-restart
+
+
+ 0c. Segment Routing Policy
      -> TODO
      -> This feature was introduced with IOS XR 7.3.2 and 7.4.1.  It shouldn't be here and should be on my 
         BGP Bext Path Algorithm IOS XR notes, which I'll write up some day.
