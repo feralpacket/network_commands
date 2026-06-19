@@ -151,6 +151,17 @@ Additional reasons why routers ignore paths:
     this can reduce the resilience of the design in certain failure scenarios.
  - Routers will discard updates when configured for Multiple CLUSTER_IDs (MCID) and the CLUSTER_LIST contains either their 
    global CLUSTER_ID or any of the CLUSTER_IDs assigned to any of the iBGP neighbors.
+   - With the MCID feature, there are 3 types of route reflection scenarios.
+     - Between client and non-client
+     - Between clients in the same cluster (intra-cluster)
+     - Between clients in different clusters (inter-cluster)
+ - Route Reflectors will not reflect routes when "no bgp client-to-client reflection" is configured.
+ - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id any"
+   is configured.
+ - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id <cluster-id>"
+   is configured and the update contains the matching CLUSTER_ID.
+   - Disabling client-to-client reflection is commonly done when all of the clients within a cluster are fully meshed. This has the
+     benefit of reducing the amount of BGP updates being sent.
 
  - Routes with the well-known community no-expert (0xffffff01) will not be advertised to any eBGP peer.
  - Routes with the well-known community no-advertise (0xffffff02) will not be advertised to any BGP peer.
@@ -175,12 +186,6 @@ Additional reasons why routers ignore paths:
  - Backdoor routes configured with the "network backdoor" command are not advertised in BGP updates.
 
  - Routers will discard routes if the ORIGINATOR-ID is the same as their ROUTER-ID.
-
- - Route Reflectors will not reflect routes when "no bgp client-to-client reflection" is configured.
- - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id any"
-   is configured.
- - Route Reflectors in clusters will not reflect routes when "no bgp client-to-client reflection intra-cluster cluster-id <cluster-id>"
-   is configured and the update contains the matching CLUSTER_ID.
 
  - Routes will be discarded if the AS_PATH length exceeds the "bgp maxas-limit" when configured.
    - Range 1 to 254.
@@ -1314,6 +1319,7 @@ Best Path Algorithm:
       -> Locally significant to the router (Loc-RIB).
       -> Not the same thing as the ORIGINATOR_ID attribute, which is used by route reflectors.
       -> ORIGINATOR_ID is an optional, non-transitive attribute.
+      -> When a route reflector reflects a prefix, it sets ROUTER_ID of the neighbor as the ORIGINATOR_ID.
       -> ORIGINATOR_ID is compared instead of the router-id when route reflector attributes are present.
          -> ORIGINATOR_ID
          -> CLUSTER_LIST
@@ -1326,6 +1332,9 @@ Best Path Algorithm:
       -> Lowest CLUSTER_LIST length, when the ORIGINATOR_ID is the same.
       -> The CLUSTER_LIST length is zero if the CLUSTER_LIST attribute is missing.
       -> Router reflectors environments only.
+      -> When a route reflector reflects a prefix, it's own CLUSTER_ID is added to the CLUSTER_LIST.  By default,
+         the CLUSTER_ID is set to the BGP ROUTER_ID.
+      -> With the Multiple CLUSTER_IDs feature, CLUSTER_IDs can be configured per-neighbor.
 
 
  13.  Neighbor address
