@@ -1140,7 +1140,7 @@ Best Path Algorithm:
              -> BGP Shadow Session
              -> BGP Best External
              -> BGP Additional Paths (ADD-PATH)
-             -> BGP Optimal Route Reflection (ORR)
+             -> BGP Optimal Route Reflection (ORR), currently only an IOS-XR feature
 
     -> Multipath only if multiple paths match the above BGP best path algorithm steps.
     -> Determine if multiple paths require installation into the routing table.
