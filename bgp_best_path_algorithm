@@ -1319,7 +1319,7 @@ Best Path Algorithm:
       -> Locally significant to the router (Loc-RIB).
       -> Not the same thing as the ORIGINATOR_ID attribute, which is used by route reflectors.
       -> ORIGINATOR_ID is an optional, non-transitive attribute.
-      -> When a route reflector reflects a prefix, it sets ROUTER_ID of the neighbor as the ORIGINATOR_ID.
+      -> When a route reflector reflects a prefix, it sets BGP ROUTER_ID of the neighbor as the ORIGINATOR_ID.
       -> ORIGINATOR_ID is compared instead of the router-id when route reflector attributes are present.
          -> ORIGINATOR_ID
          -> CLUSTER_LIST
