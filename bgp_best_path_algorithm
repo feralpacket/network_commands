@@ -263,9 +263,9 @@ Best Path Algorithm:
      issue where a controller or SR Path Computation Element (SR-PCE) guarantees reachability throughout the network.
   -> The workarounds when the BGP Soft Next-Hop feature is not used is to inject a non-default route into the RIB for the BGP 
      next-hop via:
-     -> A non-default static route to null0 for the unreachable next-hops.
-     -> Injecting the routes via BGP Labeled Unicast (BGP-LU).
-     -> Redistribute the routes between the IGP routing domains.
+     -> A non-default static route to null0 for the unreachable next-hop.
+     -> Injecting the route using BGP Labeled Unicast (BGP-LU).
+     -> Redistribute the route between the IGP routing domains.
   -> nexthop validation color-extcomm sr-policy
   -> nexthop validation color-extcomm disable
   -> NOTE:  This is currently only an IOS-XR feature.
@@ -274,7 +274,7 @@ Best Path Algorithm:
   highest is best.  Everything else, lowest, shortest, or oldest is best.  
   - However, Origin AS Validation and Extended cost community pre-best path POI are both lowest is best, which are both checked 
     before the best path alogrithm is even used.
-  - Of course, BGP Labeled Unicast (LU) has to be different.
+  - Of course, BGP Labeled Unicast (LU) and BGP Persistence has to be different.
 
 - If the ADD-PATH capability is used to send and receive additional paths, the best path algorithm is still used to select the 
   best path, the 2nd "best" path, and the 3rd "best" path.
