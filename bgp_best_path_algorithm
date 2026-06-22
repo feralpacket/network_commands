@@ -244,12 +244,11 @@ Additional reasons why routers ignore paths:
    - This is a restriction listed for the BGP support for mulitple sourced paths per the redistribute route feature.
 
  - With BGP Persistence, non-stale paths are preferred over stale paths.
-
- - Routes that are not Segment Routing policy color marked are not considered for best path if "bgp bestpath sr-policy force"
-   is configured.  NOTE:  This is currently only an IOS XR feature.
-
  - If a route is received from the labeled unicast (LU) path and the unlabled unicast (U) path and all attributes are the same,
    the route received last (newest) will be selected as the best path.
+
+ - Routes that are not Segment Routing policy color marked are not considered for best path if "bgp bestpath sr-policy force"
+   is configured.  NOTE:  This is currently only an IOS-XR feature.
 
 
 
