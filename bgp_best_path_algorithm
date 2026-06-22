@@ -255,8 +255,17 @@ Additional reasons why routers ignore paths:
 
 Best Path Algorithm:
 - Important, next hop needs to be valid!
+
   -> However, with On-Demand Next-hop (ODN) in Segment Routing (SR), there is a BGP Soft Next-Hop feature.  The soft validation 
      of the next-hop means that there is no check for RIB reachability, but the check is performed on the SR policy information.
+  -> This can be a problem in architectures such as Seamless MPLS or Inter-AS MPLS VPNs where reachability to the BGP next-hop in 
+     another part of the network, such as another area or another domain, is not guaranteed by a route in the RIB.  This is not an
+     issue where a controller or SR Path Computation Element (SR-PCE) guarantees reachability throughout the network.
+  -> The workarounds when the BGP Soft Next-Hop feature is not used is to inject a non-default route into the RIB for the BGP 
+     next-hop via:
+     -> A non-default static route to null0 for the unreachable next-hops.
+     -> Injecting the routes via BGP Labeled Unicast (BGP-LU).
+     -> Redistribute the routes between the IGP routing domains.
   -> nexthop validation color-extcomm sr-policy
   -> nexthop validation color-extcomm disable
   -> NOTE:  This is currently only an IOS XR feature.
@@ -277,7 +286,7 @@ Best Path Algorithm:
  0.  Extended cost community, pre-best path POI
  0a. BGP-Origin AS Validation
  0b. BGP Persistence, aka Long Lived Graceful Restart (LLGR)
- 0c. Segment Routing Policy
+ 0c. Segment Routing Policy, currently only an IOS-XR feature
  1.  Weight
  2.  Local_preference
  3.  Locally originated path
@@ -1097,7 +1106,7 @@ Best Path Algorithm:
      -> bgp bestpath igp-metric sr-policy
         -> Use the Segment Routing policy path admin and metric values instead of the IGP metric for the BGP best path selection at 
            step 8.
-        -> NOTE:  This is currently only an IOS XR feature.
+        -> NOTE:  This is currently only an IOS-XR feature.
 
 
 8a.  extended cost community
@@ -1326,6 +1335,7 @@ Best Path Algorithm:
       -> ORIGINATOR_ID is compared instead of the router-id when route reflector attributes are present.
          -> ORIGINATOR_ID
          -> CLUSTER_LIST
+
       -> With BGP route reflectors, if the IGP cost is the same for all of the paths, this step tends to determine
          the best path.
 
