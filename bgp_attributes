@@ -28,9 +28,12 @@ https://www.iana.org/assignments/bgp-parameters/bgp-parameters.xhtml#bgp-paramet
 BGP Attibute Filter
  - This feature allows for updates to be "treat-as-withdraw" that contain specific path attributes.  The prefixes 
    contained in the update will be removed from the routing table.
- - The features allows for specific path attributes to be discarded and dropped from updates.  The rest of the 
-   update is processed as usual.
- - The following attributes cannot be configured for treat-as-withdraw or discard:
+ - The feature allows for specific path attributes to be discarded or dropped from updates.  The rest of the 
+   update is then processed as usual.
+ - Configuring path attributes to either be treat-as-withdraw or discarded will trigger an inbound Route Refresh.
+ - This feature is intended to prevent or resolving issues with peer sessions flapping due to the use of new or 
+   custom path attributes that are not supported on the receiving peer.
+ - The following path attributes cannot be configured for treat-as-withdraw or discard:
    - Type 1 - ORIGIN
    - Type 2 - AS_PATH
    - Type 3 - NEXT_HOP
@@ -39,7 +42,7 @@ BGP Attibute Filter
    - Type 14 - MP_REACH_NLRI
    - Type 15 - MP_UNREACH_NLRI
    - Type 16 - EXTENDED_COMMUNITIES
- - The following attributes can be configured as treat-as-withdraw or discard for eBGP neighbors only:
+ - The following path attributes can be configured for treat-as-withdraw or discard for eBGP neighbors only:
    - Type 5 - LOCAL_PREF
    - Type 9 - ORIGINATOR_ID
    - Type 10 - CLUSTER_LIST (Documentation says CLUSTER_ID)
