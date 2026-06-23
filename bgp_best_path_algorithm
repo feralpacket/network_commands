@@ -241,6 +241,14 @@ Additional reasons why routers ignore paths:
      loop is formed because both CE1 and CE2 are placed in the same update-group on the peer and will receive back prefixes 
      that are advertised to the PE router.  Configuring SoO will also prevent the routing loop.
 
+ - In active / backup topologies, routing policies are used to define one exit or egress point or preferred border router for 
+   the AS.  The other border routers will act as backups and will prefer paths received from the iBGP session of that preferred 
+   border router as the best path even if the backup border router learn the same paths from the eBGP sessions.  The backup border 
+   routers will hide and not advertise paths learned over its eBGP sessions to the iBGP peers.
+ - With the BGP Best External feature in active / backup topologies, the backup border routers will advertise paths learned from 
+   its eBGP sessions as backup paths to the iBGP peers.  The backup paths in the BGP table will have the status, "b backup-path,
+   x best-external" and "backup/repair, advertise-best-external" and will not be used unless the best path is lost or fails.
+
  - With the BGP Selective Route Download feature, routes not matched by the table-map filter will not be installed in the RIB.
    - The role of a dedicated route reflector is to propagate BGP updates without participating in the actual forwarding 
      of transit traffic. That means the route reflector does not need to have all BGP routes downloaded into its RIB.
