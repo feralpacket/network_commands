@@ -232,6 +232,14 @@ Additional reasons why routers ignore paths:
    feature is not configured or the EIGRP MPLS VPN PE-CE Site-of-Origin feature is not configured.
  - Routes with the Site-of-Origin (SoO) extended community will not be advertised back to the source site.
    - The SoO extended community should not be configured for stub sites or sites that are not multihomed.
+ - The configuration "bgp update-group split as-override" under the VPNv4 address-family causes peers configured with "neighbor
+   as-override" under the IPv4 VRF address-family to be put into separate update-groups.  The result of the update-group
+   segregation is prefixes sent out by a router, say CE1, do not get returned back to itself by the PE router.  This is an
+   alternative to using SoO.
+   - This helps prevent routing loops in situations where CE1 and CE2 use the same AS number, are both are configured with 
+     "neighbor as-override", and are both connected to and configured under the same IPv4 VRF on the PE router.  The routing 
+     loop is formed because both CE1 and CE2 are placed in the same update-group on the peer and will receive back prefixes 
+     that are advertised to the PE router.  Configuring SoO will also prevent the routing loop.
 
  - With the BGP Selective Route Download feature, routes not matched by the table-map filter will not be installed in the RIB.
    - The role of a dedicated route reflector is to propagate BGP updates without participating in the actual forwarding 
