@@ -250,6 +250,8 @@ Additional reasons why routers ignore paths:
    status, "b backup-path, x best-external" and "backup/repair, advertise-best-external" and will not be used unless the best path 
    is lost or fails.
 
+ - A BGP route server context can override the best path based on the context import-map.
+
  - With the BGP Selective Route Download feature, routes not matched by the table-map filter will not be installed in the RIB.
    - The role of a dedicated route reflector is to propagate BGP updates without participating in the actual forwarding 
      of transit traffic. That means the route reflector does not need to have all BGP routes downloaded into its RIB.
