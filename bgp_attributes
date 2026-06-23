@@ -28,7 +28,7 @@ https://www.iana.org/assignments/bgp-parameters/bgp-parameters.xhtml#bgp-paramet
 BGP Attibute Filter
  - This feature allows for updates to be "treat-as-withdraw" that contain specific path attributes.  The prefixes 
    contained in the update will be removed from the routing table.
- - The feature allows for specific path attributes to be discarded or dropped from updates.  The rest of the 
+ - The feature also allows for specific path attributes to be discarded or dropped from updates.  The rest of the 
    update is then processed as usual.
  - Configuring path attributes to either be treat-as-withdraw or discarded will trigger an inbound Route Refresh.
  - This feature is intended to prevent or resolving issues with peer sessions flapping due to the use of new or 
