@@ -246,7 +246,7 @@ Additional reasons why routers ignore paths:
    border router as the best path even if the backup border router learn the same paths from the eBGP sessions.  The backup border 
    routers will hide and not advertise paths learned over its eBGP sessions to the iBGP peers.
  - With the BGP Best External feature in active / backup topologies, the backup border routers will advertise paths learned from 
-   its eBGP sessions as backup paths to the iBGP peers.  The backup paths in the BGP table will have the status, "b backup-path,
+   its eBGP sessions as bext external paths and backup paths to the iBGP peers.  The backup paths in the BGP table will have the status, "b backup-path,
    x best-external" and "backup/repair, advertise-best-external" and will not be used unless the best path is lost or fails.
 
  - With the BGP Selective Route Download feature, routes not matched by the table-map filter will not be installed in the RIB.
