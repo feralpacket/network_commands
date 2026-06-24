@@ -36,6 +36,11 @@ BGP
    maps are ignored for routes reflected to iBGP peers. The only set clause of an 
    outbound route map on a route reflector (RR) that is acted upon is the set ip 
    next-hop clause. The set ip next-hop clause is applied to reflected routes.
+ - Do not use the neighbor next-hop-self command to modify the next hop attribute for 
+   an RR. Using the neighbor next-hop-self command on the RR will modify next hop 
+   attributes only for non-reflected routes and not the intended routes that are being 
+   reflected from the RR clients. To modify the next hop attribute when reflecting a 
+   route, use an outbound route map.
 
 
 Other set options not mentioned in the above Cisco documentation:
