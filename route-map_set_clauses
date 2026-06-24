@@ -30,6 +30,14 @@ Commands that Modify Route Attributes During Redistribution into the Target Prot
 | set weight                             | —   | —     | —    | —     | Yes |
 
 
+BGP
+ - The use of set clauses in outbound route maps can modify attributes and possibly 
+   create routing loops. To avoid this behavior, most set clauses of outbound route 
+   maps are ignored for routes reflected to iBGP peers. The only set clause of an 
+   outbound route map on a route reflector (RR) that is acted upon is the set ip 
+   next-hop clause. The set ip next-hop clause is applied to reflected routes.
+
+
 Other set options not mentioned in the above Cisco documentation:
 
 R1(config-route-map)#route-map TEST permit 10
