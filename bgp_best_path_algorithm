@@ -272,11 +272,21 @@ Updates                                                                         
    - This is a restriction listed for the BGP support for mulitple sourced paths per the redistribute route feature.
 
  - With BGP Persistence, non-stale paths are preferred over stale paths.
+
  - If a route is received from the labeled unicast (LU) path and the unlabled unicast (U) path and all attributes are the same,
    the route received last (newest) will be selected as the best path.
 
- - Routes that are not Segment Routing policy color marked are not considered for best path if "bgp bestpath sr-policy force"
-   is configured.  NOTE:  This is currently only an IOS-XR feature.
+ - With the BGP Segment Routing (SR) Policy Paths feature, if "bgp bestpath sr-policy force" is configured, routes that are not SR
+   policy color marked are not considered for best path.  Specifically, the following paths are marked as ineligible for best path
+   selection:
+   - iBGP paths with noncolor or color paths and the SR policy isn't active.
+   - eBGP paths with color and the SR policy isn't active.
+   - eBGP noncolor paths.
+ - With the BGP SR Policy Paths feature, if "bgp bestpath prefer" is configured, SR policy paths and eBGP noncolor paths are 
+   eligible for best path selection.  The following paths are marked as ineligible for best path selection:
+   - iBGP paths with noncolor or color paths and the SR policy isn't active.
+   - eBGP paths with color and the SR policy isn't active.
+ - NOTE:  BGP SR Policy Paths is only an IOS-XR feature.
 
 
 
