@@ -56,7 +56,7 @@ Address Families:
    share the RT import configuration with a peer so that only the prefixes that match the configuration are advertised.
  - Multiprotocol BGP (MP-BGP) extensions created two new attributes that allowed for address families to be identified and 
    exchanged between BGP peers.  The BGP attributes MP_REACH_NLRI and MP_UNREACH_NLRI define fields for Address Family
-   Identifiers (AFI) and Subsequent Address Family Identifiers (SAFI).
+   Identifiers (AFI) and Subsequent Address Family Identifiers (SAFI) for each prefix or NLRI.
  - Each address family gets its own database.  Meaning each address family gets seperate BGP Adj-RIBs-In, BGP Loc-RIB, and 
    BGP Adj-RIBs-Out tables.  Policies for the address families are configured and applied seperately.
  - The BGP best path algorithm executes individually per address-family. The best path selection of one address-family cannot 
