@@ -27,6 +27,10 @@ https://www.iana.org/assignments/bgp-parameters/bgp-parameters.xhtml#bgp-paramet
 |       |                                |                          |      |                                 |
 
 
+MP_REACH_NLRI and MP_UNREACH_NLRI
+ - Both of the attributes add Address Family Indentifier (AFI) and Subsequent Address Family Identifier (SAFI) 
+   information to each prefix or NLRI.
+
 BGP Attibute Filter
  - This feature allows for updates to be "treat-as-withdraw" that contain specific path attributes.  The prefixes 
    contained in the update will be removed from the routing table.
