@@ -288,6 +288,19 @@ Updates                                                                         
    - eBGP paths with color and the SR policy isn't active.
  - NOTE:  BGP SR Policy Paths is only an IOS-XR feature.
 
+ - With IOS-XR, martian IP address prefixes are ignored and dropped by default.  This can be disabled with the configuration
+   "default-martian-check disable".
+   - IPv4 martians:
+     - 0.0.0.0/8
+     - 127.0.0.0/8
+     - 224.0.0.0/4
+   - IPv6 martians:
+     - ::
+     - ::0002 through ::ffff
+     - ::ffff:a.b.c.d
+     - fe80:xxxx
+     - ffxx:xxxx
+
 
 
 Best Path Algorithm:
