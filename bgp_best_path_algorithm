@@ -274,7 +274,12 @@ Updates                                                                         
  - With BGP Persistence, non-stale paths are preferred over stale paths.
 
  - If a route is received from the labeled unicast (LU) path and the unlabled unicast (U) path and all attributes are the same,
-   the route received last (newest) will be selected as the best path.
+   the route received last (newest) will be selected as the best path.  This behavior applies to IOS XE versions prior to 16.12.1
+   or if "label-unicast unique" is not configured.
+   - If "label-unicast unique" is configured, one unlabeled unicast path is stored in the Subsequent Address Family Indicator 1
+     (SAFI 1) Adj-RIB-In, BGP Loc-RIB, and Adj-RIB-Out tables.  One labeled unicast paths is stored in the SAFI 4 tables.  Both 
+     inbound and outbound policies are applied independetely on the two paths.  Each path is advertised to or withdrawn from peers
+     idenpendently.
 
  - With the BGP Segment Routing (SR) Policy Paths feature, if "bgp bestpath sr-policy force" is configured, routes that are not SR
    policy color marked are not considered for best path.  Specifically, the following paths are marked as ineligible for best path
