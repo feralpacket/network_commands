@@ -46,6 +46,29 @@ Updates                                                                         
                                                                     +-----------------+
 
 
+Address Families:
+ - Originaly created as a way of defining network information or protocols that had different addressing.  IPv4 had 32 bit 
+   addresses.  The IPv4 addresses could be futher defined as unicast or multicast addresses.  IPv6 had 128 bit addresses.  
+   VPNv4 used with MPLS Layer 3 VPNs were a combination of a 64 bit Route Distinguisher (RD) and a 32 bit IPv4 address creating 
+   a 96 bit VPNv4 address.  VPNv6 is a combination of a 64 bit RD with a 128 bit IPv6 address creating a 192 bit VPNv6 address.  
+ - Later, address families were created to allow BGP to carry other information.  For example, BGP Link State is used to carry 
+   IGP routing information in the new BGP attribute BGP-LS.  The rtfilter address famility is used by Route Target (RT) Constraint to 
+   share the RT import configuration with a peer so that only the prefixes that match the configuration are advertised.
+ - Multiprotocol BGP (MP-BGP) extensions created two new attributes that allowed for address families to be identified and 
+   exchanged between BGP peers.  The BGP attributes MP_REACH_NLRI and MP_UNREACH_NLRI define fields for Address Family
+   Identifiers (AFI) and Subsequent Address Family Identifiers (SAFI).
+ - Each address family gets its own database.  Meaning each address family gets seperate BGP Adj-RIBs-In, BGP Loc-RIB, and 
+   BGP Adj-RIBs-Out tables.  Policies for the address families are configured and applied seperately.
+ - The BGP best path algorithm executes individually per address-family. The best path selection of one address-family cannot 
+   impact the best path calculation on a different address-family.
+ - There are situations when paths from two different address families can end up in the same Adj-RIBs-In table.  The selection
+   of the best path in these situations can be unique and sometimes non-deterministic (random), depending on the address families.  
+   For example, unlabeled unicast paths (AFI 1, SAFI 1) can end up in the same tables with labeled unicast paths (AFI 1, SAFI 4).  
+   In this particular case, the path that was added to the table last (newest) is selected.  However, routers can be configured
+   to place the paths in seperate Adj-RIBs-In tables.
+ - IANA Address Family Numbers - https://www.iana.org/assignments/address-family-numbers/address-family-numbers.xhtml
+ - IANA Subsequent Address Family Identifiers - https://www.iana.org/assignments/safi-namespace/safi-namespace.xhtml
+
 
 Processing order of BGP policy filters, if more than one of the below is configured:
  - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-3e/irg-iproute-bgp-xe-3e-book/irg-prefix-filter.html
@@ -86,7 +109,7 @@ From the Cisco BGP FAQ (https://www.cisco.com/c/en/us/support/docs/ip/border-gat
    -> 5.  Outbound Route Filtering (ORF) prefix-list (a prefix-list a neighbor sends us)
 
 
-BGP Session Reset
+BGP Session Reset:
  - clear ip bgp *
    - Use in the following situations:
      - BGP timer specification changes
