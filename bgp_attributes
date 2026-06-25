@@ -21,7 +21,9 @@ https://www.iana.org/assignments/bgp-parameters/bgp-parameters.xhtml#bgp-paramet
 | 17    | AS4_PATH                       | Optional transitive      | 6793 | Scaling, policy                 |
 | 18    | AS4_AGGREGATOR                 | Optional transitive      | 6793 | Scaling, address aggregation    |
 | 26    | AIGP                           | Optional nontransitive   | 7311 | Policy                          |
+| 29    | BGP-LS                         | Optional nontransitive   | 9552 |                                 |
 | 32    | LARGE_COMMUNITY                | Optional transitive      | 8092 | Scaling                         |
+| 40    | BGP Prefix-SID                 | Optional transitive      | 8669 |                                 |
 |       |                                |                          |      |                                 |
 
 
