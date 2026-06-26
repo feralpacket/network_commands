@@ -639,11 +639,24 @@ Best Path Algorithm:
         -> Redistributed routes are preferred to local aggregate routes.
 
         -> "default-information originate"
-        -> Originates a default route, 0.0.0.0.  However, this route requires redistribution before it is advertised.
+        -> Allows for the redistribution of a default route, 0.0.0.0 into BGP.  This route requires redistribution before it 
+           is advertised.
         -> The command "default-information originate" and "neighbor 192.0.2.1 default-originate" should not be configured 
            on the same router.
-        -> Note:  The command "neighbor 192.0.2.1 default-originate" sends a default route to a BGP neighbor.  The default 
-                  route does not need to be in the RIB and does not go through the best path selection.
+
+        -> ip route 0.0.0.0 0.0.0.0 192.0.2.1
+        -> redistribute static
+        -> default-information originate
+
+        -> "neighbor 192.0.2.1 default-originate"
+        -> Sends a default route to a BGP neighbor.  The default route does not need to be in the RIB and does not go 
+           through the best path selection.
+        -> When used with a route-map, a default route is conditionally sent if the route-map contains a "match ip address" 
+           clause and the RIB contains a route that matches the IP access-list.
+
+        -> route-map DEFAULT permit 10
+        ->    match ip address 1
+        -> neighbor 192.0.2.1 default-originate route-map DEFAULT out
 
         -> We can redistribute multiple paths.
         -> Feature added with IOS XE 3.15S.
