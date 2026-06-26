@@ -976,8 +976,7 @@ Best Path Algorithm:
         -> "aggregate-address" with "as-set" commands.
            -> Only if all of the component paths have an ORIGIN code of IGP.
         -> "neighbor 192.0.2.1 default-originate" command.
-           -> Couldn't find this mentioned in any book or documentation, if a 0.0.0.0 prefix isn't in the RIB, a default 
-              route will show up in the BGP table and will be advertised to peers with an ORIGIN code of IGP.
+           ->  A default route 0.0.0.0 will be advertised to the neighbor with an ORIGIN code of IGP.
      
      -> EGP
         -> Predecessor to BGP.
