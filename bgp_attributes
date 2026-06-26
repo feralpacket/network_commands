@@ -29,9 +29,9 @@ https://www.iana.org/assignments/bgp-parameters/bgp-parameters.xhtml#bgp-paramet
 
 
 ATTR_SET
- - With L3VPN iBGP PE-CE links, the PE router will store original BGP attributes received from the CE in the
+ - With L3VPN iBGP PE-CE links, the PE router will store the original BGP attributes received from the CE in the
    ATTR_SET attribute.  At the other end of the MPLS L3VPN, the PE router will use those attributes when the
-   path is advertised to the CE.
+   path is advertised to the remote CE.  The is configured with "neighbor internal-vpn-client" on the PE.
 
 MP_REACH_NLRI and MP_UNREACH_NLRI
  - Both of the attributes add Address Family Indentifier (AFI) and Subsequent Address Family Identifier (SAFI) 
