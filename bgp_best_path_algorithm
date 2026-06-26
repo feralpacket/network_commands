@@ -189,10 +189,10 @@ Additional reasons why routers ignore paths:
      benefit of reducing the amount of BGP updates being sent.
  - Routers will discard routes if the ORIGINATOR-ID is the same as their ROUTER-ID.
 
- - Routes with the well-known community no-expert (0xffffff01) will not be advertised to any eBGP peer.
- - Routes with the well-known community no-advertise (0xffffff02) will not be advertised to any BGP peer.
- - Routes with the well-known community local-as or no-export-subconfed (0xffffff03) will not be advertised outside the
-   local AS or confederation sub-AS.
+ - Routes with the well-known community no-expert (0xffffff01 or 65535:65281) will not be advertised to any eBGP peer.
+ - Routes with the well-known community no-advertise (0xffffff02 or 65535:65282) will not be advertised to any BGP peer.
+ - Routes with the well-known community local-as or no-export-subconfed (0xffffff03 or 65535:65283) will not be advertised 
+   outside the local AS or confederation sub-AS.
 
  - Aggregate routes will not be generated or advertised if a more specific matching prefix is not installed in the RIB.
  - Aggregate routes will not be advertised to peers if "as-set" is used with "aggregate-address" and one of the specific 
@@ -261,7 +261,7 @@ Additional reasons why routers ignore paths:
    segregation is prefixes sent out by a router, say CE1, do not get advertised back to itself by the PE router.  This is an
    alternative to using SoO.
    - This helps prevent routing loops in situations where CE1 and CE2 use the same AS number, are both are configured with 
-     "neighbor as-override", and are both connected to and configured under the same IPv4 VRF on the PE router.  The routing 
+     "neighbor as-override", and are both connected to and configured under the same IPv4 VRF on the same PE router.  The routing 
      loop is formed because both CE1 and CE2 are placed in the same update-group on the peer and will receive back prefixes 
      that are advertised to the PE router.  Configuring SoO will also prevent the routing loop.
 
@@ -294,7 +294,7 @@ Updates                                                                         
  - If a prefix is in the RIB that we have a manually configured static route with a tag and a route without a tag is inserted 
    through Reverse Route Injection (RRI), the route selection may be inconsistent, and either the manually configured route or 
    the RRI route may be chosen.
-   - This is a restriction listed for the BGP support for mulitple sourced paths per the redistribute route feature.
+   - This is a restriction listed in the documentation for BGP support for mulitple sourced paths per the redistribute route feature.
 
  - With BGP Persistence, non-stale paths are preferred over stale paths.
 
@@ -481,12 +481,16 @@ Best Path Algorithm:
 
 
  0b. BGP Persistence
-     -> Also known as Long Lived Graceful Restart.
+     -> Also known as Long Lived Graceful Restart (LLGR).
      -> Retain routes that are learned from BGP neighbors even when the neighbor session is down.
      -> When a BGP neighbor goes down, paths are marked as stale.  In the output of "show ip bgp vpnv4 all", paths
         have the status of "L - long-lived-stale-path".  Or in the output of "show ip bgp vpnv4 all 192.0.2.0/24",
         paths include the status "long-lived-stale".
      -> Non-stale paths are preferred over stale paths.
+
+     -> BGP Persistence uses the following well-known communities:
+        -> LLGR_STALE (0xFFFF0006 or 65535:6)
+        -> NO_LLGR (0xFFFF0007 or 65535:7)
 
      -> In some scenarios, keeping the routes for longer during control plane failure helps the services that
         are less sensitive to continued interruption.
