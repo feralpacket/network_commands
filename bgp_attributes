@@ -24,12 +24,19 @@ https://www.iana.org/assignments/bgp-parameters/bgp-parameters.xhtml#bgp-paramet
 | 29    | BGP-LS                         | Optional nontransitive   | 9552 |                                 |
 | 32    | LARGE_COMMUNITY                | Optional transitive      | 8092 | Scaling                         |
 | 40    | BGP Prefix-SID                 | Optional transitive      | 8669 |                                 |
+| 128   | ATTR_SET                       | Optional transitive      | 6368 | Policy                          |
 |       |                                |                          |      |                                 |
 
+
+ATTR_SET
+ - With L3VPN iBGP PE-CE links, the PE router will store original BGP attributes received from the CE in the
+   ATTR_SET attribute.  At the other end of the MPLS L3VPN, the PE router will use those attributes when the
+   path is advertised to the CE.
 
 MP_REACH_NLRI and MP_UNREACH_NLRI
  - Both of the attributes add Address Family Indentifier (AFI) and Subsequent Address Family Identifier (SAFI) 
    information to each prefix or NLRI.
+
 
 BGP Attibute Filter
  - This feature allows for updates to be "treat-as-withdraw" that contain specific path attributes.  The prefixes 
