@@ -497,6 +497,7 @@ Best Path Algorithm:
      -> In some scenarios, keeping the routes for longer during control plane failure helps the services that
         are less sensitive to continued interruption.
      -> Only supported with the address families VPNv4, VPNv6, and Flow Spec (IPv4, IPv6, VPNv4, and VPNv6).
+        -> IOS-XR documentation also lists the Route Target Constraint address-family rtfilter.
      -> The traffic flow does not get affected during the following scenarios, even during BGP neighbor failures:
         -> When route advertisement is different than the fowarding path.  For example, VPN routes through MPLS
            tunnels.
