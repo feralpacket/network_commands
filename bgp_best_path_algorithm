@@ -2,7 +2,7 @@ BGP Best Path Selection Algorithm
 http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-25.html
 
  - show ip bgp 192.0.2.0 255.255.255.0 best-path-reason
-   - best-path-reason was added to IOS XE 16.10.1.
+   - best-path-reason was added to IOS-XE 16.10.1.
 
 
  - BGP assigns the first valid path as the current best path. BGP then compares the best path with the next path in the list, 
@@ -218,7 +218,7 @@ Additional reasons why routers ignore paths:
    - bgp maxas-limit 42
  - Routes will be discarded if the number of prefixes exceeds the "neighbor maximum-prefix" when configured.
    - Limitations on the number of prefixes that can be configured are determined by the amount of available system resources.
-   - Range 1 to 2147483647.  (With IOS XE 17.12.x. The Internet BGP4 Table had 1038108 in November 2025.)
+   - Range 1 to 2147483647.  (With IOS-XE 17.12.x. The Internet BGP4 Table had 1038108 in November 2025.)
    - neighbor 192.0.2.1 maximum-prefix 42
    - neighbor 192.0.2.1 maximum-prefix 42 90 ! Change default warning level from 75.
    - neighbor 192.0.2.1 maximum-prefix 42 90 warning-only
@@ -301,7 +301,7 @@ Updates                                                                         
  - With BGP Persistence, non-stale paths are preferred over stale paths.
 
  - If a route is received from the labeled unicast (LU) path and the unlabled unicast (U) path and all attributes are the same,
-   the route received last (newest) will be selected as the best path.  This behavior applies to IOS XE versions prior to 16.12.1
+   the route received last (newest) will be selected as the best path.  This behavior applies to IOS-XE versions prior to 16.12.1
    or if "label-unicast unique" is not configured.
    - If "label-unicast unique" is configured, one unlabeled unicast path is stored in the Subsequent Address Family Indicator 1
      (SAFI 1) Adj-RIB-In, BGP Loc-RIB, and Adj-RIB-Out tables.  One labeled unicast paths is stored in the SAFI 4 tables.  Both 
@@ -641,7 +641,7 @@ Best Path Algorithm:
         -> Redistributed routes are preferred to local aggregate routes.
 
         -> We can redistribute multiple paths.
-        -> Feature added with IOS XE 3.15S.
+        -> Feature added with IOS-XE 3.15S.
         -> Routes must be in the RIB and must have a unique next-hop.
         -> Silly Cisco, no EIGRP for you.
         -> bgp sourced-paths per-net isis all
@@ -850,7 +850,7 @@ Best Path Algorithm:
      -> neighbor 192.0.2.1 remove-private-as
         -> Removes private AS numbers from AS_PATH.
         -> Can only be used with eBGP neighbors.
-        -> Restrictions that only apply to IOS versions prior to IOS XE 3.1S.
+        -> Restrictions that only apply to IOS versions prior to IOS-XE 3.1S.
            -> If the AS_PATH includes both private and public AS numbers, BGP doesn't remove the private AS numbers.
            -> If the AS_PATH contains the AS number of the eBGP neighbor, BGP does not remove the private AS number.
            -> If the AS_PATH contains confederations, BGP removes the private AS numbers only if they come after the
@@ -859,7 +859,7 @@ Best Path Algorithm:
 
      -> neighbor 192.0.2.1 remove-private-as all replace-as
         -> Replaces private AS numbers with router's local AS number.
-        -> For IOS XE 3.1S and later.
+        -> For IOS-XE 3.1S and later.
         -> Will retain the AS_PATH length.
      
      -> Replaces any private AS in AS_PATH with router's local AS.
@@ -886,7 +886,7 @@ Best Path Algorithm:
         -> Does not work with the AS_SET and AS_CONFED_SET attributes.
         -> If both "set as-path replace" and "set as-path prepend" are configured, the as-path replace is processed first
            and then the as-path prepend.
-        -> Feature added in IOS XE 17.1.1.
+        -> Feature added in IOS-XE 17.1.1.
         -> Note:  The AS_PATH length is not changed.
      
      -> route-map REPLACE_AS permit 10
@@ -986,7 +986,7 @@ Best Path Algorithm:
         -> Historically, used to transition from EGP to BGP.
         -> The "set origin egp" command was removed in IOS 12.4(2)T.
         -> ~~You should never see it, take a screenshot and tell the world if you do.~~
-        -> Well, someone added it back at some point.  It works in IOS XE 17.15.1.
+        -> Well, someone added it back at some point.  It works in IOS-XE 17.15.1.
 
      -> INCOMPLETE
         -> "redistribute" command.
@@ -1271,8 +1271,8 @@ Best Path Algorithm:
           -> On the Cisco Catalyst 9300 Series Switches, the hardware-supported maximum-paths is either 8 or 16.
           -> On the Cisco Catalyst 9500 Series Switches, the hardware-supported maximum-paths is either 8 or 16.
        -> On the Cisco Catalyst 9500X Series Switches, the hardware-supported maximum-paths is 16.
-       -> On the Cisco ASR 1000 series routers, before IOS XE 2.1, the maximum number of paths is 6.
-       -> On the Cisco ASR 1000 series routers, after IOX XE 2.1, the maximum number of paths is 16.
+       -> On the Cisco ASR 1000 series routers, before IOS-XE 2.1, the maximum number of paths is 6.
+       -> On the Cisco ASR 1000 series routers, after IOS-XE 2.1, the maximum number of paths is 16.
        -> Cisco IOS Release 12.0S-based software: 8 paths
        -> Cisco IOS Release 12.3T, 12.4, 12.4T, and 15.0-based software: 16 paths
        -> Cisco IOS Release 12.2S-based software: 32 paths
