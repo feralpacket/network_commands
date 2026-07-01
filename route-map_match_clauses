@@ -39,6 +39,7 @@ R1(config-route-map)#match ?
   additional-paths  BGP Add-Path match policies
   address           Match address of route or match packet
   as-path           Match BGP AS path list
+    -> Use with ip as-path access-list
   community         Match BGP community list
   evpn              EVPN specific information
   extcommunity      Match BGP/VPN extended community list
