@@ -691,7 +691,7 @@ Best Path Algorithm:
         -> "attribute-map"
            -> Allows the attributes of the aggregate route to be changed.
            -> Useful if used with "as-set" and one of the more specific routes has the community the "no-export" or 
-              "no-advertise" that need to be removed.
+              "no-advertise" that needs to be removed.
            -> ip community-list 1 permit no-export
            -> route-map ATTRIBUTES permit 10
            ->     set comm-list 1 delete
