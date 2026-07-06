@@ -692,7 +692,15 @@ Best Path Algorithm:
            -> Allows the attributes of the aggregate route to be changed.
            -> Useful if used with "as-set" and one of the more specific routes has the community the "no-export" or 
               "no-advertise" that need to be removed.
+           -> ip community-list 1 permit no-export
+           -> route-map ATTRIBUTES permit 10
+           ->     set comm-list 1 delete
+           -> route-map ATTRIBUTES permit 10
+           ->     set community none
            -> aggregate-address 10.11.0.0 255.255.0.0 attribute-map ATTRIBUTES
+           -> aggregate-address 10.11.0.0 255.255.0.0 as-set attribute-map ATTRIBUTES
+           -> Cheater method, don't send any communities in updates to a neighbor
+           -> no neighbor 192.0.2.1 send-community
 
         -> The aggregate-timer is set to 30 seconds by default.  New, longer prefixes may be briefly advertised until 
            the aggregate-timer runs.
