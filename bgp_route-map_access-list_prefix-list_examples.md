@@ -2,6 +2,12 @@
 
 ## BGP Community Manipulation
 
+#### Community Format
+
+#### Extended Community Format
+
+#### Large Community Format
+
 #### Route-map - Community
 - Set community
 - Replaces any existing communities
