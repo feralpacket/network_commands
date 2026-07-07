@@ -80,6 +80,18 @@ router bgp 65536
 
 #### Route-map - Community-list - Match Extended Community
 
+#### Route-map - Comm-list - Delete
+
+#### Route-map - Extcomm-list - Delete
+
+#### Route-map - Extcommunity - Cost
+
+#### Route-map - Extcommunity - RT
+
+#### Route-map - Extcommunity - soo
+
+#### Route-map - Extcommunity - vpn-distinguisher
+
 #### Route-map - Large-Community-list - Match Large Community
 
 #### Route-map - Large-Community-List - Match Large Community - Exact-match
