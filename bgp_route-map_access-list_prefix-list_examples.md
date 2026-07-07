@@ -15,7 +15,7 @@ router bgp 65536
   neighbor 192.0.2.1 route-map COMMUNITY out
 ```
 
-### Route-map - Network Statement
+#### Route-map - Network Statement
 - Set community
 
 ```
@@ -27,7 +27,7 @@ router bgp 65536
   network 198.51.100.0 mask 255.255.255.0 route-map COMMUNITY
 ```
 
-### Route-map - Standard Access-list
+#### Route-map - Standard Access-list
 - Set community
 - Replaces any existing community
 - IP address subnet permit match
@@ -46,23 +46,23 @@ router bgp 65536
   neighbor 192.0.2.1 route-map COMMUNITY out
 ```
 
-### Route-map - Extended Access-list
+#### Route-map - Extended Access-list
 
 #### Route-map - Access-list - Additive
 
-### Route-map - Access-list - Delete
+#### Route-map - Access-list - Delete
 
-### Route-map - Prefix-list
+#### Route-map - Prefix-list
 
-### Route-map - AS-Path
+#### Route-map - AS-Path
 
-### Community-list - Standard - Match
+#### Community-list - Standard - Match
 
-### Community-list - Extended - Match
+#### Community-list - Extended - Match
 
-### Community-list - Large - Match
+#### Community-list - Large - Match
 
-### Community-list - Delete - Match
+#### Community-list - Delete - Match
 
 
 
