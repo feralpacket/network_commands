@@ -3,6 +3,11 @@
 ## BGP Community Manipulation
 
 #### Community Format
+- Community number 1 to 4,294,967,200
+- Well-known communities local-as, no-advertise, no-export
+  - Cisco documentation claims internet is a well-known community is several places.
+  - Internet is not listed as a well-known community by IANA.
+  - https://www.iana.org/assignments/bgp-well-known-communities/bgp-well-known-communities.xhtml
 
 #### Extended Community Format
 
