@@ -56,9 +56,17 @@ router bgp 65536
 
 #### Route-map - AS-Path
 
-#### Community-list - Standard - Match
+#### Community-list - Standard Number
 
-#### Community-list - Extended - Match
+#### Community-list - Standard Name
+
+#### Community-list - Extended
+
+#### Extcommunity-list - Global Configuration Mode
+
+#### Extcommunity-list - Standard IP Extended Community List Configuration Mode
+
+#### Extcommunity-list - Expanded IP Extended Community List Configuration Mode
 
 #### Community-list - Large - Match
 
