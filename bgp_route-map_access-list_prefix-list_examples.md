@@ -2,7 +2,7 @@
 
 ## BGP Community Manipulation
 
-#### Route-map
+#### Route-map - Community
 - Set community
 - Replaces any existing communities
 
@@ -15,7 +15,7 @@ router bgp 65536
   neighbor 192.0.2.1 route-map COMMUNITY out
 ```
 
-#### Route-map - Network Statement
+#### Route-map - Community - Network Statement
 - Set community
 
 ```
@@ -27,7 +27,7 @@ router bgp 65536
   network 198.51.100.0 mask 255.255.255.0 route-map COMMUNITY
 ```
 
-#### Route-map - Standard Access-list
+#### Route-map - Community - Standard Access-list
 - Set community
 - Replaces any existing community
 - IP address subnet permit match
@@ -46,15 +46,15 @@ router bgp 65536
   neighbor 192.0.2.1 route-map COMMUNITY out
 ```
 
-#### Route-map - Extended Access-list
+#### Route-map - Community - Extended Access-list
 
-#### Route-map - Access-list - Additive
+#### Route-map - Community - Access-list - Additive
 
-#### Route-map - Access-list - Delete
+#### Route-map - Community - Access-list - Delete
 
-#### Route-map - Prefix-list
+#### Route-map - Community - Prefix-list
 
-#### Route-map - AS-Path
+#### Route-map - Community - AS-Path
 
 #### Community-list - Standard Number
 
@@ -68,9 +68,21 @@ router bgp 65536
 
 #### Extcommunity-list - Expanded IP Extended Community List Configuration Mode
 
-#### Community-list - Large - Match
+#### Large-Community-list - Standard Large Community
+
+#### Large-Community-list - Extended Large Community
 
 #### Community-list - Delete - Match
+
+#### Route-map - Community-list - Match Standard Community
+
+#### Route-map - Community-list - Match Standard Community - Exact
+
+#### Route-map - Community-list - Match Extended Community
+
+#### Route-map - Large-Community-list - Match Large Community
+
+#### Route-map - Large-Community-List - Match Large Community - Exact-match
 
 
 
