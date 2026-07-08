@@ -1,10 +1,28 @@
 # BGP - Route-map / Access-list / Prefix-list Examples
 
 ## Standard Access Control Lists
+Define packets based solely on the source network.  Does not include sequence numbers.  This means it's not possible to
+delete specific entries.
 ```
-permit any                     ! Permits all networks
-permit 10.1.0.0 0.0.255.255    ! Permits all networks in the 10.1.0.0 range
-permit host 192.0.2.1          ! Permits only the 192.0.2.1 /32 network
+permit any                                                 ! Permits all networks
+permit 10.1.0.0 0.0.255.255                                ! Permits all networks in the 10.1.0.0 range
+permit host 192.0.2.1                                      ! Permits only the 192.0.2.1 /32 network
+```
+
+## Extended Access Controls Lists
+Define the packet based on source, destination, protocol, port, or a combination of other packet attribute. With route 
+filtering, ACLs are only concerned with the source, destination, and protocol.
+<br/><br/>
+Extended ACLs react differently when matching BGP routes.  The source fileds match against the network portion of the
+route.  The destination fileds match against the network mask.
+```
+permit protocol source source-wildcard destination destination-wildcard
+```
+```
+permit ip 10.0.0.0 0.0.0.0 255.255.0.0 0.0.0.0              ! Permits only the 10.0.0.0 /16 netowrk
+permit ip 10.0.0.0 0.0.255.0 255.255.255.0 0.0.0.0          ! Permits any 10.0.x.0 network with a /24 prefix length
+permit ip 10.0.0.0 0.0.255.255 255.255.255.0 0.0.0.255      ! Permits any 10.0.0.0 network with a /24 - /32 prefix length
+permit ip 10.0.0.0 0.0.255.255 255.255.255.128 0.0.0.127    ! Permits any 10.0.0.0 network with a /24 - /32 prefix length
 ```
 
 ## BGP Community Manipulation
