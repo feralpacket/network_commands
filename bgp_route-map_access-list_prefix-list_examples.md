@@ -45,16 +45,18 @@ permit ip 10.0.0.0 0.0.255.255 255.255.255.128 0.0.0.127    ! Permits any 10.0.0
 <br/><br/><br/>
 
 - Well-known communities:
+```
   - gshut
-    - Hex: 0xFFFF0000 or Decimal:  65535:00
+    - Hex: 0xFFFF0000 or Decimal AA:NN: 65535:00 or Decimal: 4294901760
     - Officially named GRACEFUL_SHUTDOWN.
   - no-export
-    - Hex: 0xFFFFFF01 or Decimal: 65535:65281
+    - Hex: 0xFFFFFF01 or Decimal AA:NN: 65535:65281 or Decimal: 4294967041
   - no-advertise
-    - Hex: 0xFFFFFF02 or Decimal: 65535:65282
+    - Hex: 0xFFFFFF02 or Decimal AA:NN: 65535:65282 or Decimal: 4294677042
   - local-as
-    - Hex: 0xFFFFFF03 or Decimal: 65535:65283
+    - Hex: 0xFFFFFF03 or Decimal AA:NN: 65535:65283 or Decimal: 4294967043
     - Offically named NO_EXPORT_SUBCONFED.
+```
   - Cisco documentation claims "Internet" is a well-known community is several places that is applied to all prefixes by default.
   - RFC 1997 says, "By default, all destinations belong to the general Internet community."
   - "Internet" is not listed as a well-known community by IANA.
