@@ -8,7 +8,7 @@
 - Community decimal number format with a range from 1 to 4,294,967,295.
 - Community decimal in AA:NN format.  AA is 16 bits that represent an Autonomous System Number (ASN).  NN is 16 bits that
   represent a locally defined number.
-  - To display communities in the AA:NN format, use the global configuration "ip bgp-community new-format".
+  - To display communities in the AA:NN format, use the global configuration "**ip bgp-community new-format**".
 - Community hexadecimal format with a range from 0x00000000 to 0xFFFFFFFFFFFF
 <br/><br/><br/>
 
