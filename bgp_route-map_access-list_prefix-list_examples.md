@@ -1,5 +1,12 @@
 # BGP - Route-map / Access-list / Prefix-list Examples
 
+## Standard Access Control Lists
+```
+permit any                     ! Permits all networks
+permit 10.1.0.0 0.0.255.255    ! Permits all networks in the 10.1.0.0 range
+permit host 192.0.2.1          ! Permits only the 192.0.2.1 /32 network
+```
+
 ## BGP Community Manipulation
 
 #### Community Format
