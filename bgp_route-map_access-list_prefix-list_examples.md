@@ -179,8 +179,122 @@ router bgp 65536
 
 ## BGP Attribute Manipulation
 
+#### Extended Community Cost - Pre-Bestpath
+
+#### Weight - Filter-list - AS-Path
+
+#### Weight - Route-map
+
+#### Weight - Route-map - Access-list
+
+#### Weight - Route-map - Prefix-list
+
+#### Weight - Route-map - AS-Path
+
+#### Weight - Route-map - Community-list
+
+#### Local-preference - Route-map
+
+#### Local-preference - Route-map - Access-list
+
+#### Local-preference - Route-map - Prefix-list
+
+#### Local-preference - Route-map - AS-Path
+
+#### Local-preference - Route-map - Community-list
+
+#### Local-preference - Default
+
+#### Local-preference - Route-map - Match
+
+#### Locally Originated Path - Network Statement
+
+#### Locally Originated Path - Redistribution
+
+#### Locally Originated Path - Aggregate-address
+
+#### AS-Path Prepend
+
+#### AS-Path - Access-list
+
+#### AS-Path - Route-map
+
+#### AS-Path - Route-map - Community-list
+
+#### AS-Path - Bestpath Ignore
+
+#### Multi-Exit Discriminator (MED) - Route-map
+
+#### MED - Route-map - Access-list
+
+#### MED - Route-map - Prefix-list
+
+#### MED - Route-map - Community-list
+
+#### MED - Always-compare-med
+
+#### MED - Confed
+
+#### MED - Bestpath Confed Missing-is-worst
+
+#### MED - Missing-is-worst
+
+#### IGP Metric Ignore
+
+#### Extended Community Cost - Route-map - Access-list
+
+#### Extended Community Cost - Route-map - Prefix-list
+
+#### Community-cost Ignore
+
+#### Router-id - Compare
+
 
 ## BGP Aggregation
 
+#### Aggregate-address
+
+#### Aggregate-address - Summary-only
+
+#### Aggregate-address - AS-Set
+
+#### Aggregate-address - Attribute-map
+
+#### Aggregate-address - Advertise-map
+
+#### Aggregate-address - Suppress-map
+
+#### Aggregate-address - Unsuppress-map
+
 
 ## BGP Filtering
+
+#### Filter-list - AS-Path
+
+#### Route Filtering - Prefix-list
+
+#### Route Filtering - Destribute-list - Router Configuration
+
+#### Route Filtering - Distribute-list - Neighbor
+
+#### Route Filtering - Distribute-list - Standard Access-list
+
+#### Route Filtering - Distribute-list - Extended Access-list
+
+#### Route Filtering - Route-map
+
+#### Route Filtering - AS-Path - String
+
+#### Route Filtering - AS-Path - Regular Expression
+
+#### Route Filtering - Communities
+
+#### Default Route - Route-map
+
+#### Dampening - Route-map
+
+#### Administrative Distance - Access-list
+
+#### Redistribution - AS-Path Tag
+
+#### Table-map - Automatice-tag
