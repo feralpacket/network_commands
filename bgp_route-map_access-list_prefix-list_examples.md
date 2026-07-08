@@ -7,6 +7,13 @@ delete specific entries.
 permit any                                                 ! Permits all networks
 permit 10.1.0.0 0.0.255.255                                ! Permits all networks in the 10.1.0.0 range
 permit host 192.0.2.1                                      ! Permits only the 192.0.2.1 /32 network
+!
+access-list 102 permit tcp any any eq 179                  ! Permits BGP updates
+access-list 102 permit tcp any eq 179 any                  ! Permits BGP updates
+!
+access-list 10 permit 192.168.0.0 0.0.254.0                ! Permits all even /24 networks in the third octet
+!
+access-list 11 permit 192.168.1.0 0.0.254.0                ! Permits all odd /24 networks in the third octet
 ```
 
 ## Extended Access Controls Lists
