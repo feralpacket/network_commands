@@ -3,13 +3,23 @@
 ## BGP Community Manipulation
 
 #### Community Format
-- Community number 1 to 4,294,967,200
-- Well-known communities local-as, no-advertise, no-export
-  - Cisco documentation claims internet is a well-known community is several places.
+- 32 bit value that can be displayed in 3 different formats.
+- Community decimal number format with a range from 1 to 4,294,967,295.
+- Community decimal in AA:NN format.  AA is 16 bits that represent an Autonomous System Number (ASN).  NN is 16 bits that
+  represent a locally defined number.
+  - To display communities in the AA:NN format, use the global configuration "ip bgp-community new-format".
+- Community hexadecimal format with a range from 0x00000000 to 0xFFFFFFFFFFFF
+- Well-known communities:
+  - no-export          - Hex: 0xFFFFFF01 or Decimal: 65535:65281
+  - no-advertise       - Hex: 0xFFFFFF02 or Decimal: 65535:65282
+  - local-as           - Hex: 0xFFFFFF03 or Decimal: 65535:65283
+    - Offically named NO_EXPORT_SUBCONFED.
+  - Cisco documentation claims "Internet" is a well-known community is several places that is applied to all prefixes by default.
+  - RFC 1992 says, "By default, all destinations belong to the general Internet community."
   - Internet is not listed as a well-known community by IANA.
   - https://www.iana.org/assignments/bgp-well-known-communities/bgp-well-known-communities.xhtml
 
-#### Extended Community Format
+#### Expanded Community Format
 
 #### Large Community Format
 
@@ -71,13 +81,13 @@ router bgp 65536
 
 #### Community-list - Standard Name
 
-#### Community-list - Extended
+#### Community-list - Expanded
 
 #### Extcommunity-list - Global Configuration Mode
 
-#### Extcommunity-list - Standard IP Extended Community List Configuration Mode
+#### Extcommunity-list - Standard IP Expanded Community List Configuration Mode
 
-#### Extcommunity-list - Expanded IP Extended Community List Configuration Mode
+#### Extcommunity-list - Expanded IP Expanded Community List Configuration Mode
 
 #### Large-Community-list - Standard Large Community
 
@@ -89,7 +99,7 @@ router bgp 65536
 
 #### Route-map - Community-list - Match Standard Community - Exact
 
-#### Route-map - Community-list - Match Extended Community
+#### Route-map - Community-list - Match Expanded Community
 
 #### Route-map - Comm-list - Delete
 
