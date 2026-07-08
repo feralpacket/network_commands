@@ -43,12 +43,25 @@
   - Examples:
     - 0x04 - QoS Marking
     - 0x05 - CoS Capability
-  - The Type field has values for "Transitive Extended Community Types" and "Non-transitive Extended Community Types".
+  - The Type field has values defined for "Transitive Extended Community Types" and "Non-transitive Extended Community Types".
 - Most extended communities are further defined by a Sub-Type field.  1 octet for the Type, 1 octet for the for the Sub-Type,
   and 6 octets for the Value.
 - https://www.iana.org/assignments/bgp-extended-communities/bgp-extended-communities.xhtml
 
 #### Large Community Format
+- BGP attribute LARGE_COMMUNITY with an attribute value of 32.
+- RFC 8092 - BGP Large Communities Attribute
+- RFC 8195 - Use of BGP Large Communities
+- Designed for the adoption of 4 octet ASNs defince in RFC 6793 - BGP Support for Four-Octet Autonomous System (AS) Number Space.
+  - The four octet ASNs do not fit into the existing registered BGP Extended Communities.
+- 12 byte value.
+- The BGP Large Community has 3 sections:
+  - Global Administrator:  A four-octet namespace identifier.
+    - This field should be an ASN.
+  - Local Data Part 1:  A four-octect operator-defined value.
+  - Local Data Part 1:  A four-octect operator-defince value.
+- IANA does not manage a registry of BGP Large Communities.  RFC 8195 provides an informational examples and uses of BGP Large
+  Communities based on an ASN:Function:Parameter format.
 
 #### Route-map - Community
 - Set a community for prefixes being advertised to a neighbor.
