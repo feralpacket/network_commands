@@ -3,6 +3,7 @@
 ## BGP Community Manipulation
 
 #### Community Format
+- BGP attribute COMMUNITIES with an attribute value of 8.
 - 32 bit value that can be displayed in 3 different formats.
 - Community decimal number format with a range from 1 to 4,294,967,295.
 - Community decimal in AA:NN format.  AA is 16 bits that represent an Autonomous System Number (ASN).  NN is 16 bits that
@@ -12,6 +13,9 @@
 <br/><br/><br/>
 
 - Well-known communities:
+  - gshut
+    - Hex: 0xFFFF0000 or Decimal:  65535:00
+    - Officially named GRACEFUL_SHUTDOWN.
   - no-export
     - Hex: 0xFFFFFF01 or Decimal: 65535:65281
   - no-advertise
@@ -29,7 +33,20 @@
   communities.  For example, a BGP community of 3356:90 would set the LOCAL_PREF to 90.
 - whois -r whois.radb.net as3356
 
-#### Expanded Community Format
+#### Extended Community Format
+- BGP attribute EXTENDED COMMUNITY with an attribute value of 16.
+- RFC 4360 - BGP Extended Communities Attribute
+- RFC 7153 - IANA Registries for BGP Extended Communities
+- 64 bit value.
+- Extended communities are defined by a Type field.  1 octet is used to define the extended community type.  The Value field
+  contains 7 octets.
+  - Examples:
+    - 0x04 - QoS Marking
+    - 0x05 - CoS Capability
+  - The Type field has values for "Transitive Extended Community Types" and "Non-transitive Extended Community Types".
+- Most extended communities are further defined by a Sub-Type field.  1 octet for the Type, 1 octet for the for the Sub-Type,
+  and 6 octets for the Value.
+- https://www.iana.org/assignments/bgp-extended-communities/bgp-extended-communities.xhtml
 
 #### Large Community Format
 
@@ -91,13 +108,13 @@ router bgp 65536
 
 #### Community-list - Standard Name
 
-#### Community-list - Expanded
+#### Community-list - Extended
 
 #### Extcommunity-list - Global Configuration Mode
 
-#### Extcommunity-list - Standard IP Expanded Community List Configuration Mode
+#### Extcommunity-list - Standard IP Extended Community List Configuration Mode
 
-#### Extcommunity-list - Expanded IP Expanded Community List Configuration Mode
+#### Extcommunity-list - Expanded IP Extended Community List Configuration Mode
 
 #### Large-Community-list - Standard Large Community
 
