@@ -19,7 +19,7 @@
     - Offically named NO_EXPORT_SUBCONFED.
   - Cisco documentation claims "Internet" is a well-known community is several places that is applied to all prefixes by default.
   - RFC 1997 says, "By default, all destinations belong to the general Internet community."
-  - Internet is not listed as a well-known community by IANA.
+  - "Internet" is not listed as a well-known community by IANA.
   - https://www.iana.org/assignments/bgp-well-known-communities/bgp-well-known-communities.xhtml
 
 #### Expanded Community Format
