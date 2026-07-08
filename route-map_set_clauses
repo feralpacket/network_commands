@@ -52,11 +52,30 @@ R1(config-route-map)#set ?
   automatic-tag     Automatically compute TAG value
   clns              OSI summary address
   comm-list         set BGP community list (for deletion)
+  community         set BGP community attribute
+
+      <1-4294967295>  community number
+      aa:nn           community number in aa:nn format
+      gshut           Graceful Shutdown (well-known community)
+      internet        Internet (well-known community)
+      local-AS        Do not send outside local AS (well-known community)
+      no-advertise    Do not advertise to any peer (well-known community)
+      no-export       Do not export to next AS (well-known community)
+      none            No community attribute
+
   dampening         Set BGP route flap dampening parameters
   default           Set default information
   evpn              BGP EVPN policies
   extcomm-list      Set BGP/VPN extended community list (for deletion)
+
   extcommunity      BGP extended community attribute
+      color              Color extended community
+      cost               Cost extended community
+      default-gw         Default gateway extended community
+      rt                 Route Target extended community
+      soo                Site-of-Origin extended community
+      vpn-distinguisher  VPN Distinguisher
+
   global            Set to global routing table
   interface         Output interface
   large-community   BGP large community attribute
