@@ -60,7 +60,7 @@
     - This field should be an ASN.
   - Local Data Part 1:  A four-octect operator-defined value.
   - Local Data Part 1:  A four-octect operator-defince value.
-- IANA does not manage a registry of BGP Large Communities.  RFC 8195 provides an informational examples and uses of BGP Large
+- IANA does not manage a registry of BGP Large Communities.  RFC 8195 provides informational examples and uses of BGP Large
   Communities based on an ASN:Function:Parameter format.
 
 #### Route-map - Community
