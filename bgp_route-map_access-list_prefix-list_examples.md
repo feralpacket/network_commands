@@ -66,10 +66,10 @@
 #### Expanded Community List
 Expanded community lists are used to filter communities using a regular expression. Regular expressions are used to configure patterns to match community attributes. The order for matching using the * or + character is longest construct first. Nested constructs are matched from the outside in. Concatenated constructs are matched beginning at the left side. If a regular expression can match two different parts of an input string, it will match the earliest part first.  Regular expressions can be used only with expanded community lists.
 <br/><br/>
-Standard Community List:  1 - 99
-Expanded Community List:  100 - 500
-Standard Extended Community List:  1 - 99
-Expanded Extended Community List:  100 - 500
+- Standard Community List:  1 - 99
+- Expanded Community List:  100 - 500
+- Standard Extended Community List:  1 - 99
+- Expanded Extended Community List:  100 - 500
 
 ```
 R1(config)# ip community-list expanded BLUE deny 50000:[0-9][0-9]_
