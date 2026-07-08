@@ -9,8 +9,7 @@
   represent a locally defined number.
   - To display communities in the AA:NN format, use the global configuration "ip bgp-community new-format".
 - Community hexadecimal format with a range from 0x00000000 to 0xFFFFFFFFFFFF
-
-
+<br/><br/>
 - Well-known communities:
   - no-export
     - Hex: 0xFFFFFF01 or Decimal: 65535:65281
