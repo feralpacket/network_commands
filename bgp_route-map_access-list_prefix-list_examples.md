@@ -9,6 +9,7 @@
   represent a locally defined number.
   - To display communities in the AA:NN format, use the global configuration "ip bgp-community new-format".
 - Community hexadecimal format with a range from 0x00000000 to 0xFFFFFFFFFFFF
+
 - Well-known communities:
   - no-export
     - Hex: 0xFFFFFF01 or Decimal: 65535:65281
@@ -17,10 +18,15 @@
   - local-as
     - Hex: 0xFFFFFF03 or Decimal: 65535:65283
     - Offically named NO_EXPORT_SUBCONFED.
+
   - Cisco documentation claims "Internet" is a well-known community is several places that is applied to all prefixes by default.
   - RFC 1997 says, "By default, all destinations belong to the general Internet community."
   - "Internet" is not listed as a well-known community by IANA.
   - https://www.iana.org/assignments/bgp-well-known-communities/bgp-well-known-communities.xhtml
+
+- It's common for service providers to allow their customers to set the LOCAL_PREF on the PE routers through the use of BGP
+  communities.  For example, a BGP community of 3356:90 would set the LOCAL_PREF to 90.
+- whois -r whois.radb.net as3356
 
 #### Expanded Community Format
 
