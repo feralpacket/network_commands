@@ -51,8 +51,8 @@
 #### Large Community Format
 
 #### Route-map - Community
-- Set community
-- Replaces any existing communities
+- Set a community for prefixes being advertised to a neighbor.
+- Replaces any existing communities.
 
 ```
 R1(config)# route-map COMMUNITY permit 10
@@ -64,7 +64,8 @@ router bgp 65536
 ```
 
 #### Route-map - Community - Network Statement
-- Set community
+- Set a community for a prefix.
+- Replaces any existing communities.
 
 ```
 R1(config)# route-map COMMUNITY permit 10
@@ -76,9 +77,9 @@ router bgp 65536
 ```
 
 #### Route-map - Community - Standard Access-list
-- Set community
-- Replaces any existing community
-- IP address subnet permit match
+- Set a community for prefixes matching an ACL.
+- Replaces any existing community.
+- IP address subnet permit match.
 
 ```
 R1(config)# access-list 1 permit 198.51.100.0 0.255.255.255
