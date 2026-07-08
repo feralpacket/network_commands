@@ -10,9 +10,12 @@
   - To display communities in the AA:NN format, use the global configuration "ip bgp-community new-format".
 - Community hexadecimal format with a range from 0x00000000 to 0xFFFFFFFFFFFF
 - Well-known communities:
-  - no-export          - Hex: 0xFFFFFF01 or Decimal: 65535:65281
-  - no-advertise       - Hex: 0xFFFFFF02 or Decimal: 65535:65282
-  - local-as           - Hex: 0xFFFFFF03 or Decimal: 65535:65283
+  - no-export
+    - Hex: 0xFFFFFF01 or Decimal: 65535:65281
+  - no-advertise
+    - Hex: 0xFFFFFF02 or Decimal: 65535:65282
+  - local-as
+    - Hex: 0xFFFFFF03 or Decimal: 65535:65283
     - Offically named NO_EXPORT_SUBCONFED.
   - Cisco documentation claims "Internet" is a well-known community is several places that is applied to all prefixes by default.
   - RFC 1992 says, "By default, all destinations belong to the general Internet community."
