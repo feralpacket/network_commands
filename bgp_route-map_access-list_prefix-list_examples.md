@@ -90,7 +90,7 @@ router bgp 65536
 ```
 
 #### Route-map - Community - Standard Access-list
-- Set a community for prefixes matching an ACL.
+- Set a community for prefixes matching an ACL advertised to a neighbor.
 - Replaces any existing community.
 - IP address subnet permit match.
 
