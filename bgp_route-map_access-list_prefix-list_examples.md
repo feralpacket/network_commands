@@ -5,6 +5,7 @@ Define packets based solely on the source network.  Does not include sequence nu
 delete specific entries.
 ```
 permit any                                                 ! Permits all networks
+permit 0.0.0.0 255.255.255.255                             ! Permits all networks
 permit 10.1.0.0 0.0.255.255                                ! Permits all networks in the 10.1.0.0 range
 permit host 192.0.2.1                                      ! Permits only the 192.0.2.1 /32 network
 !
@@ -26,10 +27,18 @@ route.  The destination fileds match against the network mask.
 permit protocol source source-wildcard destination destination-wildcard
 ```
 ```
+permit ip any any                                           ! Permits all networks
+permit ip 0.0.0.0 255.255.255.255 0.0.0.0 255.255.255.255   ! Permits all networks
 permit ip 10.0.0.0 0.0.0.0 255.255.0.0 0.0.0.0              ! Permits only the 10.0.0.0 /16 netowrk
 permit ip 10.0.0.0 0.0.255.0 255.255.255.0 0.0.0.0          ! Permits any 10.0.x.0 network with a /24 prefix length
 permit ip 10.0.0.0 0.0.255.255 255.255.255.0 0.0.0.255      ! Permits any 10.0.0.0 network with a /24 - /32 prefix length
 permit ip 10.0.0.0 0.0.255.255 255.255.255.128 0.0.0.127    ! Permits any 10.0.0.0 network with a /24 - /32 prefix length
+!
+access-list 101 permit ip 192.168.0.0 0.0.0.0 255.255.0.0 0.0.0.0          ! Permits 192.168.0.0 /16, perhaps an aggregate-address
+access-list 101 deny ip 192.168.0.0 0.0.255.255 255.255.0.0 0.0.255.255    ! But denies more specific routes
+!
+access-list 102 permit ip 10.1.0.0 0.0.0.0 255.255.255.0 0.0.0.0           ! Permits 10.1.0.0 /24
+access-list 102 deny ip 10.1.0.0 0.0.255.255 255.255.0.0 0.0.255.255       ! But denies 10.1.0.0 /16 and all other subnets of 10.1.0.0
 ```
 
 ## BGP Community Manipulation
@@ -140,7 +149,7 @@ router bgp 65536
   network 198.51.100.0 mask 255.255.255.0 route-map COMMUNITY
 ```
 
-#### Route-map - Community - Standard Access-list
+#### Route-map - Community - Access-list
 - Set a community for prefixes matching an ACL advertised to a neighbor.
 - Replaces any existing community.
 - IP address subnet permit match.
