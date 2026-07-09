@@ -41,6 +41,16 @@ access-list 102 permit ip 10.1.0.0 0.0.0.0 255.255.255.0 0.0.0.0           ! Per
 access-list 102 deny ip 10.1.0.0 0.0.255.255 255.255.0.0 0.0.255.255       ! But denies 10.1.0.0 /16 and all other subnets of 10.1.0.0
 ```
 
+## Prefix Lists
+```
+ip prefix-list RED deny 0.0.0.0/0                           ! Denies the default route 0.0.0.0/0
+ip prefix-list BLUE permit 172.16.1.0/24                    ! Permits the 172.16.1.0/24 network
+ip prefix-list YELLOW permit 10.0.0.0/8 le 24               ! Permits networks from 10.0.0.0/8 that have a mask length less than or equal to /24
+ip prefix-list PINK deny 10.0.0.0/8 ge 25                   ! Permits networks from 10.0.0.0/8 that have a mask length greater than or equal to /25
+ip prefix-list GREEN permit 0.0.0.0/0 ge 8 le 24            ! Permits any network that have a mask length from /8 to /24
+ip prefix-list ORANGE deny 10.0.0.0/8 le 32                 ! Denies any networks with any mask length from the 10.0.0.0/8 network
+```
+
 ## BGP Community Manipulation
 
 #### Community Format
