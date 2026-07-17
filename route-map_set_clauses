@@ -30,6 +30,12 @@ Commands that Modify Route Attributes During Redistribution into the Target Prot
 | set weight                             | —   | —     | —    | —     | Yes |
 
 
+Cisco IOS IP Routing: Protocol-Independent Command Reference
+ - Chapter:  IP Routing Protocol-Independent Commands: S through T
+ - Lists and explains some of the set commands
+https://www.cisco.com/c/en/us/td/docs/ios/iproute_pi/command/reference/iri_book/iri_pi2.html
+
+
 BGP
  - The use of set clauses in outbound route maps can modify attributes and possibly 
    create routing loops. To avoid this behavior, most set clauses of outbound route 
