@@ -671,7 +671,7 @@ Best Path Algorithm:
            -> neighbor 192.0.2.1 default-originate route-map DEFAULT out
 
         -> A static aggregate route can be redistributed into BGP.  It will be pereferred to a route configured with the 
-           "aggregate-address" command.  If a less specific route is not in the RIB, any traffic will get black-holed.
+           "aggregate-address" command.  If a more specific route is not in the RIB, any traffic will get black-holed.
         -> ip route 10.0.0.0 255.0.0.0 null 0
         -> redistribute static
 
