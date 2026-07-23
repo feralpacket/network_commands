@@ -786,6 +786,15 @@ Best Path Algorithm:
         advertised to other iBGP peers.  This is known as the iBGP split-horizon rule.  The only way to 
         mitigate this is for iBGP peers to be fully meshed, use route reflection, or use confederations.
 
+     -> Cisco does not do sender side loop prevention.  Meaning, Cisco does not look at the AS_PATH for a
+        neighbor's AS and then not include that path in an update that is sent to that neighbor.  Some 
+        vendors can do sender side loop prevention either by default or as a configurable feature.
+     -> The reason why Cisco does not do sender side loop prevention is because of update groups.  Cisco
+        will place BGP neighbors in the same update group.  In this way, the path is associated with the
+        update group.  A single update will be created for the update group instead of generating separate
+        updates for each BGP neighbor.
+     -> If you really want to do sender side loop prevention, BGP outbound policy filters are be configured.
+
      -> AS_SEQUENCE is an AS_PATH attribute that is an ordered list of AS numbers.
 
      -> AS_SET is an AS_PATH attribute that is an unordered list of AS numbers added to an aggregate route.
