@@ -26,6 +26,15 @@ sh platform software stack-mgr switch 3 r0 sdp-counters
 sh platform software stack-mgr switch active R0 sdp-counters
 
 
+! debug stack manager
+debug platform stack-manager { all | rpc | sdp | sim | ssm | trace }
+ - rpc - Stack manager remote procedure call
+ - sdp - Stack Discovery Protocol
+ - sim - Stack information module
+ - ssm - Stack state-machine
+ - trace - traces the stack manager entry and exit debug messages
+
+
 ! verify images
 verify flash:cat9k_iosxe.17.03.05.SPA.bin
 verify /md5 flash:cat9k_iosxe.17.03.05.SPA.bin
