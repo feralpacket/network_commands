@@ -84,6 +84,7 @@ request platform software system shell rp active
 sh platform software fed switch active punt asic-cause brief 
 sh platform software fed switch active punt ios-cause brief
 
+
 ! the hunt for stack port error counters
 ! as of 17.18.4, sh switch stack-port detail doesn't show any error counters
 ! slide 56 of this presentation says the stack ports are now regular interfaces
