@@ -83,3 +83,24 @@ request platform software system shell rp active
 ! punts
 sh platform software fed switch active punt asic-cause brief 
 sh platform software fed switch active punt ios-cause brief
+
+! the hunt for stack port error counters
+! as of 17.18.4, sh switch stack-port detail doesn't show any error counters
+! slide 56 of this presentation says the stack ports are now regular interfaces
+! https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2026/pdf/BRKENS-2504.pdf
+! for the 9350-48U
+! Top Port (External) Po241 - 49 to 52 (ASIC-0)
+! Bottom Port (External) Po242 - 53 to 56 (ASIC-0) 
+! unfortunately, the regular show commands don't display any output for those interfaces
+! however, the show platform commands do
+sh platform software fed switch active port if_id 54 
+! just need to find the correct show platform command(s)
+! this lists the IF_ID of those interfaces in hex
+sh platform software fed switch 1 ifm mappings  
+! this lists the if_id in decimal, plus displays the if_id of the internal port-channels
+sh platform software fed switch active port summary 
+! this command will confirm with the ContextName that you have the correct if_id
+sh platform hardware fed switch active ethernet-controller port-info 53
+! this command displays what looks like interface controller counters
+sh platform hardware fed switch active ethernet-controller port-info 53
+! the search continues . . .
