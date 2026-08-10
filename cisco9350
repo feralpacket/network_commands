@@ -102,5 +102,5 @@ sh platform software fed switch active port summary
 ! this command will confirm with the ContextName that you have the correct if_id
 sh platform hardware fed switch active ethernet-controller port-info 53
 ! this command displays what looks like interface controller counters
-sh platform hardware fed switch active ethernet-controller port-info 53
+sh platform hardware fed switch active ethernet-controller link-status 53
 ! the search continues . . .
