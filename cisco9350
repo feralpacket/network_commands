@@ -78,3 +78,8 @@ conf t
 platform shell
 end
 request platform software system shell rp active
+
+
+! punts
+sh platform software fed switch active punt asic-cause brief 
+sh platform software fed switch active punt ios-cause brief
