@@ -90,7 +90,8 @@ sh platform software fed switch active punt ios-cause brief
 ! https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2026/pdf/BRKENS-2504.pdf
 ! for the 9350-48U
 ! Top Port (External) Po241 - 49 to 52 (ASIC-0)
-! Bottom Port (External) Po242 - 53 to 56 (ASIC-0) 
+! Bottom Port (External) Po242 - 53 to 56 (ASIC-0)
+! you'll see these interfaces in log messages when the switch is doing firmware / software upgrades
 ! unfortunately, the regular show commands don't display any output for those interfaces
 ! however, the show platform commands do
 sh platform software fed switch active port if_id 54 
