@@ -108,3 +108,41 @@ sh platform hardware fed switch active ethernet-controller port-info 53
 ! this command displays what looks like interface controller counters
 sh platform hardware fed switch active ethernet-controller link-status 53
 ! the search continues . . .
+! hey dummy, sh tech | in ------------------ show 
+
+------------------ show platform software cpm switch 1 BP active control-info ------------------
+------------------ show platform software cpm switch 1 BP active counters interface isis ------------------
+------------------ show platform software cpm switch 1 BP active counters interface dad ------------------
+------------------ show platform software cpm switch 1 BP active counters interface lacp ------------------
+------------------ show platform software cpm switch 1 BP active counters drop ------------------
+------------------ show platform software cpm switch 1 BP active counters punt-inject ------------------
+------------------ show platform software cpm switch 1 BP active ipc brief ------------------
+------------------ show platform software cpm switch 1 BP active ipc detail ------------------
+------------------ show platform software cpm switch 1 BP active resource ------------------
+------------------ show platform software process database cluster-manager switch 1 BP active details BP_OPER_DB "table tbl_distr_stack_oper_node" content ------------------
+------------------ show platform software process database cluster-manager switch 1 BP active details BP_OPER_DB "table tbl_distr_stack_oper_node_local_info" content ------------------
+------------------ show platform software process database cluster-manager switch 1 BP active details BP_OPER_DB "table tbl_bss_stack_node_info" content ------------------
+------------------ show platform software process database cluster-manager switch 1 BP active details BP_OPER_DB "table tbl_bss_stack_info" content ------------------
+------------------ show platform software process database cluster-manager switch 1 BP active details BP_CONFIG_DB "table tbl_distr_stack_nodes" content ------------------
+------------------ show platform software process database cluster-manager switch 1 BP active details BP_CONFIG_DB "table tbl_distr_stack_node_local_info" content ------------------
+------------------ show platform software fed switch 1 svl control-info ------------------
+------------------ show platform software fed switch 1 svl asic-resources ------------------
+------------------ show platform software fed switch 1 ifm mapping ------------------
+------------------ show platform software object-manager switch 1 F0 statistics ------------------
+------------------ show platform software object-manager switch 1 F0 pending-issue-update ------------------
+------------------ show platform software object-manager switch 1 F0 error-object ------------------
+------------------ show platform hardware fed switch 1 fwd-asic insight stack_local_config() ------------------
+------------------ show platform hardware fed switch 1 fwd-asic insight stack_local() ------------------
+------------------ show platform hardware fed switch 1 fwd-asic insight stack_port_counters_tx() ------------------
+------------------ show platform hardware fed switch 1 fwd-asic insight stack_port_counters_rx() ------------------
+------------------ show platform hardware fed switch 1 fwd-asic insight stack_remote_config() ------------------
+------------------ show platform hardware fed switch 1 fwd-asic insight stack_remote_info() ------------------
+------------------ show platform hardware fed switch 1 fwd-asic version ------------------
+------------------ show platform hardware fed switch 1 npu slot 1 stackport 0 asic 0 link_status ------------------
+------------------ show platform hardware fed switch 1 npu slot 1 stackport 0 asic 0 dsc_dump ------------------
+------------------ show platform hardware fed switch 1 npu slot 1 stackport 1 asic 0 link_status ------------------
+------------------ show platform hardware fed switch 1 npu slot 1 stackport 1 asic 0 dsc_dump ------------------
+------------------ show platform hardware fed switch 1 npu slot 1 stackport 0 asic 1 link_status ------------------
+------------------ show platform hardware fed switch 1 npu slot 1 stackport 0 asic 1 dsc_dump ------------------
+------------------ show platform hardware fed switch 1 npu slot 1 stackport 1 asic 1 link_status ------------------
+------------------ show platform hardware fed switch 1 npu slot 1 stackport 1 asic 1 dsc_dump ------------------
