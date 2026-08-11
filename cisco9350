@@ -59,6 +59,8 @@ int gi0/0
 !
 no ipv6 nd cache expire refresh
 no ipv6 unicast-routing
+
+
 !
 ! this thing is still enabled by default
 no ip forward-protocol nd
