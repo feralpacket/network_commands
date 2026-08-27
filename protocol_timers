@@ -3,6 +3,7 @@ Default network protocol and network feature timers.
 ! Spanning Tree
  - BPDU Timer
    - max-age:  20 sec
+   - forward-delay:  15 sec
    - hello:  2 sec
 
  - BPDU Type 2 Timer ( RSTP )
