@@ -185,5 +185,9 @@ Default network protocol and network feature timers.
  - hold time:  180 sec
 
 
+! LLDP
+ - "LLDP Timer":  30 sec
+
+
 ! Error Disable Recovery
  - default:  300 sec
