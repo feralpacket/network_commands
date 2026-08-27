@@ -187,6 +187,11 @@ Default network protocol and network feature timers.
 
 ! LLDP
  - "LLDP Timer":  30 sec
+   - frequency in sending updates
+ - holdtime:  120 sec
+   - amount of time a receiving device should hold the information before discarding it
+ - reinitialization delay:  2 sec
+   - delay time for LLDP to initialize on an interface
 
 
 ! Error Disable Recovery
