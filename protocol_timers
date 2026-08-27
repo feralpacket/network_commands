@@ -1,4 +1,6 @@
-Spanning Tree
+Default network protocol and network feature timers.
+
+! Spanning Tree
  - BPDU Timer
    - max-age:  20 sec
    - hello:  2 sec
@@ -18,23 +20,50 @@ Spanning Tree
      - 50 sec ( 20 + 15 + 15 )
 
 
-CAM Table
+! CAM Table
  - aging:  300 sec
  - BPDU with TC bit set:  forwarding time ( 15 sec )
 
 
-GRE Tunnel
+! GRE Tunnel
  - keepalive:  10 sec
 
 
-RIP
+! BGP timers
+ - advertisement
+   - determines how quickly route updates propogate
+   - eBGP sessions not in a VRF:  30 sec
+   - eBGP sessions in a VRF:  0 sec
+   - iBGP sessions:  0 sec
+ - keepalive:  60 sec
+   - determines how quickly software failures are detected
+ - hold time:  180 sec
+   - determines how quickly software failures are detected
+ - retry time:  120 sec
+   - determines how quickly a failed connection is retried
+ - scan time:  60 sec
+   - the BGP scanner
+   - validates next-hop addresses are still reachable
+   - checks conditional-advertisements
+   - imports routes into a VRF
+   - exports routes from a VRF
+   - the BGP Event-Based VPN Import feature is event driven, when a BGP path changes
+     - applies when a path is imported from a BGP VPN table into a BGP VRF table
+     - configuration changes, such as adding imported route-targets to a VRF are still handled by the BGP scanner
+ - trigger delay:  5 sec
+   - BGP next-hop tracking
+ - update delay:  120 sec
+   - time from when a neighbor is established until the best path algorithm is run and updates are sent
+
+
+! RIP
  - update timer:  30 sec
  - invalid timer:  180 sec
  - holddown timer:  180 sec
  - flush timer:  240 sec
 
 
-EIGRP
+! EIGRP
  - hello:
    - T1 ( or slower ):  60 sec
    - all other network types:  5 sec
@@ -43,7 +72,7 @@ EIGRP
    - all other network types:  15 sec
 
 
-OSPF
+! OSPF
  - Hello Interval
    - Broadcast networks:  10 sec
    - Non-broadcast networks:  30 sec
@@ -59,7 +88,7 @@ OSPF
    - ip ospf hello-interval 1
 
 
-OSPF Network Types
+! OSPF Network Types
  - Broadcast
    - hello:  10 sec
    - dead-interval:  40 sec
@@ -77,7 +106,7 @@ OSPF Network Types
    - dead-interval:  120 sec
 
 
-OSPF LSA Timers
+! OSPF LSA Timers
  - lsa-group
    - allows more LSAs to be grouped before being forwarded
    - 240 sec
@@ -97,12 +126,12 @@ OSPF LSA Timers
    - 600 sec
 
 
-LDP
+! LDP
  - hello interval:  5 sec
  - hold interval:  15 sec
 
 
-IGMPv2
+! IGMPv2
  - query interval:  60 sec
    - there are lots of references to 125 sec per the RFC
  - query response interval:
@@ -112,16 +141,16 @@ IGMPv2
  - IGMP querier timeout:  120 sec
 
 
-PIM
+! PIM
  - hello message:  30 sec
  - hold time:  90 sec
 
 
-Auto-RP
+! Auto-RP
  - 
 
 
-BSR
+! BSR
  - BS_Period:  60 sec
  - BS_Timeout:  130 sec
  - BS_Min_Interval:  10 sec
@@ -132,12 +161,12 @@ BSR
  - C_RP_Adv_Backoff:  
 
 
-HSRP
+! HSRP
  - hello:  3 sec
  - hold time:  10 sec
 
 
-VRRP
+! VRRP
  - advertisement interval:  1 sec
  - master down interval:  3 X advertisement interval + skew time
  - skew time
@@ -146,15 +175,15 @@ VRRP
    - 0.60 sec ( with default priority )
 
 
-GLBP
+! GLBP
  - hello:  3 sec
  - hold time:  10 sec
 
 
-CDP
+! CDP
  - "CDP Timer":  60 sec
  - hold time:  180 sec
 
 
-Error Disable Recovery
+! Error Disable Recovery
  - default:  300 sec
