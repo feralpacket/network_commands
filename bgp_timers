@@ -59,6 +59,11 @@
    - checks all validity and reachability of the NEXT_HOP attribute for a prefixes
    - performs conditional advertisement and route injection
    - imports new routes to the BGP table from the RIB with the network and redistribute commands
+   - imports routes into a VRF
+   - exports routes from a VRF
+   - the BGP Event-Based VPN Import feature is event driven, when a BGP path changes
+     - applies when a path is imported from a BGP VPN table into a BGP VRF table
+     - configuration changes, such as adding imported route-targets to a VRF are still handled by the BGP scanner
    - performs route dampening
    - the scan time is set to the default if BGP Next Hop Tracking (NHT) is configured
    - bgp scan-time 5
