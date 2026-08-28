@@ -16,15 +16,15 @@ http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-2
    the NEXT_HOP.
  - Entry3 is then compared and selected as the best path over entry2 because it is external.
 
- - The order in which routes are received can impact best path decisions and can have non-deterministic results.  The attribute 
+ - The order in which routes are received can impact best path decisions and can have non-deterministic results.  The attribute
    MULTI_EXIT_DISC (MED) is the most susceptible to this problem, mostly because by default, routes without MED are preferred to
    routes with MED and MED is not compared when the same route is received from different AS.
- - If the current best path is selected because it is the oldest, that path is non-deterministic and will change with a route flap 
+ - If the current best path is selected because it is the oldest, that path is non-deterministic and will change with a route flap
    or maintenance.
  - The configurations options available to modify the best path algoritm have results that are situational and can change
    depending on the environment and failure scenarios.  They are used to change non-deterministic results, especially during
    failure scenarios, so that deterministic decisions are returned.  Some of the configurations options can have opposite results,
-   depending on the network architecture.  The configiration "bgp always-compare-med" can introduce route oscillation conditions 
+   depending on the network architecture.  The configiration "bgp always-compare-med" can introduce route oscillation conditions
    into the network.  But "bgp always-compare-med" can also be used to prevent route oscillations.  Your mileage may very.
 
 
