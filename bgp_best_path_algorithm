@@ -485,12 +485,12 @@ Best Path Algorithm:
 
 
  0b. BGP Persistence
+     -> Non-stale paths are preferred over stale paths.
      -> Also known as Long Lived Graceful Restart (LLGR).
      -> Retain routes that are learned from BGP neighbors even when the neighbor session is down.
      -> When a BGP neighbor goes down, paths are marked as stale.  In the output of "show ip bgp vpnv4 all", paths
         have the status of "L - long-lived-stale-path".  Or in the output of "show ip bgp vpnv4 all 192.0.2.0/24",
         paths include the status "long-lived-stale".
-     -> Non-stale paths are preferred over stale paths.
 
      -> BGP Persistence uses the following well-known communities:
         -> LLGR_STALE (0xFFFF0006 or 65535:6)
