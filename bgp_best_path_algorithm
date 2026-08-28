@@ -1431,10 +1431,10 @@ Best Path Algorithm:
          isn't necessarily the literal oldest path that is always selected, but rather the oldest best path.
       -> Locally significant to the router (Loc-RIB).
 
-      -> For external paths, the BGP best path selection rarely goes beyond this step.
-
       -> If the current best path is selected because it is the oldest, that path is non-deterministic and will change with
          a route flap or maintenance.
+
+      -> For external paths, the BGP best path selection rarely goes beyond this step.
 
       -> This step is skipped if any of the following are true:
          -> Forcing BGP to compare router-ids.
