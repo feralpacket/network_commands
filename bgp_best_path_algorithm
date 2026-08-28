@@ -1034,12 +1034,12 @@ Best Path Algorithm:
         MED would be considered to have a value of infinity, 4294967295.  This ambiguity was later fixed in RFC 4271.  Routes
         without MED are considered to have the lowest possible value, 0.
      -> Used to indicate a preferred entry point into the local AS to a neighboring AS when there are multiple paths
-        between the two AS.  
-     -> Compared only if the first AS in the AS_SEQUENCE is the same for multiple paths.
-     -> MED advertised by an AS is seen only by their directly connected neighboring AS and are not passed on to other AS,
-        because the attribute is non-transitive.
+        between the two AS.
      -> MED is only used to influence traffic between two directly connected AS.  To influence route preferences beyond the
         neighboring AS, the AS_PATH must be manipulated.
+     -> MED advertised by an AS is seen only by their directly connected neighboring AS and are not passed on to other AS,
+        because the attribute is non-transitive.
+     -> Compared only if the first AS in the AS_SEQUENCE is the same for multiple paths.
      -> MED is sent to iBGP peers by default.
 
      -> Not everything in an RFC gets implemented.
@@ -1086,9 +1086,9 @@ Best Path Algorithm:
            is compared.  A second group from a different AS is compared seperately.  Then the winner of the first group is 
            compared with the winner of the second group using the best path algorithm.  Since the winner of the first group has 
            a different AS than the winner from the second group, MED will not be compared.
-        -> MED is only compared against the currently existing best path, not against all alternative paths stored in the 
-           Loc-RIB. Since paths are stored in the order they are received in the BGP table, this order can cause variations in 
-           the outcome of the MED comparison, leading to non-deterministic best path selection.
+        -> By default, MED is only compared against the currently existing best path, not against all alternative paths stored
+           in the Loc-RIB. Since paths are stored in the order they are received in the BGP table, this order can cause 
+           variations in the outcome of the MED comparison, leading to non-deterministic best path selection.
         -> To compare MED between two different groups, two different AS, bgp always-compare-med must also be configured.
         -> Compare routes when choosing paths to confederation-interior destinations.
         -> Cisco recommends enabling bgp deterministic-med.
