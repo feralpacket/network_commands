@@ -1433,6 +1433,9 @@ Best Path Algorithm:
 
       -> For external paths, the BGP best path selection rarely goes beyond this step.
 
+      -> If the current best path is selected because it is the oldest, that path is non-deterministic and will change with
+         a route flap or maintenance.
+
       -> This step is skipped if any of the following are true:
          -> Forcing BGP to compare router-ids.
          -> The router-id is the same for multiple paths.
