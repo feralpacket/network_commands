@@ -795,7 +795,7 @@ Best Path Algorithm:
         will place BGP neighbors in the same update group.  In this way, the path is associated with the
         update group.  A single update will be created for the update group instead of generating separate
         updates for each BGP neighbor.
-     -> If you really want to do sender side loop prevention, BGP outbound policy filters are be configured.
+     -> If you really want to do sender side loop prevention, BGP outbound policy filters should be configured.
 
      -> AS_SEQUENCE is an AS_PATH attribute that is an ordered list of AS numbers.
 
