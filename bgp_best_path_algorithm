@@ -798,7 +798,7 @@ Best Path Algorithm:
      -> If you really want to do sender side loop prevention, BGP outbound policy filters should be configured.
      -> Note:  Cisco NX-OS and IOS XR do sender side loop prevention by default.
                With NX-OS, this can be disabled with "disable-peer-as-check".
-               Wiht IOS XR, this can be disabled with "as-path-loopcheck out disable".
+               With IOS XR, this can be disabled with "as-path-loopcheck out disable".
 
      -> AS_SEQUENCE is an AS_PATH attribute that is an ordered list of AS numbers.
 
