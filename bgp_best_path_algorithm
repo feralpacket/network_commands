@@ -677,6 +677,13 @@ Best Path Algorithm:
         -> ip route 10.0.0.0 255.0.0.0 null 0
         -> redistribute static
 
+        -> When "auto-summary" is enabled, routes injected into BGP via redistribution are summarized on a classful
+           boundary.
+           		Class	Address Range					Standard Mask
+           		A		1.0.0.0 to 126.0.0.0			255.0.0.0 or /8
+           		B		128.1.0.0 to 191.254.0.0		255.255.0.0 or /16
+           		C		192.0.1.0 to 223.255.254.0		255.255.255.0 or /24
+
      -> "aggregate-address" command
         -> Creates an aggregate route, but the more specific routes are still advertised.
         -> A longer prefix that matches the aggregate route must exist in the RIB.
