@@ -677,8 +677,7 @@ Best Path Algorithm:
         -> ip route 10.0.0.0 255.0.0.0 null 0
         -> redistribute static
 
-        -> When "auto-summary" is enabled, routes injected into BGP via redistribution are summarized on a classful
-           boundary.
+        -> When "auto-summary" is enabled, routes injected into BGP via redistribution are summarized on a classful boundary.
            		Class	Address Range					Standard Mask
            		A		1.0.0.0 to 126.0.0.0			255.0.0.0 or /8
            		B		128.1.0.0 to 191.254.0.0		255.255.0.0 or /16
