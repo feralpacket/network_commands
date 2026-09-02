@@ -53,7 +53,7 @@ Generally, but not always:
           250			- NHRP
           250           - OMP on vEDGE platforms
           251           - OMP on cEDGE platforms
-	      255			- Unknown / Unreachable
+	      255			- Unknown / Unreachable ( not installed into the routing table )
 
     -> Routing Metrics / Route ( Path ) Types
        -> Generally, lower is better
