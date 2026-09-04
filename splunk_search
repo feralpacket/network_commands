@@ -76,3 +76,10 @@ eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="SECURITY_VIOLATION" 
 
 ! SFP RX high or low power alarms
 THRESHOLD_VIOLATION | regex "^(?:[^ \n]* ){6}(?P<interface>[^:]+):\s+(?P<Alarm>[^;]+)" | stats count by host, interface, Alarm
+
+! spanning-tree events
+SPANTREE | fields _time, host, facility, mnemonic, src_interface, dest_interface, src_vlan, src_mac, spanning_tree_instance, action | table _time, host, facility, mnemonic, src_interface, dest_interface, src_vlan, src_mac, spanning_tree_instance, action | stats count by host, src_interface, mnemonic
+
+! switch stack events
+STACKMGR NOT KA_MISSED | fields _time, host, facility, mnemonic, switch, message_text | stats count by host, mnemonic, message_text | sort -count
+
