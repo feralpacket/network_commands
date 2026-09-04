@@ -33,7 +33,7 @@ https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release
 | Internal route redistribution				  | Disabled.	|
 | IP prefix list							          | None defined.	|
 | Multi exit discriminator (MED)			  | Always compare: Disabled. Does not compare MEDs for paths from neighbors in different autonomous systems.	|
-|											                  | Best path compare: Disabled.	|
+|											                  | **Best path compare: Disabled. (??)**	|
 |											                  | MED missing as worst path: Disabled.	|
 |											                  | Deterministic MED comparison is disabled.	|
 | Neighbor									            | Advertisement interval: 30 seconds for external peers; 5 seconds for internal peers.	|
