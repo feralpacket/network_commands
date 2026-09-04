@@ -8,7 +8,8 @@ Table 2. Default BGP Configuration
 | Aggregate address							| Disabled: None defined.	|
 | AS path access list						| None defined.	|
 | Auto summary								| Disabled.	|
-| Best path									| * The router considers as-path in choosing a route and does not compare similar routes from external BGP peers.	* Compare router ID: Disabled.	|
+| Best path									| + The router considers as-path in choosing a route and does not compare similar routes from external BGP peers.	
+                              + Compare router ID: Disabled.	|
 | BGP community list						| Number: None defined. When you permit a value for the community number, the list defaults to an implicit deny for everything else that has not been permitted.	|
 |											| Format: Cisco default format (32-bit number).	
 | BGP confederation identifier/peers		| Identifier: None configured.	|
