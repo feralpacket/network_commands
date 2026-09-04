@@ -1,4 +1,4 @@
-Configuring BGP | BGP Default Configuration
+## Configuring BGP | BGP Default Configuration
 
 https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/17-18/configuration_guide/rtng/b_1718_rtng_9500_cg/configuring_bgp.html#default-bgp-configuration
 
