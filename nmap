@@ -36,3 +36,7 @@ for /L %i in (100,1,110) do (
 
 ! path MTU
 nmap --script scripts\path-mtu 192.0.2.1
+
+! NTP
+! script is partially broken, only returns the "receivee time stamp" line
+nmap -sU -sV -p 123 --script .\scripts\ntp-info 192.0.2.1
