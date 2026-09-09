@@ -390,6 +390,10 @@ certutil -hashfile cat9k_iosxe.17.03.06.SPA.bin
 certutil -hashfile cat9k_iosxe.17.03.06.SPA.bin MD5
 
 
+! SHA256 hash of a file
+certutil -hashfile cat9k_iosxe.17.15.06.SPA.bin SHA512
+
+
 ! drives and drive space
 net use
 
