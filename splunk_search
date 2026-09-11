@@ -9,6 +9,7 @@ eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“UPDOWN” host=“
 eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“SECURITY_VIOLATION”
 eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“SECURITY_VIOLATION” | stats count by host
 eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic=“SECURITY_VIOLATION” host=“192.0.2.1”
+eventtype=cisco_ios product IN (IOS) index IN (*) mnemonic="SECURITY_VIOLATION" | stats count by host, src_interface, message_text | rex field=message_text mode=sed "s/is seen.AuditSessionID\s+.*//g" | sort -count
 
 ! Search:
 eventtype=cisco_ios product IN (IOS) index IN (*) “Smart Install Client feature is enabled”
