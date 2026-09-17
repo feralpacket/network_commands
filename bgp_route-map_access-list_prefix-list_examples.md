@@ -99,6 +99,9 @@ ip prefix-list ORANGE deny 10.0.0.0/8 le 32                 ! Denies any network
   - The Type field has values defined for "Transitive Extended Community Types" and "Non-transitive Extended Community Types".
 - Most extended communities are further defined by a Sub-Type field.  1 octet for the Type, 1 octet for the for the Sub-Type,
   and 6 octets for the Value.
+  - Examples:
+    - 0x00 0x04 - Transitive Link Bandwidth
+    - 0x40 0x04 - Non-transitive Link Bandwidth
 - https://www.iana.org/assignments/bgp-extended-communities/bgp-extended-communities.xhtml
 
 #### Large Community Format
