@@ -1364,6 +1364,10 @@ Best Path Algorithm:
                   -> bgp dmzlink-bw
                   -> neighbor 192.0.2.1 dmzlink-bw
                   -> neighbor 192.0.2.1 send-community both
+               -> With IOS XR, unequal cost multipath (UCMP) load-balancing is possible with both iBGP and eBGP using the
+                  bandwidth extended community.  UCMP can be load-balanced across 256 different paths, called 256-way UCMP.
+                  -> On MPLS networks, this is restricted to 64-way UCMP.
+                  -> TODO
             -> Or "bgp bestpath igp-metric ignore" is configured.
        -> "extended cost community", if configured for EIGRP MPLS VPN topologies.
 
