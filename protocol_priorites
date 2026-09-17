@@ -330,6 +330,10 @@ Open Shortest Path First (OSPF):
          -> R1(config)# router ospf 1
          -> R1(config-router)# no compatible rfc1587
      - R1(config-router)# no compatible rfc1583
+ - With IOS XR, unequal cost multipath (UCMP) is possible with OSPF.
+    -> router ospf 1
+    ->   ucmp variance 134
+    - TODO
 
 
  - Designated Router (DR) / Backup Designated Router (BDR) Election
