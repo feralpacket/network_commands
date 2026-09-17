@@ -1367,6 +1367,8 @@ Best Path Algorithm:
                -> With IOS XR, unequal cost multipath (UCMP) load-balancing is possible with both iBGP and eBGP using the
                   bandwidth extended community.  UCMP can be load-balanced across 256 different paths, called 256-way UCMP.
                   -> On MPLS networks, this is restricted to 64-way UCMP.
+                  -> 0x00 0x04 - Transitive Link Bandwidth
+                  -> 0x40 0x04 - Non-transitive Link Bandwidth
                   -> TODO
             -> Or "bgp bestpath igp-metric ignore" is configured.
        -> "extended cost community", if configured for EIGRP MPLS VPN topologies.
