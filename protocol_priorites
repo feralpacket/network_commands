@@ -482,6 +482,12 @@ Border Gateway Protocol (BGP):
          -> Highest IP address on a non-loopback interface (that is active)
 
 
+IOS XR Unequal Cost Multipath (UCMP)
+ - Traditionally, EIGRP has been the only IGP that supports UCMP feature, but in IOS-XR UCMP is supported for all IGPs, static routing, and BGP.
+ - BGP UCMP using the Link Bandwidth extended community and can be used with both eBGP and iBGP paths.
+ - TODO
+
+
 Multicast
  - Multiple Rendezvous Point (RP) candidate
      -> Lowest priority selected
