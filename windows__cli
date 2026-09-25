@@ -290,13 +290,19 @@ get-childitem env:
 gci env:
 gci env: -name
 ls env:
+wmic environment list full
 [Environment]::GetEnvironmentVariables()
 [System.Environment]::GetEnvironmentVariables()
  - GetEnvironmentVariables with an "s"
+reg query "HKCU\Environment"
+reg query "HKLM\System\CurrentControlSet\Control\Session Manager\Environment"
 
 
 ! path
+"%path%"
 echo %path%
+echo %path:;=&echo.%
+@for %x in ("%path:;=" "%") do @echo(%~x
 $env:path
 $env:path -split ';'
 $env:path -replace ';', "`n"
@@ -305,9 +311,11 @@ get-childitem env:path | select-object *
 (get-childitem env:path).value
 [System.Environment]::GetEnvironmentVariable('PATH')
  - GetEnvironmentVariable without the "s"
+reg query "HKLM\System\CurrentControlSet\Control\Session Manager\Environment" -v Path
 
 
 ! executable file extensions
+echo %pathext%
 $env:pathext
 
 
