@@ -1,0 +1,17 @@
+! Commands TAC had us run
+! Please collect the following read-only outputs from the active controller:
+show tech wireless
+show redundancy
+show redundancy states
+show chassis
+test wireless redundancy rping
+show platform software rif-mgr chassis active R0 rmi-connection-details
+show platform software rif-mgr chassis standby R0 rmi-connection-details
+
+
+! From the recovery-mode controller, please collect:
+show tech wireless
+show redundancy
+show redundancy states
+show chassis
+test wireless redundancy rping
