@@ -290,6 +290,7 @@ get-childitem env:
 [System.Environment]::GetEnvironmentVariables()
  - GetEnvironmentVariables with an "s"
 
+
 ! path
 echo %path%
 $env:path
