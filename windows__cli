@@ -285,7 +285,11 @@ invoke-command -scriptblock {ipconfig /all}
 
 ! environment variables
 set
+dir env:
 get-childitem env:
+gci env:
+gci env: -name
+ls env:
 [Environment]::GetEnvironmentVariables()
 [System.Environment]::GetEnvironmentVariables()
  - GetEnvironmentVariables with an "s"
@@ -301,6 +305,10 @@ get-childitem env:path | select-object *
 (get-childitem env:path).value
 [System.Environment]::GetEnvironmentVariable('PATH')
  - GetEnvironmentVariable without the "s"
+
+
+! executable file extensions
+$env:pathext
 
 
 ! active directory
