@@ -132,6 +132,7 @@ ipconfig /displaydns
 ipconfig /registerdns
 
 ! Are all of the DCHP scopes configured for failover?  Lists those that are not.
+! Scopes will be listed if the scope names do not match for some reason.
 $DHCP01 = Get-DhcpServerv4Scope -ComputerName feraldhcp01
 $DHCP02 = Get-DhcpServerv4Scope -ComputerName feraldhcp02
 $DHCP01 | Where {$_.Name -notin $DHCP02.Name}
