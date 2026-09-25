@@ -311,6 +311,7 @@ get-childitem env:path | select-object *
 (get-childitem env:path).value
 [System.Environment]::GetEnvironmentVariable('PATH')
  - GetEnvironmentVariable without the "s"
+reg query "HKCU\Environment" -v Path
 reg query "HKLM\System\CurrentControlSet\Control\Session Manager\Environment" -v Path
 
 
