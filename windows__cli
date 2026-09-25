@@ -15,6 +15,8 @@ echo %computername%
 $env:COMPUTERNAME
 get-ciminstance -classname Win32_ComputerSystem
  - computer model number
+get-wmiobject -class win32_bios | format-list -property *
+ - manufacturer and serial number
 systeminfo
 systeminfo | findstr "System"
  - manufacturer and computer model number
@@ -294,6 +296,8 @@ wmic environment list full
 [Environment]::GetEnvironmentVariables()
 [System.Environment]::GetEnvironmentVariables()
  - GetEnvironmentVariables with an "s"
+Get-CimInstance -ClassName Win32_Environment
+get-wmiobject Win32_Environment
 reg query "HKCU\Environment"
 reg query "HKLM\System\CurrentControlSet\Control\Session Manager\Environment"
 
@@ -311,6 +315,8 @@ get-childitem env:path | select-object *
 (get-childitem env:path).value
 [System.Environment]::GetEnvironmentVariable('PATH')
  - GetEnvironmentVariable without the "s"
+Get-CimInstance -ClassName Win32_Environment -filter 'Name="Path"'
+get-wmiobject Win32_Environment -filter 'Name="Path"'
 reg query "HKCU\Environment" -v Path
 reg query "HKLM\System\CurrentControlSet\Control\Session Manager\Environment" -v Path
 
