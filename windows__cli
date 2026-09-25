@@ -286,7 +286,9 @@ invoke-command -scriptblock {ipconfig /all}
 ! environment variables
 set
 get-childitem env:
-
+[Environment]::GetEnvironmentVariables()
+[System.Environment]::GetEnvironmentVariables()
+ - GetEnvironmentVariables with an "s"
 
 ! path
 echo %path%
@@ -297,6 +299,7 @@ get-childitem env:path | format-list *
 get-childitem env:path | select-object *
 (get-childitem env:path).value
 [System.Environment]::GetEnvironmentVariable('PATH')
+ - GetEnvironmentVariable without the "s"
 
 
 ! active directory
