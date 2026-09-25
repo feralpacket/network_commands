@@ -320,6 +320,14 @@ echo %pathext%
 $env:pathext
 
 
+! list executable(s) and their path
+where ping
+for %I in (ping.exe) do echo %~$PATH:I
+get-command ping
+(get-command ping).path
+gcm net* -commandtype application
+
+
 ! active directory
 echo %logonserver%
 get-addomain
