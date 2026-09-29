@@ -480,3 +480,11 @@ select nodeid, caption, r.neighbors.protocolname, r.neighbors.protocolstatusdesc
 from orion.routing.router as r
 
 where r.neighbors.protocolname like 'BGP' and r.neighbors.protocolstatusdescription not like 'Established'
+
+
+! failed logins
+select nodecaption, agentip, loginstatus, systemoid, node_type, site
+FROM ncm.nodes as n
+
+where n.loginstatus not like 'Login OK'
+order by n.nodecaption
