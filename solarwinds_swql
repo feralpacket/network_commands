@@ -484,6 +484,7 @@ where r.neighbors.protocolname like 'BGP' and r.neighbors.protocolstatusdescript
 
 ! failed logins
 select nodecaption, agentip, loginstatus, systemoid, node_type, site
+FROM ncm.nodes as n
 
 where n.loginstatus not like 'Login OK'
 order by n.nodecaption
@@ -509,5 +510,5 @@ where n.loginstatus not like 'Login OK'
    or n.site like 'Datacenter Site 2'
    or n.site like 'Datacenter DR' )
 order by n.nodecaption
-FROM ncm.nodes as n
+
 
