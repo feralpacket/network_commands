@@ -484,6 +484,28 @@ where r.neighbors.protocolname like 'BGP' and r.neighbors.protocolstatusdescript
 
 ! failed logins
 select nodecaption, agentip, loginstatus, systemoid, node_type, site
+
+
+! campus login failures
+select nodecaption as [Node Caption], agentip as [IP Address], loginstatus as [Login Status], site as [Site], node_type as [Node Type]
+FROM ncm.nodes as n
+
+where n.loginstatus not like 'Login OK'
+   and ( n.node_type like 'MDF'
+   or n.node_type like 'IDF' )
+order by n.nodecaption
+
+
+! data center login failures
+select nodecaption as [Node Caption], agentip as [IP Address], loginstatus as [Login Status], site as [Site], node_type as [Node Type]
+FROM ncm.nodes as n
+
+where n.loginstatus not like 'Login OK'
+   and n.node_type not like 'WLC'
+   and ( n.site like 'Datacenter Site 1'
+   or n.site like 'Datacenter Site 2'
+   or n.site like 'Datacenter DR' )
+order by n.nodecaption
 FROM ncm.nodes as n
 
 where n.loginstatus not like 'Login OK'
