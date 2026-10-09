@@ -941,6 +941,28 @@ Best Path Algorithm:
         -> Can be used to ensure routing attributes are not included in the aggregate route that would cause it to be dropped.
            Such as omitting an AS from the AS_SET that would be dropped by a receiving router.
 
+     -> ip as-path access-list 1 permit _65000_
+     -> neighbor 192.0.2.1 filter-list 1 in
+     -> route-map ALLOW_AS65000 permit 10
+     ->   match as-path 1
+     -> neighbor 192.0.2.1 route-map ALLOW_AS65000 in
+        -> Allow prefixes that have passed through AS 65000.
+
+     -> ip as-path access-list 1 deny _65000_
+     -> ip as-path access-list 1 permit .*
+     -> neighbor 192.0.2.1 filter-list 1 in
+     -> route-map DENY_AS65000 permit 10
+     ->   match as-path 1
+     -> neighbor 192.0.2.1 route-map DENY_AS65000 in
+        -> Deny prefixes that have passed through AS 65000.  Permit all other prefixes.
+
+     -> ip as-path access-list 1 permit _6500[12]_
+     -> neighbor 192.0.2.1 filter-list 1 in
+     -> route-map ALLOW_AS6500[12] permit 10
+     ->   match as-path 1
+     -> neighbor 192.0.2.1 route-map ALLOW_AS6500[12] in
+        -> Allow prefixes that have passed through AS 65001 or AS 65002.
+
      -> ip as-path access-list 1 permit ^$
      -> neighbor 192.0.2.1 filter-list 1 out
      -> route-map LOCAL_ORIGINATED permit 10
