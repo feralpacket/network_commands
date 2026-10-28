@@ -380,6 +380,20 @@ Enhanced Interior Gateway Routing Protocol (EIGRP):
 
 
 Border Gateway Protocol (BGP):
+ - Router-id
+     -> Manually configured
+     -> Dynamically selected
+         -> Highest IP address on a loopback interface
+         -> Highest IP address on a non-loopback interface (that is active)
+     -> Cisco Nexus (NS-OX) devices are different
+         -> Thanks Cisco
+         -> NX-OS uses the first interface in the configuration file as the router-id
+         -> If a loopback interface is later configured, NX-OS will change the router-id to the IP address of the loopback interface
+             -> And cause the neighbor relationships to reset
+         -> If a router-id is using the IP address of a loopback interface that is not loopback0 and loopback0 is later configured, 
+            NS-OX will change the router-id to the IP address of loopback0
+             -> And cause the neighbor relationships to reset
+
  - Extended Community Cost, pre-best path
      -> Lowest extended community cost is selected
      -> Pre-best path point on insertion
