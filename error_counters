@@ -77,6 +77,11 @@
    - "Number of received packets ignored by the interface because the interface hardware ran low on internal buffers. These buffers are different than the system buffers. Broadcast storms and bursts of noise can cause the ignored count to be increased."
    - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-s5.html
 
+ - input pause
+   - "If a Gigabit Ethernet or 10-Gigabit Ethernet port receive buffer becomes full, the port transmits an IEEE 802.3Z pause frame that requests remote ports to delay sending frames for a specified time. All Ethernet ports (10 Gbps, 1 Gbps, 100 Mbps, and 10 Mbps) can receive and respond to IEEE 802.3Z pause frames from other devices."
+   - https://web.archive.org/web/20040817202411/http://www.cisco.com/en/US/products/hw/switches/ps708/products_configuration_guide_chapter09186a008017959e.html
+   - https://en.wikipedia.org/wiki/Ethernet_flow_control
+
  - underruns
    - "Number of times that the transmitter has been running faster than the router can handle."
    - https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-s5.html
@@ -251,7 +256,12 @@
  - IpgVoilation frames
  - MacUnderrun frames
  - MacOverrun frames
+
  - Pause frames
+   - "If a Gigabit Ethernet or 10-Gigabit Ethernet port receive buffer becomes full, the port transmits an IEEE 802.3Z pause frame that requests remote ports to delay sending frames for a specified time. All Ethernet ports (10 Gbps, 1 Gbps, 100 Mbps, and 10 Mbps) can receive and respond to IEEE 802.3Z pause frames from other devices."
+   - https://web.archive.org/web/20040817202411/http://www.cisco.com/en/US/products/hw/switches/ps708/products_configuration_guide_chapter09186a008017959e.html
+   - https://en.wikipedia.org/wiki/Ethernet_flow_control
+
  - Cos 0 Pause frames
  - Cos 1 Pause frames
  - Cos 2 Pause frames
