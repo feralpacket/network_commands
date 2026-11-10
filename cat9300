@@ -1,3 +1,7 @@
+! enter a ? ( question mark ) at the cli
+ctrl-v
+?
+
 ! switch stack port errors
 sh switch stack-ports detail
 sh platform hardware fed switch 1 fwd-asic register read register-name SifRacDataCrcErrorCnt-0
